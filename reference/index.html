@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>EdgeBuilder - Create a Character</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href="css/site.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">EdgeBuilder</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="#">My Characters</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="row">
+            <form role="form">
+              <div class="form-group">
+                <label for="characterName" class='label-lg'>Character Name</label>
+                <input type="text" class="form-control input-lg" id="characterName" />
+              </div>
+              <div class="row">
+                <div class="col-xs-3">
+                  <div class="form-group">
+                    <label for="species">Species</label>
+                    <input type="text" class="form-control" id="species" />
+                  </div>
+                </div>
+                <div class="col-xs-3">
+                  <div class="form-group">
+                    <label for="career">Career</label>
+                    <input type="text" class="form-control" id="career" />
+                  </div>
+                </div>
+                <div class="col-xs-6">
+                  <div class="form-group">
+                    <label for="specializations">Specializations</label>
+                    <input type="specializations" class="form-control" id="specializations" />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <hr>
+              </div>
+              <div class="row">
+                <div class="col-xs-3">
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                      <input type="number" step="1" class="form-control" min=0 id="soak" />
+                    </div>
+                    <div class="panel-footer text-center">
+                      <label for="soak">Soak</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-3">
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                      <div class="input-group">
+                        <div class="input-group-addon">Threshold</div>
+                        <input type="number" step="1" class="form-control" min=0 id="woundThreshold" />
+                      </div>
+                      <div class="input-group">
+                        <div class="input-group-addon">Current</div>
+                        <input type="number" step="1" class="form-control" id="woundCurrent" />
+                      </div>
+                    </div>
+                    <div class="panel-footer text-center">
+                      <label>Wounds</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-3">
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                      <div class="input-group">
+                        <div class="input-group-addon">Threshold</div>
+                        <input type="number" step="1" class="form-control" min=0 id="strainThreshold" />
+                      </div>
+                      <div class="input-group">
+                        <div class="input-group-addon">Current</div>
+                        <input type="number" step="1" class="form-control" id="strainCurrent" />
+                      </div>
+                    </div>
+                    <div class="panel-footer text-center">
+                      <label>Strain</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-3">
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                      <div class="input-group">
+                        <div class="input-group-addon">Ranged</div>
+                        <input type="number" step="1" class="form-control" min=0 id="rangedDefense" />
+                      </div>
+                      <div class="input-group">
+                        <div class="input-group-addon">Melee</div>
+                        <input type="number" step="1" class="form-control" id="meleeDefense" />
+                      </div>
+                    </div>
+                    <div class="panel-footer text-center">
+                      <label>Defense</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-4 column">
+          <form>
+            <div class="form-group">
+              <label for="imageUrl">Portrait URL</label>
+              <input type="url" class="form-control" id="imageUrl">
+            </div>
+            <p class="text-center">
+              <img src="http://placehold.it/250x250" alt="Placeholder Image" class="img-thumbnail">
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+    <!-- reference baseline css -->
+    <div class="container">
+      <div class="row clearfix">
+        <div class="col-md-6 column">
+          <form role="form">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label><input type="email" class="form-control" id="exampleInputEmail1" />
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password</label><input type="password" class="form-control" id="exampleInputPassword1" />
+            </div>
+            <div class="form-group">
+              <label for="exampleInputFile">File input</label><input type="file" id="exampleInputFile" />
+              <p class="help-block">
+              Example block-level help text here.
+              </p>
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" /> Check me out</label>
+            </div> <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+        </div>
+        <div class="col-md-6 column">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>
+                  #
+                </th>
+                <th>
+                  Product
+                </th>
+                <th>
+                  Payment Taken
+                </th>
+                <th>
+                  Status
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  1
+                </td>
+                <td>
+                  TB - Monthly
+                </td>
+                <td>
+                  01/04/2012
+                </td>
+                <td>
+                  Default
+                </td>
+              </tr>
+              <tr class="active">
+                <td>
+                  1
+                </td>
+                <td>
+                  TB - Monthly
+                </td>
+                <td>
+                  01/04/2012
+                </td>
+                <td>
+                  Approved
+                </td>
+              </tr>
+              <tr class="success">
+                <td>
+                  2
+                </td>
+                <td>
+                  TB - Monthly
+                </td>
+                <td>
+                  02/04/2012
+                </td>
+                <td>
+                  Declined
+                </td>
+              </tr>
+              <tr class="warning">
+                <td>
+                  3
+                </td>
+                <td>
+                  TB - Monthly
+                </td>
+                <td>
+                  03/04/2012
+                </td>
+                <td>
+                  Pending
+                </td>
+              </tr>
+              <tr class="danger">
+                <td>
+                  4
+                </td>
+                <td>
+                  TB - Monthly
+                </td>
+                <td>
+                  04/04/2012
+                </td>
+                <td>
+                  Call in to confirm
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-2 column">
+          <button type="button" class="btn btn-primary btn-lg btn-block">Default</button> <button type="button" class="btn btn-lg btn-block btn-default">Default</button>
+        </div>
+        <div class="col-md-10 column">
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>

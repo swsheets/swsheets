@@ -1,0 +1,11 @@
+body {
+  font-family: 'PT Sans', sans-serif;
+}
+
+h1 small {
+  display: block;
+}
+
+.label-lg {
+  font-size: 18px;
+}
