@@ -9,3 +9,12 @@ h1 small {
 .label-lg {
   font-size: 18px;
 }
+
+.soak-panel {
+   padding-top: 32px;
+   padding-bottom: 32px;
+}
+
+.addon-core-attr {
+  width: 85px;
+}

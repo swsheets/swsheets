@@ -52,19 +52,19 @@
                 <input type="text" class="form-control input-lg" id="characterName" />
               </div>
               <div class="row">
-                <div class="col-xs-3">
+                <div class="col-sm-3">
                   <div class="form-group">
                     <label for="species">Species</label>
                     <input type="text" class="form-control" id="species" />
                   </div>
                 </div>
-                <div class="col-xs-3">
+                <div class="col-sm-3">
                   <div class="form-group">
                     <label for="career">Career</label>
                     <input type="text" class="form-control" id="career" />
                   </div>
                 </div>
-                <div class="col-xs-6">
+                <div class="col-sm-6">
                   <div class="form-group">
                     <label for="specializations">Specializations</label>
                     <input type="specializations" class="form-control" id="specializations" />
@@ -75,9 +75,9 @@
                 <hr>
               </div>
               <div class="row">
-                <div class="col-xs-3">
+                <div class="col-sm-3 col-xs-6">
                   <div class="panel panel-default">
-                    <div class="panel-body">
+                    <div class="panel-body soak-panel">
                       <input type="number" step="1" class="form-control" min=0 id="soak" />
                     </div>
                     <div class="panel-footer text-center">
@@ -85,16 +85,16 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-xs-3">
+                <div class="col-sm-3 col-xs-6">
                   <div class="panel panel-default">
                     <div class="panel-body">
                       <div class="input-group">
-                        <div class="input-group-addon">Threshold</div>
+                        <div class="input-group-addon addon-core-attr">Threshold</div>
                         <input type="number" step="1" class="form-control" min=0 id="woundThreshold" />
                       </div>
                       <div class="input-group">
-                        <div class="input-group-addon">Current</div>
-                        <input type="number" step="1" class="form-control" id="woundCurrent" />
+                        <div class="input-group-addon addon-core-attr">Current</div>
+                        <input type="number" step="1" class="form-control" min=0 id="woundCurrent" />
                       </div>
                     </div>
                     <div class="panel-footer text-center">
@@ -102,16 +102,16 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-xs-3">
+                <div class="col-sm-3 col-xs-6">
                   <div class="panel panel-default">
                     <div class="panel-body">
                       <div class="input-group">
-                        <div class="input-group-addon">Threshold</div>
+                        <div class="input-group-addon addon-core-attr">Threshold</div>
                         <input type="number" step="1" class="form-control" min=0 id="strainThreshold" />
                       </div>
                       <div class="input-group">
-                        <div class="input-group-addon">Current</div>
-                        <input type="number" step="1" class="form-control" id="strainCurrent" />
+                        <div class="input-group-addon addon-core-attr">Current</div>
+                        <input type="number" step="1" class="form-control" min=0 id="strainCurrent" />
                       </div>
                     </div>
                     <div class="panel-footer text-center">
@@ -119,16 +119,16 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-xs-3">
+                <div class="col-sm-3 col-xs-6">
                   <div class="panel panel-default">
                     <div class="panel-body">
                       <div class="input-group">
-                        <div class="input-group-addon">Ranged</div>
+                        <div class="input-group-addon addon-core-attr">Ranged</div>
                         <input type="number" step="1" class="form-control" min=0 id="rangedDefense" />
                       </div>
                       <div class="input-group">
-                        <div class="input-group-addon">Melee</div>
-                        <input type="number" step="1" class="form-control" id="meleeDefense" />
+                        <div class="input-group-addon addon-core-attr">Melee</div>
+                        <input type="number" step="1" class="form-control" min=0 id="meleeDefense" />
                       </div>
                     </div>
                     <div class="panel-footer text-center">
