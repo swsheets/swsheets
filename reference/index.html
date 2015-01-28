@@ -43,10 +43,11 @@
     </nav>
 
     <div class="container">
-      <div class="row">
-        <div class="col-md-8">
-          <div class="row">
-            <form role="form">
+      <form role="form">
+        <!-- bio in brief through derived attr's -->
+        <div class="row">
+          <div class="col-md-8">
+            <div class="row">
               <div class="form-group">
                 <label for="characterName" class='label-lg'>Character Name</label>
                 <input type="text" class="form-control input-lg" id="characterName" />
@@ -137,146 +138,511 @@
                   </div>
                 </div>
               </div>
-            </form>
+            </div>
           </div>
-        </div>
-        <div class="col-md-4 column">
-          <form>
+          <div class="col-md-4">
             <div class="form-group">
               <label for="imageUrl">Portrait URL</label>
               <input type="url" class="form-control" id="imageUrl">
             </div>
             <p class="text-center">
-              <img src="http://placehold.it/250x250" alt="Placeholder Image" class="img-thumbnail">
+            <img src="http://placehold.it/250x250" alt="Placeholder Image" class="img-thumbnail">
             </p>
-          </form>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <hr>
-    <!-- reference baseline css -->
-    <div class="container">
-      <div class="row clearfix">
-        <div class="col-md-6 column">
-          <form role="form">
-            <div class="form-group">
-              <label for="exampleInputEmail1">Email address</label><input type="email" class="form-control" id="exampleInputEmail1" />
+        <div class="row">
+          <hr>
+          <h4>Characteristics</h4>
+        </div>
+
+        <!-- attributes -->
+        <div class="row">
+          <div class="col-md-2">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <input type="number" step="1" class="form-control" min=0 id="brawn" />
+              </div>
+              <div class="panel-footer text-center">
+                <label for="brawn">Brawn</label>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="exampleInputPassword1">Password</label><input type="password" class="form-control" id="exampleInputPassword1" />
+          </div>
+          <div class="col-md-2">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <input type="number" step="1" class="form-control" min=0 id="agility" />
+              </div>
+              <div class="panel-footer text-center">
+                <label for="agility">Agility</label>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="exampleInputFile">File input</label><input type="file" id="exampleInputFile" />
-              <p class="help-block">
-              Example block-level help text here.
-              </p>
+          </div>
+          <div class="col-md-2">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <input type="number" step="1" class="form-control" min=0 id="intellect" />
+              </div>
+              <div class="panel-footer text-center">
+                <label for="intellect">Intellect</label>
+              </div>
             </div>
-            <div class="checkbox">
-              <label><input type="checkbox" /> Check me out</label>
-            </div> <button type="submit" class="btn btn-default">Submit</button>
-          </form>
+          </div>
+          <div class="col-md-2">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <input type="number" step="1" class="form-control" min=0 id="cunning" />
+              </div>
+              <div class="panel-footer text-center">
+                <label for="cunning">Cunning</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <input type="number" step="1" class="form-control" min=0 id="willpower" />
+              </div>
+              <div class="panel-footer text-center">
+                <label for="willpower">Willpower</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <input type="number" step="1" class="form-control" min=0 id="presence" />
+              </div>
+              <div class="panel-footer text-center">
+                <label for="presence">Presence</label>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-md-6 column">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>
-                  #
-                </th>
-                <th>
-                  Product
-                </th>
-                <th>
-                  Payment Taken
-                </th>
-                <th>
-                  Status
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  1
-                </td>
-                <td>
-                  TB - Monthly
-                </td>
-                <td>
-                  01/04/2012
-                </td>
-                <td>
-                  Default
-                </td>
-              </tr>
-              <tr class="active">
-                <td>
-                  1
-                </td>
-                <td>
-                  TB - Monthly
-                </td>
-                <td>
-                  01/04/2012
-                </td>
-                <td>
-                  Approved
-                </td>
-              </tr>
-              <tr class="success">
-                <td>
-                  2
-                </td>
-                <td>
-                  TB - Monthly
-                </td>
-                <td>
-                  02/04/2012
-                </td>
-                <td>
-                  Declined
-                </td>
-              </tr>
-              <tr class="warning">
-                <td>
-                  3
-                </td>
-                <td>
-                  TB - Monthly
-                </td>
-                <td>
-                  03/04/2012
-                </td>
-                <td>
-                  Pending
-                </td>
-              </tr>
-              <tr class="danger">
-                <td>
-                  4
-                </td>
-                <td>
-                  TB - Monthly
-                </td>
-                <td>
-                  04/04/2012
-                </td>
-                <td>
-                  Call in to confirm
-                </td>
-              </tr>
-            </tbody>
-          </table>
+
+        <div class="row">
+          <hr>
         </div>
-      </div>
-      <div class="row clearfix">
-        <div class="col-md-2 column">
-          <button type="button" class="btn btn-primary btn-lg btn-block">Default</button> <button type="button" class="btn btn-lg btn-block btn-default">Default</button>
+
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="row">
+              <h4>Skills</h4>
+            </div>
+            <div class="row">
+              <table class="table table-condensed">
+                <tr>
+                  <th>Skill</th>
+                  <th>Career?</th>
+                  <th>Rank</th>
+                  <th class="col-md-3">Roll</th>
+                </tr>
+                <tr>
+                  <td>Astrogation (Int)</td>
+                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                  <td>
+                    <div class="btn-group" data-toggle="buttons">
+                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                    </div>
+                  </td>
+                  <td>tbd</td>
+                </tr>
+                <tr>
+                  <td>Astrogation (Int)</td>
+                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                  <td>
+                    <div class="btn-group" data-toggle="buttons">
+                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                    </div>
+                  </td>
+                  <td>tbd</td>
+                </tr>
+                <tr>
+                  <td>Astrogation (Int)</td>
+                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                  <td>
+                    <div class="btn-group" data-toggle="buttons">
+                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                    </div>
+                  </td>
+                  <td>tbd</td>
+                </tr>
+                <tr>
+                  <td>Astrogation (Int)</td>
+                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                  <td>
+                    <div class="btn-group" data-toggle="buttons">
+                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                    </div>
+                  </td>
+                  <td>tbd</td>
+                </tr>
+                <tr>
+                  <td>Astrogation (Int)</td>
+                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                  <td>
+                    <div class="btn-group" data-toggle="buttons">
+                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                    </div>
+                  </td>
+                  <td>tbd</td>
+                </tr>
+                <tr>
+                  <td>Astrogation (Int)</td>
+                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                  <td>
+                    <div class="btn-group" data-toggle="buttons">
+                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                    </div>
+                  </td>
+                  <td>tbd</td>
+                </tr>
+                <tr>
+                  <td>Astrogation (Int)</td>
+                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                  <td>
+                    <div class="btn-group" data-toggle="buttons">
+                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                    </div>
+                  </td>
+                  <td>tbd</td>
+                </tr>
+                <tr>
+                  <td>Astrogation (Int)</td>
+                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                  <td>
+                    <div class="btn-group" data-toggle="buttons">
+                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                    </div>
+                  </td>
+                  <td>tbd</td>
+                </tr>
+                <tr>
+                  <td>Astrogation (Int)</td>
+                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                  <td>
+                    <div class="btn-group" data-toggle="buttons">
+                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                    </div>
+                  </td>
+                  <td>tbd</td>
+                </tr>
+                <tr>
+                  <td>Astrogation (Int)</td>
+                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                  <td>
+                    <div class="btn-group" data-toggle="buttons">
+                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                    </div>
+                  </td>
+                  <td>tbd</td>
+                </tr>
+                <tr>
+                  <td>Astrogation (Int)</td>
+                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                  <td>
+                    <div class="btn-group" data-toggle="buttons">
+                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                    </div>
+                  </td>
+                  <td>tbd</td>
+                </tr>
+                <tr>
+                  <td>Astrogation (Int)</td>
+                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                  <td>
+                    <div class="btn-group" data-toggle="buttons">
+                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                    </div>
+                  </td>
+                  <td>tbd</td>
+                </tr>
+                <tr>
+                  <td>Astrogation (Int)</td>
+                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                  <td>
+                    <div class="btn-group" data-toggle="buttons">
+                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                    </div>
+                  </td>
+                  <td>tbd</td>
+                </tr>
+                <tr>
+                  <td>Astrogation (Int)</td>
+                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                  <td>
+                    <div class="btn-group" data-toggle="buttons">
+                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                    </div>
+                  </td>
+                  <td>tbd</td>
+                </tr>
+                <tr>
+                  <td>Astrogation (Int)</td>
+                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                  <td>
+                    <div class="btn-group" data-toggle="buttons">
+                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                    </div>
+                  </td>
+                  <td>tbd</td>
+                </tr>
+                <tr>
+                  <td>Astrogation (Int)</td>
+                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                  <td>
+                    <div class="btn-group" data-toggle="buttons">
+                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                    </div>
+                  </td>
+                  <td>tbd</td>
+                </tr>
+                <tr>
+                  <td>Astrogation (Int)</td>
+                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                  <td>
+                    <div class="btn-group" data-toggle="buttons">
+                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                    </div>
+                  </td>
+                  <td>tbd</td>
+                </tr>
+                <tr>
+                  <td>Astrogation (Int)</td>
+                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                  <td>
+                    <div class="btn-group" data-toggle="buttons">
+                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                    </div>
+                  </td>
+                  <td>tbd</td>
+                </tr>
+                <tr>
+                  <td>Astrogation (Int)</td>
+                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                  <td>
+                    <div class="btn-group" data-toggle="buttons">
+                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                    </div>
+                  </td>
+                  <td>tbd</td>
+                </tr>
+                <tr>
+                  <td>Astrogation (Int)</td>
+                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                  <td>
+                    <div class="btn-group" data-toggle="buttons">
+                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                    </div>
+                  </td>
+                  <td>tbd</td>
+                </tr>
+                <tr>
+                  <td>Astrogation (Int)</td>
+                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                  <td>
+                    <div class="btn-group" data-toggle="buttons">
+                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                    </div>
+                  </td>
+                  <td>tbd</td>
+                </tr>
+                <tr>
+                  <td>Astrogation (Int)</td>
+                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                  <td>
+                    <div class="btn-group" data-toggle="buttons">
+                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                    </div>
+                  </td>
+                  <td>tbd</td>
+                </tr>
+                <tr>
+                  <td>Astrogation (Int)</td>
+                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                  <td>
+                    <div class="btn-group" data-toggle="buttons">
+                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                    </div>
+                  </td>
+                  <td>tbd</td>
+                </tr>
+                <tr>
+                  <td>Astrogation (Int)</td>
+                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                  <td>
+                    <div class="btn-group" data-toggle="buttons">
+                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                    </div>
+                  </td>
+                  <td>tbd</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="row">
+              <h4>Attacks</h4>
+            </div>
+            <div class="row">
+              <div class="form-inline well well-sm">
+                <div class="row">
+                  <div class="form-group form-group-sm col-md-6">
+                    <label class="sr-only" for="weaponAttack1">weapon</label>
+                    <input type="text" class="weapon-name form-control" id="weaponAttack1" placeholder="Weapon Name">
+                  </div>
+                  <div class="form-group form-group-sm">
+                    <label for="rangeAttack1">Range</label>
+                    <select class="form-control" name="rangeAttack1">
+                      <option>Engaged</option>
+                      <option>Short</option>
+                      <option>Medium</option>
+                      <option>Long</option>
+                      <option>Extreme</option>
+                    </select>
+                  </div>
+                  <div class="form-group form-group-sm">
+                    <label for="skillAttack1">Skill</label>
+                    <select class="form-control" name="skillAttack1">
+                      <option>Brawl</option>
+                      <option>Melee</option>
+                      <option>Ranged - Light</option>
+                      <option>Ranged - Heavy</option>
+                      <option>Gunnery</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <hr class="thin">
+                  <div class="form-group form-group-sm col-md-6">
+                    <input type="text" class="weapon-name form-control" id="specialAttack1" placeholder="Specials">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-md-10 column">
-        </div>
-      </div>
+      </form>
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

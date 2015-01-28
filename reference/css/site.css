@@ -2,8 +2,11 @@ body {
   font-family: 'PT Sans', sans-serif;
 }
 
-h1 small {
-  display: block;
+h4 {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 90%;
+  color: #777;
 }
 
 .label-lg {
@@ -17,4 +20,15 @@ h1 small {
 
 .addon-core-attr {
   width: 85px;
+}
+
+#weaponAttack1 {
+  width:100%;
+}
+
+hr.thin {
+  margin-top:2px;
+  margin-bottom:2px;
+  color: #000;
+  /* #TODO - make this thicker */
 }
