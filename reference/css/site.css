@@ -9,6 +9,10 @@ h4 {
   color: #777;
 }
 
+.main-container {
+  margin-top: 80px;
+}
+
 .label-lg {
   font-size: 18px;
 }

@@ -20,7 +20,7 @@
       <![endif]-->
   </head>
   <body>
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -42,7 +42,7 @@
       </div><!-- /.container-fluid -->
     </nav>
 
-    <div class="container">
+    <div class="container main-container">
       <form role="form">
         <!-- bio in brief through derived attr's -->
         <div class="row">
@@ -146,7 +146,7 @@
               <input type="url" class="form-control" id="imageUrl">
             </div>
             <p class="text-center">
-            <img src="http://placehold.it/250x250" alt="Placeholder Image" class="img-thumbnail">
+            <img src="images/250x250.gif" alt="Placeholder Image" class="img-thumbnail">
             </p>
           </div>
         </div>
@@ -742,7 +742,7 @@
             <div class="row">
               <table class="table table-condensed attack-table">
                 <tr class="active">
-                  <td class="col-md-6">
+                  <td class="col-md-5">
                     <div class="form-group form-group-sm">
                       <label class="sr-only" for="weaponAttack1">weapon</label>
                       <input type="text" class="weapon-name form-control" id="weaponAttack1" placeholder="Weapon Name">
@@ -772,9 +772,10 @@
                       </select>
                     </div>
                   </td>
+                  <td class="col-md-2">roll here</td>
                 </tr>
                 <tr class="attack-second-row active">
-                  <td class="col-md-6">
+                  <td>
                     <div class="form-group form-group-sm">
                       <input type="text" class="weapon-name form-control" id="specialAttack1" placeholder="Specials">
                     </div>
@@ -790,10 +791,13 @@
                       <label for="critAttack1">Critical</label>
                       <input type="text" class="form-control" size=5 id="criticalAttack1">
                     </div>
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-block btn-danger btn-xs">Remove</button>
                   </td>
                 </tr>
                 <tr>
-                  <td class="col-md-6">
+                  <td>
                     <div class="form-group form-group-sm">
                       <label class="sr-only" for="weaponAttack1">weapon</label>
                       <input type="text" class="weapon-name form-control" id="weaponAttack1" placeholder="Weapon Name">
@@ -823,9 +827,10 @@
                       </select>
                     </div>
                   </td>
+                  <td class="col-md-2">roll here</td>
                 </tr>
                 <tr class="attack-second-row">
-                  <td class="col-md-6">
+                  <td>
                     <div class="form-group form-group-sm">
                       <input type="text" class="weapon-name form-control" id="specialAttack1" placeholder="Specials">
                     </div>
@@ -841,10 +846,13 @@
                       <label for="critAttack1">Critical</label>
                       <input type="text" class="form-control" size=5 id="criticalAttack1">
                     </div>
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-block btn-danger btn-xs">Remove</button>
                   </td>
                 </tr>
                 <tr class="active">
-                  <td class="col-md-6">
+                  <td>
                     <div class="form-group form-group-sm">
                       <label class="sr-only" for="weaponAttack1">weapon</label>
                       <input type="text" class="weapon-name form-control" id="weaponAttack1" placeholder="Weapon Name">
@@ -874,9 +882,10 @@
                       </select>
                     </div>
                   </td>
+                  <td class="col-md-2">roll here</td>
                 </tr>
                 <tr class="attack-second-row active">
-                  <td class="col-md-6">
+                  <td>
                     <div class="form-group form-group-sm">
                       <input type="text" class="weapon-name form-control" id="specialAttack1" placeholder="Specials">
                     </div>
@@ -892,10 +901,13 @@
                       <label for="critAttack1">Critical</label>
                       <input type="text" class="form-control" size=5 id="criticalAttack1">
                     </div>
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-block btn-danger btn-xs">Remove</button>
                   </td>
                 </tr>
                 <tr>
-                  <td class="col-md-6">
+                  <td>
                     <div class="form-group form-group-sm">
                       <label class="sr-only" for="weaponAttack1">weapon</label>
                       <input type="text" class="weapon-name form-control" id="weaponAttack1" placeholder="Weapon Name">
@@ -925,9 +937,10 @@
                       </select>
                     </div>
                   </td>
+                  <td class="col-md-2">roll here</td>
                 </tr>
                 <tr class="attack-second-row">
-                  <td class="col-md-6">
+                  <td>
                     <div class="form-group form-group-sm">
                       <input type="text" class="weapon-name form-control" id="specialAttack1" placeholder="Specials">
                     </div>
@@ -944,110 +957,16 @@
                       <input type="text" class="form-control" size=5 id="criticalAttack1">
                     </div>
                   </td>
-                </tr>
-                <tr class="active">
-                  <td class="col-md-6">
-                    <div class="form-group form-group-sm">
-                      <label class="sr-only" for="weaponAttack1">weapon</label>
-                      <input type="text" class="weapon-name form-control" id="weaponAttack1" placeholder="Weapon Name">
-                    </div>
-                  </td>
-                  <td class="form-inline">
-                    <div class="form-group form-group-sm pull-right">
-                      <label for="rangeAttack1">Range</label>
-                      <select class="form-control" name="rangeAttack1">
-                        <option>Engaged</option>
-                        <option>Short</option>
-                        <option>Medium</option>
-                        <option>Long</option>
-                        <option>Extreme</option>
-                      </select>
-                    </div>
-                  </td>
-                  <td class="form-inline">
-                    <div class="form-group form-group-sm pull-right">
-                      <label for="skillAttack1">Skill</label>
-                      <select class="form-control" name="skillAttack1">
-                        <option>Brawl</option>
-                        <option>Melee</option>
-                        <option>Ranged: Light</option>
-                        <option>Ranged: Heavy</option>
-                        <option>Gunnery</option>
-                      </select>
-                    </div>
-                  </td>
-                </tr>
-                <tr class="attack-second-row active">
-                  <td class="col-md-6">
-                    <div class="form-group form-group-sm">
-                      <input type="text" class="weapon-name form-control" id="specialAttack1" placeholder="Specials">
-                    </div>
-                  </td>
-                  <td class="form-inline">
-                    <div class="form-group form-group-sm pull-right">
-                      <label for="damageAttack1">Damage</label>
-                      <input type="text" class="form-control" size=5 id="damageAttack1">
-                    </div>
-                  </td>
-                  <td class="form-inline">
-                    <div class="form-group form-group-sm pull-right">
-                      <label for="critAttack1">Critical</label>
-                      <input type="text" class="form-control" size=5 id="criticalAttack1">
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="col-md-6">
-                    <div class="form-group form-group-sm">
-                      <label class="sr-only" for="weaponAttack1">weapon</label>
-                      <input type="text" class="weapon-name form-control" id="weaponAttack1" placeholder="Weapon Name">
-                    </div>
-                  </td>
-                  <td class="form-inline">
-                    <div class="form-group form-group-sm pull-right">
-                      <label for="rangeAttack1">Range</label>
-                      <select class="form-control" name="rangeAttack1">
-                        <option>Engaged</option>
-                        <option>Short</option>
-                        <option>Medium</option>
-                        <option>Long</option>
-                        <option>Extreme</option>
-                      </select>
-                    </div>
-                  </td>
-                  <td class="form-inline">
-                    <div class="form-group form-group-sm pull-right">
-                      <label for="skillAttack1">Skill</label>
-                      <select class="form-control" name="skillAttack1">
-                        <option>Brawl</option>
-                        <option>Melee</option>
-                        <option>Ranged: Light</option>
-                        <option>Ranged: Heavy</option>
-                        <option>Gunnery</option>
-                      </select>
-                    </div>
-                  </td>
-                </tr>
-                <tr class="attack-second-row">
-                  <td class="col-md-6">
-                    <div class="form-group form-group-sm">
-                      <input type="text" class="weapon-name form-control" id="specialAttack1" placeholder="Specials">
-                    </div>
-                  </td>
-                  <td class="form-inline">
-                    <div class="form-group form-group-sm pull-right">
-                      <label for="damageAttack1">Damage</label>
-                      <input type="text" class="form-control" size=5 id="damageAttack1">
-                    </div>
-                  </td>
-                  <td class="form-inline">
-                    <div class="form-group form-group-sm pull-right">
-                      <label for="critAttack1">Critical</label>
-                      <input type="text" class="form-control" size=5 id="criticalAttack1">
-                    </div>
+                  <td>
+                    <button type="button" class="btn btn-block btn-danger btn-xs">Remove</button>
                   </td>
                 </tr>
               </table>
+            </div>
+            <div class="row">
+              <p class="text-center col-md-4 col-md-offset-4">
+                <button type="button" class="btn btn-block btn-default">Add Attack</button>
+              </p>
             </div>
           </div>
         </div>
