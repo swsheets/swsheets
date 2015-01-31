@@ -22,13 +22,6 @@ h4 {
   width: 85px;
 }
 
-#weaponAttack1 {
-  width:100%;
-}
-
-hr.thin {
-  margin-top:2px;
-  margin-bottom:2px;
-  color: #000;
-  /* #TODO - make this thicker */
+.attack-second-row td {
+  border-top-width: 0px !important;
 }
