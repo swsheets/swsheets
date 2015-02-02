@@ -1,5 +1,20 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
 body {
   font-family: 'PT Sans', sans-serif;
+  margin-bottom: 100px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 100px;
+  background-color: #f5f5f5;
 }
 
 h4 {
@@ -32,4 +47,13 @@ h4 {
 
 .attack-table td, .attack-table .form-group {
   margin:0px;
+}
+
+.container .text-muted {
+  margin: 20px 0;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
 }
