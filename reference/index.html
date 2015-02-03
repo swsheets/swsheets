@@ -151,940 +151,955 @@
           </div>
         </div>
 
-        <div class="row">
-          <hr>
-          <h4>Characteristics</h4>
-        </div>
+        <div role="tabpanel">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#stats" aria-controls="stats" role="tab" data-toggle="tab">Stats</a></li>
+            <li role="presentation"><a href="#bio" aria-controls="bio" role="tab" data-toggle="tab">Bio</a></li>
+          </ul>
 
-        <!-- attributes -->
-        <div class="row">
-          <div class="col-md-2">
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <input type="number" step="1" class="form-control" min=0 id="brawn" />
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="stats">
+              <div class="row">
+                <h4>Characteristics</h4>
               </div>
-              <div class="panel-footer text-center">
-                <label for="brawn">Brawn</label>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-2">
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <input type="number" step="1" class="form-control" min=0 id="agility" />
-              </div>
-              <div class="panel-footer text-center">
-                <label for="agility">Agility</label>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-2">
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <input type="number" step="1" class="form-control" min=0 id="intellect" />
-              </div>
-              <div class="panel-footer text-center">
-                <label for="intellect">Intellect</label>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-2">
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <input type="number" step="1" class="form-control" min=0 id="cunning" />
-              </div>
-              <div class="panel-footer text-center">
-                <label for="cunning">Cunning</label>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-2">
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <input type="number" step="1" class="form-control" min=0 id="willpower" />
-              </div>
-              <div class="panel-footer text-center">
-                <label for="willpower">Willpower</label>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-2">
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <input type="number" step="1" class="form-control" min=0 id="presence" />
-              </div>
-              <div class="panel-footer text-center">
-                <label for="presence">Presence</label>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <div class="row">
-          <hr>
-        </div>
+              <!-- attributes -->
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                      <input type="number" step="1" class="form-control" min=0 id="brawn" />
+                    </div>
+                    <div class="panel-footer text-center">
+                      <label for="brawn">Brawn</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                      <input type="number" step="1" class="form-control" min=0 id="agility" />
+                    </div>
+                    <div class="panel-footer text-center">
+                      <label for="agility">Agility</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                      <input type="number" step="1" class="form-control" min=0 id="intellect" />
+                    </div>
+                    <div class="panel-footer text-center">
+                      <label for="intellect">Intellect</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                      <input type="number" step="1" class="form-control" min=0 id="cunning" />
+                    </div>
+                    <div class="panel-footer text-center">
+                      <label for="cunning">Cunning</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                      <input type="number" step="1" class="form-control" min=0 id="willpower" />
+                    </div>
+                    <div class="panel-footer text-center">
+                      <label for="willpower">Willpower</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                      <input type="number" step="1" class="form-control" min=0 id="presence" />
+                    </div>
+                    <div class="panel-footer text-center">
+                      <label for="presence">Presence</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-        <div class="row">
-          <div class="col-sm-5">
-            <div class="row">
-              <h4>Skills</h4>
+              <div class="row">
+                <hr>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-5">
+                  <div class="row">
+                    <h4>Skills</h4>
+                  </div>
+                  <div class="row">
+                    <table class="table table-condensed">
+                      <tr>
+                        <th>Skill</th>
+                        <th>Career?</th>
+                        <th>Rank</th>
+                        <th class="col-md-3">Roll</th>
+                      </tr>
+                      <tr>
+                        <td>Astrogation (Int)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr>
+                        <td>Athletics (Br)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr>
+                        <td>Charm (Pr)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr>
+                        <td>Coercion (Will)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr>
+                        <td>Computers (Int)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr>
+                        <td>Cool (Pr)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr>
+                        <td>Coordination (Ag)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr>
+                        <td>Deception (Cun)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr>
+                        <td>Discipline (Will)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr>
+                        <td>Leadership (Pr)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr>
+                        <td>Mechanics (Int)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr>
+                        <td>Medicine (Int)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr>
+                        <td>Negotiation (Pr)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr>
+                        <td>Perception (Cun)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr>
+                        <td>Piloting: Planetary (Ag)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr>
+                        <td>Piloting: Space (Ag)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr>
+                        <td>Resilience (Br)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr>
+                        <td>Skulduggery (Cun)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr>
+                        <td>Stealth (Ag)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr>
+                        <td>Streetwise (Cun)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr>
+                        <td>Survival (Cun)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr>
+                        <td>Vigilance (Will)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr class="active">
+                        <td>Brawl (Br)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr class="active">
+                        <td>Gunnery (Ag)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr class="active">
+                        <td>Melee (Br)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr class="active">
+                        <td>Ranged: Light (Ag)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr class="active">
+                        <td>Ranged: Heavy (Ag)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr>
+                        <td>Knowledge: Core Worlds (Int)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr>
+                        <td>Knowledge: Education (Int)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr>
+                        <td>Knowledge: Lore (Int)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr>
+                        <td>Knowledge: Outer Rim (Int)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr>
+                        <td>Knowledge: Underworld (Int)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                      <tr>
+                        <td>Knowledge: Xenology (Int)</td>
+                        <td><input type="checkbox" id="astrogationIsClass"></input></td>
+                        <td>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
+                            <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
+                          </div>
+                        </td>
+                        <td>tbd</td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+                <div class="col-sm-7">
+                  <div class="row">
+                    <h4>Attacks</h4>
+                  </div>
+                  <div class="row">
+                    <table class="table table-condensed attack-table">
+                      <tr class="active">
+                        <td class="col-md-5">
+                          <div class="form-group form-group-sm">
+                            <label class="sr-only" for="weaponAttack1">weapon</label>
+                                                 <input type="text" class="form-control" id="weaponAttack1" placeholder="Weapon Name">
+                          </div>
+                        </td>
+                        <td class="form-inline">
+                          <div class="form-group form-group-sm pull-right">
+                            <label for="rangeAttack1">Range</label>
+                            <select class="form-control" name="rangeAttack1">
+                              <option>Engaged</option>
+                              <option>Short</option>
+                              <option>Medium</option>
+                              <option>Long</option>
+                              <option>Extreme</option>
+                            </select>
+                          </div>
+                        </td>
+                        <td class="form-inline">
+                          <div class="form-group form-group-sm pull-right">
+                            <label for="skillAttack1">Skill</label>
+                            <select class="form-control" name="skillAttack1">
+                              <option>Brawl</option>
+                              <option>Melee</option>
+                              <option>Ranged: Light</option>
+                              <option>Ranged: Heavy</option>
+                              <option>Gunnery</option>
+                            </select>
+                          </div>
+                        </td>
+                        <td class="col-md-2">roll here</td>
+                      </tr>
+                      <tr class="attack-second-row active">
+                        <td>
+                          <div class="form-group form-group-sm">
+                            <input type="text" class="form-control" id="specialAttack1" placeholder="Specials">
+                          </div>
+                        </td>
+                        <td class="form-inline">
+                          <div class="form-group form-group-sm pull-right">
+                            <label for="damageAttack1">Damage</label>
+                            <input type="text" class="form-control" size=5 id="damageAttack1">
+                          </div>
+                        </td>
+                        <td class="form-inline">
+                          <div class="form-group form-group-sm pull-right">
+                            <label for="critAttack1">Critical</label>
+                            <input type="text" class="form-control" size=5 id="criticalAttack1">
+                          </div>
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-block btn-danger btn-xs">Remove</button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="form-group form-group-sm">
+                            <label class="sr-only" for="weaponAttack1">weapon</label>
+                            <input type="text" class="form-control" id="weaponAttack1" placeholder="Weapon Name">
+                          </div>
+                        </td>
+                        <td class="form-inline">
+                          <div class="form-group form-group-sm pull-right">
+                            <label for="rangeAttack1">Range</label>
+                            <select class="form-control" name="rangeAttack1">
+                              <option>Engaged</option>
+                              <option>Short</option>
+                              <option>Medium</option>
+                              <option>Long</option>
+                              <option>Extreme</option>
+                            </select>
+                          </div>
+                        </td>
+                        <td class="form-inline">
+                          <div class="form-group form-group-sm pull-right">
+                            <label for="skillAttack1">Skill</label>
+                            <select class="form-control" name="skillAttack1">
+                              <option>Brawl</option>
+                              <option>Melee</option>
+                              <option>Ranged: Light</option>
+                              <option>Ranged: Heavy</option>
+                              <option>Gunnery</option>
+                            </select>
+                          </div>
+                        </td>
+                        <td class="col-md-2">roll here</td>
+                      </tr>
+                      <tr class="attack-second-row">
+                        <td>
+                          <div class="form-group form-group-sm">
+                            <input type="text" class="form-control" id="specialAttack1" placeholder="Specials">
+                          </div>
+                        </td>
+                        <td class="form-inline">
+                          <div class="form-group form-group-sm pull-right">
+                            <label for="damageAttack1">Damage</label>
+                            <input type="text" class="form-control" size=5 id="damageAttack1">
+                          </div>
+                        </td>
+                        <td class="form-inline">
+                          <div class="form-group form-group-sm pull-right">
+                            <label for="critAttack1">Critical</label>
+                            <input type="text" class="form-control" size=5 id="criticalAttack1">
+                          </div>
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-block btn-danger btn-xs">Remove</button>
+                        </td>
+                      </tr>
+                      <tr class="active">
+                        <td>
+                          <div class="form-group form-group-sm">
+                            <label class="sr-only" for="weaponAttack1">weapon</label>
+                            <input type="text" class="form-control" id="weaponAttack1" placeholder="Weapon Name">
+                          </div>
+                        </td>
+                        <td class="form-inline">
+                          <div class="form-group form-group-sm pull-right">
+                            <label for="rangeAttack1">Range</label>
+                            <select class="form-control" name="rangeAttack1">
+                              <option>Engaged</option>
+                              <option>Short</option>
+                              <option>Medium</option>
+                              <option>Long</option>
+                              <option>Extreme</option>
+                            </select>
+                          </div>
+                        </td>
+                        <td class="form-inline">
+                          <div class="form-group form-group-sm pull-right">
+                            <label for="skillAttack1">Skill</label>
+                            <select class="form-control" name="skillAttack1">
+                              <option>Brawl</option>
+                              <option>Melee</option>
+                              <option>Ranged: Light</option>
+                              <option>Ranged: Heavy</option>
+                              <option>Gunnery</option>
+                            </select>
+                          </div>
+                        </td>
+                        <td class="col-md-2">roll here</td>
+                      </tr>
+                      <tr class="attack-second-row active">
+                        <td>
+                          <div class="form-group form-group-sm">
+                            <input type="text" class="form-control" id="specialAttack1" placeholder="Specials">
+                          </div>
+                        </td>
+                        <td class="form-inline">
+                          <div class="form-group form-group-sm pull-right">
+                            <label for="damageAttack1">Damage</label>
+                            <input type="text" class="form-control" size=5 id="damageAttack1">
+                          </div>
+                        </td>
+                        <td class="form-inline">
+                          <div class="form-group form-group-sm pull-right">
+                            <label for="critAttack1">Critical</label>
+                            <input type="text" class="form-control" size=5 id="criticalAttack1">
+                          </div>
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-block btn-danger btn-xs">Remove</button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="form-group form-group-sm">
+                            <label class="sr-only" for="weaponAttack1">weapon</label>
+                            <input type="text" class="form-control" id="weaponAttack1" placeholder="Weapon Name">
+                          </div>
+                        </td>
+                        <td class="form-inline">
+                          <div class="form-group form-group-sm pull-right">
+                            <label for="rangeAttack1">Range</label>
+                            <select class="form-control" name="rangeAttack1">
+                              <option>Engaged</option>
+                              <option>Short</option>
+                              <option>Medium</option>
+                              <option>Long</option>
+                              <option>Extreme</option>
+                            </select>
+                          </div>
+                        </td>
+                        <td class="form-inline">
+                          <div class="form-group form-group-sm pull-right">
+                            <label for="skillAttack1">Skill</label>
+                            <select class="form-control" name="skillAttack1">
+                              <option>Brawl</option>
+                              <option>Melee</option>
+                              <option>Ranged: Light</option>
+                              <option>Ranged: Heavy</option>
+                              <option>Gunnery</option>
+                            </select>
+                          </div>
+                        </td>
+                        <td class="col-md-2">roll here</td>
+                      </tr>
+                      <tr class="attack-second-row">
+                        <td>
+                          <div class="form-group form-group-sm">
+                            <input type="text" class="form-control" id="specialAttack1" placeholder="Specials">
+                          </div>
+                        </td>
+                        <td class="form-inline">
+                          <div class="form-group form-group-sm pull-right">
+                            <label for="damageAttack1">Damage</label>
+                            <input type="text" class="form-control" size=5 id="damageAttack1">
+                          </div>
+                        </td>
+                        <td class="form-inline">
+                          <div class="form-group form-group-sm pull-right">
+                            <label for="critAttack1">Critical</label>
+                            <input type="text" class="form-control" size=5 id="criticalAttack1">
+                          </div>
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-block btn-danger btn-xs">Remove</button>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="row">
+                    <p class="text-center col-md-4 col-md-offset-4">
+                    <button type="button" class="btn btn-block btn-default">Add Attack</button>
+                    </p>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h4>Gear</h4>
+                      <textarea rows=16 class="form-control col-offset-2 col-md-8"></textarea>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="panel panel-default">
+                            <div class="panel-body">
+                              <input type="number" step="1" class="form-control" min=0 id="credits" />
+                            </div>
+                            <div class="panel-footer text-center">
+                              <label for="credits">Credits</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="panel panel-default">
+                            <div class="panel-body">
+                              <input type="text" class="form-control" min=0 id="encumbrance" />
+                            </div>
+                            <div class="panel-footer text-center">
+                              <label for="encumbrance">Encumbrance</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="panel panel-default">
+                            <div class="panel-body">
+                              <input type="number" step="1" class="form-control" min=0 id="availableXP" />
+                            </div>
+                            <div class="panel-footer text-center">
+                              <label for="availableXP">Available XP</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="panel panel-default">
+                            <div class="panel-body">
+                              <input type="number" step="1" class="form-control" min=0 id="totalXP" />
+                            </div>
+                            <div class="panel-footer text-center">
+                              <label for="totalXP">Total XP</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row"><h4>Talents</h4></div>
+              <div class="row">
+                <table class="table table-condensed">
+                  <tr>
+                    <th class="col-md-3">Name</th>
+                    <th class="col-md-2">Book &amp; Page</th>
+                    <th class="col-md-7" colspan=2>Description</th>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="form-group-sm">
+                        <input type="text" class="form-control" id="talentName1" placeholder="Name">
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-group-sm">
+                        <input type="text" class="form-control" id="talentPage1" placeholder="Book &amp; Page">
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-group-sm">
+                        <input type="text" class="form-control" id="talentDescription1" placeholder="Description">
+                      </div>
+                    </td>
+                    <td class="col-md-1">
+                      <button type="button" class="btn btn-block btn-danger btn-xs">Remove</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="form-group-sm">
+                        <input type="text" class="form-control" id="talentName1" placeholder="Name">
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-group-sm">
+                        <input type="text" class="form-control" id="talentPage1" placeholder="Book &amp; Page">
+                      </div>
+                    </td>
+                    <td>
+                      <div class="form-group-sm">
+                        <input type="text" class="form-control" id="talentDescription1" placeholder="Description">
+                      </div>
+                    </td>
+                    <td class="col-md-1">
+                      <button type="button" class="btn btn-block btn-danger btn-xs">Remove</button>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div class="row">
+                <p class="text-center col-md-4 col-md-offset-2">
+                <button type="button" class="btn btn-block btn-default">Add <strong>1</strong> Talent</button>
+                </p>
+                <p class="text-center col-md-4">
+                <button type="button" class="btn btn-block btn-default">Add <strong>5</strong> Talents</button>
+                </p>
+              </div>
+              <div class="row">
+                <p class="text-center">
+                <a href="#">Return to Top</a>
+                </p>
+              </div>
             </div>
-            <div class="row">
-              <table class="table table-condensed">
-                <tr>
-                  <th>Skill</th>
-                  <th>Career?</th>
-                  <th>Rank</th>
-                  <th class="col-md-3">Roll</th>
-                </tr>
-                <tr>
-                  <td>Astrogation (Int)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr>
-                  <td>Athletics (Br)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr>
-                  <td>Charm (Pr)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr>
-                  <td>Coercion (Will)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr>
-                  <td>Computers (Int)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr>
-                  <td>Cool (Pr)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr>
-                  <td>Coordination (Ag)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr>
-                  <td>Deception (Cun)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr>
-                  <td>Discipline (Will)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr>
-                  <td>Leadership (Pr)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr>
-                  <td>Mechanics (Int)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr>
-                  <td>Medicine (Int)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr>
-                  <td>Negotiation (Pr)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr>
-                  <td>Perception (Cun)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr>
-                  <td>Piloting: Planetary (Ag)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr>
-                  <td>Piloting: Space (Ag)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr>
-                  <td>Resilience (Br)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr>
-                  <td>Skulduggery (Cun)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr>
-                  <td>Stealth (Ag)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr>
-                  <td>Streetwise (Cun)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr>
-                  <td>Survival (Cun)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr>
-                  <td>Vigilance (Will)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr class="active">
-                  <td>Brawl (Br)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr class="active">
-                  <td>Gunnery (Ag)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr class="active">
-                  <td>Melee (Br)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr class="active">
-                  <td>Ranged: Light (Ag)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr class="active">
-                  <td>Ranged: Heavy (Ag)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr>
-                  <td>Knowledge: Core Worlds (Int)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr>
-                  <td>Knowledge: Education (Int)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr>
-                  <td>Knowledge: Lore (Int)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr>
-                  <td>Knowledge: Outer Rim (Int)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr>
-                  <td>Knowledge: Underworld (Int)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-                <tr>
-                  <td>Knowledge: Xenology (Int)</td>
-                  <td><input type="checkbox" id="astrogationIsClass"></input></td>
-                  <td>
-                    <div class="btn-group" data-toggle="buttons">
-                      <label class="btn btn-xs btn-default active"><input type="radio" value="0">0</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="1">1</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="2">2</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="3">3</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="4">4</label>
-                      <label class="btn btn-xs btn-default"><input type="radio" name="qty-01081" value="5">5</label>
-                    </div>
-                  </td>
-                  <td>tbd</td>
-                </tr>
-              </table>
+            <div role="tabpanel" class="tab-pane" id="bio">
+              who dis?
             </div>
           </div>
-          <div class="col-sm-7">
-            <div class="row">
-              <h4>Attacks</h4>
-            </div>
-            <div class="row">
-              <table class="table table-condensed attack-table">
-                <tr class="active">
-                  <td class="col-md-5">
-                    <div class="form-group form-group-sm">
-                      <label class="sr-only" for="weaponAttack1">weapon</label>
-                     <input type="text" class="form-control" id="weaponAttack1" placeholder="Weapon Name">
-                    </div>
-                  </td>
-                  <td class="form-inline">
-                    <div class="form-group form-group-sm pull-right">
-                      <label for="rangeAttack1">Range</label>
-                      <select class="form-control" name="rangeAttack1">
-                        <option>Engaged</option>
-                        <option>Short</option>
-                        <option>Medium</option>
-                        <option>Long</option>
-                        <option>Extreme</option>
-                      </select>
-                    </div>
-                  </td>
-                  <td class="form-inline">
-                    <div class="form-group form-group-sm pull-right">
-                      <label for="skillAttack1">Skill</label>
-                      <select class="form-control" name="skillAttack1">
-                        <option>Brawl</option>
-                        <option>Melee</option>
-                        <option>Ranged: Light</option>
-                        <option>Ranged: Heavy</option>
-                        <option>Gunnery</option>
-                      </select>
-                    </div>
-                  </td>
-                  <td class="col-md-2">roll here</td>
-                </tr>
-                <tr class="attack-second-row active">
-                  <td>
-                    <div class="form-group form-group-sm">
-                      <input type="text" class="form-control" id="specialAttack1" placeholder="Specials">
-                    </div>
-                  </td>
-                  <td class="form-inline">
-                    <div class="form-group form-group-sm pull-right">
-                      <label for="damageAttack1">Damage</label>
-                      <input type="text" class="form-control" size=5 id="damageAttack1">
-                    </div>
-                  </td>
-                  <td class="form-inline">
-                    <div class="form-group form-group-sm pull-right">
-                      <label for="critAttack1">Critical</label>
-                      <input type="text" class="form-control" size=5 id="criticalAttack1">
-                    </div>
-                  </td>
-                  <td>
-                    <button type="button" class="btn btn-block btn-danger btn-xs">Remove</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-group form-group-sm">
-                      <label class="sr-only" for="weaponAttack1">weapon</label>
-                      <input type="text" class="form-control" id="weaponAttack1" placeholder="Weapon Name">
-                    </div>
-                  </td>
-                  <td class="form-inline">
-                    <div class="form-group form-group-sm pull-right">
-                      <label for="rangeAttack1">Range</label>
-                      <select class="form-control" name="rangeAttack1">
-                        <option>Engaged</option>
-                        <option>Short</option>
-                        <option>Medium</option>
-                        <option>Long</option>
-                        <option>Extreme</option>
-                      </select>
-                    </div>
-                  </td>
-                  <td class="form-inline">
-                    <div class="form-group form-group-sm pull-right">
-                      <label for="skillAttack1">Skill</label>
-                      <select class="form-control" name="skillAttack1">
-                        <option>Brawl</option>
-                        <option>Melee</option>
-                        <option>Ranged: Light</option>
-                        <option>Ranged: Heavy</option>
-                        <option>Gunnery</option>
-                      </select>
-                    </div>
-                  </td>
-                  <td class="col-md-2">roll here</td>
-                </tr>
-                <tr class="attack-second-row">
-                  <td>
-                    <div class="form-group form-group-sm">
-                      <input type="text" class="form-control" id="specialAttack1" placeholder="Specials">
-                    </div>
-                  </td>
-                  <td class="form-inline">
-                    <div class="form-group form-group-sm pull-right">
-                      <label for="damageAttack1">Damage</label>
-                      <input type="text" class="form-control" size=5 id="damageAttack1">
-                    </div>
-                  </td>
-                  <td class="form-inline">
-                    <div class="form-group form-group-sm pull-right">
-                      <label for="critAttack1">Critical</label>
-                      <input type="text" class="form-control" size=5 id="criticalAttack1">
-                    </div>
-                  </td>
-                  <td>
-                    <button type="button" class="btn btn-block btn-danger btn-xs">Remove</button>
-                  </td>
-                </tr>
-                <tr class="active">
-                  <td>
-                    <div class="form-group form-group-sm">
-                      <label class="sr-only" for="weaponAttack1">weapon</label>
-                      <input type="text" class="form-control" id="weaponAttack1" placeholder="Weapon Name">
-                    </div>
-                  </td>
-                  <td class="form-inline">
-                    <div class="form-group form-group-sm pull-right">
-                      <label for="rangeAttack1">Range</label>
-                      <select class="form-control" name="rangeAttack1">
-                        <option>Engaged</option>
-                        <option>Short</option>
-                        <option>Medium</option>
-                        <option>Long</option>
-                        <option>Extreme</option>
-                      </select>
-                    </div>
-                  </td>
-                  <td class="form-inline">
-                    <div class="form-group form-group-sm pull-right">
-                      <label for="skillAttack1">Skill</label>
-                      <select class="form-control" name="skillAttack1">
-                        <option>Brawl</option>
-                        <option>Melee</option>
-                        <option>Ranged: Light</option>
-                        <option>Ranged: Heavy</option>
-                        <option>Gunnery</option>
-                      </select>
-                    </div>
-                  </td>
-                  <td class="col-md-2">roll here</td>
-                </tr>
-                <tr class="attack-second-row active">
-                  <td>
-                    <div class="form-group form-group-sm">
-                      <input type="text" class="form-control" id="specialAttack1" placeholder="Specials">
-                    </div>
-                  </td>
-                  <td class="form-inline">
-                    <div class="form-group form-group-sm pull-right">
-                      <label for="damageAttack1">Damage</label>
-                      <input type="text" class="form-control" size=5 id="damageAttack1">
-                    </div>
-                  </td>
-                  <td class="form-inline">
-                    <div class="form-group form-group-sm pull-right">
-                      <label for="critAttack1">Critical</label>
-                      <input type="text" class="form-control" size=5 id="criticalAttack1">
-                    </div>
-                  </td>
-                  <td>
-                    <button type="button" class="btn btn-block btn-danger btn-xs">Remove</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-group form-group-sm">
-                      <label class="sr-only" for="weaponAttack1">weapon</label>
-                      <input type="text" class="form-control" id="weaponAttack1" placeholder="Weapon Name">
-                    </div>
-                  </td>
-                  <td class="form-inline">
-                    <div class="form-group form-group-sm pull-right">
-                      <label for="rangeAttack1">Range</label>
-                      <select class="form-control" name="rangeAttack1">
-                        <option>Engaged</option>
-                        <option>Short</option>
-                        <option>Medium</option>
-                        <option>Long</option>
-                        <option>Extreme</option>
-                      </select>
-                    </div>
-                  </td>
-                  <td class="form-inline">
-                    <div class="form-group form-group-sm pull-right">
-                      <label for="skillAttack1">Skill</label>
-                      <select class="form-control" name="skillAttack1">
-                        <option>Brawl</option>
-                        <option>Melee</option>
-                        <option>Ranged: Light</option>
-                        <option>Ranged: Heavy</option>
-                        <option>Gunnery</option>
-                      </select>
-                    </div>
-                  </td>
-                  <td class="col-md-2">roll here</td>
-                </tr>
-                <tr class="attack-second-row">
-                  <td>
-                    <div class="form-group form-group-sm">
-                      <input type="text" class="form-control" id="specialAttack1" placeholder="Specials">
-                    </div>
-                  </td>
-                  <td class="form-inline">
-                    <div class="form-group form-group-sm pull-right">
-                      <label for="damageAttack1">Damage</label>
-                      <input type="text" class="form-control" size=5 id="damageAttack1">
-                    </div>
-                  </td>
-                  <td class="form-inline">
-                    <div class="form-group form-group-sm pull-right">
-                      <label for="critAttack1">Critical</label>
-                      <input type="text" class="form-control" size=5 id="criticalAttack1">
-                    </div>
-                  </td>
-                  <td>
-                    <button type="button" class="btn btn-block btn-danger btn-xs">Remove</button>
-                  </td>
-                </tr>
-              </table>
-            </div>
-            <div class="row">
-              <p class="text-center col-md-4 col-md-offset-4">
-                <button type="button" class="btn btn-block btn-default">Add Attack</button>
-              </p>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-md-6">
-                <h4>Gear</h4>
-                <textarea rows=16 class="form-control col-offset-2 col-md-8"></textarea>
-              </div>
-              <div class="col-md-6">
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="panel panel-default">
-                      <div class="panel-body">
-                        <input type="number" step="1" class="form-control" min=0 id="credits" />
-                      </div>
-                      <div class="panel-footer text-center">
-                        <label for="credits">Credits</label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="panel panel-default">
-                      <div class="panel-body">
-                        <input type="text" class="form-control" min=0 id="encumbrance" />
-                      </div>
-                      <div class="panel-footer text-center">
-                        <label for="encumbrance">Encumbrance</label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="panel panel-default">
-                      <div class="panel-body">
-                        <input type="number" step="1" class="form-control" min=0 id="availableXP" />
-                      </div>
-                      <div class="panel-footer text-center">
-                        <label for="availableXP">Available XP</label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="panel panel-default">
-                      <div class="panel-body">
-                        <input type="number" step="1" class="form-control" min=0 id="totalXP" />
-                      </div>
-                      <div class="panel-footer text-center">
-                        <label for="totalXP">Total XP</label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row"><h4>Talents</h4></div>
-        <div class="row">
-          <table class="table table-condensed">
-            <tr>
-              <th class="col-md-3">Name</th>
-              <th class="col-md-2">Book &amp; Page</th>
-              <th class="col-md-7" colspan=2>Description</th>
-            </tr>
-            <tr>
-              <td>
-                <div class="form-group-sm">
-                  <input type="text" class="form-control" id="talentName1" placeholder="Name">
-                </div>
-              </td>
-              <td>
-                <div class="form-group-sm">
-                  <input type="text" class="form-control" id="talentPage1" placeholder="Book &amp; Page">
-                </div>
-              </td>
-              <td>
-                <div class="form-group-sm">
-                  <input type="text" class="form-control" id="talentDescription1" placeholder="Description">
-                </div>
-              </td>
-              <td class="col-md-1">
-                <button type="button" class="btn btn-block btn-danger btn-xs">Remove</button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div class="form-group-sm">
-                  <input type="text" class="form-control" id="talentName1" placeholder="Name">
-                </div>
-              </td>
-              <td>
-                <div class="form-group-sm">
-                  <input type="text" class="form-control" id="talentPage1" placeholder="Book &amp; Page">
-                </div>
-              </td>
-              <td>
-                <div class="form-group-sm">
-                  <input type="text" class="form-control" id="talentDescription1" placeholder="Description">
-                </div>
-              </td>
-              <td class="col-md-1">
-                <button type="button" class="btn btn-block btn-danger btn-xs">Remove</button>
-              </td>
-            </tr>
-          </table>
-        </div>
-        <div class="row">
-          <p class="text-center col-md-4 col-md-offset-2">
-            <button type="button" class="btn btn-block btn-default">Add <strong>1</strong> Talent</button>
-          </p>
-          <p class="text-center col-md-4">
-            <button type="button" class="btn btn-block btn-default">Add <strong>5</strong> Talents</button>
-          </p>
-        </div>
-        <div class="row">
-          <p class="text-center">
-            <a href="#">Return to Top</a>
-          </p>
         </div>
       </form>
     </div>
