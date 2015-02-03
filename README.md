@@ -2,18 +2,6 @@
 
 EdgeBuilder is a simple application for creating, storing, sharing, and printing Edge of the Empire characters online. It is not intended to enforce any rules of character building or provide any aids beyond calculating die rolls.
 
-## Setup
-EdgeBuilder (will soon) require a running instance of Postgres to be setup
-
-```
-> bundle
-> rake db:create db:migrate
-```
-
-## Running Tests
-
-`rake` (or the more verbose `rake spec`) will run all tests.
-
 ## Planned Features
 
 * CRUD a character
