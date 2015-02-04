@@ -23,6 +23,7 @@ defmodule EdgeBuilder.Mixfile do
   # Type `mix help deps` for examples and options
   defp deps do
     [{:phoenix, "~> 0.8.0"},
-     {:cowboy, "~> 1.0"}]
+     {:cowboy, "~> 1.0"},
+     {:ex_spec, "~> 0.3.0", only: :test}]
   end
 end

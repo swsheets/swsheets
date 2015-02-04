@@ -16,6 +16,7 @@ defmodule EdgeBuilder.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/reference", PageController, :reference
   end
 
   # Other scopes may use custom stacks.
