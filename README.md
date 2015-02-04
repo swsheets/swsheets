@@ -1,4 +1,4 @@
-# edgebuilder
+# EdgeBuilder
 
 EdgeBuilder is a simple application for creating, storing, sharing, and printing Edge of the Empire characters online. It is not intended to enforce any rules of character building or provide any aids beyond calculating die rolls.
 
@@ -8,6 +8,15 @@ EdgeBuilder is a simple application for creating, storing, sharing, and printing
 * Print a character
 * “Play mode” - a live saving mode where you can only edit current wounds, strain, and conditions
 * “GM mode” - combine a list of characters to view key stats & skills.
+
+## Running
+
+To start your new Phoenix application:
+
+1. Install dependencies with `mix deps.get`
+2. Start Phoenix endpoint with `mix phoenix.server`
+
+Now you can visit `localhost:4000` from your browser.
 
 ## License
 
