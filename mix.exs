@@ -24,6 +24,8 @@ defmodule EdgeBuilder.Mixfile do
   defp deps do
     [{:phoenix, "~> 0.8.0"},
      {:cowboy, "~> 1.0"},
+     {:postgrex, "~> 0.6"},
+     {:ecto, "~> 0.5"},
      {:ex_spec, "~> 0.3.0", only: :test}]
   end
 end

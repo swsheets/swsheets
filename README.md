@@ -9,14 +9,29 @@ EdgeBuilder is a simple application for creating, storing, sharing, and printing
 * “Play mode” - a live saving mode where you can only edit current wounds, strain, and conditions
 * “GM mode” - combine a list of characters to view key stats & skills.
 
+## Setup
+
+EdgeBuilder was built against Elixir 1.0.2, Erlang 17.3, and PostgreSQL 9.3. Once you have all three installed, do the following to set up the app:
+
+```
+> mix deps.get
+```
+
+Once Mix has fetched all dependencies, you'll need to set up the database. An easy way to do this for local development follows (this approach is not recommended for production).
+
+```
+> createuser pair -d
+> mix ecto.create
+> mix ecto.migrate
+```
+
 ## Running
 
-To start your new Phoenix application:
-
-1. Install dependencies with `mix deps.get`
-2. Start Phoenix endpoint with `mix phoenix.server`
+To run EdgeBuilder, type `mix phoenix.server`.
 
 Now you can visit `localhost:4000` from your browser.
+
+To run the test suite, type `mix test`.
 
 ## License
 
