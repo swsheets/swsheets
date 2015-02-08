@@ -2,6 +2,7 @@ defmodule EdgeBuilder.Models.Character do
   use Ecto.Model
 
   alias EdgeBuilder.Models.Talent
+  alias EdgeBuilder.Models.Attack
 
   schema "characters" do
     field :name, :string
@@ -35,9 +36,10 @@ defmodule EdgeBuilder.Models.Character do
     field :other_notes, :string
 
     has_many :talents, Talent
+    has_many :attacks, Attack
   end
 
   def full_character(id) do
-    EdgeBuilder.Repo.one from c in EdgeBuilder.Models.Character, where: c.id == ^id, preload: [:talents]
+    EdgeBuilder.Repo.one from c in EdgeBuilder.Models.Character, where: c.id == ^id, preload: [:talents, :attacks]
   end
 end
