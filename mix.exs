@@ -15,7 +15,7 @@ defmodule EdgeBuilder.Mixfile do
   # Type `mix help compile.app` for more information
   def application do
     [mod: {EdgeBuilder, []},
-     applications: [:phoenix, :cowboy, :logger]]
+     applications: [:phoenix, :cowboy, :logger, :postgrex, :ecto]]
   end
 
   # Specifies your project dependencies
