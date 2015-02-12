@@ -34,16 +34,16 @@ defmodule EdgeBuilder.Repo.Migrations.CreateCharacters do
       add :other_notes, :text
     end
 
-    create table(:skills) do
+    create table(:base_skills) do
       add :name, :string, null: false
       add :characteristic, :string, null: false
       add :is_attack_skill, :bool, default: false
       add :attack_skill_position, :integer
     end
 
-    create table(:characters_skills) do
+    create table(:character_skills) do
       add :character_id, :integer, null: false
-      add :skill_id, :integer, null: false
+      add :base_skill_id, :integer, null: false
       add :is_career, :boolean, null: false, default: false
       add :rank, :integer, null: false, default: 0
     end
@@ -52,7 +52,7 @@ defmodule EdgeBuilder.Repo.Migrations.CreateCharacters do
       add :character_id, :integer, null: false
       add :weapon_name, :string
       add :range, :string
-      add :skill_id, :integer
+      add :base_skill_id, :integer
       add :specials, :string
       add :damage, :string
       add :critical, :string

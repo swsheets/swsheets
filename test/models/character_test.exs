@@ -4,6 +4,8 @@ defmodule EdgeBuilder.Models.CharacterTest do
   alias EdgeBuilder.Models.Character
   alias EdgeBuilder.Models.Talent
   alias EdgeBuilder.Models.Attack
+  alias EdgeBuilder.Models.BaseSkill
+  alias EdgeBuilder.Models.CharacterSkill
 
   describe "#full_character" do
     it "loads the character's talents" do
@@ -11,7 +13,7 @@ defmodule EdgeBuilder.Models.CharacterTest do
         name: "Greedo",
         species: "Rodian",
         career: "Bounty Hunter"
-      } |> EdgeBuilder.Repo.insert()
+      } |> EdgeBuilder.Repo.insert
 
       talents = [
         %Talent{name: "Quick Draw", character_id: character.id},
@@ -28,7 +30,7 @@ defmodule EdgeBuilder.Models.CharacterTest do
         name: "Greedo",
         species: "Rodian",
         career: "Bounty Hunter"
-      } |> EdgeBuilder.Repo.insert()
+      } |> EdgeBuilder.Repo.insert
 
       attacks = [
         %Attack{weapon_name: "Holdout Blaster", character_id: character.id},
@@ -38,6 +40,59 @@ defmodule EdgeBuilder.Models.CharacterTest do
 
       full_character = Character.full_character(character.id)
       assert full_character.attacks == attacks
+    end
+
+    it "loads skills that the character has" do
+      character = %Character{
+        name: "Greedo",
+        species: "Rodian",
+        career: "Bounty Hunter"
+      } |> EdgeBuilder.Repo.insert
+
+      base_skill = %BaseSkill {
+        name: "Brawl",
+        characteristic: "Brawn"
+      } |> EdgeBuilder.Repo.insert
+
+      character_skill = %CharacterSkill{
+        character_id: character.id,
+        base_skill_id: base_skill.id,
+        is_career: true,
+        rank: 3
+      } |> EdgeBuilder.Repo.insert
+
+      full_character = Character.full_character(character.id)
+      assert full_character.combined_character_skills == [%{
+        name: "Brawl",
+        characteristic: "Brawn",
+        base_skill_id: base_skill.id,
+        id: character_skill.id,
+        is_career: true,
+        rank: 3
+      }]
+    end
+
+    it "loads blank skills that the character lacks" do
+      character = %Character{
+        name: "Greedo",
+        species: "Rodian",
+        career: "Bounty Hunter"
+      } |> EdgeBuilder.Repo.insert
+
+      base_skill = %BaseSkill {
+        name: "Melee",
+        characteristic: "Brawn"
+      } |> EdgeBuilder.Repo.insert
+
+      full_character = Character.full_character(character.id)
+      assert full_character.combined_character_skills == [%{
+        name: "Melee",
+        characteristic: "Brawn",
+        base_skill_id: base_skill.id,
+        id: nil,
+        is_career: false,
+        rank: 0
+      }]
     end
   end
 end

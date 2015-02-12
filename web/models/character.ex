@@ -3,6 +3,9 @@ defmodule EdgeBuilder.Models.Character do
 
   alias EdgeBuilder.Models.Talent
   alias EdgeBuilder.Models.Attack
+  alias EdgeBuilder.Models.CharacterSkill
+  alias EdgeBuilder.Models.BaseSkill
+  alias EdgeBuilder.Repo
 
   schema "characters" do
     field :name, :string
@@ -34,12 +37,37 @@ defmodule EdgeBuilder.Models.Character do
     field :obligation_amount, :string
     field :description, :string
     field :other_notes, :string
+    field :combined_character_skills, {:array, :any}, virtual: true
 
     has_many :talents, Talent
     has_many :attacks, Attack
+    has_many :character_skills, CharacterSkill
   end
 
   def full_character(id) do
-    EdgeBuilder.Repo.one from c in EdgeBuilder.Models.Character, where: c.id == ^id, preload: [:talents, :attacks]
+    character = Repo.one from c in EdgeBuilder.Models.Character, where: c.id == ^id, preload: [:talents, :attacks, [character_skills: :base_skill]]
+
+    character |> populate_combined_character_skills
+  end
+
+  defp populate_combined_character_skills(character) do
+    %{character | combined_character_skills:
+      Repo.all(BaseSkill) |> Enum.map(&(character_skill_or_default(&1,character.character_skills)))
+    }
+  end
+
+  defp character_skill_or_default(base_skill, character_skills) do
+    skill_template = %{
+      name: base_skill.name,
+      characteristic: base_skill.characteristic,
+      base_skill_id: base_skill.id
+    }
+
+    character_skill = case Enum.find(character_skills, &(&1.base_skill == base_skill)) do
+      nil -> %{rank: 0, is_career: false, id: nil}
+      matched_skill -> Map.take(matched_skill, [:rank, :is_career, :id])
+    end
+
+    Map.merge(skill_template, character_skill)
   end
 end
