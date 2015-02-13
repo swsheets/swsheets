@@ -5,8 +5,8 @@ defmodule EdgeBuilder.Models.CharacterSkill do
   alias EdgeBuilder.Models.BaseSkill
 
   schema "character_skills" do
-    field :is_career, :boolean
-    field :rank, :integer
+    field :is_career, :boolean, default: false
+    field :rank, :integer, default: 0
 
     belongs_to :character, Character
     belongs_to :base_skill, BaseSkill

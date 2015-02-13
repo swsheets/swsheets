@@ -4,26 +4,26 @@
     <div class="col-md-8">
       <div class="row">
         <div class="form-group">
-          <label for="characterName" class='label-lg'>Character Name</label>
-          <input type="text" class="form-control input-lg" id="characterName" />
+          <label for="character[name]" class='label-lg'>Character Name</label>
+          <input type="text" class="form-control input-lg" name="character[name]" value="<%= @character.name %>" />
         </div>
         <div class="row">
           <div class="col-sm-3">
             <div class="form-group">
-              <label for="species">Species</label>
-              <input type="text" class="form-control" id="species" />
+              <label for="character[species]">Species</label>
+              <input type="text" class="form-control" name="character[species]" value="<%= @character.species %>" />
             </div>
           </div>
           <div class="col-sm-3">
             <div class="form-group">
-              <label for="career">Career</label>
-              <input type="text" class="form-control" id="career" />
+              <label for="character[career]">Career</label>
+              <input type="text" class="form-control" name="character[career]" value="<%= @character.career %>" />
             </div>
           </div>
           <div class="col-sm-6">
             <div class="form-group">
-              <label for="specializations">Specializations</label>
-              <input type="specializations" class="form-control" id="specializations" />
+              <label for="character[specializations]">Specializations</label>
+              <input type="specializations" class="form-control" name="character[specializations]" value="<%= @character.specializations %>" />
             </div>
           </div>
         </div>
@@ -101,7 +101,7 @@
         <input type="url" class="form-control" id="imageUrl">
       </div>
       <p class="text-center">
-      <img src="images/250x250.gif" alt="Placeholder Image" class="img-thumbnail">
+      <img src="/images/250x250.gif" alt="Placeholder Image" class="img-thumbnail">
       </p>
     </div>
   </div>

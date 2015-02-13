@@ -19,4 +19,19 @@ defmodule EdgeBuilder.Test do
   end
 end
 
+defmodule EdgeBuilder.ControllerTest do
+  use ExUnit.CaseTemplate
+
+  using do
+    quote do
+      use EdgeBuilder.Test
+      use Plug.Test
+
+      def request(verb, path) do
+        conn(verb, path) |> EdgeBuilder.Endpoint.call([])
+      end
+    end
+  end
+end
+
 ExUnit.start

@@ -63,11 +63,10 @@ defmodule EdgeBuilder.Models.Character do
       base_skill_id: base_skill.id
     }
 
-    character_skill = case Enum.find(character_skills, &(&1.base_skill == base_skill)) do
-      nil -> %{rank: 0, is_career: false, id: nil}
-      matched_skill -> Map.take(matched_skill, [:rank, :is_career, :id])
-    end
+    character_skill = Enum.find(character_skills, %CharacterSkill{}, &(&1.base_skill == base_skill))
 
-    Map.merge(skill_template, character_skill)
+    character_skill
+      |> Map.take([:rank, :is_career, :id])
+      |> Map.merge(skill_template)
   end
 end
