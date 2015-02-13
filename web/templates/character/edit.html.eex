@@ -34,10 +34,10 @@
           <div class="col-sm-3 col-xs-6">
             <div class="panel panel-default">
               <div class="panel-body soak-panel">
-                <input type="number" step="1" class="form-control" min=0 id="soak" />
+                <input type="number" step="1" class="form-control" min=0 name="character[soak]" value="<%= @character.soak %>" />
               </div>
               <div class="panel-footer text-center">
-                <label for="soak">Soak</label>
+                <label for="character[soak]">Soak</label>
               </div>
             </div>
           </div>
@@ -46,11 +46,13 @@
               <div class="panel-body">
                 <div class="input-group">
                   <div class="input-group-addon addon-core-attr">Threshold</div>
-                  <input type="number" step="1" class="form-control" min=0 id="woundThreshold" />
+                  <label for="character[wounds_threshold]" class="sr-only">Wound Threshold</label>
+                  <input type="number" step="1" class="form-control" min=0 name="character[wounds_threshold]" value="<%= @character.wounds_threshold %>" />
                 </div>
                 <div class="input-group">
                   <div class="input-group-addon addon-core-attr">Current</div>
-                  <input type="number" step="1" class="form-control" min=0 id="woundCurrent" />
+                  <label for="character[wounds_current]" class="sr-only">Current Wounds</label>
+                  <input type="number" step="1" class="form-control" min=0 id="character[wounds_current]" value="<%= @character.wounds_current %>" />
                 </div>
               </div>
               <div class="panel-footer text-center">
@@ -63,11 +65,13 @@
               <div class="panel-body">
                 <div class="input-group">
                   <div class="input-group-addon addon-core-attr">Threshold</div>
-                  <input type="number" step="1" class="form-control" min=0 id="strainThreshold" />
+                  <label for="character[strain_threshold]" class="sr-only">Strain Threshold</label>
+                  <input type="number" step="1" class="form-control" min=0 name="character[strain_threshold]" value="<%= @character.strain_threshold %>" />
                 </div>
                 <div class="input-group">
                   <div class="input-group-addon addon-core-attr">Current</div>
-                  <input type="number" step="1" class="form-control" min=0 id="strainCurrent" />
+                  <label for="character[strain_current]" class="sr-only">Current Strain</label>
+                  <input type="number" step="1" class="form-control" min=0 id="character[strain_current]" value="<%= @character.strain_current %>" />
                 </div>
               </div>
               <div class="panel-footer text-center">
@@ -80,11 +84,13 @@
               <div class="panel-body">
                 <div class="input-group">
                   <div class="input-group-addon addon-core-attr">Ranged</div>
-                  <input type="number" step="1" class="form-control" min=0 id="rangedDefense" />
+                  <label for="character[defense_ranged]" class="sr-only">Ranged Defense</label>
+                  <input type="number" step="1" class="form-control" min=0 name="character[defense_ranged]" value="<%= @character.defense_ranged %>" />
                 </div>
                 <div class="input-group">
                   <div class="input-group-addon addon-core-attr">Melee</div>
-                  <input type="number" step="1" class="form-control" min=0 id="meleeDefense" />
+                  <label for="character[defense_melee]" class="sr-only">Melee Defense</label>
+                  <input type="number" step="1" class="form-control" min=0 name="character[defense_melee]" value="<%= @character.defense_melee %>" />
                 </div>
               </div>
               <div class="panel-footer text-center">
@@ -101,7 +107,7 @@
         <input type="url" class="form-control" id="imageUrl">
       </div>
       <p class="text-center">
-      <img src="/images/250x250.gif" alt="Placeholder Image" class="img-thumbnail">
+        <img src="/images/250x250.gif" alt="Placeholder Image" class="img-thumbnail">
       </p>
     </div>
   </div>
