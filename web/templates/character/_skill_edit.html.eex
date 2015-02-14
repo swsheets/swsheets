@@ -1,0 +1,30 @@
+<div class="row">
+  <h4>Skills</h4>
+</div>
+<div class="row">
+  <table class="table table-condensed">
+    <tr>
+      <th>Skill</th>
+      <th>Career?</th>
+      <th>Rank</th>
+      <th class="col-md-3">Roll</th>
+    </tr>
+    <%= for {skill,i} <- Enum.with_index(@character_skills) do %>
+      <tr <%= if skill.is_attack_skill, do: ~s(class="active") %>>
+        <td><%= skill.name %></td>
+        <td><input type="checkbox" name="character[combined_skills][<%= i %>][is_career]" <%= if skill.is_career, do: ~s(checked="checked") %>></input></td>
+        <td>
+          <input type="hidden" name="character[combined_skills][<%= i %>][base_skill_id]" value="<%= skill.base_skill_id %>" />
+          <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-xs btn-default active"><input type="radio" name="character[combined_skills][<%= i %>][rank]" value="0">0</label>
+            <label class="btn btn-xs btn-default"><input type="radio" name="character[combined_skills][<%= i %>][rank]" value="1">1</label>
+            <label class="btn btn-xs btn-default"><input type="radio" name="character[combined_skills][<%= i %>][rank]" value="2">2</label>
+            <label class="btn btn-xs btn-default"><input type="radio" name="character[combined_skills][<%= i %>][rank]" value="3">3</label>
+            <label class="btn btn-xs btn-default"><input type="radio" name="character[combined_skills][<%= i %>][rank]" value="4">4</label>
+            <label class="btn btn-xs btn-default"><input type="radio" name="character[combined_skills][<%= i %>][rank]" value="5">5</label>
+          </div>
+        </td>
+        <td><span class='skill-roll' data-characteristic="<%= skill.characteristic %>" data-skill="<%= skill.name %>">tbd</td>
+    <% end %>
+  </table>
+</div>

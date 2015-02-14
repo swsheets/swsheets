@@ -50,7 +50,7 @@ defmodule EdgeBuilder.Models.CharacterTest do
       } |> EdgeBuilder.Repo.insert
 
       base_skill = %BaseSkill {
-        name: "Brawl",
+        name: "Athletics",
         characteristic: "Brawn"
       } |> EdgeBuilder.Repo.insert
 
@@ -63,11 +63,12 @@ defmodule EdgeBuilder.Models.CharacterTest do
 
       full_character = Character.full_character(character.id)
       assert full_character.combined_character_skills == [%{
-        name: "Brawl",
+        name: "Athletics",
         characteristic: "Brawn",
         base_skill_id: base_skill.id,
         id: character_skill.id,
         is_career: true,
+        is_attack_skill: false,
         rank: 3
       }]
     end
@@ -80,17 +81,18 @@ defmodule EdgeBuilder.Models.CharacterTest do
       } |> EdgeBuilder.Repo.insert
 
       base_skill = %BaseSkill {
-        name: "Melee",
+        name: "Athletics",
         characteristic: "Brawn"
       } |> EdgeBuilder.Repo.insert
 
       full_character = Character.full_character(character.id)
       assert full_character.combined_character_skills == [%{
-        name: "Melee",
+        name: "Athletics",
         characteristic: "Brawn",
         base_skill_id: base_skill.id,
         id: nil,
         is_career: false,
+        is_attack_skill: false,
         rank: 0
       }]
     end
