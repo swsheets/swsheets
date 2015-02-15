@@ -7,6 +7,8 @@ defmodule EdgeBuilder.Models.CharacterTest do
   alias EdgeBuilder.Models.BaseSkill
   alias EdgeBuilder.Models.CharacterSkill
 
+  import Ecto.Query, only: [from: 2]
+
   describe "#full_character" do
     it "loads the character's talents" do
       character = %Character{
@@ -49,10 +51,7 @@ defmodule EdgeBuilder.Models.CharacterTest do
         career: "Bounty Hunter"
       } |> EdgeBuilder.Repo.insert
 
-      base_skill = %BaseSkill {
-        name: "Athletics",
-        characteristic: "Brawn"
-      } |> EdgeBuilder.Repo.insert
+      base_skill = EdgeBuilder.Repo.one(from s in BaseSkill, where: s.name == "Athletics")
 
       character_skill = %CharacterSkill{
         character_id: character.id,
@@ -62,7 +61,7 @@ defmodule EdgeBuilder.Models.CharacterTest do
       } |> EdgeBuilder.Repo.insert
 
       full_character = Character.full_character(character.id)
-      assert full_character.combined_character_skills == [%{
+      assert Enum.member?(full_character.combined_character_skills, %{
         name: "Athletics",
         characteristic: "Brawn",
         base_skill_id: base_skill.id,
@@ -70,7 +69,7 @@ defmodule EdgeBuilder.Models.CharacterTest do
         is_career: true,
         is_attack_skill: false,
         rank: 3
-      }]
+      })
     end
 
     it "loads blank skills that the character lacks" do
@@ -80,13 +79,10 @@ defmodule EdgeBuilder.Models.CharacterTest do
         career: "Bounty Hunter"
       } |> EdgeBuilder.Repo.insert
 
-      base_skill = %BaseSkill {
-        name: "Athletics",
-        characteristic: "Brawn"
-      } |> EdgeBuilder.Repo.insert
+      base_skill = EdgeBuilder.Repo.one(from s in BaseSkill, where: s.name == "Athletics")
 
       full_character = Character.full_character(character.id)
-      assert full_character.combined_character_skills == [%{
+      assert Enum.member?(full_character.combined_character_skills, %{
         name: "Athletics",
         characteristic: "Brawn",
         base_skill_id: base_skill.id,
@@ -94,7 +90,7 @@ defmodule EdgeBuilder.Models.CharacterTest do
         is_career: false,
         is_attack_skill: false,
         rank: 0
-      }]
+      })
     end
   end
 end

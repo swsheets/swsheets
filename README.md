@@ -23,6 +23,7 @@ Once Mix has fetched all dependencies, you'll need to set up the database. An ea
 > createuser pair -d
 > mix ecto.create
 > mix ecto.migrate
+> mix seed
 ```
 
 ## Running
@@ -30,6 +31,14 @@ Once Mix has fetched all dependencies, you'll need to set up the database. An ea
 To run EdgeBuilder, type `mix phoenix.server`.
 
 Now you can visit `localhost:4000` from your browser.
+
+## Testing
+To set up the test database, you'll need to run through the following steps in your commandline, similar to the initial setup
+```
+> MIX_ENV=test mix ecto.create
+> MIX_ENV=test mix ecto.migrate
+> MIX_ENV=test mix seed
+```
 
 To run the test suite, type `mix test`.
 

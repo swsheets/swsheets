@@ -37,8 +37,8 @@ defmodule EdgeBuilder.Repo.Migrations.CreateCharacters do
     create table(:base_skills) do
       add :name, :string, null: false
       add :characteristic, :string, null: false
+      add :skill_position, :integer
       add :is_attack_skill, :bool, default: false
-      add :attack_skill_position, :integer
     end
 
     create table(:character_skills) do
