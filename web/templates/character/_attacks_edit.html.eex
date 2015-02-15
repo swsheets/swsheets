@@ -1,0 +1,71 @@
+<div class="row">
+  <h4>Attacks</h4>
+</div>
+<div class="row">
+  <table class="table table-condensed attack-table">
+    <%= for {attack, i} <- Enum.with_index(@attacks) do %>
+      <tr class="active">
+        <td class="col-md-5">
+          <input type="hidden" name="character[attacks][<%= i %>][id]" value="<%= attack.id %>" />
+          <div class="form-group form-group-sm">
+            <label class="sr-only" for="character[attacks][<%= i %>][weapon_name]">Weapon</label>
+            <input type="text" class="form-control" name="character[attacks][<%= i %>][weapon_name]" placeholder="Weapon Name" value="<%= attack.weapon_name %>" />
+          </div>
+        </td>
+        <td class="form-inline">
+          <div class="form-group form-group-sm pull-right">
+            <label for="character[attacks][<%= i %>][range]">Range</label>
+            <select class="form-control" name="character[attacks][<%= i %>][range]">
+              <option>Engaged</option>
+              <option>Short</option>
+              <option>Medium</option>
+              <option>Long</option>
+              <option>Extreme</option>
+            </select>
+          </div>
+        </td>
+        <td class="form-inline">
+          <div class="form-group form-group-sm pull-right">
+            <label for="character[attacks][<%= i %>][skill]">Skill</label>
+            <select class="form-control" name="character[attacks][<%= i %>][skill]">
+              <option>Brawl</option>
+              <option>Melee</option>
+              <option>Ranged: Light</option>
+              <option>Ranged: Heavy</option>
+              <option>Gunnery</option>
+            </select>
+          </div>
+        </td>
+        <td class="col-md-2"><span class="attack-roll" data-attack-index="<%= i %>">tbd</span></td>
+      </tr>
+      <tr class="attack-second-row active">
+        <td>
+          <div class="form-group form-group-sm">
+            <label for="character[attacks][<%= i %>][specials]" class="sr-only">Specials</label>
+            <input type="text" class="form-control" name="character[attacks][<%= i %>][specials]" placeholder="Specials" value="<%= attack.specials %>" />
+          </div>
+        </td>
+        <td class="form-inline">
+          <div class="form-group form-group-sm pull-right">
+            <label for="character[attacks][<%= i %>][damage]">Damage</label>
+            <input type="text" class="form-control" size=5 name="character[attacks][<%= i %>][damage]" value="<%= attack.damage %>" />
+          </div>
+        </td>
+        <td class="form-inline">
+          <div class="form-group form-group-sm pull-right">
+            <label for="character[attacks][<%= i %>][critical]">Critical</label>
+            <input type="text" class="form-control" size=5 name="character[attacks][<%= i %>][critical]" value="<%= attack.critical %>" />
+          </div>
+        </td>
+        <td>
+          <button type="button" class="btn btn-block btn-danger btn-xs">Remove</button>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+<div class="row">
+  <p class="text-center col-md-4 col-md-offset-4">
+  <button type="button" class="btn btn-block btn-default">Add Attack</button>
+  </p>
+</div>

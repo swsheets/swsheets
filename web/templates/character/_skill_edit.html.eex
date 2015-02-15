@@ -16,12 +16,11 @@
         <td>
           <input type="hidden" name="character[combined_skills][<%= i %>][base_skill_id]" value="<%= skill.base_skill_id %>" />
           <div class="btn-group" data-toggle="buttons">
-            <label class="btn btn-xs btn-default active"><input type="radio" name="character[combined_skills][<%= i %>][rank]" value="0">0</label>
-            <label class="btn btn-xs btn-default"><input type="radio" name="character[combined_skills][<%= i %>][rank]" value="1">1</label>
-            <label class="btn btn-xs btn-default"><input type="radio" name="character[combined_skills][<%= i %>][rank]" value="2">2</label>
-            <label class="btn btn-xs btn-default"><input type="radio" name="character[combined_skills][<%= i %>][rank]" value="3">3</label>
-            <label class="btn btn-xs btn-default"><input type="radio" name="character[combined_skills][<%= i %>][rank]" value="4">4</label>
-            <label class="btn btn-xs btn-default"><input type="radio" name="character[combined_skills][<%= i %>][rank]" value="5">5</label>
+            <%= for rank <- 0..5 do %>
+              <label class="btn btn-xs btn-default <%= if skill.rank == rank, do: "active" %>">
+                <input type="radio" name="character[combined_skills][<%= i %>][rank]" value="<%= rank %>" /><%= rank %>
+              </label>
+            <% end %>
           </div>
         </td>
         <td><span class='skill-roll' data-characteristic="<%= skill.characteristic %>" data-skill="<%= skill.name %>">tbd</td>
