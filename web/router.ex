@@ -17,7 +17,7 @@ defmodule EdgeBuilder.Router do
 
     get "/", PageController, :index
     get "/reference", PageController, :reference
-    resources "/characters", CharacterController, only: [:edit]
+    resources "/characters", CharacterController, only: [:edit, :update]
   end
 
   # Other scopes may use custom stacks.

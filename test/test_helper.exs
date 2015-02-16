@@ -27,8 +27,10 @@ defmodule EdgeBuilder.ControllerTest do
       use EdgeBuilder.Test
       use Plug.Test
 
-      def request(verb, path) do
-        conn(verb, path) |> EdgeBuilder.Endpoint.call([])
+      def request(verb, path, params \\ %{}) do
+        conn(verb, path, params)
+        |> put_private(:plug_skip_csrf_protection, true)
+        |> EdgeBuilder.Endpoint.call([])
       end
     end
   end

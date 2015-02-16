@@ -1,4 +1,6 @@
-<form role="form">
+<form role="form" action="<%= character_path(@conn, :update, @character.id) %>" method="POST">
+  <input type="hidden" name="_method" value="PUT" />
+  <input type="hidden" name="csrf_token" value="<%= Plug.Conn.get_session(@conn, :csrf_token) %>" />
   <!-- bio in brief through derived attr's -->
   <div class="row">
     <div class="col-md-8">

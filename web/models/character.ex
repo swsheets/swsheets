@@ -44,10 +44,31 @@ defmodule EdgeBuilder.Models.Character do
     has_many :character_skills, CharacterSkill
   end
 
+  def changeset(character, params \\ %{}) do
+    params
+      |> scrub_optional_nonstrings
+      |> cast(character, required_fields, optional_fields)
+  end
+
   def full_character(id) do
     character = Repo.one from c in EdgeBuilder.Models.Character, where: c.id == ^id, preload: [:talents, :attacks, [character_skills: :base_skill]]
 
     character |> populate_combined_character_skills
+  end
+
+  defp scrub_optional_nonstrings(params) do
+    nonstring_fields
+      |> Enum.map(&Atom.to_string/1)
+      |> Enum.filter(&(params[&1] == ""))
+      |> Enum.reduce(params, fn(x, acc) -> Map.put(acc, x, nil) end)
+  end
+
+  defp required_fields, do: [:name, :species, :career]
+  defp optional_fields, do: __schema__(:fields) -- [:id | required_fields]
+  defp nonstring_fields do
+    Enum.filter(__schema__(:fields), fn(x) ->
+      __schema__(:field, x) != :string
+    end)
   end
 
   defp populate_combined_character_skills(character) do
