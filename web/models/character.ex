@@ -46,7 +46,7 @@ defmodule EdgeBuilder.Models.Character do
 
   def changeset(character, params \\ %{}) do
     params
-      |> scrub_optional_nonstrings
+      |> scrub_empty_strings
       |> cast(character, required_fields, optional_fields)
   end
 
@@ -56,20 +56,15 @@ defmodule EdgeBuilder.Models.Character do
     character |> populate_combined_character_skills
   end
 
-  defp scrub_optional_nonstrings(params) do
-    nonstring_fields
-      |> Enum.map(&Atom.to_string/1)
-      |> Enum.filter(&(params[&1] == ""))
-      |> Enum.reduce(params, fn(x, acc) -> Map.put(acc, x, nil) end)
+  defp scrub_empty_strings(params) do
+    Enum.map(params, fn
+      {k, ""} -> {k, nil}
+      pair    -> pair
+    end) |> Enum.into(%{}) 
   end
 
   defp required_fields, do: [:name, :species, :career]
   defp optional_fields, do: __schema__(:fields) -- [:id | required_fields]
-  defp nonstring_fields do
-    Enum.filter(__schema__(:fields), fn(x) ->
-      __schema__(:field, x) != :string
-    end)
-  end
 
   defp populate_combined_character_skills(character) do
     %{character | combined_character_skills:
