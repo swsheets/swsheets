@@ -93,5 +93,28 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert talent.description == "Do stuff"
       assert talent.book_and_page == "DC p43"
     end
+
+    it "creates new talents for the character" do
+      character = %Character{
+        name: "Greedo",
+        species: "Rodian",
+        career: "Bounty Hunter",
+      } |> EdgeBuilder.Repo.insert
+
+      conn = request(:put, "/characters/#{character.id}", %{"character" => %{}, "talents" => %{
+        "0" => %{"book_and_page" => "DC p43", "description" => "Do stuff", "name" => "Awesome Guy"}
+      }})
+
+      assert conn.status == 200
+
+      character = Character.full_character(character.id)
+
+      assert Enum.count(character.talents) == 1
+      talent = Enum.at(character.talents, 0)
+
+      assert talent.name == "Awesome Guy"
+      assert talent.description == "Do stuff"
+      assert talent.book_and_page == "DC p43"
+    end
   end
 end

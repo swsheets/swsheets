@@ -12,18 +12,19 @@ defmodule EdgeBuilder.CharacterController do
   def update(conn, params = %{"id" => id, "character" => character_params}) do
     changesets = List.flatten([
       character_changeset(id, character_params),
-      talent_changesets(params["talents"])
+      talent_changesets(id, params["talents"])
     ])
 
     if Enum.all?(changesets, &(&1.valid?)) do
-      changesets |> Enum.map(&EdgeBuilder.Repo.update/1)
+      changesets |> Enum.map(&apply_changeset/1)
+
       conn
         |> put_status(200)
         |> text "ok"
     else
       conn
         |> put_status(400)
-        |> text "not okay"
+        |> text "not ok"
     end
   end
 
@@ -32,13 +33,24 @@ defmodule EdgeBuilder.CharacterController do
       |> Character.changeset(params)
   end
 
-  defp talent_changesets(params) when is_map(params) do
+  defp talent_changesets(character_id, params) when is_map(params) do
     params
       |> Map.values
-      |> Enum.map(fn x ->
-        EdgeBuilder.Repo.get(EdgeBuilder.Models.Talent, x["id"])
-          |> EdgeBuilder.Models.Talent.changeset(x)
+      |> Enum.map(&(Map.put(&1, "character_id", character_id)))
+      |> Enum.map(fn talent_params ->
+        case talent_params do
+          %{"id" => id} -> EdgeBuilder.Repo.get(EdgeBuilder.Models.Talent, id)
+          _ -> %EdgeBuilder.Models.Talent{}
+        end |> EdgeBuilder.Models.Talent.changeset(talent_params)
       end)
   end
-  defp talent_changesets(_), do: []
+  defp talent_changesets(_,_), do: []
+
+  defp apply_changeset(c) do
+    if is_nil(Ecto.Changeset.get_field(c, :id)) do
+      EdgeBuilder.Repo.insert(c)
+    else
+      EdgeBuilder.Repo.update(c)
+    end
+  end
 end
