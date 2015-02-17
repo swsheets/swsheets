@@ -116,5 +116,29 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert talent.description == "Do stuff"
       assert talent.book_and_page == "DC p43"
     end
+
+    it "deletes any talents for that character that were not specified in the update" do
+      character = %Character{
+        name: "Greedo",
+        species: "Rodian",
+        career: "Bounty Hunter",
+      } |> EdgeBuilder.Repo.insert
+
+      talent = %Talent{
+        name: "Quick Draw",
+        book_and_page: "EotE Core p145",
+        description: "Draws a gun quickly",
+        character_id: character.id
+      } |> EdgeBuilder.Repo.insert
+
+      conn = request(:put, "/characters/#{character.id}", %{"character" => %{}})
+
+      assert conn.status == 200
+
+      character = Character.full_character(character.id)
+
+      assert Enum.count(character.talents) == 0
+      assert EdgeBuilder.Repo.all(Talent) |> Enum.count == 0
+    end
   end
 end
