@@ -9,4 +9,9 @@ defmodule EdgeBuilder.Models.Talent do
     field :description, :string
     belongs_to :character, Character
   end
+
+  def changeset(talent, params \\ %{}) do
+    params
+      |> cast(talent, [], ~w(name book_and_page description))
+  end
 end

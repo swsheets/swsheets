@@ -9,22 +9,22 @@
     <%= for {talent, i} <- Enum.with_index(@talents) do %>
       <tr>
         <td>
-          <input type="hidden" name="character[talents][<%= i %>][id]" value="<%= talent.id %>" />
+          <input type="hidden" name="talents[<%= i %>][id]" value="<%= talent.id %>" />
           <div class="form-group-sm">
-            <label for="character[talents][<%= i %>][name]" class="sr-only">Name</label>
-            <input type="text" class="form-control" name="character[talents][<%= i %>][name]" placeholder="Name" value="<%= talent.name %>" />
+            <label for="talents[<%= i %>][name]" class="sr-only">Name</label>
+            <input type="text" class="form-control" name="talents[<%= i %>][name]" placeholder="Name" value="<%= talent.name %>" />
           </div>
         </td>
         <td>
           <div class="form-group-sm">
-            <label for="character[talents][<%= i %>][book_and_page]" class="sr-only">Book &amp; Page</label>
-            <input type="text" class="form-control" name="character[talents][<%= i %>][book_and_page]" placeholder="Book &amp; Page" value="<%= talent.book_and_page %>" />
+            <label for="talents[<%= i %>][book_and_page]" class="sr-only">Book &amp; Page</label>
+            <input type="text" class="form-control" name="talents[<%= i %>][book_and_page]" placeholder="Book &amp; Page" value="<%= talent.book_and_page %>" />
           </div>
         </td>
         <td>
           <div class="form-group-sm">
-            <label for="character[talents][<%= i %>][description]" class="sr-only">Description</label>
-            <input type="text" class="form-control" name="character[talents][<%= i %>][description]" placeholder="Description" value="<%= talent.description %>" />
+            <label for="talents[<%= i %>][description]" class="sr-only">Description</label>
+            <input type="text" class="form-control" name="talents[<%= i %>][description]" placeholder="Description" value="<%= talent.description %>" />
           </div>
         </td>
         <td class="col-md-1">
