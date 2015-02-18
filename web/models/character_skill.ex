@@ -11,4 +11,9 @@ defmodule EdgeBuilder.Models.CharacterSkill do
     belongs_to :character, Character
     belongs_to :base_skill, BaseSkill
   end
+
+  def changeset(character_skill, params \\ %{}) do
+    params
+      |> cast(character_skill, ~w(character_id base_skill_id), ~w(is_career rank))
+  end
 end

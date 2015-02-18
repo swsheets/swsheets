@@ -5,6 +5,8 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
   alias EdgeBuilder.Models.Talent
   alias EdgeBuilder.Models.Attack
   alias EdgeBuilder.Models.BaseSkill
+  alias EdgeBuilder.Models.CharacterSkill
+  import Ecto.Query, only: [from: 2]
 
   describe "edit" do
     it "renders the character edit form" do
@@ -217,6 +219,73 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
       assert Enum.count(character.attacks) == 0
       assert EdgeBuilder.Repo.all(Attack) |> Enum.count == 0
+    end
+
+    it "creates new skills when they differ from default values" do
+      character = %Character{
+        name: "Greedo",
+        species: "Rodian",
+        career: "Bounty Hunter",
+      } |> EdgeBuilder.Repo.insert
+
+      base_skill = EdgeBuilder.Repo.one(from bs in BaseSkill, where: bs.name == "Athletics")
+
+      conn = request(:put, "/characters/#{character.id}", %{"character" => %{}, "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 1, "is_career" => "on"}}})
+
+      assert conn.status == 200
+
+      character = Character.full_character(character.id)
+      assert Enum.count(character.character_skills) == 1
+
+      character_skill = Enum.at(character.character_skills,0)
+      assert character_skill.rank == 1
+      assert character_skill.is_career
+      assert character_skill.base_skill_id == base_skill.id
+    end
+
+    it "does not create new skills for skills that are not persisted and that do not differ from defaults" do
+      character = %Character{
+        name: "Greedo",
+        species: "Rodian",
+        career: "Bounty Hunter",
+      } |> EdgeBuilder.Repo.insert
+
+      base_skill = EdgeBuilder.Repo.one(from bs in BaseSkill, where: bs.name == "Athletics")
+
+      conn = request(:put, "/characters/#{character.id}", %{"character" => %{}, "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 0}}})
+
+      assert conn.status == 200
+
+      character = Character.full_character(character.id)
+
+      assert Enum.count(character.character_skills) == 0
+    end
+
+    it "updates and does not delete previously-saved skills that are set back to the default" do
+      character = %Character{
+        name: "Greedo",
+        species: "Rodian",
+        career: "Bounty Hunter",
+      } |> EdgeBuilder.Repo.insert
+
+      base_skill = EdgeBuilder.Repo.one(from bs in BaseSkill, where: bs.name == "Athletics")
+
+      original_character_skill = %CharacterSkill{
+        base_skill_id: base_skill.id,
+        character_id: character.id,
+        rank: 5
+      } |> EdgeBuilder.Repo.insert
+
+      conn = request(:put, "/characters/#{character.id}", %{"character" => %{}, "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 0, "id" => original_character_skill.id}}})
+
+      assert conn.status == 200
+
+      character = Character.full_character(character.id)
+
+      character_skill = Enum.at(character.character_skills, 0)
+
+      assert character_skill.id == original_character_skill.id
+      assert character_skill.rank == 0
     end
   end
 end
