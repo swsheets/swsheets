@@ -12,6 +12,6 @@ defmodule EdgeBuilder.Models.Talent do
 
   def changeset(talent, params \\ %{}) do
     params
-      |> cast(talent, [], ~w(name book_and_page description character_id))
+      |> cast(talent, ~w(character_id), ~w(name book_and_page description))
   end
 end

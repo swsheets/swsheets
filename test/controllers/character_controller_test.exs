@@ -3,6 +3,8 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
   alias EdgeBuilder.Models.Character
   alias EdgeBuilder.Models.Talent
+  alias EdgeBuilder.Models.Attack
+  alias EdgeBuilder.Models.BaseSkill
 
   describe "edit" do
     it "renders the character edit form" do
@@ -139,6 +141,82 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
       assert Enum.count(character.talents) == 0
       assert EdgeBuilder.Repo.all(Talent) |> Enum.count == 0
+    end
+
+    it "updates the character's prior attacks" do
+      character = %Character{
+        name: "Greedo",
+        species: "Rodian",
+        career: "Bounty Hunter",
+      } |> EdgeBuilder.Repo.insert
+
+      attack = %Attack{
+        weapon_name: "Holdout Blaster",
+        range: "Short",
+        character_id: character.id
+      } |> EdgeBuilder.Repo.insert
+
+      conn = request(:put, "/characters/#{character.id}", %{"character" => %{}, "attacks" => %{
+        "0" => %{"weapon_name" => "Claws", "range" => "Engaged", "id" => attack.id}
+      }})
+
+      assert conn.status == 200
+
+      character = Character.full_character(character.id)
+
+      assert Enum.count(character.attacks) == 1
+      attack = Enum.at(character.attacks, 0)
+
+      assert attack.weapon_name == "Claws"
+      assert attack.range == "Engaged"
+    end
+
+    it "creates new attacks for the character" do
+      character = %Character{
+        name: "Greedo",
+        species: "Rodian",
+        career: "Bounty Hunter",
+      } |> EdgeBuilder.Repo.insert
+
+      base_skill = EdgeBuilder.Repo.all(BaseSkill) |> Enum.at(0)
+
+      conn = request(:put, "/characters/#{character.id}", %{"character" => %{}, "attacks" => %{
+        "0" => %{"weapon_name" => "Claws", "range" => "Engaged", "base_skill_id" => base_skill.id}
+      }})
+
+      assert conn.status == 200
+
+      character = Character.full_character(character.id)
+
+      assert Enum.count(character.attacks) == 1
+      attack = Enum.at(character.attacks, 0)
+
+      assert attack.weapon_name == "Claws"
+      assert attack.range == "Engaged"
+      assert attack.base_skill_id == base_skill.id
+    end
+
+    it "deletes any attacks for that character that were not specified in the update" do
+      character = %Character{
+        name: "Greedo",
+        species: "Rodian",
+        career: "Bounty Hunter",
+      } |> EdgeBuilder.Repo.insert
+
+      attack = %Attack{
+        weapon_name: "Holdout Blaster",
+        range: "Short",
+        character_id: character.id
+      } |> EdgeBuilder.Repo.insert
+
+      conn = request(:put, "/characters/#{character.id}", %{"character" => %{}})
+
+      assert conn.status == 200
+
+      character = Character.full_character(character.id)
+
+      assert Enum.count(character.attacks) == 0
+      assert EdgeBuilder.Repo.all(Attack) |> Enum.count == 0
     end
   end
 end

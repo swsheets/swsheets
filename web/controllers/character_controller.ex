@@ -13,7 +13,8 @@ defmodule EdgeBuilder.CharacterController do
   def update(conn, params = %{"id" => id, "character" => character_params}) do
     changemap = %{
       root: character_changeset(id, character_params),
-      talents: talent_changesets(id, params["talents"])
+      talents: child_changesets(params["talents"], EdgeBuilder.Models.Talent, id),
+      attacks: child_changesets(params["attacks"], EdgeBuilder.Models.Attack, id)
     }
 
     if Changemap.valid?(changemap) do
@@ -36,16 +37,16 @@ defmodule EdgeBuilder.CharacterController do
       |> Character.changeset(params)
   end
 
-  defp talent_changesets(character_id, params) when is_map(params) do
+  defp child_changesets(params, child_model, character_id) when is_map(params) do
     params
       |> Map.values
       |> Enum.map(&(Map.put(&1, "character_id", character_id)))
-      |> Enum.map(fn talent_params ->
-        case talent_params do
-          %{"id" => id} -> EdgeBuilder.Repo.get(EdgeBuilder.Models.Talent, id)
-          _ -> %EdgeBuilder.Models.Talent{}
-        end |> EdgeBuilder.Models.Talent.changeset(talent_params)
+      |> Enum.map(fn child_params ->
+        case child_params do
+          %{"id" => id} -> EdgeBuilder.Repo.get(child_model, id)
+          _ -> child_model.__struct__
+        end |> child_model.changeset(child_params)
       end)
   end
-  defp talent_changesets(_,_), do: []
+  defp child_changesets(_,_,_), do: []
 end

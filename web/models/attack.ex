@@ -13,4 +13,9 @@ defmodule EdgeBuilder.Models.Attack do
     belongs_to :character, Character
     belongs_to :base_skill, BaseSkill
   end
+
+  def changeset(attack, params \\ %{}) do
+    params
+      |> cast(attack, ~w(character_id), ~w(weapon_name range specials damage critical base_skill_id))
+  end
 end
