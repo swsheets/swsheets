@@ -203,7 +203,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         career: "Bounty Hunter",
       } |> EdgeBuilder.Repo.insert
 
-      attack = %Attack{
+      %Attack{
         weapon_name: "Holdout Blaster",
         range: "Short",
         character_id: character.id

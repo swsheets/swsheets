@@ -44,7 +44,7 @@ defmodule EdgeBuilder.CharacterController do
       |> Enum.map(fn child_params ->
         case child_params do
           %{"id" => id} -> EdgeBuilder.Repo.get(child_model, id)
-          _ -> child_model.__struct__
+          _ -> struct(child_model)
         end |> child_model.changeset(child_params)
       end)
   end
