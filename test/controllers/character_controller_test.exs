@@ -124,7 +124,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         career: "Bounty Hunter",
       } |> EdgeBuilder.Repo.insert
 
-      talent = %Talent{
+      %Talent{
         name: "Quick Draw",
         book_and_page: "EotE Core p145",
         description: "Draws a gun quickly",
