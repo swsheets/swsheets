@@ -19,7 +19,7 @@ defmodule EdgeBuilder.Models.Attack do
 
   def changeset(attack, params \\ %{}) do
     params
-      |> cast(attack, ~w(character_id), ~w(weapon_name range specials damage critical base_skill_id))
+      |> cast(attack, [], ~w(character_id weapon_name range specials damage critical base_skill_id))
   end
 
   def for_character(character_id) do

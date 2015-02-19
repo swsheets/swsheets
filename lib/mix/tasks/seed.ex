@@ -113,12 +113,12 @@ defmodule Mix.Tasks.Seed do
         is_attack_skill: true,
       },
       %BaseSkill {
-        name: "Ranged - Light",
+        name: "Ranged: Light",
         characteristic: "Agility",
         is_attack_skill: true,
       },
       %BaseSkill {
-        name: "Ranged - Heavy",
+        name: "Ranged: Heavy",
         characteristic: "Agility",
         is_attack_skill: true,
       },

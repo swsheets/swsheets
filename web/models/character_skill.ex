@@ -16,7 +16,7 @@ defmodule EdgeBuilder.Models.CharacterSkill do
 
   def changeset(character_skill, params \\ %{}) do
     params
-      |> cast(character_skill, ~w(character_id base_skill_id), ~w(is_career rank))
+      |> cast(character_skill, ~w(base_skill_id), ~w(character_id is_career rank))
   end
 
   def for_character(id) do

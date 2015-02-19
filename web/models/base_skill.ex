@@ -14,4 +14,11 @@ defmodule EdgeBuilder.Models.BaseSkill do
   def all do
     Repo.all(__MODULE__)
   end
+
+  def by_name(name) do
+    Repo.one(
+      from bs in __MODULE__,
+        where: bs.name == ^name
+    )
+  end
 end

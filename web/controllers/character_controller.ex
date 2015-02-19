@@ -19,6 +19,29 @@ defmodule EdgeBuilder.CharacterController do
       character_skills: CharacterSkill.add_missing_defaults([])
   end
 
+  def create(conn, params = %{"character" => character_params}) do
+    changemap = %{
+      root: Character.changeset(%Character{}, character_params),
+      talents: child_changesets(params["talents"], Talent),
+      attacks: child_changesets(params["attacks"], Attack),
+      character_skills: character_skill_changesets(params["skills"])
+    }
+
+    if Changemap.valid?(changemap) do
+      changemap
+        |> Changemap.apply
+
+      conn
+        |> put_status(200)
+        |> text "ok"
+    else
+      conn
+        |> put_status(400)
+        |> text "not ok"
+    end
+  end
+
+
   def edit(conn, %{"id" => id}) do
     character = Repo.get(Character, id) |> Character.changeset
 
@@ -33,9 +56,9 @@ defmodule EdgeBuilder.CharacterController do
   def update(conn, params = %{"id" => id, "character" => character_params}) do
     changemap = %{
       root: Repo.get(Character, id) |> Character.changeset(character_params),
-      talents: child_changesets(params["talents"], Talent, id),
-      attacks: child_changesets(params["attacks"], Attack, id),
-      character_skills: character_skill_changesets(params["skills"], id)
+      talents: child_changesets(params["talents"], Talent),
+      attacks: child_changesets(params["attacks"], Attack),
+      character_skills: character_skill_changesets(params["skills"])
     }
 
     if Changemap.valid?(changemap) do
@@ -53,24 +76,22 @@ defmodule EdgeBuilder.CharacterController do
     end
   end
 
-  defp child_changesets(params, child_model, character_id) when is_map(params) do
+  defp child_changesets(params, child_model) when is_map(params) do
     params
       |> Map.values
-      |> Enum.map(&(Map.put(&1, "character_id", character_id)))
       |> Enum.map(&(to_changeset(&1, child_model)))
   end
-  defp child_changesets(_,_,_), do: []
+  defp child_changesets(_,_), do: []
 
   defp to_changeset(params = %{"id" => id}, model), do: Repo.get(model, id) |> model.changeset(params)
   defp to_changeset(params, model), do: model.changeset(struct(model), params)
 
-  defp character_skill_changesets(params, character_id) when is_map(params) do
+  defp character_skill_changesets(params) when is_map(params) do
     params
       |> Map.values
-      |> Enum.map(&(Map.put(&1, "character_id", character_id)))
       |> Enum.map(&(Map.put(&1, "is_career", !is_nil(&1["is_career"]))))
       |> Enum.map(&(to_changeset(&1, CharacterSkill)))
       |> Enum.reject(&CharacterSkill.is_default_changeset?/1)
   end
-  defp character_skill_changesets(_, _), do: []
+  defp character_skill_changesets(_), do: []
 end
