@@ -9,22 +9,22 @@
     <%= for {talent, i} <- Enum.with_index(@talents) do %>
       <tr>
         <td>
-          <input type="hidden" name="talents[<%= i %>][id]" value="<%= talent.id %>" />
+          <input type="hidden" name="talents[<%= i %>][id]" value="<%= get_field(talent, :id) %>" />
           <div class="form-group-sm">
             <label for="talents[<%= i %>][name]" class="sr-only">Name</label>
-            <input type="text" class="form-control" name="talents[<%= i %>][name]" placeholder="Name" value="<%= talent.name %>" />
+            <input type="text" class="form-control" name="talents[<%= i %>][name]" placeholder="Name" value="<%= get_field(talent, :name) %>" />
           </div>
         </td>
         <td>
           <div class="form-group-sm">
             <label for="talents[<%= i %>][book_and_page]" class="sr-only">Book &amp; Page</label>
-            <input type="text" class="form-control" name="talents[<%= i %>][book_and_page]" placeholder="Book &amp; Page" value="<%= talent.book_and_page %>" />
+            <input type="text" class="form-control" name="talents[<%= i %>][book_and_page]" placeholder="Book &amp; Page" value="<%= get_field(talent, :book_and_page) %>" />
           </div>
         </td>
         <td>
           <div class="form-group-sm">
             <label for="talents[<%= i %>][description]" class="sr-only">Description</label>
-            <input type="text" class="form-control" name="talents[<%= i %>][description]" placeholder="Description" value="<%= talent.description %>" />
+            <input type="text" class="form-control" name="talents[<%= i %>][description]" placeholder="Description" value="<%= get_field(talent, :description) %>" />
           </div>
         </td>
         <td class="col-md-1">

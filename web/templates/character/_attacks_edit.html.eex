@@ -6,10 +6,10 @@
     <%= for {attack, i} <- Enum.with_index(@attacks) do %>
       <tr class="active">
         <td class="col-md-5">
-          <input type="hidden" name="attacks[<%= i %>][id]" value="<%= attack.id %>" />
+          <input type="hidden" name="attacks[<%= i %>][id]" value="<%= get_field(attack, :id) %>" />
           <div class="form-group form-group-sm">
             <label class="sr-only" for="attacks[<%= i %>][weapon_name]">Weapon</label>
-            <input type="text" class="form-control" name="attacks[<%= i %>][weapon_name]" placeholder="Weapon Name" value="<%= attack.weapon_name %>" />
+            <input type="text" class="form-control" name="attacks[<%= i %>][weapon_name]" placeholder="Weapon Name" value="<%= get_field(attack, :weapon_name) %>" />
           </div>
         </td>
         <td class="form-inline">
@@ -42,19 +42,19 @@
         <td>
           <div class="form-group form-group-sm">
             <label for="attacks[<%= i %>][specials]" class="sr-only">Specials</label>
-            <input type="text" class="form-control" name="attacks[<%= i %>][specials]" placeholder="Specials" value="<%= attack.specials %>" />
+            <input type="text" class="form-control" name="attacks[<%= i %>][specials]" placeholder="Specials" value="<%= get_field(attack, :specials) %>" />
           </div>
         </td>
         <td class="form-inline">
           <div class="form-group form-group-sm pull-right">
             <label for="attacks[<%= i %>][damage]">Damage</label>
-            <input type="text" class="form-control" size=5 name="attacks[<%= i %>][damage]" value="<%= attack.damage %>" />
+            <input type="text" class="form-control" size=5 name="attacks[<%= i %>][damage]" value="<%= get_field(attack, :damage) %>" />
           </div>
         </td>
         <td class="form-inline">
           <div class="form-group form-group-sm pull-right">
             <label for="attacks[<%= i %>][critical]">Critical</label>
-            <input type="text" class="form-control" size=5 name="attacks[<%= i %>][critical]" value="<%= attack.critical %>" />
+            <input type="text" class="form-control" size=5 name="attacks[<%= i %>][critical]" value="<%= get_field(attack, :critical) %>" />
           </div>
         </td>
         <td>

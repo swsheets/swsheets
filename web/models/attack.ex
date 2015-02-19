@@ -3,6 +3,9 @@ defmodule EdgeBuilder.Models.Attack do
 
   alias EdgeBuilder.Models.Character
   alias EdgeBuilder.Models.BaseSkill
+  alias EdgeBuilder.Repo
+  import Ecto.Query, only: [from: 2]
+
 
   schema "attacks" do
     field :weapon_name, :string
@@ -17,5 +20,12 @@ defmodule EdgeBuilder.Models.Attack do
   def changeset(attack, params \\ %{}) do
     params
       |> cast(attack, ~w(character_id), ~w(weapon_name range specials damage critical base_skill_id))
+  end
+
+  def for_character(character_id) do
+    Repo.all(
+      from t in __MODULE__,
+        where: t.character_id == ^character_id
+    )
   end
 end

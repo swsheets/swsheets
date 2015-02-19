@@ -2,17 +2,25 @@ defmodule EdgeBuilder.CharacterController do
   use Phoenix.Controller
 
   alias EdgeBuilder.Models.Character
+  alias EdgeBuilder.Models.Talent
+  alias EdgeBuilder.Models.Attack
+  alias EdgeBuilder.Models.CharacterSkill
   alias EdgeBuilder.Changemap
+  alias EdgeBuilder.Repo
 
   plug :action
 
   def edit(conn, %{"id" => id}) do
-    render conn, "edit.html", character: Character.full_character(id)
+    render conn, "edit.html",
+      character: Repo.get(Character, id) |> Character.changeset,
+      talents: Talent.for_character(id) |> Enum.map(&Talent.changeset/1),
+      attacks: Attack.for_character(id) |> Enum.map(&Attack.changeset/1),
+      character_skills: CharacterSkill.for_character(id) |> Enum.map(&CharacterSkill.changeset/1) |> CharacterSkill.add_missing_defaults
   end
 
   def update(conn, params = %{"id" => id, "character" => character_params}) do
     changemap = %{
-      root: character_changeset(id, character_params),
+      root: Repo.get(Character, id) |> Character.changeset(character_params),
       talents: child_changesets(params["talents"], EdgeBuilder.Models.Talent, id),
       attacks: child_changesets(params["attacks"], EdgeBuilder.Models.Attack, id),
       character_skills: character_skill_changesets(params["skills"], id)
@@ -31,12 +39,6 @@ defmodule EdgeBuilder.CharacterController do
         |> put_status(400)
         |> text "not ok"
     end
-  end
-
-  # I suspect I'll eventually get rid of this (and Character.full_character) when I have a unified model interface for actions on this controller
-  defp character_changeset(id, params) do
-    Character.full_character(id)
-      |> Character.changeset(params)
   end
 
   defp character_skill_changesets(params, character_id) when is_map(params) do
@@ -66,6 +68,6 @@ defmodule EdgeBuilder.CharacterController do
       end)
   end
 
-  defp to_changeset(params = %{"id" => id}, model), do: EdgeBuilder.Repo.get(model, id) |> model.changeset(params)
+  defp to_changeset(params = %{"id" => id}, model), do: Repo.get(model, id) |> model.changeset(params)
   defp to_changeset(params, model), do: model.changeset(struct(model), params)
 end

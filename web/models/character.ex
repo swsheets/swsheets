@@ -50,12 +50,6 @@ defmodule EdgeBuilder.Models.Character do
       |> cast(character, required_fields, optional_fields)
   end
 
-  def full_character(id) do
-    character = Repo.one from c in EdgeBuilder.Models.Character, where: c.id == ^id, preload: [:talents, :attacks, [character_skills: :base_skill]]
-
-    character |> populate_combined_character_skills
-  end
-
   defp scrub_empty_strings(params) do
     Enum.map(params, fn
       {k, ""} -> {k, nil}
@@ -65,25 +59,4 @@ defmodule EdgeBuilder.Models.Character do
 
   defp required_fields, do: [:name, :species, :career]
   defp optional_fields, do: __schema__(:fields) -- [:id | required_fields]
-
-  defp populate_combined_character_skills(character) do
-    %{character | combined_character_skills:
-      Repo.all(BaseSkill) |> Enum.map(&(character_skill_or_default(&1,character.character_skills)))
-    }
-  end
-
-  defp character_skill_or_default(base_skill, character_skills) do
-    skill_template = %{
-      name: base_skill.name,
-      characteristic: base_skill.characteristic,
-      base_skill_id: base_skill.id,
-      is_attack_skill: base_skill.is_attack_skill
-    }
-
-    character_skill = Enum.find(character_skills, %CharacterSkill{}, &(&1.base_skill == base_skill))
-
-    character_skill
-      |> Map.take([:rank, :is_career, :id])
-      |> Map.merge(skill_template)
-  end
 end
