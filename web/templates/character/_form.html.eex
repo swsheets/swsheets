@@ -1,0 +1,284 @@
+<div class="row">
+  <div class="col-md-8">
+    <div class="row">
+      <div class="form-group">
+        <label for="character[name]" class='label-lg'>Character Name</label>
+        <input type="text" class="form-control input-lg" name="character[name]" value="<%= get_field(@character, :name) %>" />
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label for="character[species]">Species</label>
+            <input type="text" class="form-control" name="character[species]" value="<%= get_field(@character, :species) %>" />
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label for="character[career]">Career</label>
+            <input type="text" class="form-control" name="character[career]" value="<%= get_field(@character, :career) %>" />
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="character[specializations]">Specializations</label>
+            <input type="specializations" class="form-control" name="character[specializations]" value="<%= get_field(@character, :specializations) %>" />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <hr>
+      </div>
+      <div class="row">
+        <div class="col-sm-3 col-xs-6">
+          <div class="panel panel-default">
+            <div class="panel-body soak-panel">
+              <input type="number" step="1" class="form-control" min=0 name="character[soak]" value="<%= get_field(@character, :soak) %>" />
+            </div>
+            <div class="panel-footer text-center">
+              <label for="character[soak]">Soak</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3 col-xs-6">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="input-group">
+                <div class="input-group-addon addon-core-attr">Threshold</div>
+                <label for="character[wounds_threshold]" class="sr-only">Wound Threshold</label>
+                <input type="number" step="1" class="form-control" min=0 name="character[wounds_threshold]" value="<%= get_field(@character, :wounds_threshold) %>" />
+              </div>
+              <div class="input-group">
+                <div class="input-group-addon addon-core-attr">Current</div>
+                <label for="character[wounds_current]" class="sr-only">Current Wounds</label>
+                <input type="number" step="1" class="form-control" min=0 id="character[wounds_current]" value="<%= get_field(@character, :wounds_current) %>" />
+              </div>
+            </div>
+            <div class="panel-footer text-center">
+              <label>Wounds</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3 col-xs-6">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="input-group">
+                <div class="input-group-addon addon-core-attr">Threshold</div>
+                <label for="character[strain_threshold]" class="sr-only">Strain Threshold</label>
+                <input type="number" step="1" class="form-control" min=0 name="character[strain_threshold]" value="<%= get_field(@character, :strain_threshold) %>" />
+              </div>
+              <div class="input-group">
+                <div class="input-group-addon addon-core-attr">Current</div>
+                <label for="character[strain_current]" class="sr-only">Current Strain</label>
+                <input type="number" step="1" class="form-control" min=0 id="character[strain_current]" value="<%= get_field(@character, :strain_current) %>" />
+              </div>
+            </div>
+            <div class="panel-footer text-center">
+              <label>Strain</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3 col-xs-6">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="input-group">
+                <div class="input-group-addon addon-core-attr">Ranged</div>
+                <label for="character[defense_ranged]" class="sr-only">Ranged Defense</label>
+                <input type="number" step="1" class="form-control" min=0 name="character[defense_ranged]" value="<%= get_field(@character, :defense_ranged) %>" />
+              </div>
+              <div class="input-group">
+                <div class="input-group-addon addon-core-attr">Melee</div>
+                <label for="character[defense_melee]" class="sr-only">Melee Defense</label>
+                <input type="number" step="1" class="form-control" min=0 name="character[defense_melee]" value="<%= get_field(@character, :defense_melee) %>" />
+              </div>
+            </div>
+            <div class="panel-footer text-center">
+              <label>Defense</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label for="imageUrl">Portrait URL</label>
+      <input type="url" class="form-control" name="imageUrl" value="<%= get_field(@character, :portrait_url) %>">
+    </div>
+    <p class="text-center">
+      <img src="<%= image_or_default(@character) %>" alt="Placeholder Image" class="img-thumbnail">
+    </p>
+  </div>
+</div>
+
+<div role="tabpanel">
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#stats" aria-controls="stats" role="tab" data-toggle="tab">Stats</a></li>
+    <li role="presentation"><a href="#bio" aria-controls="bio" role="tab" data-toggle="tab">Bio</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="stats">
+      <div class="row">
+        <h4>Characteristics</h4>
+      </div>
+
+      <!-- attributes -->
+      <div class="row">
+        <div class="col-md-2">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <input type="number" step="1" class="form-control" min=0 id="character[characteristic_brawn]" value="<%= get_field(@character, :characteristic_brawn) %>" />
+            </div>
+            <div class="panel-footer text-center">
+              <label for="character[characteristic_brawn]">Brawn</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <input type="number" step="1" class="form-control" min=0 id="character[characteristic_agility]" value="<%= get_field(@character, :characteristic_agility) %>" />
+            </div>
+            <div class="panel-footer text-center">
+              <label for="character[characteristic_agility]">Agility</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <input type="number" step="1" class="form-control" min=0 id="character[characteristic_intellect]" value="<%= get_field(@character, :characteristic_intellect) %>" />
+            </div>
+            <div class="panel-footer text-center">
+              <label for="character[characteristic_intellect]">Intellect</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <input type="number" step="1" class="form-control" min=0 id="character[characteristic_cunning]" value="<%= get_field(@character, :characteristic_cunning) %>" />
+            </div>
+            <div class="panel-footer text-center">
+              <label for="character[characteristic_cunning]">Cunning</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <input type="number" step="1" class="form-control" min=0 id="character[characteristic_willpower]" value="<%= get_field(@character, :characteristic_willpower) %>" />
+            </div>
+            <div class="panel-footer text-center">
+              <label for="character[characteristic_willpower]">Willpower</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <input type="number" step="1" class="form-control" min=0 id="character[characteristic_presence]" value="<%= get_field(@character, :characteristic_presence) %>" />
+            </div>
+            <div class="panel-footer text-center">
+              <label for="character[characteristic_presence]">Presence</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <hr>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-5">
+          <%= render "_form_skills.html", character_skills: @character_skills %>
+        </div>
+        <div class="col-sm-7">
+          <%= render "_form_attacks.html", attacks: @attacks %>
+          <hr>
+          <div class="row">
+            <div class="col-md-6">
+              <h4>Gear</h4>
+              <textarea rows=16 class="form-control col-offset-2 col-md-8"><%= get_field(@character, :gear) %></textarea>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                      <input type="number" step="1" class="form-control" min=0 name="character[credits]" value="<%= get_field(@character, :credits) %>" />
+                    </div>
+                    <div class="panel-footer text-center">
+                      <label for="character[credits]">Credits</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                      <input type="text" class="form-control" min=0 name="character[encumbrance]" value="<%= get_field(@character, :encumbrance) %>" />
+                    </div>
+                    <div class="panel-footer text-center">
+                      <label for="character[encumbrance]">Encumbrance</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                      <input type="number" step="1" class="form-control" min=0 name="character[xp_available]" value="<%= get_field(@character, :xp_available) %>" />
+                    </div>
+                    <div class="panel-footer text-center">
+                      <label for="character[xp_available]">Available XP</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                      <input type="number" step="1" class="form-control" min=0 name="character[xp_total]" value="<%= get_field(@character, :xp_total) %>" />
+                    </div>
+                    <div class="panel-footer text-center">
+                      <label for="character[xp_total]">Total XP</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <%= render "_form_talents.html", talents: @talents %>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="bio">
+      <div class="row">
+        <div class="col-md-6">
+          <h4>Background</h4>
+          <textarea name="character[background]" rows=20 class="form-control"><%= get_field(@character, :background) %></textarea>
+          <h4>Motivation</h4>
+          <textarea name="character[motivation]" rows=20 class="form-control"><%= get_field(@character, :motivation) %></textarea>
+        </div>
+        <div class="col-md-6">
+          <h4>Obligation</h4>
+          <textarea name="character[obligation]" rows=20 class="form-control"><%= get_field(@character, :obligation) %></textarea>
+          <h4>Description</h4>
+          <textarea name="character[description]" rows=20 class="form-control"><%= get_field(@character, :description) %></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <h4>Other Notes</h4>
+        <textarea name="character[other_notes]" rows=20 class="form-control"><%= get_field(@character, :other_notes) %></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <p class="text-center return-box">
+    <a href="#">Return to Top</a>
+  </p>
+</div>

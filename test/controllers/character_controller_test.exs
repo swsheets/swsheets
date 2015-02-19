@@ -8,6 +8,15 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
   alias EdgeBuilder.Models.CharacterSkill
   import Ecto.Query, only: [from: 2]
 
+  describe "new" do
+    it "renders the character edit form for a new character" do
+      conn = request(:get, "/characters/new")
+
+      assert conn.status == 200
+      assert String.contains?(conn.resp_body, "New Character")
+    end
+  end
+
   describe "edit" do
     it "renders the character edit form" do
       character = %Character{

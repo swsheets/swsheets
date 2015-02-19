@@ -10,9 +10,21 @@ defmodule EdgeBuilder.CharacterController do
 
   plug :action
 
+  def new(conn, _params) do
+    render conn, "new.html",
+      title: "New Character",
+      character: %Character{} |> Character.changeset,
+      talents: [%Talent{} |> Talent.changeset],
+      attacks: [%Attack{} |> Attack.changeset],
+      character_skills: CharacterSkill.add_missing_defaults([])
+  end
+
   def edit(conn, %{"id" => id}) do
+    character = Repo.get(Character, id) |> Character.changeset
+
     render conn, "edit.html",
-      character: Repo.get(Character, id) |> Character.changeset,
+      title: "Editing #{Ecto.Changeset.get_field(character, :name)}",
+      character: character,
       talents: Talent.for_character(id) |> Enum.map(&Talent.changeset/1),
       attacks: Attack.for_character(id) |> Enum.map(&Attack.changeset/1),
       character_skills: CharacterSkill.for_character(id) |> Enum.map(&CharacterSkill.changeset/1) |> CharacterSkill.add_missing_defaults
