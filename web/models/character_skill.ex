@@ -26,6 +26,15 @@ defmodule EdgeBuilder.Models.CharacterSkill do
     )
   end
 
+  def is_default_changeset?(changeset) do
+    default = struct(__MODULE__)
+
+    is_nil(changeset.model.id)
+      && Enum.all?([:rank, :is_career], fn field ->
+        Ecto.Changeset.get_field(changeset, field) == Map.fetch!(default, field)
+      end)
+  end
+
   def add_missing_defaults(character_skills) do
     BaseSkill.all
       |> Enum.map(&(character_skill_or_default(&1, character_skills)))

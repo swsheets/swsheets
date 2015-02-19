@@ -21,8 +21,8 @@ defmodule EdgeBuilder.CharacterController do
   def update(conn, params = %{"id" => id, "character" => character_params}) do
     changemap = %{
       root: Repo.get(Character, id) |> Character.changeset(character_params),
-      talents: child_changesets(params["talents"], EdgeBuilder.Models.Talent, id),
-      attacks: child_changesets(params["attacks"], EdgeBuilder.Models.Attack, id),
+      talents: child_changesets(params["talents"], Talent, id),
+      attacks: child_changesets(params["attacks"], Attack, id),
       character_skills: character_skill_changesets(params["skills"], id)
     }
 
@@ -41,16 +41,6 @@ defmodule EdgeBuilder.CharacterController do
     end
   end
 
-  defp character_skill_changesets(params, character_id) when is_map(params) do
-    params
-      |> Map.values
-      |> Enum.map(&(Map.put(&1, "character_id", character_id)))
-      |> Enum.map(&(Map.put(&1, "is_career", !is_nil(&1["is_career"]))))
-      |> Enum.map(&(to_changeset(&1, EdgeBuilder.Models.CharacterSkill)))
-      |> Enum.reject(&matches_default_character_skill/1)
-  end
-  defp character_skill_changesets(_, _), do: []
-
   defp child_changesets(params, child_model, character_id) when is_map(params) do
     params
       |> Map.values
@@ -59,15 +49,16 @@ defmodule EdgeBuilder.CharacterController do
   end
   defp child_changesets(_,_,_), do: []
 
-  defp matches_default_character_skill(changeset) do
-    default = %EdgeBuilder.Models.CharacterSkill{}
-
-    is_nil(changeset.model.id)
-      && Enum.all?([:rank, :is_career], fn field ->
-        Ecto.Changeset.get_field(changeset, field) == Map.fetch!(default, field)
-      end)
-  end
-
   defp to_changeset(params = %{"id" => id}, model), do: Repo.get(model, id) |> model.changeset(params)
   defp to_changeset(params, model), do: model.changeset(struct(model), params)
+
+  defp character_skill_changesets(params, character_id) when is_map(params) do
+    params
+      |> Map.values
+      |> Enum.map(&(Map.put(&1, "character_id", character_id)))
+      |> Enum.map(&(Map.put(&1, "is_career", !is_nil(&1["is_career"]))))
+      |> Enum.map(&(to_changeset(&1, CharacterSkill)))
+      |> Enum.reject(&CharacterSkill.is_default_changeset?/1)
+  end
+  defp character_skill_changesets(_, _), do: []
 end

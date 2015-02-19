@@ -61,4 +61,35 @@ defmodule EdgeBuilder.Models.CharacterSkillTest do
       assert unmatched_character_skill.rank == 0
     end
   end
+
+  describe "is_default_changeset?" do
+    it "always returns false for any persisted model" do
+      character_skill = %CharacterSkill{
+        character_id: 1,
+        base_skill_id: 1,
+      } |> Repo.insert
+
+      refute character_skill |> CharacterSkill.changeset |> CharacterSkill.is_default_changeset?
+    end
+
+    it "returns false when the changeset has a non-default value" do
+      changeset = %CharacterSkill{
+        character_id: 1,
+        base_skill_id: 1,
+        rank: 4
+      } |> CharacterSkill.changeset
+
+      refute CharacterSkill.is_default_changeset?(changeset)
+    end
+
+    it "returns true when a changeset has default non-assocation values and has not yet been persisted" do
+      changeset = %CharacterSkill{
+        character_id: 1,
+        base_skill_id: 1,
+        rank: 0
+      } |> CharacterSkill.changeset
+
+      assert CharacterSkill.is_default_changeset?(changeset)
+    end
+  end
 end
