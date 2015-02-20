@@ -31,7 +31,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       skills_with_user_edit = base_skills
         |> Map.put("Athletics", %{"base_skill_id" => BaseSkill.by_name("Athletics").id, "rank" => "3", "is_career" => "on"})
 
-      conn = request(:post, "/characters", %{
+      request(:post, "/characters", %{
         "character" => %{
           "name" => "Greedo",
           "species" => "Rodian",
@@ -46,7 +46,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
           "specializations" => "Hired Gun",
           "strain_current" => "4",
           "strain_threshold" => "5",
-          "wounds_current" => "6",
+          "wounds_current" => "",
           "wounds_threshold" => "7",
           "xp_available" => "100",
           "xp_total" => "200",
@@ -56,7 +56,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         },
         "attacks" => %{
           "0" => %{"critical" => "3", "damage" => "4", "range" => "Short", "base_skill_id" => BaseSkill.by_name("Ranged: Light").id, "specials" => "Stun Setting", "weapon_name" => "Holdout Blaster"},
-          "1" => %{"critical" => "5", "damage" => "+1", "range" => "Engaged", "base_skill_id" => BaseSkill.by_name("Brawl").id, "specials" => "", "weapon_name" => "Claws"}
+          "1" => %{"id" => "", "critical" => "5", "damage" => "+1", "range" => "Engaged", "base_skill_id" => BaseSkill.by_name("Brawl").id, "specials" => "", "weapon_name" => "Claws"}
         },
         "skills" => skills_with_user_edit,
         "talents" => %{
@@ -80,7 +80,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert character.specializations == "Hired Gun"
       assert character.strain_current == 4
       assert character.strain_threshold == 5
-      assert character.wounds_current == 6
+      assert is_nil(character.wounds_current)
       assert character.wounds_threshold == 7
       assert character.xp_available == 100
       assert character.xp_total == 200
@@ -101,7 +101,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert second_attack.damage == "+1"
       assert second_attack.range == "Engaged"
       assert second_attack.base_skill_id == BaseSkill.by_name("Brawl").id
-      assert second_attack.specials == ""
+      assert second_attack.specials == nil
       assert second_attack.weapon_name == "Claws"
 
       [first_talent, second_talent] = Talent.for_character(character.id)
@@ -130,11 +130,29 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         career: "Bounty Hunter"
       } |> EdgeBuilder.Repo.insert
 
+      character_skill = %CharacterSkill{
+        base_skill_id: BaseSkill.by_name("Athletics").id,
+        rank: 4,
+        character_id: character.id
+      } |> EdgeBuilder.Repo.insert
+
+      talent = %Talent{
+        name: "Quick Draw",
+        character_id: character.id
+      } |> EdgeBuilder.Repo.insert
+
+      attack = %Attack{
+        weapon_name: "Holdout Blaster",
+        character_id: character.id
+      } |> EdgeBuilder.Repo.insert
+
       conn = request(:get, "/characters/#{character.id}/edit")
 
       assert conn.status == 200
-      assert String.contains?(conn.resp_body, "Greedo")
-      assert String.contains?(conn.resp_body, "Rodian")
+      assert String.contains?(conn.resp_body, character.name)
+      assert String.contains?(conn.resp_body, character_skill.rank |> to_string)
+      assert String.contains?(conn.resp_body, talent.name)
+      assert String.contains?(conn.resp_body, attack.weapon_name)
     end
   end
 

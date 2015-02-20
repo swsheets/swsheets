@@ -1,9 +1,7 @@
 defmodule EdgeBuilder.Models.Talent do
-  use Ecto.Model
+  use EdgeBuilder.Model
 
   alias EdgeBuilder.Models.Character
-  alias EdgeBuilder.Repo
-  import Ecto.Query, only: [from: 2]
 
   schema "talents" do
     field :name, :string

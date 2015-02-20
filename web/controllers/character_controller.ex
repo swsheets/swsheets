@@ -41,7 +41,6 @@ defmodule EdgeBuilder.CharacterController do
     end
   end
 
-
   def edit(conn, %{"id" => id}) do
     character = Repo.get(Character, id) |> Character.changeset
 
@@ -50,7 +49,7 @@ defmodule EdgeBuilder.CharacterController do
       character: character,
       talents: Talent.for_character(id) |> Enum.map(&Talent.changeset/1),
       attacks: Attack.for_character(id) |> Enum.map(&Attack.changeset/1),
-      character_skills: CharacterSkill.for_character(id) |> Enum.map(&CharacterSkill.changeset/1) |> CharacterSkill.add_missing_defaults
+      character_skills: CharacterSkill.for_character(id) |> CharacterSkill.add_missing_defaults
   end
 
   def update(conn, params = %{"id" => id, "character" => character_params}) do
@@ -83,7 +82,7 @@ defmodule EdgeBuilder.CharacterController do
   end
   defp child_changesets(_,_), do: []
 
-  defp to_changeset(params = %{"id" => id}, model), do: Repo.get(model, id) |> model.changeset(params)
+  defp to_changeset(params = %{"id" => id}, model) when not is_nil(id), do: Repo.get(model, id) |> model.changeset(params)
   defp to_changeset(params, model), do: model.changeset(struct(model), params)
 
   defp character_skill_changesets(params) when is_map(params) do

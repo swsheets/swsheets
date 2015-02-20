@@ -1,11 +1,9 @@
 defmodule EdgeBuilder.Models.Character do
-  use Ecto.Model
+  use EdgeBuilder.Model
 
   alias EdgeBuilder.Models.Talent
   alias EdgeBuilder.Models.Attack
   alias EdgeBuilder.Models.CharacterSkill
-  alias EdgeBuilder.Models.BaseSkill
-  alias EdgeBuilder.Repo
 
   schema "characters" do
     field :name, :string
@@ -46,15 +44,7 @@ defmodule EdgeBuilder.Models.Character do
 
   def changeset(character, params \\ %{}) do
     params
-      |> scrub_empty_strings
       |> cast(character, required_fields, optional_fields)
-  end
-
-  defp scrub_empty_strings(params) do
-    Enum.map(params, fn
-      {k, ""} -> {k, nil}
-      pair    -> pair
-    end) |> Enum.into(%{}) 
   end
 
   defp required_fields, do: [:name, :species, :career]

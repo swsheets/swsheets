@@ -1,10 +1,8 @@
 defmodule EdgeBuilder.Models.CharacterSkill do
-  use Ecto.Model
+  use EdgeBuilder.Model
 
   alias EdgeBuilder.Models.Character
   alias EdgeBuilder.Models.BaseSkill
-  alias EdgeBuilder.Repo
-  import Ecto.Query, only: [from: 2]
 
   schema "character_skills" do
     field :is_career, :boolean, default: false
@@ -20,7 +18,7 @@ defmodule EdgeBuilder.Models.CharacterSkill do
   end
 
   def for_character(id) do
-    character_skills = Repo.all(
+    Repo.all(
       from cs in __MODULE__,
         where: cs.character_id == ^id
     )

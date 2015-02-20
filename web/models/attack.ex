@@ -1,11 +1,8 @@
 defmodule EdgeBuilder.Models.Attack do
-  use Ecto.Model
+  use EdgeBuilder.Model
 
   alias EdgeBuilder.Models.Character
   alias EdgeBuilder.Models.BaseSkill
-  alias EdgeBuilder.Repo
-  import Ecto.Query, only: [from: 2]
-
 
   schema "attacks" do
     field :weapon_name, :string
