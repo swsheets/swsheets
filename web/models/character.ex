@@ -47,6 +47,14 @@ defmodule EdgeBuilder.Models.Character do
       |> cast(character, required_fields, optional_fields)
   end
 
+  def full_character(id) do
+    Repo.one!(
+      from c in __MODULE__,
+        where: c.id == ^id,
+        preload: [:talents, :attacks, :character_skills]
+    )
+  end
+
   defp required_fields, do: [:name, :species, :career]
   defp optional_fields, do: __schema__(:fields) -- [:id | required_fields]
 end
