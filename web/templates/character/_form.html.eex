@@ -254,6 +254,10 @@
                   </div>
                 </div>
               </div>
+              <div class="row">
+                <h4>Critical Injuries & Conditions</h4>
+                <textarea rows=4 class="form-control col-offset-2 col-md-8" name="character[critical_injuries]"><%= get_field(@character, :critical_injuries) %></textarea>
+              </div>
             </div>
           </div>
         </div>

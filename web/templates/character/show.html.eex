@@ -1,7 +1,7 @@
 <div class="row">
-  <div class="col-md-8">
+  <div class="<%= if get_field(@character, :portrait_url) |> is_nil, do: "col-md-12", else: "col-md-8" %>">
     <div class="row">
-      <h4>Character Name</h4>
+      <h3>Character Name</h3>
       <h2><%= get_field(@character, :name) %></h2>
       <div class="row">
         <div class="col-sm-3">
@@ -91,13 +91,13 @@
       </div>
     </div>
   </div>
-  <div class="col-md-4">
-    <% unless get_field(@character, :portait_url) |> is_nil do %>
+  <% unless get_field(@character, :portait_url) |> is_nil do %>
+    <div class="col-md-4">
       <p class="text-center">
         <img src="<%= image_or_default(@character) %>" alt="Placeholder Image" class="img-thumbnail">
       </p>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>
 
 <div role="tabpanel">
@@ -118,8 +118,8 @@
       <div class="row">
         <div class="col-md-2">
           <div class="panel panel-default">
-            <div class="panel-body">
-              <input type="number" step="1" class="form-control" min=0 id="character[characteristic_brawn]" value="<%= get_field(@character, :characteristic_brawn) %>" />
+            <div class="panel-body panel-value">
+              <%= get_field(@character, :characteristic_brawn) %>
             </div>
             <div class="panel-footer text-center">
               <label for="character[characteristic_brawn]">Brawn</label>
@@ -128,8 +128,8 @@
         </div>
         <div class="col-md-2">
           <div class="panel panel-default">
-            <div class="panel-body">
-              <input type="number" step="1" class="form-control" min=0 id="character[characteristic_agility]" value="<%= get_field(@character, :characteristic_agility) %>" />
+            <div class="panel-body panel-value">
+              <%= get_field(@character, :characteristic_agility) %>
             </div>
             <div class="panel-footer text-center">
               <label for="character[characteristic_agility]">Agility</label>
@@ -138,8 +138,8 @@
         </div>
         <div class="col-md-2">
           <div class="panel panel-default">
-            <div class="panel-body">
-              <input type="number" step="1" class="form-control" min=0 id="character[characteristic_intellect]" value="<%= get_field(@character, :characteristic_intellect) %>" />
+            <div class="panel-body panel-value">
+              <%= get_field(@character, :characteristic_intellect) %>
             </div>
             <div class="panel-footer text-center">
               <label for="character[characteristic_intellect]">Intellect</label>
@@ -148,8 +148,8 @@
         </div>
         <div class="col-md-2">
           <div class="panel panel-default">
-            <div class="panel-body">
-              <input type="number" step="1" class="form-control" min=0 id="character[characteristic_cunning]" value="<%= get_field(@character, :characteristic_cunning) %>" />
+            <div class="panel-body panel-value">
+              <%= get_field(@character, :characteristic_cunning) %>
             </div>
             <div class="panel-footer text-center">
               <label for="character[characteristic_cunning]">Cunning</label>
@@ -158,8 +158,8 @@
         </div>
         <div class="col-md-2">
           <div class="panel panel-default">
-            <div class="panel-body">
-              <input type="number" step="1" class="form-control" min=0 id="character[characteristic_willpower]" value="<%= get_field(@character, :characteristic_willpower) %>" />
+            <div class="panel-body panel-value">
+              <%= get_field(@character, :characteristic_willpower) %>
             </div>
             <div class="panel-footer text-center">
               <label for="character[characteristic_willpower]">Willpower</label>
@@ -168,8 +168,8 @@
         </div>
         <div class="col-md-2">
           <div class="panel panel-default">
-            <div class="panel-body">
-              <input type="number" step="1" class="form-control" min=0 id="character[characteristic_presence]" value="<%= get_field(@character, :characteristic_presence) %>" />
+            <div class="panel-body panel-value">
+              <%= get_field(@character, :characteristic_presence) %>
             </div>
             <div class="panel-footer text-center">
               <label for="character[characteristic_presence]">Presence</label>

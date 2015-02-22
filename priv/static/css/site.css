@@ -8,6 +8,14 @@ body {
   margin-bottom: 100px;
 }
 
+h4 {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 90%;
+  font-weight: normal;
+  color: #aaa;
+}
+
 .footer {
   position: absolute;
   bottom: 0;

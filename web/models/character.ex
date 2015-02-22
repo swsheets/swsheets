@@ -35,7 +35,7 @@ defmodule EdgeBuilder.Models.Character do
     field :obligation_amount, :string
     field :description, :string
     field :other_notes, :string
-    field :combined_character_skills, {:array, :any}, virtual: true
+    field :critical_injuries, :string
 
     has_many :talents, Talent
     has_many :attacks, Attack
