@@ -11,6 +11,7 @@ defmodule EdgeBuilder.CharacterController do
 
   def new(conn, _params) do
     render conn, "new.html",
+      header: EdgeBuilder.CharacterView.render("_form_header.html"),
       title: "New Character",
       character: %Character{} |> Character.changeset,
       talents: [%Talent{} |> Talent.changeset],
@@ -40,10 +41,23 @@ defmodule EdgeBuilder.CharacterController do
     end
   end
 
+  def show(conn, %{"id" => id}) do
+    character = Character.full_character(id)
+
+    render conn, "show.html",
+      header: EdgeBuilder.CharacterView.render("_show_header.html"),
+      title: character.name,
+      character: character |> Character.changeset,
+      talents: character.talents |> Enum.map(&Talent.changeset/1),
+      attacks: character.attacks |> Enum.map(&Attack.changeset/1),
+      character_skills: character.character_skills |> CharacterSkill.add_missing_defaults
+  end
+
   def edit(conn, %{"id" => id}) do
     character = Character.full_character(id)
 
     render conn, "edit.html",
+      header: EdgeBuilder.CharacterView.render("_form_header.html"),
       title: "Editing #{character.name}",
       character: character |> Character.changeset,
       talents: character.talents |> Enum.map(&Talent.changeset/1),

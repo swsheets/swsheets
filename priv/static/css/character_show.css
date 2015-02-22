@@ -1,0 +1,22 @@
+h5 {
+  font-weight: bold;
+}
+
+.panel-value {
+  text-align: center;
+  font-weight: bold;
+  font-size: 130%;
+}
+
+.panel-footer {
+  font-weight: bold;
+}
+
+.soak-panel {
+  padding-top: 44px;
+  padding-bottom: 44px;
+}
+
+table.table {
+  margin: 0px;
+}

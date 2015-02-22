@@ -6,6 +6,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
   alias EdgeBuilder.Models.Attack
   alias EdgeBuilder.Models.BaseSkill
   alias EdgeBuilder.Models.CharacterSkill
+  alias EdgeBuilder.Repo
   import Ecto.Query, only: [from: 2]
 
   describe "new" do
@@ -65,7 +66,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         },
       })
 
-      character = EdgeBuilder.Repo.all(Character) |> Enum.at(0)
+      character = Repo.all(Character) |> Enum.at(0)
 
       assert character.name == "Greedo"
       assert character.species == "Rodian"
@@ -122,29 +123,44 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
   end
 
+  describe "show" do
+    it "displays the character information" do
+      character = %Character{
+        name: "Greedo",
+        species: "Rodian",
+        career: "Bounty Hunter"
+      } |> Repo.insert
+
+      conn = request(:get, "/characters/#{character.id}")
+
+      assert conn.status == 200
+      assert String.contains?(conn.resp_body, "Greedo")
+    end
+  end
+
   describe "edit" do
     it "renders the character edit form" do
       character = %Character{
         name: "Greedo",
         species: "Rodian",
         career: "Bounty Hunter"
-      } |> EdgeBuilder.Repo.insert
+      } |> Repo.insert
 
       character_skill = %CharacterSkill{
         base_skill_id: BaseSkill.by_name("Athletics").id,
         rank: 4,
         character_id: character.id
-      } |> EdgeBuilder.Repo.insert
+      } |> Repo.insert
 
       talent = %Talent{
         name: "Quick Draw",
         character_id: character.id
-      } |> EdgeBuilder.Repo.insert
+      } |> Repo.insert
 
       attack = %Attack{
         weapon_name: "Holdout Blaster",
         character_id: character.id
-      } |> EdgeBuilder.Repo.insert
+      } |> Repo.insert
 
       conn = request(:get, "/characters/#{character.id}/edit")
 
@@ -162,13 +178,13 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         name: "Greedo",
         species: "Rodian",
         career: "Bounty Hunter"
-      } |> EdgeBuilder.Repo.insert
+      } |> Repo.insert
 
       conn = request(:put, "/characters/#{character.id}", %{"character" => %{"name" => "Do'mesh", "species" => "Twi'lek"}})
 
       assert conn.status == 200
 
-      character = EdgeBuilder.Repo.get(Character, character.id)
+      character = Repo.get(Character, character.id)
 
       assert character.name == "Do'mesh"
       assert character.species == "Twi'lek"
@@ -182,7 +198,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         xp_total: 50,
         xp_available: 10,
         description: "A slow shooter"
-      } |> EdgeBuilder.Repo.insert
+      } |> Repo.insert
 
       request(:put, "/characters/#{character.id}", %{"character" => %{
         "xp_total" => "60",
@@ -190,7 +206,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         "description" =>  "tbd"
       }})
 
-      character = EdgeBuilder.Repo.get(Character, character.id)
+      character = Repo.get(Character, character.id)
 
       assert character.xp_total == 60
       assert is_nil(character.xp_available)
@@ -203,14 +219,14 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         name: "Greedo",
         species: "Rodian",
         career: "Bounty Hunter",
-      } |> EdgeBuilder.Repo.insert
+      } |> Repo.insert
 
       talent = %Talent{
         name: "Quick Draw",
         book_and_page: "EotE Core p145",
         description: "Draws a gun quickly",
         character_id: character.id
-      } |> EdgeBuilder.Repo.insert
+      } |> Repo.insert
 
       request(:put, "/characters/#{character.id}", %{"character" => %{}, "talents" => %{
         "0" => %{"book_and_page" => "DC p43", "description" => "Do stuff", "id" => talent.id, "name" => "Awesome Guy"}
@@ -228,7 +244,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         name: "Greedo",
         species: "Rodian",
         career: "Bounty Hunter",
-      } |> EdgeBuilder.Repo.insert
+      } |> Repo.insert
 
       request(:put, "/characters/#{character.id}", %{"character" => %{}, "talents" => %{
         "0" => %{"book_and_page" => "DC p43", "description" => "Do stuff", "name" => "Awesome Guy"}
@@ -246,21 +262,21 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         name: "Greedo",
         species: "Rodian",
         career: "Bounty Hunter",
-      } |> EdgeBuilder.Repo.insert
+      } |> Repo.insert
 
       %Talent{
         name: "Quick Draw",
         book_and_page: "EotE Core p145",
         description: "Draws a gun quickly",
         character_id: character.id
-      } |> EdgeBuilder.Repo.insert
+      } |> Repo.insert
 
       request(:put, "/characters/#{character.id}", %{"character" => %{}})
 
       talents = Talent.for_character(character.id)
 
       assert Enum.count(talents) == 0
-      assert EdgeBuilder.Repo.all(Talent) |> Enum.count == 0
+      assert Repo.all(Talent) |> Enum.count == 0
     end
 
     it "updates the character's prior attacks" do
@@ -268,13 +284,13 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         name: "Greedo",
         species: "Rodian",
         career: "Bounty Hunter",
-      } |> EdgeBuilder.Repo.insert
+      } |> Repo.insert
 
       attack = %Attack{
         weapon_name: "Holdout Blaster",
         range: "Short",
         character_id: character.id
-      } |> EdgeBuilder.Repo.insert
+      } |> Repo.insert
 
       request(:put, "/characters/#{character.id}", %{"character" => %{}, "attacks" => %{
         "0" => %{"weapon_name" => "Claws", "range" => "Engaged", "id" => attack.id}
@@ -291,9 +307,9 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         name: "Greedo",
         species: "Rodian",
         career: "Bounty Hunter",
-      } |> EdgeBuilder.Repo.insert
+      } |> Repo.insert
 
-      base_skill = EdgeBuilder.Repo.all(BaseSkill) |> Enum.at(0)
+      base_skill = Repo.all(BaseSkill) |> Enum.at(0)
 
       request(:put, "/characters/#{character.id}", %{"character" => %{}, "attacks" => %{
         "0" => %{"weapon_name" => "Claws", "range" => "Engaged", "base_skill_id" => base_skill.id}
@@ -311,20 +327,20 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         name: "Greedo",
         species: "Rodian",
         career: "Bounty Hunter",
-      } |> EdgeBuilder.Repo.insert
+      } |> Repo.insert
 
       %Attack{
         weapon_name: "Holdout Blaster",
         range: "Short",
         character_id: character.id
-      } |> EdgeBuilder.Repo.insert
+      } |> Repo.insert
 
       request(:put, "/characters/#{character.id}", %{"character" => %{}})
 
       attacks = Attack.for_character(character.id)
 
       assert Enum.count(attacks) == 0
-      assert EdgeBuilder.Repo.all(Attack) |> Enum.count == 0
+      assert Repo.all(Attack) |> Enum.count == 0
     end
 
     it "creates new skills when they differ from default values" do
@@ -332,9 +348,9 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         name: "Greedo",
         species: "Rodian",
         career: "Bounty Hunter",
-      } |> EdgeBuilder.Repo.insert
+      } |> Repo.insert
 
-      base_skill = EdgeBuilder.Repo.one(from bs in BaseSkill, where: bs.name == "Athletics")
+      base_skill = Repo.one(from bs in BaseSkill, where: bs.name == "Athletics")
 
       request(:put, "/characters/#{character.id}", %{"character" => %{}, "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 1, "is_career" => "on"}}})
 
@@ -350,9 +366,9 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         name: "Greedo",
         species: "Rodian",
         career: "Bounty Hunter",
-      } |> EdgeBuilder.Repo.insert
+      } |> Repo.insert
 
-      base_skill = EdgeBuilder.Repo.one(from bs in BaseSkill, where: bs.name == "Athletics")
+      base_skill = Repo.one(from bs in BaseSkill, where: bs.name == "Athletics")
 
       request(:put, "/characters/#{character.id}", %{"character" => %{}, "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 0}}})
 
@@ -364,15 +380,15 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         name: "Greedo",
         species: "Rodian",
         career: "Bounty Hunter",
-      } |> EdgeBuilder.Repo.insert
+      } |> Repo.insert
 
-      base_skill = EdgeBuilder.Repo.one(from bs in BaseSkill, where: bs.name == "Athletics")
+      base_skill = Repo.one(from bs in BaseSkill, where: bs.name == "Athletics")
 
       original_character_skill = %CharacterSkill{
         base_skill_id: base_skill.id,
         character_id: character.id,
         rank: 5
-      } |> EdgeBuilder.Repo.insert
+      } |> Repo.insert
 
       request(:put, "/characters/#{character.id}", %{"character" => %{}, "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 0, "id" => original_character_skill.id}}})
 

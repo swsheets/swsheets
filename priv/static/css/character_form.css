@@ -1,0 +1,36 @@
+h4 {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 90%;
+  color: #777;
+}
+
+.return-box a {
+  background-color: #eee;
+  border: 1px solid #ccc;
+  margin: 20px;
+  padding: 20px;
+  width: auto;
+  display: inline-block;
+}
+
+.soak-panel {
+   padding-top: 32px;
+   padding-bottom: 32px;
+}
+
+.addon-core-attr {
+  width: 85px;
+}
+
+.attack-second-row td {
+  border-top-width: 0px !important;
+}
+
+.attack-table td, .attack-table .form-group {
+  margin:0px;
+}
+
+.character-buttons {
+  margin-bottom: 10px;
+}
