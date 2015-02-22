@@ -1,0 +1,20 @@
+<div class="row">
+  <h4>Skills</h4>
+</div>
+<div class="row">
+  <table class="table table-condensed">
+    <tr>
+      <th>Skill</th>
+      <th>Career?</th>
+      <th>Rank</th>
+      <th class="col-md-3">Roll</th>
+    </tr>
+    <%= for skill <- @character_skills do %>
+      <tr class="<%= if skill.is_attack_skill, do: ~s(active) %>">
+        <td><%= skill.name %></td>
+        <td class="career-check"><%= if skill.is_career, do: "X" %></td>
+        <td class="value"><%= skill.rank %></td>
+        <td><span class='skill-roll' data-characteristic="<%= skill.characteristic %>" data-skill="<%= skill.name %>">tbd</td>
+    <% end %>
+  </table>
+</div>

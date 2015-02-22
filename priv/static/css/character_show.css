@@ -25,3 +25,12 @@ h5 {
 table.table {
   margin: 0px;
 }
+
+.career-check {
+  padding-left: 20px !important;
+  font-weight: bold;
+}
+
+td.value {
+  padding-left: 17px !important;
+}
