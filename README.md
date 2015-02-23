@@ -6,7 +6,6 @@ EdgeBuilder is a simple application for creating, storing, sharing, and printing
 
 * CRUD a character
 * Print a character
-* “Play mode” - a live saving mode where you can only edit current wounds, strain, and conditions
 * “GM mode” - combine a list of characters to view key stats & skills.
 
 ## Setup

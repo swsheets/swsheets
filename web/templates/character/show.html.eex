@@ -192,14 +192,14 @@
           <div class="row">
             <div class="col-md-6">
               <h4>Gear</h4>
-              <textarea rows=16 class="form-control col-offset-2 col-md-8" name="character[gear]"><%= get_field(@character, :gear) %></textarea>
+              <div class="long-text gear"><%= get_field(@character, :gear) %></div>
             </div>
             <div class="col-md-6">
               <div class="row">
                 <div class="col-md-6">
                   <div class="panel panel-default">
-                    <div class="panel-body">
-                      <input type="number" step="1" class="form-control" min=0 name="character[credits]" value="<%= get_field(@character, :credits) %>" />
+                    <div class="panel-body panel-value">
+                      <%= get_field(@character, :credits) %>
                     </div>
                     <div class="panel-footer text-center">
                       <label for="character[credits]">Credits</label>
@@ -208,8 +208,8 @@
                 </div>
                 <div class="col-md-6">
                   <div class="panel panel-default">
-                    <div class="panel-body">
-                      <input type="text" class="form-control" min=0 name="character[encumbrance]" value="<%= get_field(@character, :encumbrance) %>" />
+                    <div class="panel-body panel-value">
+                      <%= get_field(@character, :encumbrance) %>
                     </div>
                     <div class="panel-footer text-center">
                       <label for="character[encumbrance]">Encumbrance</label>
@@ -220,8 +220,8 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="panel panel-default">
-                    <div class="panel-body">
-                      <input type="number" step="1" class="form-control" min=0 name="character[xp_available]" value="<%= get_field(@character, :xp_available) %>" />
+                    <div class="panel-body panel-value">
+                      <%= get_field(@character, :xp_available) %>
                     </div>
                     <div class="panel-footer text-center">
                       <label for="character[xp_available]">Available XP</label>
@@ -230,8 +230,8 @@
                 </div>
                 <div class="col-md-6">
                   <div class="panel panel-default">
-                    <div class="panel-body">
-                      <input type="number" step="1" class="form-control" min=0 name="character[xp_total]" value="<%= get_field(@character, :xp_total) %>" />
+                    <div class="panel-body panel-value">
+                      <%= get_field(@character, :xp_total) %>
                     </div>
                     <div class="panel-footer text-center">
                       <label for="character[xp_total]">Total XP</label>
@@ -239,30 +239,34 @@
                   </div>
                 </div>
               </div>
+              <div class="row">
+                <h4>Critical Injuries & Conditions</h4>
+                <div class="long-text"><%= get_field(@character, :critical_injuries) %></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <%= render "_form_talents.html", talents: @talents %>
+      <%= render "_show_talents.html", talents: @talents %>
     </div>
     <div role="tabpanel" class="tab-pane" id="bio">
       <div class="row">
         <div class="col-md-6">
           <h4>Background</h4>
-          <textarea name="character[background]" rows=20 class="form-control"><%= get_field(@character, :background) %></textarea>
+          <div class="long-text"><%= get_field(@character, :background) %></div>
           <h4>Motivation</h4>
-          <textarea name="character[motivation]" rows=20 class="form-control"><%= get_field(@character, :motivation) %></textarea>
+          <div class="long-text"><%= get_field(@character, :motivation) %></div>
         </div>
         <div class="col-md-6">
           <h4>Obligation</h4>
-          <textarea name="character[obligation]" rows=20 class="form-control"><%= get_field(@character, :obligation) %></textarea>
+          <div class="long-text"><%= get_field(@character, :obligation) %></div>
           <h4>Description</h4>
-          <textarea name="character[description]" rows=20 class="form-control"><%= get_field(@character, :description) %></textarea>
+          <div class="long-text"><%= get_field(@character, :description) %></div>
         </div>
       </div>
       <div class="row">
         <h4>Other Notes</h4>
-        <textarea name="character[other_notes]" rows=20 class="form-control"><%= get_field(@character, :other_notes) %></textarea>
+        <div class="long-text"><%= get_field(@character, :other_notes) %></div>
       </div>
     </div>
   </div>

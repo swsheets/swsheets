@@ -1,0 +1,23 @@
+<div class="row"><h4>Talents</h4></div>
+<div class="row">
+  <table class="table table-condensed">
+    <tr>
+      <th class="col-md-3">Name</th>
+      <th class="col-md-2">Book &amp; Page</th>
+      <th class="col-md-7">Description</th>
+    </tr>
+    <%= for {talent, i} <- Enum.with_index(@talents) do %>
+      <tr>
+        <td>
+          <%= get_field(talent, :name) %>
+        </td>
+        <td>
+          <%= get_field(talent, :book_and_page) %>
+        </td>
+        <td>
+          <%= get_field(talent, :description) %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>

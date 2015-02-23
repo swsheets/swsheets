@@ -42,3 +42,13 @@ td.value {
 .panel-first-row td, .attack-second-row td {
   border-top-width: 0px !important;
 }
+
+.long-text {
+  border: 1px solid #ccc;
+  padding: 10px;
+  min-height: 100px;
+}
+
+.gear {
+  min-height: 300px;
+}

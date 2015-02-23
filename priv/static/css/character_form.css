@@ -1,12 +1,3 @@
-.return-box a {
-  background-color: #eee;
-  border: 1px solid #ccc;
-  margin: 20px;
-  padding: 20px;
-  width: auto;
-  display: inline-block;
-}
-
 .soak-panel {
    padding-top: 32px;
    padding-bottom: 32px;
