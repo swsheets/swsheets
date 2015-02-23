@@ -18,4 +18,12 @@ defmodule EdgeBuilder.Models.BaseSkill do
         where: bs.name == ^name
     )
   end
+
+  def attack_skills do
+    Repo.all(
+      from bs in __MODULE__,
+        where: bs.is_attack_skill == true,
+        order_by: :skill_position
+    )
+  end
 end

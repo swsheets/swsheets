@@ -3,8 +3,12 @@ h3 {
   color: #aaa;
 }
 
-h5 {
+h5, h6 {
   font-weight: bold;
+}
+
+h6 {
+  display: inline;
 }
 
 .panel-value {

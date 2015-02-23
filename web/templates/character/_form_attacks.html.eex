@@ -4,7 +4,7 @@
 <div class="row">
   <table class="table table-condensed attack-table">
     <%= for {attack, i} <- Enum.with_index(@attacks) do %>
-      <tr class="active">
+      <tr class="<%= if rem(i, 2) == 0, do: "active" %>">
         <td class="col-md-5">
           <input type="hidden" name="attacks[<%= i %>][id]" value="<%= get_field(attack, :id) %>" />
           <div class="form-group form-group-sm">
@@ -27,18 +27,14 @@
         <td class="form-inline">
           <div class="form-group form-group-sm pull-right">
             <label for="attacks[<%= i %>][skill]">Skill</label>
-            <select class="form-control" name="attacks[<%= i %>][skill]">
-              <option>Brawl</option>
-              <option>Melee</option>
-              <option>Ranged: Light</option>
-              <option>Ranged: Heavy</option>
-              <option>Gunnery</option>
+            <select class="form-control" name="attacks[<%= i %>][base_skill_id]">
+              <%= base_skill_options(get_field(attack, :base_skill_id)) %>
             </select>
           </div>
         </td>
         <td class="col-md-2"><span class="attack-roll" data-attack-index="<%= i %>">tbd</span></td>
       </tr>
-      <tr class="attack-second-row active">
+      <tr class="attack-second-row <%= if rem(i, 2) == 0, do: "active" %>">
         <td>
           <div class="form-group form-group-sm">
             <label for="attacks[<%= i %>][specials]" class="sr-only">Specials</label>

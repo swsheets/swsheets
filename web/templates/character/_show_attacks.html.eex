@@ -1,0 +1,37 @@
+<div class="row">
+  <h4>Attacks</h4>
+</div>
+<div class="row">
+  <table class="table table-condensed">
+    <%= for attack <- @attacks do %>
+      <tr class="active">
+        <td class="col-md-5">
+          <%= get_field(attack, :weapon_name) %>
+        </td>
+        <td>
+          <h6>Range</h6>
+          <%= get_field(attack, :range) %>
+        </td>
+        <td>
+          <h6>Skill</h6>
+          <%= lookup_skill(get_field(attack, :base_skill_id)) %>
+        </td>
+        <td class="col-md-2"><span class="attack-roll">tbd</span></td>
+      </tr>
+      <tr class="attack-second-row active">
+        <td>
+          <em><%= get_field(attack, :specials) %></em>
+        </td>
+        <td>
+          <h6>Damage</h6>
+          <%= get_field(attack, :damage) %>
+        </td>
+        <td>
+          <h6>Critical</h6>
+          <%= get_field(attack, :critical) %>
+        </td>
+        <td>&nbsp;</td>
+      </tr>
+    <% end %>
+  </table>
+</div>

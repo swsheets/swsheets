@@ -187,7 +187,7 @@
           <%= render "_show_skills.html", character_skills: @character_skills %>
         </div>
         <div class="col-sm-7">
-          <%= render "_form_attacks.html", attacks: @attacks %>
+          <%= render "_show_attacks.html", attacks: @attacks %>
           <hr>
           <div class="row">
             <div class="col-md-6">
