@@ -35,7 +35,7 @@
           <div class="panel panel-default">
             <div class="panel-body">
               <table class="table">
-                <tr>
+                <tr class="panel-first-row">
                   <td>Threshold</td>
                   <td class="panel-value"><%= get_field(@character, :wounds_threshold) %></td>
                 </tr>
@@ -54,7 +54,7 @@
           <div class="panel panel-default">
             <div class="panel-body">
               <table class="table">
-                <tr>
+                <tr class="panel-first-row">
                   <td>Threshold</td>
                   <td class="panel-value"><%= get_field(@character, :strain_threshold) %></td>
                 </tr>
@@ -73,7 +73,7 @@
           <div class="panel panel-default">
             <div class="panel-body">
               <table class="table">
-                <tr>
+                <tr class="panel-first-row">
                   <td>Ranged</td>
                   <td class="panel-value"><%= get_field(@character, :defense_ranged) %></td>
                 </tr>

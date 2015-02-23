@@ -3,8 +3,8 @@
 </div>
 <div class="row">
   <table class="table table-condensed">
-    <%= for attack <- @attacks do %>
-      <tr class="active">
+    <%= for {attack, i} <- Enum.with_index(@attacks) do %>
+      <tr class="<%= if rem(i, 2) == 0, do: "active" %>">
         <td class="col-md-5">
           <%= get_field(attack, :weapon_name) %>
         </td>
@@ -18,7 +18,7 @@
         </td>
         <td class="col-md-2"><span class="attack-roll">tbd</span></td>
       </tr>
-      <tr class="attack-second-row active">
+      <tr class="attack-second-row <%= if rem(i, 2) == 0, do: "active" %>">
         <td>
           <em><%= get_field(attack, :specials) %></em>
         </td>

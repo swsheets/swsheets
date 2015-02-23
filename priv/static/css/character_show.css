@@ -38,3 +38,7 @@ table.table {
 td.value {
   padding-left: 17px !important;
 }
+
+.panel-first-row td, .attack-second-row td {
+  border-top-width: 0px !important;
+}
