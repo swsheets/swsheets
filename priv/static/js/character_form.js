@@ -8,12 +8,8 @@ var CharacterForm = (function() {
     "Presence"  : ["Cool", "Negotiation", "Leadership", "Charm"]
   };
 
-  function skillValue(skillName) {
-    $("[data-skill-value="+skillName+"]:checked").prop("value");
-  }
-
   function setDiceForSkill(skillName, abilities, proficiencies) {
-    $("[data-skill-roll="+skillName+"]").each( function() {
+    $("[data-skill-roll='"+skillName+"']").each( function() {
       $(this).empty();
 
       for(var i = 0; i < proficiencies; i++) {
@@ -26,22 +22,31 @@ var CharacterForm = (function() {
     });
   }
 
-  function initializeHandlers() {
-    $("[data-skill-value]:radio").change(function() {
-      var el = $(this);
-      var skillName = el.attr("data-skill-value");
-      var skillRank = el.prop("value");
-      var skillElement = $("#"+skillName);
-      var characteristicRank = $("#"+skillElement.attr("data-base-characteristic")).prop("value");
+  function refreshSkillByName(skillName) {
+    var skillElement = $("[data-skill-name='"+skillName+"']");
+    var valueElement = $("[data-skill-value='"+skillName+"']:checked");
+    var skillRank = valueElement.prop("value");
+    var characteristicRank = $("#"+skillElement.attr("data-base-characteristic")).prop("value");
 
-      var abilities = Math.min(skillRank, characteristicRank);
-      var proficiencies = Math.max(skillRank, characteristicRank) - abilities;
+    var abilities = Math.min(skillRank, characteristicRank);
+    var proficiencies = Math.max(skillRank, characteristicRank) - abilities;
 
-      setDiceForSkill(skillName, abilities, proficiencies);
+    setDiceForSkill(skillName, abilities, proficiencies);
+  }
+
+  function refreshSkillsFromCharacteristic(characteristicElement) {
+    $("[data-base-characteristic="+characteristicElement.prop("id")+"]").each(function() {
+      refreshSkillByName($(this).attr("data-skill-name"));
     });
   }
 
+  function initializeHandlers() {
+    $("[data-skill-value]:radio").change(function() { refreshSkillByName($(this).attr("data-skill-value")) });
+    $("[data-characteristic]").change(function() { refreshSkillsFromCharacteristic($(this)) });
+  }
+
   function refreshAllDice() {
+    $("[data-characteristic]").change();
   }
 
   return {

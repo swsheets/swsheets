@@ -17,7 +17,7 @@
         <td>
           <input type="hidden" name="skills[<%= i %>][base_skill_id]" value="<%= skill.base_skill_id %>" />
           <input type="hidden" name="skills[<%= i %>][id]" value="<%= skill.id %>" />
-          <input type="hidden" id="<%= skill.name %>" data-base-characteristic="<%= skill.characteristic %>" data-base-name="skills[<%= i %>]" />
+          <input type="hidden" data-skill-name="<%= skill.name %>" data-base-characteristic="<%= skill.characteristic %>" data-base-name="skills[<%= i %>]" />
           <div class="btn-group" data-toggle="buttons">
             <%= for rank <- 0..5 do %>
               <label class="btn btn-xs btn-default <%= if skill.rank == rank, do: "active" %>">
