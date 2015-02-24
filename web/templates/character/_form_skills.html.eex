@@ -1,6 +1,7 @@
 <div class="row">
   <h4>Skills</h4>
 </div>
+<img id="dieProficiency" src="/images/die_proficiency.png" height=15 style="display:none" /><img id="dieAbility" src="/images/die_ability.png" height=15 style="display:none" />
 <div class="row">
   <table class="table table-condensed">
     <tr>
@@ -16,17 +17,17 @@
         <td>
           <input type="hidden" name="skills[<%= i %>][base_skill_id]" value="<%= skill.base_skill_id %>" />
           <input type="hidden" name="skills[<%= i %>][id]" value="<%= skill.id %>" />
+          <input type="hidden" id="<%= skill.name %>" data-base-characteristic="<%= skill.characteristic %>" data-base-name="skills[<%= i %>]" />
           <div class="btn-group" data-toggle="buttons">
             <%= for rank <- 0..5 do %>
               <label class="btn btn-xs btn-default <%= if skill.rank == rank, do: "active" %>">
-                <input type="radio" name="skills[<%= i %>][rank]" value="<%= rank %>" <%= if skill.rank == rank, do: "checked" %>/><%= rank %>
+                <input type="radio" name="skills[<%= i %>][rank]" value="<%= rank %>" <%= if skill.rank == rank, do: "checked" %> data-skill-value="<%= skill.name %>" /><%= rank %>
               </label>
             <% end %>
           </div>
         </td>
         <td>
-          <span class='skill-roll' data-characteristic="<%= skill.characteristic %>" data-skill="<%= skill.name %>">
-            <img src="/images/die_proficiency.png" height=15 /><img src="/images/die_proficiency.png" height=15 /><img src="/images/die_ability.png" height=15 />
+          <span class='skill-roll' data-skill-roll="<%= skill.name %>">
           </span>
         </td>
     <% end %>

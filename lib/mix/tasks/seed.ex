@@ -15,7 +15,7 @@ defmodule Mix.Tasks.Seed do
     base_skills = [
       %BaseSkill {
         name: "Astrogation",
-        characteristic: "Intelligence"
+        characteristic: "Intellect"
       },
       %BaseSkill {
         name: "Athletics",
@@ -31,7 +31,7 @@ defmodule Mix.Tasks.Seed do
       },
       %BaseSkill {
         name: "Computers",
-        characteristic: "Intelligence"
+        characteristic: "Intellect"
       },
       %BaseSkill {
         name: "Cool",
@@ -55,7 +55,7 @@ defmodule Mix.Tasks.Seed do
       },
       %BaseSkill {
         name: "Mechanics",
-        characteristic: "Intelligence"
+        characteristic: "Intellect"
       },
       %BaseSkill {
         name: "Negotiation",
@@ -66,11 +66,11 @@ defmodule Mix.Tasks.Seed do
         characteristic: "Cunning"
       },
       %BaseSkill {
-        name: "Piloting - Planetary",
+        name: "Piloting: Planetary",
         characteristic: "Agility"
       },
       %BaseSkill {
-        name: "Piloting - Space",
+        name: "Piloting: Space",
         characteristic: "Agility"
       },
       %BaseSkill {
@@ -123,28 +123,28 @@ defmodule Mix.Tasks.Seed do
         is_attack_skill: true,
       },
       %BaseSkill {
-        name: "Knowledge - Core Worlds",
-        characteristic: "Intelligence"
+        name: "Knowledge: Core Worlds",
+        characteristic: "Intellect"
       },
       %BaseSkill {
-        name: "Knowledge - Education",
-        characteristic: "Intelligence"
+        name: "Knowledge: Education",
+        characteristic: "Intellect"
       },
       %BaseSkill {
-        name: "Knowledge - Lore",
-        characteristic: "Intelligence"
+        name: "Knowledge: Lore",
+        characteristic: "Intellect"
       },
       %BaseSkill {
-        name: "Knowledge - Outer Rim",
-        characteristic: "Intelligence"
+        name: "Knowledge: Outer Rim",
+        characteristic: "Intellect"
       },
       %BaseSkill {
-        name: "Knowledge - Underworld",
-        characteristic: "Intelligence"
+        name: "Knowledge: Underworld",
+        characteristic: "Intellect"
       },
       %BaseSkill {
-        name: "Knowledge - Xenology",
-        characteristic: "Intelligence"
+        name: "Knowledge: Xenology",
+        characteristic: "Intellect"
       },
     ]
 
