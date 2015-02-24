@@ -1,13 +1,4 @@
 var CharacterForm = (function() {
-  var characteristicsToSkills = {
-    "Brawn"     : ["Brawl", "Melee", "Athletics", "Resilience"],
-    "Agility"   : ["Ranged: Light", "Ranged: Heavy", "Gunnery", "Coordination", "Piloting: Planetary", "Piloting: Space", "Stealth"],
-    "Intellect" : ["Astrogation", "Computers", "Mechanics", "Medicine", "Knowledge: Core Worlds", "Knowledge: Education", "Knowledge: Lore", "Knowledge: Outer Rim", "Knowledge: Underworld", "Knowledge: Xenology"],
-    "Cunning"   : ["Perception", "Deception", "Skulduggery", "Streetwise", "Survival"],
-    "Willpower" : ["Discipline", "Vigilance", "Coercion"],
-    "Presence"  : ["Cool", "Negotiation", "Leadership", "Charm"]
-  };
-
   function setDiceForSkill(skillName, abilities, proficiencies) {
     $("[data-skill-roll='"+skillName+"']").each( function() {
       $(this).empty();
@@ -25,8 +16,8 @@ var CharacterForm = (function() {
   function refreshSkillByName(skillName) {
     var skillElement = $("[data-skill-name='"+skillName+"']");
     var valueElement = $("[data-skill-value='"+skillName+"']:checked");
-    var skillRank = valueElement.prop("value");
-    var characteristicRank = $("#"+skillElement.attr("data-base-characteristic")).prop("value");
+    var skillRank = valueElement.val();
+    var characteristicRank = $("#"+skillElement.attr("data-base-characteristic")).val();
 
     var abilities = Math.min(skillRank, characteristicRank);
     var proficiencies = Math.max(skillRank, characteristicRank) - abilities;
@@ -40,12 +31,21 @@ var CharacterForm = (function() {
     });
   }
 
+  function switchAttackRollFromSelection(skillSelectElement) {
+    var attackIndex = skillSelectElement.attr("data-attack-index");
+    var skillName = $(skillSelectElement).find('option:selected').text();
+    $("[data-attack-roll-index="+attackIndex+"]").attr("data-skill-roll", skillName);
+    refreshSkillByName(skillName);
+  }
+
   function initializeHandlers() {
-    $("[data-skill-value]:radio").change(function() { refreshSkillByName($(this).attr("data-skill-value")) });
+    $("[data-skill-value]").change(function() { refreshSkillByName($(this).attr("data-skill-value")) });
     $("[data-characteristic]").change(function() { refreshSkillsFromCharacteristic($(this)) });
+    $("[data-attack-skill]").change(function() { switchAttackRollFromSelection($(this)) });
   }
 
   function refreshAllDice() {
+    $("[data-attack-skill]").change();
     $("[data-characteristic]").change();
   }
 

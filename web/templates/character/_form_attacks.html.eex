@@ -27,12 +27,12 @@
         <td class="form-inline">
           <div class="form-group form-group-sm pull-right">
             <label for="attacks[<%= i %>][skill]">Skill</label>
-            <select class="form-control" name="attacks[<%= i %>][base_skill_id]">
+            <select class="form-control" name="attacks[<%= i %>][base_skill_id]" data-attack-skill data-attack-index=<%= i %>>
               <%= base_skill_options(get_field(attack, :base_skill_id)) %>
             </select>
           </div>
         </td>
-        <td class="col-md-2"><span class="attack-roll" data-attack-index="<%= i %>">tbd</span></td>
+        <td class="col-md-2"><span class="attack-roll" data-attack-roll-index="<%= i %>">tbd</span></td>
       </tr>
       <tr class="attack-second-row <%= if rem(i, 2) == 0, do: "active" %>">
         <td>
