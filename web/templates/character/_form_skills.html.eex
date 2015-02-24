@@ -24,7 +24,11 @@
             <% end %>
           </div>
         </td>
-        <td><span class='skill-roll' data-characteristic="<%= skill.characteristic %>" data-skill="<%= skill.name %>">tbd</td>
+        <td>
+          <span class='skill-roll' data-characteristic="<%= skill.characteristic %>" data-skill="<%= skill.name %>">
+            <img src="/images/die_proficiency.png" height=15 /><img src="/images/die_proficiency.png" height=15 /><img src="/images/die_ability.png" height=15 />
+          </span>
+        </td>
     <% end %>
   </table>
 </div>
