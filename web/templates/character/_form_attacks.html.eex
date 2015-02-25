@@ -54,7 +54,7 @@
           </div>
         </td>
         <td>
-          <button type="button" class="btn btn-block btn-danger btn-xs">Remove</button>
+          <button type="button" class="btn btn-block btn-danger btn-xs" data-remove-attack=<%= i %>>Remove</button>
         </td>
       </tr>
     <% end %>

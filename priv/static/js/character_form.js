@@ -45,24 +45,53 @@ var CharacterForm = (function() {
     var index = previousIndex + 1;
     var attackTable = $("#attackTable");
 
-    attackTable.append(firstAttackRow);
-    attackTable.append(secondAttackRow);
+    $.each([firstAttackRow, secondAttackRow], function(_, row) {
+      attackTable.append(row);
+
+      row
+        .attr("data-attack", index)
+        .toggleClass("active");
+
+      row.find("[type=text]").val("");
+      row.find("[name]").attr("name", function(i, currentName) { return currentName.replace("attacks["+previousIndex+"]", "attacks["+index+"]") });
+      row.find("[for]").attr("for", function(i, currentFor) { return currentFor.replace("attacks["+previousIndex+"]", "attacks["+index+"]") });
+    });
 
     firstAttackRow.find("[type=hidden]").remove();
-    firstAttackRow.find("[type=text]").val("");
-    firstAttackRow.attr("data-attack", index);
     firstAttackRow.find("[data-attack-roll-index]").attr("data-attack-roll-index", index);
     firstAttackRow.find("[data-attack-index]").attr("data-attack-index", index);
     firstAttackRow.find("select").val(function() { return $(this).find("option:first").val() }).change();
-    firstAttackRow.toggleClass("active");
-    firstAttackRow.find("[name]").attr("name", function(i, currentName) { return currentName.replace("attacks["+previousIndex+"]", "attacks["+index+"]") });
-    firstAttackRow.find("[for]").attr("for", function(i, currentFor) { return currentFor.replace("attacks["+previousIndex+"]", "attacks["+index+"]") });
+    secondAttackRow.find("[data-remove-attack]").attr("data-remove-attack", index);
 
-    secondAttackRow.find("[type=text]").val("");
-    secondAttackRow.attr("data-attack", index);
-    secondAttackRow.toggleClass("active");
-    secondAttackRow.find("[name]").attr("name", function(i, currentName) { return currentName.replace("attacks["+previousIndex+"]", "attacks["+index+"]") });
-    secondAttackRow.find("[for]").attr("for", function(i, currentFor) { return currentFor.replace("attacks["+previousIndex+"]", "attacks["+index+"]") });
+    enableDisableRemoveAttackButtons();
+  }
+
+  function enableDisableRemoveAttackButtons() {
+    var removeButtons = $("[data-remove-attack]");
+    if(removeButtons.length == 1) {
+      removeButtons.attr("disabled", "disabled");
+    } else {
+      removeButtons.removeAttr("disabled");
+    }
+  }
+
+  function removeAttack(attackIndex) {
+    $("[data-attack="+attackIndex+"]").remove();
+
+    $.each([".attack-first-row", ".attack-second-row"], function(i, selector) {
+      var i = 0;
+
+      $(selector).each( function() {
+        if(i % 2 == 0) {
+          $(this).addClass("active");
+        } else {
+          $(this).removeClass("active");
+        }
+        i++;
+      });
+    });
+
+    enableDisableRemoveAttackButtons();
   }
 
   function initializeHandlers() {
@@ -70,6 +99,7 @@ var CharacterForm = (function() {
     $("[data-characteristic]").change(function() { refreshSkillsFromCharacteristic($(this)) });
     $("[data-attack-skill]").change(function() { switchAttackRollFromSelection($(this)) });
     $("#addAttackButton").click(addAttack);
+    $("[data-remove-attack]").click(function() { removeAttack($(this).attr("data-remove-attack")) });
   }
 
   function refreshAllDice() {
@@ -81,6 +111,7 @@ var CharacterForm = (function() {
     init: function() {
       initializeHandlers();
       refreshAllDice();
+      enableDisableRemoveAttackButtons();
     }
   };
 })();
