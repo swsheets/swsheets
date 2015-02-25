@@ -1,13 +1,13 @@
 <div class="row"><h4>Talents</h4></div>
 <div class="row">
-  <table class="table table-condensed">
+  <table id="talentTable" class="table table-condensed">
     <tr>
       <th class="col-md-3">Name</th>
       <th class="col-md-2">Book &amp; Page</th>
       <th class="col-md-7" colspan=2>Description</th>
     </tr>
     <%= for {talent, i} <- Enum.with_index(@talents) do %>
-      <tr>
+      <tr class="talent-row" data-talent="<%= i %>">
         <td>
           <input type="hidden" name="talents[<%= i %>][id]" value="<%= get_field(talent, :id) %>" />
           <div class="form-group-sm">
@@ -28,7 +28,7 @@
           </div>
         </td>
         <td class="col-md-1">
-          <button type="button" class="btn btn-block btn-danger btn-xs">Remove</button>
+          <button type="button" class="btn btn-block btn-danger btn-xs" data-remove-talent=<%= i %>>Remove</button>
         </td>
       </tr>
     <% end %>
@@ -36,9 +36,9 @@
 </div>
 <div class="row">
   <p class="text-center col-md-4 col-md-offset-2">
-    <button type="button" class="btn btn-block btn-default">Add <strong>1</strong> Talent</button>
+    <button id="addOneTalentButton" type="button" class="btn btn-block btn-default">Add <strong>1</strong> Talent</button>
   </p>
   <p class="text-center col-md-4">
-    <button type="button" class="btn btn-block btn-default">Add <strong>5</strong> Talents</button>
+    <button id="addFiveTalentsButton" type="button" class="btn btn-block btn-default">Add <strong>5</strong> Talents</button>
   </p>
 </div>

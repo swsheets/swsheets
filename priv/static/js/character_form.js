@@ -38,6 +38,39 @@ var CharacterForm = (function() {
     refreshSkillByName(skillName);
   }
 
+  function addTalent() {
+    var talentRow = $(".talent-row:last").clone(true);
+    var previousIndex = parseInt(talentRow.attr("data-talent"));
+    var index = previousIndex + 1;
+    var talentTable = $("#talentTable");
+
+    talentTable.append(talentRow);
+
+    talentRow.attr("data-talent", index);
+    talentRow.find("[type=hidden]").remove();
+    talentRow.find("[type=text]").val("");
+    talentRow.find("[name]").attr("name", function(i, currentName) { return currentName.replace("talents["+previousIndex+"]", "talents["+index+"]") });
+    talentRow.find("[for]").attr("for", function(i, currentFor) { return currentFor.replace("talents["+previousIndex+"]", "talents["+index+"]") });
+    talentRow.find("[data-remove-talent]").attr("data-remove-talent", index);
+
+    enableDisableRemoveTalentButtons();
+  }
+
+  function enableDisableRemoveTalentButtons() {
+    var removeButtons = $("[data-remove-talent]");
+    if(removeButtons.length == 1) {
+      removeButtons.attr("disabled", "disabled");
+    } else {
+      removeButtons.removeAttr("disabled");
+    }
+  }
+
+  function removeTalent(talentIndex) {
+    $("[data-talent="+talentIndex+"]").remove();
+
+    enableDisableRemoveTalentButtons();
+  }
+
   function addAttack() {
     var firstAttackRow = $(".attack-first-row:last").clone(true);
     var secondAttackRow = $(".attack-second-row:last").clone(true);
@@ -100,6 +133,9 @@ var CharacterForm = (function() {
     $("[data-attack-skill]").change(function() { switchAttackRollFromSelection($(this)) });
     $("#addAttackButton").click(addAttack);
     $("[data-remove-attack]").click(function() { removeAttack($(this).attr("data-remove-attack")) });
+    $("[data-remove-talent]").click(function() { removeTalent($(this).attr("data-remove-talent")) });
+    $("#addOneTalentButton").click(addTalent);
+    $("#addFiveTalentsButton").click(function() { for(var i = 0; i < 5; i++) { addTalent() } });
   }
 
   function refreshAllDice() {
