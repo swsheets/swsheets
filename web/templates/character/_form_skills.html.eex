@@ -27,8 +27,7 @@
           </div>
         </td>
         <td>
-          <span class='skill-roll' data-skill-roll="<%= skill.name %>">
-          </span>
+          <span class='skill-roll' data-skill-roll="<%= skill.name %>"></span>
         </td>
     <% end %>
   </table>

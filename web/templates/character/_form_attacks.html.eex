@@ -32,7 +32,7 @@
             </select>
           </div>
         </td>
-        <td class="col-md-2"><span class="attack-roll" data-attack-roll-index="<%= i %>">tbd</span></td>
+        <td class="col-md-2"><span class="attack-roll" data-attack-roll-index="<%= i %>"></span></td>
       </tr>
       <tr class="attack-second-row <%= if rem(i, 2) == 0, do: "active" %>" data-attack=<%= i %>>
         <td>
