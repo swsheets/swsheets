@@ -257,6 +257,28 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert talent.book_and_page == "DC p43"
     end
 
+    it "filters out empty talents from the request" do
+      character = %Character{
+        name: "Greedo",
+        species: "Rodian",
+        career: "Bounty Hunter",
+      } |> Repo.insert
+
+      talent = %Talent{
+        name: "Quick Draw",
+        book_and_page: "EotE Core p145",
+        description: "Draws a gun quickly",
+        character_id: character.id
+      } |> Repo.insert
+
+      request(:put, "/characters/#{character.id}", %{"character" => %{}, "talents" => %{
+        "0" => %{"book_and_page" => "", "description" => "", "name" => ""},
+        "1" => %{"book_and_page" => "", "description" => "", "name" => "", "id" => talent.id}
+      }})
+
+      assert [] == Talent.for_character(character.id)
+    end
+
     it "deletes any talents for that character that were not specified in the update" do
       character = %Character{
         name: "Greedo",
@@ -375,7 +397,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert Enum.count(CharacterSkill.for_character(character.id)) == 0
     end
 
-    it "updates and does not delete previously-saved skills that are set back to the default" do
+    it "deletes previously-saved skills that are set back to the default" do
       character = %Character{
         name: "Greedo",
         species: "Rodian",
@@ -392,10 +414,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
       request(:put, "/characters/#{character.id}", %{"character" => %{}, "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 0, "id" => original_character_skill.id}}})
 
-      [character_skill] = CharacterSkill.for_character(character.id)
-
-      assert character_skill.id == original_character_skill.id
-      assert character_skill.rank == 0
+      assert [] == CharacterSkill.for_character(character.id)
     end
   end
 end

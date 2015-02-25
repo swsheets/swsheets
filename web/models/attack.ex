@@ -19,6 +19,14 @@ defmodule EdgeBuilder.Models.Attack do
       |> cast(attack, [], ~w(character_id weapon_name range specials damage critical base_skill_id))
   end
 
+  def is_default_changeset?(changeset) do
+    default = struct(__MODULE__)
+
+    Enum.all?([:weapon_name, :range, :specials, :damage, :critical, :base_skill_id], fn field ->
+      Ecto.Changeset.get_field(changeset, field) == Map.fetch!(default, field)
+    end)
+  end
+
   def for_character(character_id) do
     Repo.all(
       from t in __MODULE__,

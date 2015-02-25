@@ -63,18 +63,8 @@ defmodule EdgeBuilder.Models.CharacterSkillTest do
   end
 
   describe "is_default_changeset?" do
-    it "always returns false for any persisted model" do
-      character_skill = %CharacterSkill{
-        character_id: 1,
-        base_skill_id: 1,
-      } |> Repo.insert
-
-      refute character_skill |> CharacterSkill.changeset |> CharacterSkill.is_default_changeset?
-    end
-
     it "returns false when the changeset has a non-default value" do
       changeset = %CharacterSkill{
-        character_id: 1,
         base_skill_id: 1,
         rank: 4
       } |> CharacterSkill.changeset

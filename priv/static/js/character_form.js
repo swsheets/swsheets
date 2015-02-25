@@ -148,6 +148,7 @@ var CharacterForm = (function() {
       initializeHandlers();
       refreshAllDice();
       enableDisableRemoveAttackButtons();
+      enableDisableRemoveTalentButtons();
     }
   };
 })();

@@ -16,11 +16,8 @@
           <div class="form-group form-group-sm pull-right">
             <label for="attacks[<%= i %>][range]">Range</label>
             <select class="form-control" name="attacks[<%= i %>][range]">
-              <option>Engaged</option>
-              <option>Short</option>
-              <option>Medium</option>
-              <option>Long</option>
-              <option>Extreme</option>
+              <option></option>
+              <%= range_options(get_field(attack, :range)) %>
             </select>
           </div>
         </td>
@@ -28,6 +25,7 @@
           <div class="form-group form-group-sm pull-right">
             <label for="attacks[<%= i %>][base_skill_id]">Skill</label>
             <select class="form-control" name="attacks[<%= i %>][base_skill_id]" data-attack-skill data-attack-index=<%= i %>>
+              <option></option>
               <%= base_skill_options(get_field(attack, :base_skill_id)) %>
             </select>
           </div>

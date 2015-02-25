@@ -15,6 +15,14 @@ defmodule EdgeBuilder.Models.Talent do
       |> cast(talent, [], ~w(character_id name book_and_page description))
   end
 
+  def is_default_changeset?(changeset) do
+    default = struct(__MODULE__)
+
+    Enum.all?([:name, :book_and_page, :description], fn field ->
+      Ecto.Changeset.get_field(changeset, field) == Map.fetch!(default, field)
+    end)
+  end
+
   def for_character(character_id) do
     Repo.all(
       from t in __MODULE__,

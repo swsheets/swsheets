@@ -62,8 +62,8 @@ defmodule EdgeBuilder.CharacterController do
       footer: EdgeBuilder.CharacterView.render("_form_footer.html"),
       title: "Editing #{character.name}",
       character: character |> Character.changeset,
-      talents: character.talents |> Enum.map(&Talent.changeset/1),
-      attacks: character.attacks |> Enum.map(&Attack.changeset/1),
+      talents: (if Enum.empty?(character.talents), do: [%Talent{}], else: character.talents) |> Enum.map(&Talent.changeset/1),
+      attacks: (if Enum.empty?(character.attacks), do: [%Attack{}], else: character.attacks) |> Enum.map(&Attack.changeset/1),
       character_skills: character.character_skills |> CharacterSkill.add_missing_defaults
   end
 
@@ -97,6 +97,7 @@ defmodule EdgeBuilder.CharacterController do
     params
       |> Map.values
       |> Enum.map(&(to_changeset(&1, child_model, instances)))
+      |> Enum.reject(&child_model.is_default_changeset?/1)
   end
   defp child_changesets(_,_,_), do: []
 

@@ -24,4 +24,10 @@ defmodule EdgeBuilder.CharacterView do
       "<option value='#{s.id}'#{if s.id == skill_id, do: " selected"}>#{s.name}</option>"
     end) |> safe
   end
+
+  def range_options(selected_range) do
+    Enum.map(~w(Engaged Short Medium Long Extreme), fn range ->
+      "<option#{if range == selected_range, do: " selected"}>#{range}</option>"
+    end) |> safe
+  end
 end
