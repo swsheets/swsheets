@@ -114,12 +114,13 @@
         <h4>Characteristics</h4>
       </div>
 
-      <!-- attributes -->
+      <!-- characteristics -->
       <div class="row">
         <div class="col-md-2">
           <div class="panel panel-default">
             <div class="panel-body panel-value">
               <%= get_field(@character, :characteristic_brawn) %>
+              <input id="Brawn" data-characteristic type="hidden" value="<%= get_field(@character, :characteristic_brawn) %>" />
             </div>
             <div class="panel-footer text-center">
               <label for="character[characteristic_brawn]">Brawn</label>
@@ -130,6 +131,7 @@
           <div class="panel panel-default">
             <div class="panel-body panel-value">
               <%= get_field(@character, :characteristic_agility) %>
+              <input id="Agility" data-characteristic type="hidden" value="<%= get_field(@character, :characteristic_agility) %>" />
             </div>
             <div class="panel-footer text-center">
               <label for="character[characteristic_agility]">Agility</label>
@@ -140,6 +142,7 @@
           <div class="panel panel-default">
             <div class="panel-body panel-value">
               <%= get_field(@character, :characteristic_intellect) %>
+              <input id="Intellect" data-characteristic type="hidden" value="<%= get_field(@character, :characteristic_intellect) %>" />
             </div>
             <div class="panel-footer text-center">
               <label for="character[characteristic_intellect]">Intellect</label>
@@ -150,6 +153,7 @@
           <div class="panel panel-default">
             <div class="panel-body panel-value">
               <%= get_field(@character, :characteristic_cunning) %>
+              <input id="Cunning" data-characteristic type="hidden" value="<%= get_field(@character, :characteristic_cunning) %>" />
             </div>
             <div class="panel-footer text-center">
               <label for="character[characteristic_cunning]">Cunning</label>
@@ -160,6 +164,7 @@
           <div class="panel panel-default">
             <div class="panel-body panel-value">
               <%= get_field(@character, :characteristic_willpower) %>
+              <input id="Willpower" data-characteristic type="hidden" value="<%= get_field(@character, :characteristic_willpower) %>" />
             </div>
             <div class="panel-footer text-center">
               <label for="character[characteristic_willpower]">Willpower</label>
@@ -170,6 +175,7 @@
           <div class="panel panel-default">
             <div class="panel-body panel-value">
               <%= get_field(@character, :characteristic_presence) %>
+              <input id="Presence" data-characteristic type="hidden" value="<%= get_field(@character, :characteristic_presence) %>" />
             </div>
             <div class="panel-footer text-center">
               <label for="character[characteristic_presence]">Presence</label>

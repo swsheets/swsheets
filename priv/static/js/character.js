@@ -13,11 +13,11 @@ var CharacterForm = (function() {
     });
   }
 
-  function refreshSkillByName(skillName) {
-    refreshSkillFromSkill($("[data-skill='"+skillName+"']"));
+  function refreshRollsBySkillName(skillName) {
+    refreshRollsFromSkill($("[data-skill='"+skillName+"']"));
   }
 
-  function refreshSkillFromSkill(skillElement) {
+  function refreshRollsFromSkill(skillElement) {
     var skillRank = skillElement.val();
     var characteristicRank = $("#"+skillElement.attr("data-base-characteristic")).val();
 
@@ -27,9 +27,9 @@ var CharacterForm = (function() {
     setDiceForSkill(skillElement.attr("data-skill"), abilities, proficiencies);
   }
 
-  function refreshSkillsFromCharacteristic(characteristicElement) {
+  function refreshRollsFromCharacteristic(characteristicElement) {
     $("[data-base-characteristic="+characteristicElement.prop("id")+"]").each(function() {
-      refreshSkillFromSkill($(this));
+      refreshRollsFromSkill($(this));
     });
   }
 
@@ -37,7 +37,7 @@ var CharacterForm = (function() {
     var attackIndex = skillSelectElement.attr("data-attack-index");
     var skillName = $(skillSelectElement).find('option:selected').text();
     $("[data-attack-roll-index="+attackIndex+"]").attr("data-skill-roll", skillName);
-    refreshSkillByName(skillName);
+    refreshRollsBySkillName(skillName);
   }
 
   function addTalent() {
@@ -130,8 +130,8 @@ var CharacterForm = (function() {
   }
 
   function initializeHandlers() {
-    $("[data-skill]").change(function() { refreshSkillFromSkill($(this)) });
-    $("[data-characteristic]").change(function() { refreshSkillsFromCharacteristic($(this)) });
+    $("[data-skill]").change(function() { refreshRollsFromSkill($(this)) });
+    $("[data-characteristic]").change(function() { refreshRollsFromCharacteristic($(this)) });
     $("[data-attack-skill]").change(function() { switchAttackRollFromSelection($(this)) });
     $("#addAttackButton").click(addAttack);
     $("[data-remove-attack]").click(function() { removeAttack($(this).attr("data-remove-attack")) });

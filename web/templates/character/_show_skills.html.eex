@@ -1,6 +1,7 @@
 <div class="row">
   <h4>Skills</h4>
 </div>
+<img id="dieProficiency" src="/images/die_proficiency.png" height=15 style="display:none" /><img id="dieAbility" src="/images/die_ability.png" height=15 style="display:none" />
 <div class="row">
   <table class="table table-condensed">
     <tr>
@@ -13,8 +14,13 @@
       <tr class="<%= if skill.is_attack_skill, do: ~s(active) %>">
         <td><%= skill.name %></td>
         <td class="career-check"><%= if skill.is_career, do: "X" %></td>
-        <td class="value"><%= skill.rank %></td>
-        <td><span data-characteristic="<%= skill.characteristic %>" data-skill="<%= skill.name %>">tbd</td>
+        <td class="value">
+          <input type="hidden" data-skill="<%= skill.name %>" data-base-characteristic="<%= skill.characteristic %>" value="<%= skill.rank %>" />
+          <%= skill.rank %>
+        </td>
+        <td>
+          <span data-skill-roll="<%= skill.name %>"></span>
+        </td>
     <% end %>
   </table>
 </div>

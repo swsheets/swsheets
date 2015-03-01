@@ -52,3 +52,7 @@ td.value {
 .gear {
   min-height: 300px;
 }
+
+.skill-cell {
+  vertical-align: middle !important;
+}

@@ -12,7 +12,7 @@ defmodule EdgeBuilder.CharacterController do
   def new(conn, _params) do
     render conn, "new.html",
       header: EdgeBuilder.CharacterView.render("_form_header.html"),
-      footer: EdgeBuilder.CharacterView.render("_form_footer.html"),
+      footer: EdgeBuilder.CharacterView.render("footer.html"),
       title: "New Character",
       character: %Character{} |> Character.changeset,
       talents: [%Talent{} |> Talent.changeset],
@@ -47,6 +47,7 @@ defmodule EdgeBuilder.CharacterController do
 
     render conn, "show.html",
       header: EdgeBuilder.CharacterView.render("_show_header.html"),
+      footer: EdgeBuilder.CharacterView.render("footer.html"),
       title: character.name,
       character: character |> Character.changeset,
       talents: character.talents |> Enum.map(&Talent.changeset/1),
@@ -59,7 +60,7 @@ defmodule EdgeBuilder.CharacterController do
 
     render conn, "edit.html",
       header: EdgeBuilder.CharacterView.render("_form_header.html"),
-      footer: EdgeBuilder.CharacterView.render("_form_footer.html"),
+      footer: EdgeBuilder.CharacterView.render("footer.html"),
       title: "Editing #{character.name}",
       character: character |> Character.changeset,
       talents: (if Enum.empty?(character.talents), do: [%Talent{}], else: character.talents) |> Enum.map(&Talent.changeset/1),
