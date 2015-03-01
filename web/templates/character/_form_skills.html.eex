@@ -7,7 +7,7 @@
     <tr>
       <th>Skill</th>
       <th>Career?</th>
-      <th>Rank</th>
+      <th class="col-md-1">Rank</th>
       <th class="col-md-3">Roll</th>
     </tr>
     <%= for {skill,i} <- Enum.with_index(@character_skills) do %>
@@ -17,14 +17,7 @@
         <td>
           <input type="hidden" name="skills[<%= i %>][base_skill_id]" value="<%= skill.base_skill_id %>" />
           <input type="hidden" name="skills[<%= i %>][id]" value="<%= skill.id %>" />
-          <input type="hidden" data-skill-name="<%= skill.name %>" data-base-characteristic="<%= skill.characteristic %>" />
-          <div class="btn-group" data-toggle="buttons">
-            <%= for rank <- 0..5 do %>
-              <label class="btn btn-xs btn-default <%= if skill.rank == rank, do: "active" %>">
-                <input type="radio" name="skills[<%= i %>][rank]" value="<%= rank %>" <%= if skill.rank == rank, do: "checked" %> data-skill-value="<%= skill.name %>" /><%= rank %>
-              </label>
-            <% end %>
-          </div>
+          <input type="text" class="form-control input-sm" data-skill="<%= skill.name %>" data-base-characteristic="<%= skill.characteristic %>" name="skills[<%= i %>][rank]" value="<%= skill.rank %>" />
         </td>
         <td>
           <span data-skill-roll="<%= skill.name %>"></span>

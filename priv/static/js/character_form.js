@@ -14,20 +14,22 @@ var CharacterForm = (function() {
   }
 
   function refreshSkillByName(skillName) {
-    var skillElement = $("[data-skill-name='"+skillName+"']");
-    var valueElement = $("[data-skill-value='"+skillName+"']:checked");
-    var skillRank = valueElement.val();
+    refreshSkillFromSkill($("[data-skill='"+skillName+"']"));
+  }
+
+  function refreshSkillFromSkill(skillElement) {
+    var skillRank = skillElement.val();
     var characteristicRank = $("#"+skillElement.attr("data-base-characteristic")).val();
 
     var abilities = Math.min(skillRank, characteristicRank);
     var proficiencies = Math.max(skillRank, characteristicRank) - abilities;
 
-    setDiceForSkill(skillName, abilities, proficiencies);
+    setDiceForSkill(skillElement.attr("data-skill"), abilities, proficiencies);
   }
 
   function refreshSkillsFromCharacteristic(characteristicElement) {
     $("[data-base-characteristic="+characteristicElement.prop("id")+"]").each(function() {
-      refreshSkillByName($(this).attr("data-skill-name"));
+      refreshSkillFromSkill($(this));
     });
   }
 
@@ -128,7 +130,7 @@ var CharacterForm = (function() {
   }
 
   function initializeHandlers() {
-    $("[data-skill-value]").change(function() { refreshSkillByName($(this).attr("data-skill-value")) });
+    $("[data-skill]").change(function() { refreshSkillFromSkill($(this)) });
     $("[data-characteristic]").change(function() { refreshSkillsFromCharacteristic($(this)) });
     $("[data-attack-skill]").change(function() { switchAttackRollFromSelection($(this)) });
     $("#addAttackButton").click(addAttack);
