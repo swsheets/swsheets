@@ -14,7 +14,7 @@
         <td><%= skill.name %></td>
         <td class="career-check"><%= if skill.is_career, do: "X" %></td>
         <td class="value"><%= skill.rank %></td>
-        <td><span class='skill-roll' data-characteristic="<%= skill.characteristic %>" data-skill="<%= skill.name %>">tbd</td>
+        <td><span data-characteristic="<%= skill.characteristic %>" data-skill="<%= skill.name %>">tbd</td>
     <% end %>
   </table>
 </div>
