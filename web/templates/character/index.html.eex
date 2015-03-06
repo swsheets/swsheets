@@ -1,0 +1,23 @@
+<h1>My Characters</h1>
+
+<div class="row">
+  <div class="col-md-6">
+    <%= for character <- @characters do %>
+      <div class="character-container">
+        <div class="row"><h2><a href="<%= character_path(@conn, :show, character.id) %>"><%= character.name %></a></h2></div>
+        <div class="row">
+          <div class="col-sm-6">
+            <p><%= character.species %> <%= character.career %></p>
+          </div>
+          <div class="col-sm-6 text-right">
+            <a class="btn btn-primary" href="<%= character_path(@conn, :show, character.id) %>">View</a>
+            <a class="btn btn-success" href="<%= character_path(@conn, :edit, character.id) %>">Edit</a>
+            <a class="btn btn-danger">Delete</a>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<h2><small><a href="<%= character_path(@conn, :new) %>">Create a New Character</a></small></h2>

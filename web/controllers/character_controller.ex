@@ -43,6 +43,13 @@ defmodule EdgeBuilder.CharacterController do
     end
   end
 
+  def index(conn, _params) do
+    render conn, "index.html",
+      title: "My Characters",
+      header: EdgeBuilder.CharacterView.render("_index_header.html"),
+      characters: EdgeBuilder.Repo.all(Character)
+  end
+
   def show(conn, %{"id" => id}) do
     character = Character.full_character(id)
 

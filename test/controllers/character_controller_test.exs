@@ -138,6 +138,38 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
   end
 
+  describe "index" do
+    it "displays a link to create a new character" do
+      conn = request(:get, "/characters")
+
+      assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.character_path(conn, :index))
+    end
+
+    it "displays links for each character" do
+      characters = [
+        %Character{
+          name: "Greedo",
+          species: "Rodian",
+          career: "Bounty Hunter"
+        },
+        %Character{
+          name: "Boba Fett",
+          species: "Not Sure",
+          career: "Bounty Hunter"
+        }
+      ] |> Enum.map(&Repo.insert/1)
+
+      conn = request(:get, "/characters")
+
+      assert conn.status == 200
+
+      for character <- characters do
+        assert String.contains?(conn.resp_body, character.name)
+        assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.character_path(conn, :show, character.id))
+      end
+    end
+  end
+
   describe "edit" do
     it "renders the character edit form" do
       character = %Character{
