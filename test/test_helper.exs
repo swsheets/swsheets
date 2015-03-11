@@ -29,8 +29,12 @@ defmodule EdgeBuilder.ControllerTest do
 
       def request(verb, path, params \\ %{}) do
         conn(verb, path, params)
-        |> put_private(:plug_skip_csrf_protection, true)
-        |> EdgeBuilder.Endpoint.call([])
+          |> put_private(:plug_skip_csrf_protection, true)
+          |> EdgeBuilder.Endpoint.call([])
+      end
+
+      def is_redirect_to?(conn, path) do
+        Enum.member?(conn.resp_headers, {"Location", path}) 
       end
     end
   end

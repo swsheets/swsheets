@@ -20,7 +20,6 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
   describe "create" do
     it "creates a character" do
-
       base_skills = BaseSkill.all
         |> Enum.reject(&(&1.name == "Athletics"))
         |> Enum.with_index
@@ -121,6 +120,21 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert character_skill.is_career
       assert character_skill.rank == 3
     end
+
+    it "redirects to the character show page" do
+      conn = request(:post, "/characters", %{
+        "character" => %{
+          "name" => "Greedo",
+          "species" => "Rodian",
+          "career" => "Bounty Hunter"
+        }
+      })
+
+      character = Repo.one!(from c in Character, where: c.name == "Greedo")
+
+      assert conn.status == 302
+      assert is_redirect_to?(conn, EdgeBuilder.Router.Helpers.character_path(conn, :show, character.id))
+    end
   end
 
   describe "show" do
@@ -212,14 +226,25 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         career: "Bounty Hunter"
       } |> Repo.insert
 
-      conn = request(:put, "/characters/#{character.id}", %{"character" => %{"name" => "Do'mesh", "species" => "Twi'lek"}})
-
-      assert conn.status == 200
+      request(:put, "/characters/#{character.id}", %{"character" => %{"name" => "Do'mesh", "species" => "Twi'lek"}})
 
       character = Repo.get(Character, character.id)
 
       assert character.name == "Do'mesh"
       assert character.species == "Twi'lek"
+    end
+
+    it "redirects to the character show page" do
+      character = %Character{
+        name: "Greedo",
+        species: "Rodian",
+        career: "Bounty Hunter"
+      } |> Repo.insert
+
+      conn = request(:put, "/characters/#{character.id}", %{"character" => %{"name" => "Do'mesh", "species" => "Twi'lek"}})
+
+      assert conn.status == 302
+      assert is_redirect_to?(conn, EdgeBuilder.Router.Helpers.character_path(conn, :show, character.id))
     end
 
     it "updates the character's optional attributes" do

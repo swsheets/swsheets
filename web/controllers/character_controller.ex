@@ -1,6 +1,7 @@
 defmodule EdgeBuilder.CharacterController do
   use Phoenix.Controller
 
+  import EdgeBuilder.Router.Helpers
   alias EdgeBuilder.Models.Character
   alias EdgeBuilder.Models.Talent
   alias EdgeBuilder.Models.Attack
@@ -30,12 +31,9 @@ defmodule EdgeBuilder.CharacterController do
     }
 
     if Changemap.valid?(changemap) do
-      changemap
-        |> Changemap.apply
+      changes = Changemap.apply(changemap)
 
-      conn
-        |> put_status(200)
-        |> text "ok"
+      redirect conn, to: character_path(conn, :show, changes.root.id)
     else
       conn
         |> put_status(400)
@@ -92,9 +90,7 @@ defmodule EdgeBuilder.CharacterController do
         |> Changemap.apply
         |> Changemap.delete_missing
 
-      conn
-        |> put_status(200)
-        |> text "ok"
+      redirect conn, to: character_path(conn, :show, id)
     else
       conn
         |> put_status(400)
