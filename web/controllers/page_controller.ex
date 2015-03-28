@@ -4,6 +4,6 @@ defmodule EdgeBuilder.PageController do
   plug :action
 
   def index(conn, _params) do
-    render conn, "index.html"
+    redirect conn, to: EdgeBuilder.Router.Helpers.character_path(conn, :index)
   end
 end
