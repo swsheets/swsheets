@@ -11,11 +11,7 @@ defmodule EdgeBuilder.CharacterController do
   plug :action
 
   def new(conn, _params) do
-    render conn, "new.html",
-      header: EdgeBuilder.CharacterView.render("_form_header.html"),
-      nav_header: EdgeBuilder.CharacterView.render("_form_nav_header.html"),
-      footer: EdgeBuilder.CharacterView.render("footer.html"),
-      title: "New Character",
+    render_new conn,
       character: %Character{} |> Character.changeset,
       talents: [%Talent{} |> Talent.changeset],
       attacks: [%Attack{} |> Attack.changeset],
@@ -35,9 +31,11 @@ defmodule EdgeBuilder.CharacterController do
 
       redirect conn, to: character_path(conn, :show, changes.root.id)
     else
-      conn
-        |> put_status(400)
-        |> text "not ok"
+      render_new conn,
+        character: changemap.root,
+        talents: changemap.talents,
+        attacks: changemap.attacks,
+        character_skills: CharacterSkill.add_missing_defaults([])
     end
   end
 
@@ -96,6 +94,15 @@ defmodule EdgeBuilder.CharacterController do
         |> put_status(400)
         |> text "not ok"
     end
+  end
+
+  defp render_new(conn, assignments) do
+    render conn, "new.html", [
+        title: "New Character",
+        header: EdgeBuilder.CharacterView.render("_form_header.html"),
+        nav_header: EdgeBuilder.CharacterView.render("_form_nav_header.html"),
+        footer: EdgeBuilder.CharacterView.render("footer.html")
+      ] ++ assignments
   end
 
   defp child_changesets(params, child_model, instances \\ [])

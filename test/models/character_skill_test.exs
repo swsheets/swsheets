@@ -60,6 +60,28 @@ defmodule EdgeBuilder.Models.CharacterSkillTest do
       assert is_nil(unmatched_character_skill.id)
       assert unmatched_character_skill.rank == 0
     end
+    it "takes a collection of character skill changesets and ensures all base skills are represented" do
+      character = %Character{
+        name: "Greedo",
+        species: "Rodian",
+        career: "Bounty Hunter"
+      } |> Repo.insert
+
+      base_skill = BaseSkill.all |> Enum.at(0)
+
+      greedos_skill_changeset = %CharacterSkill{
+        rank: 2,
+        base_skill_id: base_skill.id,
+        character_id: character.id
+      } |> Repo.insert |> CharacterSkill.changeset
+
+      all_character_skills = CharacterSkill.add_missing_defaults([greedos_skill_changeset])
+
+      assert Enum.count(all_character_skills) == Enum.count(BaseSkill.all)
+
+      matching_character_skill = Enum.find(all_character_skills, &(&1.base_skill_id == base_skill.id))
+      assert matching_character_skill.id == Ecto.Changeset.get_field(greedos_skill_changeset, :id)
+    end
   end
 
   describe "is_default_changeset?" do

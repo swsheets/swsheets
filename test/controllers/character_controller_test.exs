@@ -135,6 +135,17 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert conn.status == 302
       assert is_redirect_to?(conn, EdgeBuilder.Router.Helpers.character_path(conn, :show, character.id))
     end
+
+    it "re-renders the new character page when there are errors" do
+      conn = request(:post, "/characters", %{
+        "character" => %{
+          "species" => "Rodian",
+          "career" => "Bounty Hunter"
+        }
+      })
+
+      assert String.contains?(conn.resp_body, "Character name is required")
+    end
   end
 
   describe "show" do

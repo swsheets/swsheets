@@ -37,7 +37,7 @@ defmodule EdgeBuilder.Models.CharacterSkill do
       |> Enum.map(&(character_skill_or_default(&1, character_skills)))
   end
 
-  defp character_skill_or_default(base_skill, character_skills) do
+  defp character_skill_or_default(base_skill, character_skills_or_changesets) do
     skill_template = %{
       name: base_skill.name,
       characteristic: base_skill.characteristic,
@@ -45,10 +45,8 @@ defmodule EdgeBuilder.Models.CharacterSkill do
       is_attack_skill: base_skill.is_attack_skill
     }
 
-    character_skill = Enum.find(character_skills, %EdgeBuilder.Models.CharacterSkill{}, &(&1.base_skill_id == base_skill.id))
+    character_skill_or_changeset = Enum.find(character_skills_or_changesets, %EdgeBuilder.Models.CharacterSkill{}, &(Extensions.Changeset.get_field(&1, :base_skill_id) == base_skill.id))
 
-    character_skill
-      |> Map.take([:rank, :is_career, :id])
-      |> Map.merge(skill_template)
+    Map.merge(skill_template, Extensions.Changeset.take(character_skill_or_changeset, [:rank, :is_career, :id]))
   end
 end
