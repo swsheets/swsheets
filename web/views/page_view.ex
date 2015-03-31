@@ -1,3 +1,3 @@
 defmodule EdgeBuilder.PageView do
-  use EdgeBuilder.Web, :view
+  use EdgeBuilder.View
 end

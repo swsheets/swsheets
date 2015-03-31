@@ -17,7 +17,6 @@ config :logger, :console,
   metadata: [:request_id]
 
 config :edge_builder, EdgeBuilder.Repo,
-  adapter: Ecto.Adapters.Postgres,
   database: "edgebuilder_development",
   username: "pair",
   hostname: "localhost"

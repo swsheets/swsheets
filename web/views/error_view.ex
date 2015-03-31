@@ -1,5 +1,5 @@
 defmodule EdgeBuilder.ErrorView do
-  use EdgeBuilder.Web, :view
+  use EdgeBuilder.View
 
   def render("404.html", _assigns) do
     "Page not found - 404"
@@ -9,9 +9,8 @@ defmodule EdgeBuilder.ErrorView do
     "Server internal error - 500"
   end
 
-  # In case no render clause matches or no
-  # template is found, let's render it as 500
-  def template_not_found(_, assigns) do
+  # Render all other templates as 500
+  def render(_, assigns) do
     render "500.html", assigns
   end
 end

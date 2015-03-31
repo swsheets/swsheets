@@ -1,5 +1,6 @@
 <form role="form" id="character_form" action="<%= character_path(@conn, :update, get_field(@character, :id)) %>" method="POST">
   <input type="hidden" name="_method" value="PUT" />
+  <input type="hidden" name="csrf_token" value="<%= Plug.Conn.get_session(@conn, :csrf_token) %>" />
 
   <%= render "_form.html", character: @character, talents: @talents, attacks: @attacks, character_skills: @character_skills %>
 </form>

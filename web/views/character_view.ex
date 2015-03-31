@@ -1,5 +1,5 @@
 defmodule EdgeBuilder.CharacterView do
-  use EdgeBuilder.Web, :view
+  use EdgeBuilder.View
   import Ecto.Changeset, only: [get_field: 2]
 
   alias EdgeBuilder.Repo

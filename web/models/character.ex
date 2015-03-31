@@ -43,8 +43,8 @@ defmodule EdgeBuilder.Models.Character do
   end
 
   def changeset(character, params \\ %{}) do
-    character
-      |> cast(params, required_fields, optional_fields)
+    params
+      |> cast(character, required_fields, optional_fields)
   end
 
   def full_character(id) do

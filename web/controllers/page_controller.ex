@@ -1,5 +1,5 @@
 defmodule EdgeBuilder.PageController do
-  use EdgeBuilder.Web, :controller
+  use Phoenix.Controller
 
   plug :action
 

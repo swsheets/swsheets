@@ -11,8 +11,8 @@ defmodule EdgeBuilder.Models.Talent do
   end
 
   def changeset(talent, params \\ %{}) do
-    talent
-      |> cast(params, [], ~w(character_id name book_and_page description))
+    params
+      |> cast(talent, [], ~w(character_id name book_and_page description))
   end
 
   def is_default_changeset?(changeset) do
