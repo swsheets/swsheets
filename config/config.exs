@@ -9,7 +9,9 @@ use Mix.Config
 config :edge_builder, EdgeBuilder.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "9gHweeZJaqUL1PGBXTxahiuf9fQuc5FJvN5AfL3XJpG5UkKkH8g/ApPrixTs67nE",
-  debug_errors: false
+  debug_errors: false,
+  pubsub: [name: EdgeBuilder.PubSub,
+           adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
