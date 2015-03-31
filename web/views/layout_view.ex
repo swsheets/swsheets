@@ -1,5 +1,5 @@
 defmodule EdgeBuilder.LayoutView do
-  use EdgeBuilder.View
+  use EdgeBuilder.Web, :view
 
   def title_or_default(title) when is_nil(title), do: title_or_default("")
   def title_or_default(title) do

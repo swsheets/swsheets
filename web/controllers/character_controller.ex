@@ -1,5 +1,5 @@
 defmodule EdgeBuilder.CharacterController do
-  use Phoenix.Controller
+  use EdgeBuilder.Web, :controller
 
   import EdgeBuilder.Router.Helpers
   alias EdgeBuilder.Models.Character

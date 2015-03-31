@@ -2,7 +2,8 @@ defmodule EdgeBuilder.Endpoint do
   use Phoenix.Endpoint, otp_app: :edge_builder
 
   plug Plug.Static,
-    at: "/", from: :edge_builder
+    at: "/", from: :edge_builder,
+    only: ~w(css images js fonts)
 
   plug Plug.Logger
 

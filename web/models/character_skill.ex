@@ -13,8 +13,8 @@ defmodule EdgeBuilder.Models.CharacterSkill do
   end
 
   def changeset(character_skill, params \\ %{}) do
-    params
-      |> cast(character_skill, ~w(base_skill_id), ~w(character_id is_career rank))
+    character_skill
+    |> cast(params, ~w(base_skill_id), ~w(character_id is_career rank))
   end
 
   def for_character(id) do
