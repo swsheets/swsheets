@@ -1,3 +1,13 @@
+<%= unless is_nil(@errors) do %>
+  <div class="alert alert-danger">
+    <ul>
+      <%= for {field, error} <- @errors do %>
+        <li><strong><%= field |> Atom.to_string |> String.capitalize %></strong> <%= error %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_tag(character_path(@conn, :create), role: "form", id: "character_form", method: "POST") %>
 
   <%= render "_form.html", character: @character, talents: @talents, attacks: @attacks, character_skills: @character_skills %>

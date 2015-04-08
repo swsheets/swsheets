@@ -141,10 +141,12 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         "character" => %{
           "species" => "Rodian",
           "career" => "Bounty Hunter"
-        }
+        },
+        "skills" => %{"0" => %{"base_skill_id" => BaseSkill.by_name("Athletics").id, "rank" => "3", "is_career" => "on"}}
       })
 
-      assert String.contains?(conn.resp_body, "Character name is required")
+      assert String.contains?(conn.resp_body, "<strong>Name</strong> can&#39;t be blank")
+      assert String.contains?(conn.resp_body, ~s(<input type="text" class="form-control input-sm" data-skill="Athletics" data-base-characteristic="Brawn" name="skills[1][rank]" value="0">))
     end
   end
 
