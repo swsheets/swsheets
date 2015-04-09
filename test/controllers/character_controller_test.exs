@@ -7,6 +7,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
   alias EdgeBuilder.Models.BaseSkill
   alias EdgeBuilder.Models.CharacterSkill
   alias EdgeBuilder.Repo
+  alias Helpers.Response
   import Ecto.Query, only: [from: 2]
 
   describe "new" do
@@ -145,8 +146,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         "skills" => %{"0" => %{"base_skill_id" => BaseSkill.by_name("Athletics").id, "rank" => "3", "is_career" => "on"}}
       })
 
-      assert String.contains?(conn.resp_body, "<strong>Name</strong> can&#39;t be blank")
-      assert String.contains?(conn.resp_body, ~s(<input type="text" class="form-control input-sm" data-skill="Athletics" data-base-characteristic="Brawn" name="skills[1][rank]" value="0">))
+      assert Response.selector_contains?(conn, ".alert-danger", "Name can't be blank")
     end
   end
 

@@ -40,4 +40,6 @@ defmodule EdgeBuilder.ControllerTest do
   end
 end
 
+Enum.each(Path.wildcard("test/helpers/**/*.exs"), &Code.load_file/1)
+
 ExUnit.start
