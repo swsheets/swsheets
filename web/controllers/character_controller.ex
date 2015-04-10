@@ -33,7 +33,7 @@ defmodule EdgeBuilder.CharacterController do
     else
       render_new conn,
         character: changemap.root,
-        talents: changemap.talents,
+        talents: (if Enum.empty?(changemap.talents), do: [%Talent{} |> Talent.changeset], else: changemap.talents),
         attacks: (if Enum.empty?(changemap.attacks), do: [%Attack{} |> Attack.changeset], else: changemap.attacks),
         character_skills: CharacterSkill.add_missing_defaults(changemap.character_skills),
         errors: changemap.root.errors
