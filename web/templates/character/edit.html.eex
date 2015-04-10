@@ -1,5 +1,14 @@
-<form role="form" id="character_form" action="<%= character_path(@conn, :update, get_field(@character, :id)) %>" method="POST">
-  <input type="hidden" name="_method" value="PUT" />
+<%= unless is_nil(@errors) do %>
+  <div class="alert alert-danger">
+    <ul>
+      <%= for {field, error} <- @errors do %>
+        <li><strong><%= field |> Atom.to_string |> String.capitalize %></strong> <%= error %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_tag(character_path(@conn, :update, get_field(@character, :id)), role: "form", id: "character_form", method: "PUT") %>
 
   <%= render "_form.html", character: @character, talents: @talents, attacks: @attacks, character_skills: @character_skills %>
 </form>

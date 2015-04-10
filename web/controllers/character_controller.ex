@@ -59,11 +59,7 @@ defmodule EdgeBuilder.CharacterController do
   def edit(conn, %{"id" => id}) do
     character = Character.full_character(id)
 
-    render conn, "edit.html",
-      header: EdgeBuilder.CharacterView.render("_form_header.html"),
-      nav_header: EdgeBuilder.CharacterView.render("_form_nav_header.html"),
-      footer: EdgeBuilder.CharacterView.render("footer.html"),
-      title: "Editing #{character.name}",
+    render_edit conn,
       character: character |> Character.changeset,
       talents: (if Enum.empty?(character.talents), do: [%Talent{}], else: character.talents) |> Enum.map(&Talent.changeset/1),
       attacks: (if Enum.empty?(character.attacks), do: [%Attack{}], else: character.attacks) |> Enum.map(&Attack.changeset/1),
@@ -87,9 +83,13 @@ defmodule EdgeBuilder.CharacterController do
 
       redirect conn, to: character_path(conn, :show, id)
     else
-      conn
-        |> put_status(400)
-        |> text "not ok"
+
+      render_edit conn,
+        character: changemap.root,
+        talents: changemap.talents,
+        attacks: changemap.attacks,
+        character_skills: changemap.character_skills,
+        errors: changemap.root.errors
     end
   end
 
@@ -106,6 +106,21 @@ defmodule EdgeBuilder.CharacterController do
     ])
 
     render conn, "new.html", assignments
+  end
+
+  defp render_edit(conn, assignments) do
+    assignments = Keyword.merge(assignments, [
+      title: "Editing #{Ecto.Changeset.get_field(assignments[:character], :name)}",
+      header: EdgeBuilder.CharacterView.render("_form_header.html"),
+      nav_header: EdgeBuilder.CharacterView.render("_form_nav_header.html"),
+      footer: EdgeBuilder.CharacterView.render("footer.html"),
+      character: (if is_nil(assignments[:character]), do: %Character{} |> Character.changeset, else: assignments[:character]),
+      talents: (if is_nil(assignments[:talents]) || Enum.empty?(assignments[:talents]), do: [%Talent{} |> Talent.changeset], else: assignments[:talents]),
+      attacks: (if is_nil(assignments[:attacks]) || Enum.empty?(assignments[:attacks]), do: [%Attack{} |> Attack.changeset], else: assignments[:attacks]),
+      character_skills: CharacterSkill.add_missing_defaults(assignments[:character_skills] || [])
+    ])
+
+    render conn, "edit.html", assignments
   end
 
   defp child_changesets(params, child_model, instances \\ [])

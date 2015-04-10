@@ -489,5 +489,35 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
       assert [] == CharacterSkill.for_character(character.id)
     end
+
+    it "re-renders the edit character page when there are errors" do
+      character = %Character{
+        name: "Greedo",
+        species: "Rodian",
+        career: "Bounty Hunter",
+      } |> Repo.insert
+
+      base_skill = Repo.one(from bs in BaseSkill, where: bs.name == "Astrogation")
+
+      %CharacterSkill{
+        base_skill_id: base_skill.id,
+        character_id: character.id,
+        rank: 5
+      } |> Repo.insert
+
+      conn = request(:put, "/characters/#{character.id}", %{
+        "character" => %{
+          "name" => "",
+          "species" => "Rodian",
+          "career" => "Bounty Hunter"
+        },
+        "skills" => %{"0" => %{"base_skill_id" => BaseSkill.by_name("Athletics").id, "rank" => "3", "is_career" => "on"}}
+      })
+
+      assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text == "Name can't be blank"
+      assert FlokiExt.element(conn, "[data-skill=Athletics]") |> FlokiExt.attribute("value") == "3"
+      assert !is_nil(FlokiExt.element(conn, ".attack-first-row"))
+      assert !is_nil(FlokiExt.element(conn, ".talent-row"))
+    end
   end
 end
