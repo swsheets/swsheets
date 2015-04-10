@@ -35,7 +35,7 @@ defmodule EdgeBuilder.CharacterController do
         character: changemap.root,
         talents: changemap.talents,
         attacks: changemap.attacks,
-        character_skills: CharacterSkill.add_missing_defaults([]),
+        character_skills: CharacterSkill.add_missing_defaults(changemap.character_skills),
         errors: changemap.root.errors
     end
   end

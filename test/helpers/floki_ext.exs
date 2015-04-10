@@ -18,7 +18,7 @@ defmodule Helpers.FlokiExt do
   def find_by_attribute(node = {_, attributes, children}, attribute, value) do
     matches = Enum.flat_map(children, fn(c) -> find_by_attribute(c, attribute, value) end)
 
-    if List.keymember?(attributes, attribute, 0) do
+    if Enum.member?(attributes, {attribute, value}) do
       [node | matches]
     else
       matches
