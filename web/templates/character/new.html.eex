@@ -1,12 +1,4 @@
-<%= unless is_nil(@errors) do %>
-  <div class="alert alert-danger">
-    <ul>
-      <%= for {field, error} <- @errors do %>
-        <li><strong><%= field |> Atom.to_string |> String.capitalize %></strong> <%= error %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+<%= render EdgeBuilder.SharedView, "_errors.html", errors: @errors %>
 
 <%= form_tag(character_path(@conn, :create), role: "form", id: "character_form", method: "POST") %>
 

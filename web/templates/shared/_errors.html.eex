@@ -1,0 +1,9 @@
+<%= unless is_nil(@errors) do %>
+  <div class="alert alert-danger">
+    <ul>
+      <%= for {field, error} <- @errors do %>
+        <li><strong><%= field |> Atom.to_string |> String.capitalize %></strong> <%= error %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
