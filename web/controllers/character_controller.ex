@@ -11,11 +11,7 @@ defmodule EdgeBuilder.CharacterController do
   plug :action
 
   def new(conn, _params) do
-    render_new conn,
-      character: %Character{} |> Character.changeset,
-      talents: [%Talent{} |> Talent.changeset],
-      attacks: [%Attack{} |> Attack.changeset],
-      character_skills: CharacterSkill.add_missing_defaults([])
+    render_new conn
   end
 
   def create(conn, params = %{"character" => character_params}) do
@@ -33,9 +29,9 @@ defmodule EdgeBuilder.CharacterController do
     else
       render_new conn,
         character: changemap.root,
-        talents: (if Enum.empty?(changemap.talents), do: [%Talent{} |> Talent.changeset], else: changemap.talents),
-        attacks: (if Enum.empty?(changemap.attacks), do: [%Attack{} |> Attack.changeset], else: changemap.attacks),
-        character_skills: CharacterSkill.add_missing_defaults(changemap.character_skills),
+        talents: changemap.talents,
+        attacks: changemap.attacks,
+        character_skills: changemap.character_skills,
         errors: changemap.root.errors
     end
   end
@@ -97,13 +93,19 @@ defmodule EdgeBuilder.CharacterController do
     end
   end
 
-  defp render_new(conn, assignments) do
-    render conn, "new.html", [
-        title: "New Character",
-        header: EdgeBuilder.CharacterView.render("_form_header.html"),
-        nav_header: EdgeBuilder.CharacterView.render("_form_nav_header.html"),
-        footer: EdgeBuilder.CharacterView.render("footer.html")
-      ] ++ assignments
+  defp render_new(conn, assignments \\ []) do
+    assignments = Keyword.merge(assignments, [
+      title: "New Character",
+      header: EdgeBuilder.CharacterView.render("_form_header.html"),
+      nav_header: EdgeBuilder.CharacterView.render("_form_nav_header.html"),
+      footer: EdgeBuilder.CharacterView.render("footer.html"),
+      character: (if is_nil(assignments[:character]), do: %Character{} |> Character.changeset, else: assignments[:character]),
+      talents: (if is_nil(assignments[:talents]) || Enum.empty?(assignments[:talents]), do: [%Talent{} |> Talent.changeset], else: assignments[:talents]),
+      attacks: (if is_nil(assignments[:attacks]) || Enum.empty?(assignments[:attacks]), do: [%Attack{} |> Attack.changeset], else: assignments[:attacks]),
+      character_skills: CharacterSkill.add_missing_defaults(assignments[:character_skills] || [])
+    ])
+
+    render conn, "new.html", assignments
   end
 
   defp child_changesets(params, child_model, instances \\ [])
