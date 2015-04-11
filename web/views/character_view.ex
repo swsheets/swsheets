@@ -5,12 +5,6 @@ defmodule EdgeBuilder.CharacterView do
   alias EdgeBuilder.Repo
   alias EdgeBuilder.Models.BaseSkill
 
-  using do
-    quote do
-      import EdgeBuilder.Router.Helpers
-    end
-  end
-
   def image_or_default(character) do
     get_field(character, :portrait_url) || "/images/250x250.gif"
   end
