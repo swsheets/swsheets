@@ -93,6 +93,11 @@ defmodule EdgeBuilder.CharacterController do
     end
   end
 
+  def delete(conn, %{"id" => id}) do
+    Character.full_character(id) |> Character.delete
+    redirect conn, to: character_path(conn, :index)
+  end
+
   defp render_new(conn, assignments \\ []) do
     assignments = Keyword.merge(assignments, [
       title: "New Character",

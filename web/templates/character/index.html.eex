@@ -12,7 +12,7 @@
           <div class="col-sm-6 text-right">
             <a class="btn btn-primary" href="<%= character_path(@conn, :show, character.id) %>">View</a>
             <a class="btn btn-success" href="<%= character_path(@conn, :edit, character.id) %>">Edit</a>
-            <a class="btn btn-danger">Delete</a>
+            <a class="btn btn-danger" href="<%= character_path(@conn, :delete, character.id) %>">Delete</a>
           </div>
         </div>
       </div>

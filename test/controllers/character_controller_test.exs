@@ -520,4 +520,28 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert !is_nil(FlokiExt.element(conn, ".talent-row"))
     end
   end
+
+  describe "delete" do
+
+    it "deletes a character and all associated records" do
+      character = %Character{
+        name: "Greedo",
+        species: "Rodian",
+        career: "Bounty Hunter",
+      } |> Repo.insert
+
+      base_skill = Repo.one(from bs in BaseSkill, where: bs.name == "Astrogation")
+
+      %CharacterSkill{
+        base_skill_id: base_skill.id,
+        character_id: character.id,
+        rank: 5
+      } |> Repo.insert
+
+      request(:delete, "/characters/#{character.id}")
+
+      assert is_nil(Repo.get(Character, character.id))
+      assert is_nil(Repo.one(from cs in CharacterSkill, where: cs.id == ^(character.id)))
+    end
+  end
 end

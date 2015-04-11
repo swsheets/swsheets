@@ -55,6 +55,14 @@ defmodule EdgeBuilder.Models.Character do
     )
   end
 
+  def delete(character) do
+    Enum.each [Talent, Attack, CharacterSkill], fn(child_module) ->
+      Repo.delete_all(from c in child_module, where: c.character_id == ^character.id)
+    end
+
+    Repo.delete(character)
+  end
+
   defp required_fields, do: [:name, :species, :career]
   defp optional_fields, do: __schema__(:fields) -- [:id | required_fields]
 end
