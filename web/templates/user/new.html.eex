@@ -1,0 +1,20 @@
+<%= render EdgeBuilder.SharedView, "_errors.html", errors: @errors %>
+
+<%= form_tag(user_path(@conn, :create), role: "form", method: "POST") %>
+  <div class="form-group">
+    <label for="user[email]" class='label-lg'>Email Address</label>
+    <input type="email" class="form-control" name="user[email]" />
+  </div>
+  <div class="form-group">
+    <label for="user[username]" class='label-lg'>Username</label>
+    <input type="text" class="form-control" name="user[username]" />
+  </div>
+  <div class="form-group">
+    <label for="user[password]" class='label-lg'>Password</label>
+    <input type="password" class="form-control" name="user[pasword]" />
+  </div>
+  <div class="form-group">
+    <label for="user[password_confirmation]" class='label-lg'>Password Confirmation</label>
+    <input type="password" class="form-control" name="user[password_confirmation]" />
+  </div>
+</form>
