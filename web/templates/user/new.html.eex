@@ -1,20 +1,28 @@
 <%= render EdgeBuilder.SharedView, "_errors.html", errors: @errors %>
 
-<%= form_tag(user_path(@conn, :create), role: "form", method: "POST") %>
+<%= form_tag(user_path(@conn, :create), role: "form", method: "POST", class: "form-horizontal") %>
   <div class="form-group">
-    <label for="user[email]" class='label-lg'>Email Address</label>
-    <input type="email" class="form-control" name="user[email]" />
+    <label for="user[email]" class='col-sm-2 control-label'>Email Address</label>
+    <div class='col-sm-10'>
+      <input type="email" class="form-control" name="user[email]" />
+    </div>
   </div>
   <div class="form-group">
-    <label for="user[username]" class='label-lg'>Username</label>
-    <input type="text" class="form-control" name="user[username]" />
+    <label for="user[username]" class='col-sm-2 control-label'>Username</label>
+    <div class='col-sm-10'>
+      <input type="text" class="form-control" name="user[username]" />
+    </div>
   </div>
   <div class="form-group">
-    <label for="user[password]" class='label-lg'>Password</label>
-    <input type="password" class="form-control" name="user[pasword]" />
+    <label for="user[password]" class='col-sm-2 control-label'>Password</label>
+    <div class='col-sm-10'>
+      <input type="password" class="form-control" name="user[pasword]" />
+    </div>
   </div>
   <div class="form-group">
-    <label for="user[password_confirmation]" class='label-lg'>Password Confirmation</label>
-    <input type="password" class="form-control" name="user[password_confirmation]" />
+    <label for="user[password_confirmation]" class='col-sm-2 control-label'>Password Confirmation</label>
+    <div class='col-sm-10'>
+      <input type="password" class="form-control" name="user[password_confirmation]" />
+    </div>
   </div>
 </form>
