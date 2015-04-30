@@ -22,6 +22,6 @@ defmodule Fixtures.UserFixture do
   def create_user(overrides) when is_map(overrides) do
     params = Map.merge(@defaults, overrides)
 
-    User.changeset(%User{}, params) |> Repo.insert
+    User.changeset(%User{}, :create, params) |> Repo.insert
   end
 end

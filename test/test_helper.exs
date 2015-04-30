@@ -27,10 +27,25 @@ defmodule EdgeBuilder.ControllerTest do
       use EdgeBuilder.Test
       use Plug.Test
 
-      def request(verb, path, params \\ %{}) do
+      @session Plug.Session.init(
+        store: :cookie,
+        key: "app",
+        encryption_salt: "asd",
+        signing_salt: "asd"
+      )
+
+      def request(verb, path, params \\ %{}, f \\ &(&1)) do
         conn(verb, path, params)
+          |> Map.put(:secret_key_base, "this is a string that is at least 64 bytes in length aaaaaaaaaaaaaaaaaaaa")
+          |> Plug.Session.call(@session)
+          |> fetch_session
+          |> f.()
           |> put_private(:plug_skip_csrf_protection, true)
-          |> EdgeBuilder.Endpoint.call([])
+          |> EdgeBuilder.Router.call([])
+      end
+
+      def authenticated_request(user, verb, path, params \\ %{}) do
+        request(verb, path, params, fn(conn) -> put_session(conn, :current_user_id, user.id) end)
       end
 
       def is_redirect_to?(conn, path) do

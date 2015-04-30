@@ -2,6 +2,7 @@ defmodule EdgeBuilder.Controllers.UserControllerTest do
   use EdgeBuilder.ControllerTest
 
   alias EdgeBuilder.Models.User
+  alias Fixtures.UserFixture
   alias EdgeBuilder.Repo
   alias Helpers.FlokiExt
   import Ecto.Query, only: [from: 2]
@@ -33,7 +34,18 @@ defmodule EdgeBuilder.Controllers.UserControllerTest do
       assert !is_nil(user)
       assert user.email == "test@example.com"
       assert user.username == "test"
-      assert User.password_matches?(user, "my$good14password15is_verylong")
+      assert {:ok, user} == User.authenticate(user.username, "my$good14password15is_verylong")
+    end
+  end
+
+  describe "edit" do
+    it "displays your user information" do
+      user = UserFixture.default_user
+
+      conn = authenticated_request(user, :get, "/user/edit")
+
+      assert FlokiExt.find(conn.resp_body, "#email") |> FlokiExt.attribute("value") == user.email
+      assert String.contains?(conn.resp_body, user.username)
     end
   end
 end

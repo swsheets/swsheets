@@ -9,13 +9,31 @@ defmodule EdgeBuilder.Models.User do
     field :password_confirmation, :string, virtual: true
   end
 
-  def changeset(user, params) do
+  def changeset(user, context, params \\ %{})
+  def changeset(user, :create, params) do
     user
       |> cast(params, ~w(username email password password_confirmation))
       |> crypt_password_if_present
   end
 
-  def password_matches?(user, pw) do
+  def changeset(user, :update, params) do
+    user
+      |> cast(params, [], ~w(email password password_confirmation))
+      |> crypt_password_if_present
+  end
+
+  def authenticate(username, pw) do
+    user = EdgeBuilder.Repo.one(from u in __MODULE__, where: u.username == ^username)
+
+    if password_matches?(user, pw) do
+      {:ok, user}
+    else
+      {:error, ["No user with that password could be found"]}
+    end
+  end
+
+  defp password_matches?(nil, _), do: Comeonin.Bcrypt.dummy_checkpw
+  defp password_matches?(user, pw) do
     Comeonin.Bcrypt.checkpw(pw, user.crypted_password)
   end
 

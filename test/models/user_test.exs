@@ -3,19 +3,19 @@ defmodule EdgeBuilder.Models.UserTest do
 
   alias Fixtures.UserFixture
   alias EdgeBuilder.Models.User
-  alias EdgeBuilder.Repo
 
-  describe "password_matches?" do
-    it "returns true when the password matches" do
+  describe "authenticate" do
+    it "returns the user when the name and password match" do
       user = UserFixture.create_user(password: "rockabilly", password_confirmation: "rockabilly")
 
-      assert User.password_matches?(user, "rockabilly")
+      {:ok, found_user} = User.authenticate(user.username, "rockabilly")
+      assert user.id == found_user.id
     end
 
     it "returns false when the password does not match" do
       user = UserFixture.create_user(password: "rockabilly", password_confirmation: "rockabilly")
 
-      assert !User.password_matches?(user, "classical")
+      assert {:error, ["No user with that password could be found"]} == User.authenticate(user.username, "classical")
     end
   end
 end
