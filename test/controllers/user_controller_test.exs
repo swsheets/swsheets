@@ -47,5 +47,11 @@ defmodule EdgeBuilder.Controllers.UserControllerTest do
       assert FlokiExt.find(conn.resp_body, "#email") |> FlokiExt.attribute("value") == user.email
       assert String.contains?(conn.resp_body, user.username)
     end
+
+    it "requires authentication" do
+      conn = request(:get, "/user/edit")
+
+      assert is_redirect_to?(conn, "/welcome")
+    end
   end
 end

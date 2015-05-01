@@ -5,6 +5,7 @@ defmodule EdgeBuilder.UserController do
   alias EdgeBuilder.Repo
   import Ecto.Query, only: [from: 2]
 
+  plug Plug.Authentication, only: [:edit]
   plug :action
 
   def new(conn, _params) do
