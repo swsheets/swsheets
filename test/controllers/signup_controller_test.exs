@@ -1,15 +1,22 @@
-defmodule EdgeBuilder.Controllers.UserControllerTest do
+defmodule EdgeBuilder.Controllers.SignupControllerTest do
   use EdgeBuilder.ControllerTest
 
-  alias EdgeBuilder.Models.User
   alias Fixtures.UserFixture
+  alias EdgeBuilder.Models.User
   alias EdgeBuilder.Repo
-  alias Helpers.FlokiExt
   import Ecto.Query, only: [from: 2]
 
-  describe "new" do
+  describe "welcome" do
+    it "renders a login form" do
+      conn = request(:get, "/welcome")
+
+      assert conn.status == 200
+      assert String.contains?(conn.resp_body, "Username")
+      assert String.contains?(conn.resp_body, "Password")
+    end
+    
     it "renders the new user form" do
-      conn = request(:get, "/user/new")
+      conn = request(:get, "/welcome")
 
       assert conn.status == 200
       assert String.contains?(conn.resp_body, "Username")
@@ -18,9 +25,9 @@ defmodule EdgeBuilder.Controllers.UserControllerTest do
     end
   end
 
-  describe "create" do
+  describe "signup" do
     it "creates a new user" do
-      request(:post, "/user", %{
+      request(:post, "/signup", %{
         "user" => %{
           "email" => "test@example.com",
           "username" => "test",
@@ -38,20 +45,20 @@ defmodule EdgeBuilder.Controllers.UserControllerTest do
     end
   end
 
-  describe "edit" do
-    it "displays your user information" do
-      user = UserFixture.default_user
 
-      conn = authenticated_request(user, :get, "/user/edit")
+  describe "login" do
+    it "logs the user in when they supply the correct password" do
+      user = UserFixture.create_user(password: "floopowder", password_confirmation: "floopowder")
 
-      assert FlokiExt.find(conn.resp_body, "#email") |> FlokiExt.attribute("value") == user.email
-      assert String.contains?(conn.resp_body, user.username)
-    end
+      conn = request(:post, "/login", %{
+        "login" => %{
+          "username" => user.username,
+          "password" => "floopowder"
+        }
+      })
 
-    it "requires authentication" do
-      conn = request(:get, "/user/edit")
-
-      assert is_redirect_to?(conn, "/welcome")
+      assert conn.status == 302
+      assert Plug.Conn.get_session(conn, :current_user_id) == user.id
     end
   end
 end

@@ -19,13 +19,9 @@ defmodule EdgeBuilder.Router do
     get "/", PageController, :index
     get "/reference", PageController, :reference
     resources "/characters", CharacterController
-    get "/login", LoginController, :new
-    post"/login", LoginController, :create
-    resource "/user", UserController, only: [:new, :create, :edit, :update]
+    get  "/welcome", SignupController, :welcome
+    post "/login", SignupController, :login
+    post "/signup", SignupController, :signup
+    resource "/user", SettingsController, only: [:edit, :update]
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", EdgeBuilder do
-  #   pipe_through :api
-  # end
 end

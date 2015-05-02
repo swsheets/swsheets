@@ -1,7 +1,7 @@
 defmodule Plug.ScrubEmptyParams do
   def init(opts), do: opts
 
-  def call(conn = %{params: params}, opts) do
+  def call(conn = %{params: params}, _opts) do
     %{conn | params: scrub_params(params)}
   end
 

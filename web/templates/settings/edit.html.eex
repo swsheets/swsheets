@@ -1,6 +1,6 @@
 <%= render EdgeBuilder.SharedView, "_errors.html", errors: @errors %>
 
-<%= form_tag(user_path(@conn, :update), role: "form", method: "PUT", class: "form-horizontal") %>
+<%= form_tag(settings_path(@conn, :update), role: "form", method: "PUT", class: "form-horizontal") %>
   <div class="form-group">
     <label for="user[email]" class='col-sm-2 control-label'>Email Address</label>
     <div class='col-sm-10'>
