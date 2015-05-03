@@ -4,6 +4,11 @@ defmodule EdgeBuilder.Test do
   using do
     quote do
       use ExSpec
+
+      def has_error?(changeset, field, error_text) do
+        Keyword.get_values(changeset.errors, field)
+          |> Enum.member?(error_text)
+      end
     end
   end
 

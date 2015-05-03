@@ -13,6 +13,7 @@ defmodule EdgeBuilder.Models.User do
   def changeset(user, :create, params) do
     user
       |> cast(params, ~w(username email password password_confirmation))
+      |> validate_unique(:username, on: EdgeBuilder.Repo, downcase: true)
       |> crypt_password_if_present
   end
 

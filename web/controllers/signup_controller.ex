@@ -20,10 +20,18 @@ defmodule EdgeBuilder.SignupController do
     end
   end
 
-  def signup(conn, %{"user" => user_params}) do
+  def signup(conn, %{"signup" => user_params}) do
     user = User.changeset(%User{}, :create, user_params)
-    EdgeBuilder.Repo.insert(user)
 
-    redirect conn, to: "/"
+    if user.valid? do
+      EdgeBuilder.Repo.insert(user)
+
+      redirect conn, to: "/"
+    else
+      render conn, "welcome.html",
+        errors:          user.errors,
+        signup_username: user_params["username"],
+        signup_email:    user_params["email"]
+    end
   end
 end

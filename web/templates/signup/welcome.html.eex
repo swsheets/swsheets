@@ -28,7 +28,7 @@
     <%= form_tag(signup_path(@conn, :login), role: "form", method: "POST", class: "form") %>
       <div class="form-group">
         <label for="login[loginname]" class='control-label'>Username</label>
-        <input type="text" class="form-control" name="login[loginname]" />
+        <input type="text" class="form-control" name="login[username]" />
       </div>
       <div class="form-group">
         <label for="login[password]" class='control-label'>Password</label>
@@ -47,11 +47,11 @@
     <%= form_tag(signup_path(@conn, :signup), role: "form", method: "POST", class: "form") %>
       <div class="form-group">
         <label for="signup[email]" class='control-label'>Email Address</label>
-        <input type="email" class="form-control" name="signup[email]" />
+        <input type="email" class="form-control" name="signup[email]" value="<%= @signup_email %>" />
       </div>
       <div class="form-group">
         <label for="signup[username]" class='control-label'>Username</label>
-        <input type="text" class="form-control" name="signup[username]" />
+        <input type="text" class="form-control" name="signup[username]" value="<%= @signup_username %>" />
       </div>
       <div class="form-group">
         <label for="signup[password]" class='control-label'>Password</label>

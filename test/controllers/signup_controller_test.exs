@@ -4,6 +4,7 @@ defmodule EdgeBuilder.Controllers.SignupControllerTest do
   alias Fixtures.UserFixture
   alias EdgeBuilder.Models.User
   alias EdgeBuilder.Repo
+  alias Helpers.FlokiExt
   import Ecto.Query, only: [from: 2]
 
   describe "welcome" do
@@ -11,24 +12,25 @@ defmodule EdgeBuilder.Controllers.SignupControllerTest do
       conn = request(:get, "/welcome")
 
       assert conn.status == 200
-      assert String.contains?(conn.resp_body, "Username")
-      assert String.contains?(conn.resp_body, "Password")
+      assert String.contains?(conn.resp_body, "login[username]")
+      assert String.contains?(conn.resp_body, "login[password]")
     end
     
     it "renders the new user form" do
       conn = request(:get, "/welcome")
 
       assert conn.status == 200
-      assert String.contains?(conn.resp_body, "Username")
-      assert String.contains?(conn.resp_body, "Email")
-      assert String.contains?(conn.resp_body, "Password")
+      assert String.contains?(conn.resp_body, "signup[username]")
+      assert String.contains?(conn.resp_body, "signup[email]")
+      assert String.contains?(conn.resp_body, "signup[password]")
+      assert String.contains?(conn.resp_body, "signup[password_confirmation]")
     end
   end
 
   describe "signup" do
     it "creates a new user" do
-      request(:post, "/signup", %{
-        "user" => %{
+      conn = request(:post, "/signup", %{
+        "signup" => %{
           "email" => "test@example.com",
           "username" => "test",
           "password" => "my$good14password15is_verylong",
@@ -42,6 +44,24 @@ defmodule EdgeBuilder.Controllers.SignupControllerTest do
       assert user.email == "test@example.com"
       assert user.username == "test"
       assert {:ok, user} == User.authenticate(user.username, "my$good14password15is_verylong")
+      assert is_redirect_to?(conn, "/")
+    end
+
+    it "renders an error if the username is already taken" do
+      UserFixture.create_user(username: "bobafett")
+
+      conn = request(:post, "/signup", %{
+        "signup" => %{
+          "email" => "test@example.com",
+          "username" => "bobafett",
+          "password" => "my$good14password15is_verylong",
+          "password_confirmation" => "my$good14password15is_verylong"
+        }
+      })
+
+      assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text == "Username has already been taken"
+      assert String.contains?(conn.resp_body, "test@example.com")
+      assert String.contains?(conn.resp_body, "bobafett")
     end
   end
 

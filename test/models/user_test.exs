@@ -18,4 +18,13 @@ defmodule EdgeBuilder.Models.UserTest do
       assert {:error, ["No user with that password could be found"]} == User.authenticate(user.username, "classical")
     end
   end
+
+  describe "changeset" do
+    it "generates an error when the username is taken" do
+      UserFixture.create_user(username: "bobafett")
+
+      changeset = User.changeset(%User{}, :create, %{"username" => "bobafett"})
+      assert has_error?(changeset, :username, "has already been taken")
+    end
+  end
 end
