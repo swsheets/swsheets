@@ -27,7 +27,7 @@ defmodule EdgeBuilder.Mixfile do
      {:cowboy, "~> 1.0"},
      {:postgrex, "~> 0.6"},
      {:ecto, "~> 0.10"},
-     {:comeonin, "~> 0.4"},
+     {:comeonin, "~> 0.8"},
      {:floki, "~> 0.1.0", only: :test},
      {:ex_spec, "~> 0.3.0", only: :test}]
   end

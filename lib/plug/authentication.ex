@@ -5,9 +5,9 @@ defmodule Plug.Authentication do
   def init(opts), do: opts
 
   def call(conn, opts) do
-    case Keyword.get(opts, :only) do
+    case Keyword.get(opts, :except) do
       nil -> ensure_authenticated(conn)
-      actions -> if Enum.member?(actions, conn.private.phoenix_action), do: ensure_authenticated(conn), else: conn
+      actions -> if Enum.member?(actions, conn.private.phoenix_action), do: conn, else: ensure_authenticated(conn)
     end
   end
 

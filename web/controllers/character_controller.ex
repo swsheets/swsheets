@@ -8,6 +8,7 @@ defmodule EdgeBuilder.CharacterController do
   alias EdgeBuilder.Models.CharacterSkill
   alias EdgeBuilder.Changemap
 
+  plug Plug.Authentication, except: [:show, :index]
   plug :action
 
   def new(conn, _params) do

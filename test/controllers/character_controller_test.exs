@@ -1,6 +1,7 @@
 defmodule EdgeBuilder.Controllers.CharacterControllerTest do
   use EdgeBuilder.ControllerTest
 
+  alias Fixtures.UserFixture
   alias EdgeBuilder.Models.Character
   alias EdgeBuilder.Models.Talent
   alias EdgeBuilder.Models.Attack
@@ -12,10 +13,16 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
   describe "new" do
     it "renders the character edit form for a new character" do
-      conn = request(:get, "/characters/new")
+      conn = authenticated_request(UserFixture.default_user, :get, "/characters/new")
 
       assert conn.status == 200
       assert String.contains?(conn.resp_body, "New Character")
+    end
+
+    it "requires authentication" do
+      conn = request(:get, "/characters/new")
+
+      assert requires_authentication?(conn)
     end
   end
 
@@ -32,7 +39,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       skills_with_user_edit = base_skills
         |> Map.put("Athletics", %{"base_skill_id" => BaseSkill.by_name("Athletics").id, "rank" => "3", "is_career" => "on"})
 
-      request(:post, "/characters", %{
+      authenticated_request(UserFixture.default_user, :post, "/characters", %{
         "character" => %{
           "name" => "Greedo",
           "species" => "Rodian",
@@ -123,7 +130,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "redirects to the character show page" do
-      conn = request(:post, "/characters", %{
+      conn = authenticated_request(UserFixture.default_user, :post, "/characters", %{
         "character" => %{
           "name" => "Greedo",
           "species" => "Rodian",
@@ -138,7 +145,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "re-renders the new character page when there are errors" do
-      conn = request(:post, "/characters", %{
+      conn = authenticated_request(UserFixture.default_user, :post, "/characters", %{
         "character" => %{
           "species" => "Rodian",
           "career" => "Bounty Hunter"
@@ -151,6 +158,12 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert !is_nil(FlokiExt.element(conn, ".attack-first-row"))
       assert !is_nil(FlokiExt.element(conn, ".talent-row"))
     end
+
+    it "requires authentication" do
+      conn = request(:post, "/characters")
+
+      assert requires_authentication?(conn)
+    end
   end
 
   describe "show" do
@@ -161,7 +174,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         career: "Bounty Hunter"
       } |> Repo.insert
 
-      conn = request(:get, "/characters/#{character.id}")
+      conn = authenticated_request(UserFixture.default_user, :get, "/characters/#{character.id}")
 
       assert conn.status == 200
       assert String.contains?(conn.resp_body, "Greedo")
@@ -170,7 +183,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
   describe "index" do
     it "displays a link to create a new character" do
-      conn = request(:get, "/characters")
+      conn = authenticated_request(UserFixture.default_user, :get, "/characters")
 
       assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.character_path(conn, :index))
     end
@@ -189,7 +202,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         }
       ] |> Enum.map(&Repo.insert/1)
 
-      conn = request(:get, "/characters")
+      conn = authenticated_request(UserFixture.default_user, :get, "/characters")
 
       assert conn.status == 200
 
@@ -224,13 +237,25 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         character_id: character.id
       } |> Repo.insert
 
-      conn = request(:get, "/characters/#{character.id}/edit")
+      conn = authenticated_request(UserFixture.default_user, :get, "/characters/#{character.id}/edit")
 
       assert conn.status == 200
       assert String.contains?(conn.resp_body, character.name)
       assert String.contains?(conn.resp_body, character_skill.rank |> to_string)
       assert String.contains?(conn.resp_body, talent.name)
       assert String.contains?(conn.resp_body, attack.weapon_name)
+    end
+
+    it "requires authentication" do
+      character = %Character{
+        name: "Greedo",
+        species: "Rodian",
+        career: "Bounty Hunter"
+      } |> Repo.insert
+
+      conn = request(:get, "/characters/#{character.id}/edit")
+
+      assert requires_authentication?(conn)
     end
   end
 
@@ -242,7 +267,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         career: "Bounty Hunter"
       } |> Repo.insert
 
-      request(:put, "/characters/#{character.id}", %{"character" => %{"name" => "Do'mesh", "species" => "Twi'lek"}})
+      authenticated_request(UserFixture.default_user, :put, "/characters/#{character.id}", %{"character" => %{"name" => "Do'mesh", "species" => "Twi'lek"}})
 
       character = Repo.get(Character, character.id)
 
@@ -257,7 +282,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         career: "Bounty Hunter"
       } |> Repo.insert
 
-      conn = request(:put, "/characters/#{character.id}", %{"character" => %{"name" => "Do'mesh", "species" => "Twi'lek"}})
+      conn = authenticated_request(UserFixture.default_user, :put, "/characters/#{character.id}", %{"character" => %{"name" => "Do'mesh", "species" => "Twi'lek"}})
 
       assert conn.status == 302
       assert is_redirect_to?(conn, EdgeBuilder.Router.Helpers.character_path(conn, :show, character.id))
@@ -273,7 +298,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         description: "A slow shooter"
       } |> Repo.insert
 
-      request(:put, "/characters/#{character.id}", %{"character" => %{
+      authenticated_request(UserFixture.default_user, :put, "/characters/#{character.id}", %{"character" => %{
         "xp_total" => "60",
         "xp_available" => "",
         "description" =>  "tbd"
@@ -301,7 +326,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         character_id: character.id
       } |> Repo.insert
 
-      request(:put, "/characters/#{character.id}", %{"character" => %{}, "talents" => %{
+      authenticated_request(UserFixture.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "talents" => %{
         "0" => %{"book_and_page" => "DC p43", "description" => "Do stuff", "id" => talent.id, "name" => "Awesome Guy"}
       }})
 
@@ -319,7 +344,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         career: "Bounty Hunter",
       } |> Repo.insert
 
-      request(:put, "/characters/#{character.id}", %{"character" => %{}, "talents" => %{
+      authenticated_request(UserFixture.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "talents" => %{
         "0" => %{"book_and_page" => "DC p43", "description" => "Do stuff", "name" => "Awesome Guy"}
       }})
 
@@ -344,7 +369,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         character_id: character.id
       } |> Repo.insert
 
-      request(:put, "/characters/#{character.id}", %{"character" => %{}, "talents" => %{
+      authenticated_request(UserFixture.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "talents" => %{
         "0" => %{"book_and_page" => "", "description" => "", "name" => ""},
         "1" => %{"book_and_page" => "", "description" => "", "name" => "", "id" => talent.id}
       }})
@@ -366,7 +391,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         character_id: character.id
       } |> Repo.insert
 
-      request(:put, "/characters/#{character.id}", %{"character" => %{}})
+      authenticated_request(UserFixture.default_user, :put, "/characters/#{character.id}", %{"character" => %{}})
 
       talents = Talent.for_character(character.id)
 
@@ -387,7 +412,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         character_id: character.id
       } |> Repo.insert
 
-      request(:put, "/characters/#{character.id}", %{"character" => %{}, "attacks" => %{
+      authenticated_request(UserFixture.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "attacks" => %{
         "0" => %{"weapon_name" => "Claws", "range" => "Engaged", "id" => attack.id}
       }})
 
@@ -406,7 +431,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
       base_skill = Repo.all(BaseSkill) |> Enum.at(0)
 
-      request(:put, "/characters/#{character.id}", %{"character" => %{}, "attacks" => %{
+      authenticated_request(UserFixture.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "attacks" => %{
         "0" => %{"weapon_name" => "Claws", "range" => "Engaged", "base_skill_id" => base_skill.id}
       }})
 
@@ -430,7 +455,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         character_id: character.id
       } |> Repo.insert
 
-      request(:put, "/characters/#{character.id}", %{"character" => %{}})
+      authenticated_request(UserFixture.default_user, :put, "/characters/#{character.id}", %{"character" => %{}})
 
       attacks = Attack.for_character(character.id)
 
@@ -447,7 +472,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
       base_skill = Repo.one(from bs in BaseSkill, where: bs.name == "Athletics")
 
-      request(:put, "/characters/#{character.id}", %{"character" => %{}, "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 1, "is_career" => "on"}}})
+      authenticated_request(UserFixture.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 1, "is_career" => "on"}}})
 
       [character_skill] = CharacterSkill.for_character(character.id)
 
@@ -465,7 +490,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
       base_skill = Repo.one(from bs in BaseSkill, where: bs.name == "Athletics")
 
-      request(:put, "/characters/#{character.id}", %{"character" => %{}, "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 0}}})
+      authenticated_request(UserFixture.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 0}}})
 
       assert Enum.count(CharacterSkill.for_character(character.id)) == 0
     end
@@ -485,7 +510,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         rank: 5
       } |> Repo.insert
 
-      request(:put, "/characters/#{character.id}", %{"character" => %{}, "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 0, "id" => original_character_skill.id}}})
+      authenticated_request(UserFixture.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 0, "id" => original_character_skill.id}}})
 
       assert [] == CharacterSkill.for_character(character.id)
     end
@@ -505,7 +530,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         rank: 5
       } |> Repo.insert
 
-      conn = request(:put, "/characters/#{character.id}", %{
+      conn = authenticated_request(UserFixture.default_user, :put, "/characters/#{character.id}", %{
         "character" => %{
           "name" => "",
           "species" => "Rodian",
@@ -518,6 +543,18 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert FlokiExt.element(conn, "[data-skill=Athletics]") |> FlokiExt.attribute("value") == "3"
       assert !is_nil(FlokiExt.element(conn, ".attack-first-row"))
       assert !is_nil(FlokiExt.element(conn, ".talent-row"))
+    end
+
+    it "requires authentication" do
+      character = %Character{
+        name: "Greedo",
+        species: "Rodian",
+        career: "Bounty Hunter"
+      } |> Repo.insert
+
+      conn = request(:put, "/characters/#{character.id}")
+
+      assert requires_authentication?(conn)
     end
   end
 
@@ -538,10 +575,22 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         rank: 5
       } |> Repo.insert
 
-      request(:delete, "/characters/#{character.id}")
+      authenticated_request(UserFixture.default_user, :delete, "/characters/#{character.id}")
 
       assert is_nil(Repo.get(Character, character.id))
       assert is_nil(Repo.one(from cs in CharacterSkill, where: cs.id == ^(character.id)))
+    end
+
+    it "requires authentication" do
+      character = %Character{
+        name: "Greedo",
+        species: "Rodian",
+        career: "Bounty Hunter"
+      } |> Repo.insert
+
+      conn = request(:delete, "/characters/#{character.id}")
+
+      assert requires_authentication?(conn)
     end
   end
 end
