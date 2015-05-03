@@ -1,45 +1,67 @@
 <%= render EdgeBuilder.SharedView, "_errors.html", errors: @errors %>
 
-<%= form_tag(signup_path(@conn, :login), role: "form", method: "POST", class: "form-horizontal") %>
-  <div class="form-group">
-    <label for="login[loginname]" class='col-sm-2 control-label'>Username</label>
-    <div class='col-sm-10'>
-      <input type="text" class="form-control" name="login[loginname]" />
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="login[password]" class='col-sm-2 control-label'>Password</label>
-    <div class='col-sm-10'>
-      <input type="password" class="form-control" name="login[pasword]" />
-    </div>
-  </div>
-</form>
+<style>
+  .well {
+    padding-top: 0px;
+    margin-top: 70px;
+  }
+  .row {
+    height: 450px;
+  }
+  .col-md-1 {
+    height: 100%;
+  }
 
-or
+  .vertical-line {
+    width: 1px;
+    border-left: 1px solid #000;
+    margin-left: auto;
+    margin-right: auto;
+    vertical-align:  baseline;
+    height: 100%;
+  }
+</style>
 
-<%= form_tag(signup_path(@conn, :signup), role: "form", method: "POST", class: "form-horizontal") %>
-  <div class="form-group">
-    <label for="user[email]" class='col-sm-2 control-label'>Email Address</label>
-    <div class='col-sm-10'>
-      <input type="email" class="form-control" name="user[email]" />
-    </div>
+<div class="row">
+  <div class="col-md-3 col-md-offset-2 well">
+    <h3>Welcome Back</h3>
+    <%= form_tag(signup_path(@conn, :login), role: "form", method: "POST", class: "form") %>
+      <div class="form-group">
+        <label for="login[loginname]" class='control-label'>Username</label>
+        <input type="text" class="form-control" name="login[loginname]" />
+      </div>
+      <div class="form-group">
+        <label for="login[password]" class='control-label'>Password</label>
+        <input type="password" class="form-control" name="login[password]" />
+      </div>
+      <input class="btn btn-primary btn-block" type="submit" value="Login">
+    </form>
   </div>
-  <div class="form-group">
-    <label for="user[username]" class='col-sm-2 control-label'>Username</label>
-    <div class='col-sm-10'>
-      <input type="text" class="form-control" name="user[username]" />
-    </div>
+
+  <div class="col-md-1">
+    <div class="vertical-line"></div>
   </div>
-  <div class="form-group">
-    <label for="user[password]" class='col-sm-2 control-label'>Password</label>
-    <div class='col-sm-10'>
-      <input type="password" class="form-control" name="user[password]" />
-    </div>
+
+  <div class="col-md-6">
+    <h3>Create a New Account</h3>
+    <%= form_tag(signup_path(@conn, :signup), role: "form", method: "POST", class: "form") %>
+      <div class="form-group">
+        <label for="signup[email]" class='control-label'>Email Address</label>
+        <input type="email" class="form-control" name="signup[email]" />
+      </div>
+      <div class="form-group">
+        <label for="signup[username]" class='control-label'>Username</label>
+        <input type="text" class="form-control" name="signup[username]" />
+      </div>
+      <div class="form-group">
+        <label for="signup[password]" class='control-label'>Password</label>
+        <input type="password" class="form-control" name="signup[password]" />
+      </div>
+      <div class="form-group">
+        <label for="signup[password_confirmation]" class='control-label'>Password Confirmation</label>
+        <input type="password" class="form-control" name="signup[password_confirmation]" />
+      </div>
+      <input class="btn btn-info btn-block" type="submit" value="Sign up">
+    </form>
   </div>
-  <div class="form-group">
-    <label for="user[password_confirmation]" class='col-sm-2 control-label'>Password Confirmation</label>
-    <div class='col-sm-10'>
-      <input type="password" class="form-control" name="user[password_confirmation]" />
-    </div>
-  </div>
-</form>
+</div>
