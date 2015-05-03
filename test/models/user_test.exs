@@ -36,5 +36,10 @@ defmodule EdgeBuilder.Models.UserTest do
       changeset = User.changeset(%User{}, :create, %{"password" => "hot dogs"})
       assert has_error?(changeset, :password, "must be at least 10 characters")
     end
+
+    it "generates an error when the email address is not a valid email" do
+      changeset = User.changeset(%User{}, :create, %{"email" => "bobatbob.com"})
+      assert has_error?(changeset, :email, "must be a valid email address")
+    end
   end
 end

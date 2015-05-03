@@ -12,11 +12,12 @@ defmodule EdgeBuilder.Models.User do
   def changeset(user, context, params \\ %{})
   def changeset(user, :create, params) do
     user
-      |> cast(params, ~w(username email password password_confirmation))
+      |> cast(params, ~w(username email password), ~w(password_confirmation))
       |> validate_unique(:username, on: EdgeBuilder.Repo, downcase: true)
       |> validate_password_match
       # using validate_format instead of validate_length because of the irritating message format of validate_length
       |> validate_format(:password, ~r/.{10,}/, message: "must be at least 10 characters")
+      |> validate_format(:email, ~r/@/, message: "must be a valid email address")
       |> crypt_password_if_present
   end
 
@@ -40,7 +41,7 @@ defmodule EdgeBuilder.Models.User do
     password = get_change(changeset, :password)
     confirmation = get_change(changeset, :password_confirmation)
 
-    if !is_nil(password) && !is_nil(confirmation) && password != confirmation do
+    if !is_nil(password) && password != confirmation do
       add_error(changeset, :password, "does not match the confirmation")
     else
       changeset
