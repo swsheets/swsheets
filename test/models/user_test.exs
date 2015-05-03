@@ -31,5 +31,10 @@ defmodule EdgeBuilder.Models.UserTest do
       changeset = User.changeset(%User{}, :create, %{"password" => "hot dogs", "password_confirmation" => "cream cheese"})
       assert has_error?(changeset, :password, "does not match the confirmation")
     end
+
+    it "generates an error when the password is not long enough" do
+      changeset = User.changeset(%User{}, :create, %{"password" => "hot dogs"})
+      assert has_error?(changeset, :password, "must be at least 10 characters")
+    end
   end
 end

@@ -15,6 +15,8 @@ defmodule EdgeBuilder.Models.User do
       |> cast(params, ~w(username email password password_confirmation))
       |> validate_unique(:username, on: EdgeBuilder.Repo, downcase: true)
       |> validate_password_match
+      # using validate_format instead of validate_length because of the irritating message format of validate_length
+      |> validate_format(:password, ~r/.{10,}/, message: "must be at least 10 characters")
       |> crypt_password_if_present
   end
 
