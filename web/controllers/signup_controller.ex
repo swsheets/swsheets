@@ -16,7 +16,8 @@ defmodule EdgeBuilder.SignupController do
           |> redirect to: "/"
       _ ->
         conn
-          |> redirect to: EdgeBuilder.Router.Helpers.signup_path(:welcome)
+          |> delete_session(:current_user_id)
+          |> render "welcome.html", login_error: true
     end
   end
 

@@ -1,5 +1,9 @@
 <%= render EdgeBuilder.SharedView, "_errors.html", errors: @errors %>
 
+<%= unless is_nil(@login_error) do %>
+  <div class="alert alert-danger"><p>No matching username and password could be found</p></div>
+<% end %>
+
 <style>
   .well {
     padding-top: 0px;

@@ -15,7 +15,7 @@ defmodule EdgeBuilder.Controllers.SignupControllerTest do
       assert String.contains?(conn.resp_body, "login[username]")
       assert String.contains?(conn.resp_body, "login[password]")
     end
-    
+
     it "renders the new user form" do
       conn = request(:get, "/welcome")
 
@@ -65,7 +65,6 @@ defmodule EdgeBuilder.Controllers.SignupControllerTest do
     end
   end
 
-
   describe "login" do
     it "logs the user in when they supply the correct password" do
       user = UserFixture.create_user(password: "floopowder", password_confirmation: "floopowder")
@@ -79,6 +78,30 @@ defmodule EdgeBuilder.Controllers.SignupControllerTest do
 
       assert conn.status == 302
       assert Plug.Conn.get_session(conn, :current_user_id) == user.id
+    end
+
+    it "displays an error message when the login's password doesn't match" do
+      user = UserFixture.create_user(password: "floopowder", password_confirmation: "floopowder")
+
+      conn = request(:post, "/login", %{
+        "login" => %{
+          "username" => user.username,
+          "password" => "diagonally"
+        }
+      })
+
+      assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text == "No matching username and password could be found"
+    end
+
+    it "displays an error message when the login's username doesn't exist" do
+      conn = request(:post, "/login", %{
+        "login" => %{
+          "username" => "harry potter",
+          "password" => "diagonally"
+        }
+      })
+
+      assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text == "No matching username and password could be found"
     end
   end
 end
