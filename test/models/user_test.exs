@@ -26,5 +26,10 @@ defmodule EdgeBuilder.Models.UserTest do
       changeset = User.changeset(%User{}, :create, %{"username" => "bobafett"})
       assert has_error?(changeset, :username, "has already been taken")
     end
+
+    it "generates an error when the password and confirmation do not match" do
+      changeset = User.changeset(%User{}, :create, %{"password" => "hot dogs", "password_confirmation" => "cream cheese"})
+      assert has_error?(changeset, :password, "does not match the confirmation")
+    end
   end
 end

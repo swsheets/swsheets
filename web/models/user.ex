@@ -14,6 +14,7 @@ defmodule EdgeBuilder.Models.User do
     user
       |> cast(params, ~w(username email password password_confirmation))
       |> validate_unique(:username, on: EdgeBuilder.Repo, downcase: true)
+      |> validate_password_match
       |> crypt_password_if_present
   end
 
@@ -30,6 +31,17 @@ defmodule EdgeBuilder.Models.User do
       {:ok, user}
     else
       {:error, ["No user with that password could be found"]}
+    end
+  end
+
+  defp validate_password_match(changeset) do
+    password = get_change(changeset, :password)
+    confirmation = get_change(changeset, :password_confirmation)
+
+    if !is_nil(password) && !is_nil(confirmation) && password != confirmation do
+      add_error(changeset, :password, "does not match the confirmation")
+    else
+      changeset
     end
   end
 
