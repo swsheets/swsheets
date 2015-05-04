@@ -413,7 +413,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     it "creates new skills when they differ from default values" do
       character = CharacterFactory.create_character
 
-      base_skill = Repo.one(from bs in BaseSkill, where: bs.name == "Athletics")
+      base_skill = BaseSkill.by_name("Athletics")
 
       authenticated_request(UserFactory.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 1, "is_career" => "on"}}})
 
@@ -427,7 +427,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     it "does not create new skills for skills that are not persisted and that do not differ from defaults" do
       character = CharacterFactory.create_character
 
-      base_skill = Repo.one(from bs in BaseSkill, where: bs.name == "Athletics")
+      base_skill = BaseSkill.by_name("Athletics")
 
       authenticated_request(UserFactory.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 0}}})
 
@@ -437,7 +437,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     it "deletes previously-saved skills that are set back to the default" do
       character = CharacterFactory.create_character
 
-      base_skill = Repo.one(from bs in BaseSkill, where: bs.name == "Athletics")
+      base_skill = BaseSkill.by_name("Athletics")
 
       original_character_skill = %CharacterSkill{
         base_skill_id: base_skill.id,
@@ -453,7 +453,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     it "re-renders the edit character page when there are errors" do
       character = CharacterFactory.create_character
 
-      base_skill = Repo.one(from bs in BaseSkill, where: bs.name == "Astrogation")
+      base_skill = BaseSkill.by_name("Astrogation")
 
       %CharacterSkill{
         base_skill_id: base_skill.id,
@@ -487,7 +487,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     it "deletes a character and all associated records" do
       character = CharacterFactory.create_character
 
-      base_skill = Repo.one(from bs in BaseSkill, where: bs.name == "Astrogation")
+      base_skill = BaseSkill.by_name("Astrogation")
 
       %CharacterSkill{
         base_skill_id: base_skill.id,
