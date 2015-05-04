@@ -1,12 +1,12 @@
 defmodule EdgeBuilder.Controllers.SettingsControllerTest do
   use EdgeBuilder.ControllerTest
 
-  alias Fixtures.UserFixture
+  alias Factories.UserFactory
   alias Helpers.FlokiExt
 
   describe "edit" do
     it "displays your user information" do
-      user = UserFixture.default_user
+      user = UserFactory.default_user
 
       conn = authenticated_request(user, :get, "/user/edit")
 

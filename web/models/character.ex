@@ -2,6 +2,7 @@ defmodule EdgeBuilder.Models.Character do
   use EdgeBuilder.Model
 
   alias EdgeBuilder.Models.Talent
+  alias EdgeBuilder.Models.Talent
   alias EdgeBuilder.Models.Attack
   alias EdgeBuilder.Models.CharacterSkill
 
@@ -36,15 +37,16 @@ defmodule EdgeBuilder.Models.Character do
     field :description, :string
     field :other_notes, :string
     field :critical_injuries, :string
+    belongs_to :user, User
 
     has_many :talents, Talent
     has_many :attacks, Attack
     has_many :character_skills, CharacterSkill
   end
 
-  def changeset(character, params \\ %{}) do
+  def changeset(character, user_id, params \\ %{}) do
     character
-      |> cast(params, required_fields, optional_fields)
+      |> cast(Map.put(params, "user_id", user_id), required_fields, optional_fields)
   end
 
   def full_character(id) do
@@ -63,6 +65,6 @@ defmodule EdgeBuilder.Models.Character do
     Repo.delete(character)
   end
 
-  defp required_fields, do: [:name, :species, :career]
+  defp required_fields, do: [:name, :species, :career, :user_id]
   defp optional_fields, do: __schema__(:fields) -- [:id | required_fields]
 end

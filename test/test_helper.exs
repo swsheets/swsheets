@@ -64,7 +64,9 @@ defmodule EdgeBuilder.ControllerTest do
   end
 end
 
-Enum.each(Path.wildcard("test/helpers/**/*.exs"), &Code.load_file/1)
-Enum.each(Path.wildcard("test/fixtures/**/*.exs"), &Code.load_file/1)
+Application.ensure_started(:factory_girl_elixir)
+
+Enum.each(Path.wildcard("test/helpers/**/*.exs"), &Code.require_file/1)
+Enum.each(Path.wildcard("test/factories/**/*.exs"), &Code.require_file/1)
 
 ExUnit.start

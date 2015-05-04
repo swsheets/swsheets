@@ -1,7 +1,7 @@
 defmodule EdgeBuilder.Controllers.SignupControllerTest do
   use EdgeBuilder.ControllerTest
 
-  alias Fixtures.UserFixture
+  alias Factories.UserFactory
   alias EdgeBuilder.Models.User
   alias EdgeBuilder.Repo
   alias Helpers.FlokiExt
@@ -48,7 +48,7 @@ defmodule EdgeBuilder.Controllers.SignupControllerTest do
     end
 
     it "renders an error if the username is already taken" do
-      UserFixture.create_user(username: "bobafett")
+      UserFactory.create_user(username: "bobafett")
 
       conn = request(:post, "/signup", %{
         "signup" => %{
@@ -67,7 +67,7 @@ defmodule EdgeBuilder.Controllers.SignupControllerTest do
 
   describe "login" do
     it "logs the user in when they supply the correct password" do
-      user = UserFixture.create_user(password: "floopowder", password_confirmation: "floopowder")
+      user = UserFactory.create_user(password: "floopowder", password_confirmation: "floopowder")
 
       conn = request(:post, "/login", %{
         "login" => %{
@@ -81,7 +81,7 @@ defmodule EdgeBuilder.Controllers.SignupControllerTest do
     end
 
     it "displays an error message when the login's password doesn't match" do
-      user = UserFixture.create_user(password: "floopowder", password_confirmation: "floopowder")
+      user = UserFactory.create_user(password: "floopowder", password_confirmation: "floopowder")
 
       conn = request(:post, "/login", %{
         "login" => %{

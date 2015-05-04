@@ -28,7 +28,8 @@ defmodule EdgeBuilder.Mixfile do
      {:postgrex, "~> 0.6"},
      {:ecto, "~> 0.10"},
      {:comeonin, "~> 0.8"},
-     {:floki, "~> 0.1.0", only: :test},
-     {:ex_spec, "~> 0.3.0", only: :test}]
+     {:factory_girl_elixir, "~> 0.1", only: :test},
+     {:floki, "~> 0.1", only: :test},
+     {:ex_spec, "~> 0.3", only: :test}]
   end
 end

@@ -1,7 +1,8 @@
 defmodule EdgeBuilder.Controllers.CharacterControllerTest do
   use EdgeBuilder.ControllerTest
 
-  alias Fixtures.UserFixture
+  alias Factories.CharacterFactory
+  alias Factories.UserFactory
   alias EdgeBuilder.Models.Character
   alias EdgeBuilder.Models.Talent
   alias EdgeBuilder.Models.Attack
@@ -13,7 +14,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
   describe "new" do
     it "renders the character edit form for a new character" do
-      conn = authenticated_request(UserFixture.default_user, :get, "/characters/new")
+      conn = authenticated_request(UserFactory.default_user, :get, "/characters/new")
 
       assert conn.status == 200
       assert String.contains?(conn.resp_body, "New Character")
@@ -39,7 +40,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       skills_with_user_edit = base_skills
         |> Map.put("Athletics", %{"base_skill_id" => BaseSkill.by_name("Athletics").id, "rank" => "3", "is_career" => "on"})
 
-      authenticated_request(UserFixture.default_user, :post, "/characters", %{
+      authenticated_request(UserFactory.default_user, :post, "/characters", %{
         "character" => %{
           "name" => "Greedo",
           "species" => "Rodian",
@@ -75,6 +76,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
       character = Repo.all(Character) |> Enum.at(0)
 
+      assert character.user_id == UserFactory.default_user.id
       assert character.name == "Greedo"
       assert character.species == "Rodian"
       assert character.career == "Bounty Hunter"
@@ -130,22 +132,16 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "redirects to the character show page" do
-      conn = authenticated_request(UserFixture.default_user, :post, "/characters", %{
-        "character" => %{
-          "name" => "Greedo",
-          "species" => "Rodian",
-          "career" => "Bounty Hunter"
-        }
-      })
+      params = CharacterFactory.default_parameters
+      conn = authenticated_request(UserFactory.default_user, :post, "/characters", %{"character" => params})
 
-      character = Repo.one!(from c in Character, where: c.name == "Greedo")
+      character = Repo.one!(from c in Character, where: c.name == ^params["name"])
 
-      assert conn.status == 302
       assert is_redirect_to?(conn, EdgeBuilder.Router.Helpers.character_path(conn, :show, character.id))
     end
 
     it "re-renders the new character page when there are errors" do
-      conn = authenticated_request(UserFixture.default_user, :post, "/characters", %{
+      conn = authenticated_request(UserFactory.default_user, :post, "/characters", %{
         "character" => %{
           "species" => "Rodian",
           "career" => "Bounty Hunter"
@@ -168,41 +164,31 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
   describe "show" do
     it "displays the character information" do
-      character = %Character{
-        name: "Greedo",
-        species: "Rodian",
-        career: "Bounty Hunter"
-      } |> Repo.insert
+      character = CharacterFactory.create_character
 
-      conn = authenticated_request(UserFixture.default_user, :get, "/characters/#{character.id}")
+      conn = authenticated_request(UserFactory.default_user, :get, "/characters/#{character.id}")
 
       assert conn.status == 200
-      assert String.contains?(conn.resp_body, "Greedo")
+      assert String.contains?(conn.resp_body, character.name)
     end
   end
 
   describe "index" do
     it "displays a link to create a new character" do
-      conn = authenticated_request(UserFixture.default_user, :get, "/characters")
+      conn = authenticated_request(UserFactory.default_user, :get, "/characters")
 
       assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.character_path(conn, :index))
     end
 
     it "displays links for each character" do
-      characters = [
-        %Character{
-          name: "Greedo",
-          species: "Rodian",
-          career: "Bounty Hunter"
-        },
-        %Character{
-          name: "Boba Fett",
-          species: "Not Sure",
-          career: "Bounty Hunter"
-        }
-      ] |> Enum.map(&Repo.insert/1)
+      user = UserFactory.default_user
 
-      conn = authenticated_request(UserFixture.default_user, :get, "/characters")
+      characters = [
+        CharacterFactory.create_character(name: "Frank", user_id: user.id),
+        CharacterFactory.create_character(name: "Boba Fett", user_id: user.id)
+      ]
+
+      conn = authenticated_request(UserFactory.default_user, :get, "/characters")
 
       assert conn.status == 200
 
@@ -215,11 +201,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
   describe "edit" do
     it "renders the character edit form" do
-      character = %Character{
-        name: "Greedo",
-        species: "Rodian",
-        career: "Bounty Hunter"
-      } |> Repo.insert
+      character = CharacterFactory.create_character(user_id: UserFactory.default_user.id)
 
       character_skill = %CharacterSkill{
         base_skill_id: BaseSkill.by_name("Athletics").id,
@@ -237,7 +219,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         character_id: character.id
       } |> Repo.insert
 
-      conn = authenticated_request(UserFixture.default_user, :get, "/characters/#{character.id}/edit")
+      conn = authenticated_request(UserFactory.default_user, :get, "/characters/#{character.id}/edit")
 
       assert conn.status == 200
       assert String.contains?(conn.resp_body, character.name)
@@ -247,27 +229,27 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "requires authentication" do
-      character = %Character{
-        name: "Greedo",
-        species: "Rodian",
-        career: "Bounty Hunter"
-      } |> Repo.insert
-
-      conn = request(:get, "/characters/#{character.id}/edit")
+      conn = request(:get, "/characters/123/edit")
 
       assert requires_authentication?(conn)
+    end
+
+    it "requires the current user to match the owning user" do
+      owner = UserFactory.default_user
+      other = UserFactory.create_user(username: "other")
+      character = CharacterFactory.create_character(user_id: owner.id)
+
+      conn = authenticated_request(other, :get, "/characters/#{character.id}/edit")
+
+      assert is_redirect_to?(conn, "/")
     end
   end
 
   describe "update" do
     it "updates the character's basic attributes" do
-      character = %Character{
-        name: "Greedo",
-        species: "Rodian",
-        career: "Bounty Hunter"
-      } |> Repo.insert
+      character = CharacterFactory.create_character(name: "asdasd", species: "gogogo")
 
-      authenticated_request(UserFixture.default_user, :put, "/characters/#{character.id}", %{"character" => %{"name" => "Do'mesh", "species" => "Twi'lek"}})
+      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.id}", %{"character" => %{"name" => "Do'mesh", "species" => "Twi'lek"}})
 
       character = Repo.get(Character, character.id)
 
@@ -276,29 +258,22 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "redirects to the character show page" do
-      character = %Character{
-        name: "Greedo",
-        species: "Rodian",
-        career: "Bounty Hunter"
-      } |> Repo.insert
+      character = CharacterFactory.create_character
 
-      conn = authenticated_request(UserFixture.default_user, :put, "/characters/#{character.id}", %{"character" => %{"name" => "Do'mesh", "species" => "Twi'lek"}})
+      conn = authenticated_request(UserFactory.default_user, :put, "/characters/#{character.id}", %{"character" => %{"name" => "Do'mesh", "species" => "Twi'lek"}})
 
       assert conn.status == 302
       assert is_redirect_to?(conn, EdgeBuilder.Router.Helpers.character_path(conn, :show, character.id))
     end
 
     it "updates the character's optional attributes" do
-      character = %Character{
-        name: "Greedo",
-        species: "Rodian",
-        career: "Bounty Hunter",
+      character = CharacterFactory.create_character(
         xp_total: 50,
         xp_available: 10,
         description: "A slow shooter"
-      } |> Repo.insert
+      )
 
-      authenticated_request(UserFixture.default_user, :put, "/characters/#{character.id}", %{"character" => %{
+      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.id}", %{"character" => %{
         "xp_total" => "60",
         "xp_available" => "",
         "description" =>  "tbd"
@@ -313,11 +288,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "updates the character's prior talents" do
-      character = %Character{
-        name: "Greedo",
-        species: "Rodian",
-        career: "Bounty Hunter",
-      } |> Repo.insert
+      character = CharacterFactory.create_character
 
       talent = %Talent{
         name: "Quick Draw",
@@ -326,7 +297,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         character_id: character.id
       } |> Repo.insert
 
-      authenticated_request(UserFixture.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "talents" => %{
+      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "talents" => %{
         "0" => %{"book_and_page" => "DC p43", "description" => "Do stuff", "id" => talent.id, "name" => "Awesome Guy"}
       }})
 
@@ -338,13 +309,9 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "creates new talents for the character" do
-      character = %Character{
-        name: "Greedo",
-        species: "Rodian",
-        career: "Bounty Hunter",
-      } |> Repo.insert
+      character = CharacterFactory.create_character
 
-      authenticated_request(UserFixture.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "talents" => %{
+      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "talents" => %{
         "0" => %{"book_and_page" => "DC p43", "description" => "Do stuff", "name" => "Awesome Guy"}
       }})
 
@@ -356,11 +323,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "filters out empty talents from the request" do
-      character = %Character{
-        name: "Greedo",
-        species: "Rodian",
-        career: "Bounty Hunter",
-      } |> Repo.insert
+      character = CharacterFactory.create_character
 
       talent = %Talent{
         name: "Quick Draw",
@@ -369,7 +332,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         character_id: character.id
       } |> Repo.insert
 
-      authenticated_request(UserFixture.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "talents" => %{
+      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "talents" => %{
         "0" => %{"book_and_page" => "", "description" => "", "name" => ""},
         "1" => %{"book_and_page" => "", "description" => "", "name" => "", "id" => talent.id}
       }})
@@ -378,11 +341,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "deletes any talents for that character that were not specified in the update" do
-      character = %Character{
-        name: "Greedo",
-        species: "Rodian",
-        career: "Bounty Hunter",
-      } |> Repo.insert
+      character = CharacterFactory.create_character
 
       %Talent{
         name: "Quick Draw",
@@ -391,7 +350,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         character_id: character.id
       } |> Repo.insert
 
-      authenticated_request(UserFixture.default_user, :put, "/characters/#{character.id}", %{"character" => %{}})
+      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.id}", %{"character" => %{}})
 
       talents = Talent.for_character(character.id)
 
@@ -400,11 +359,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "updates the character's prior attacks" do
-      character = %Character{
-        name: "Greedo",
-        species: "Rodian",
-        career: "Bounty Hunter",
-      } |> Repo.insert
+      character = CharacterFactory.create_character
 
       attack = %Attack{
         weapon_name: "Holdout Blaster",
@@ -412,7 +367,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         character_id: character.id
       } |> Repo.insert
 
-      authenticated_request(UserFixture.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "attacks" => %{
+      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "attacks" => %{
         "0" => %{"weapon_name" => "Claws", "range" => "Engaged", "id" => attack.id}
       }})
 
@@ -423,15 +378,11 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "creates new attacks for the character" do
-      character = %Character{
-        name: "Greedo",
-        species: "Rodian",
-        career: "Bounty Hunter",
-      } |> Repo.insert
+      character = CharacterFactory.create_character
 
       base_skill = Repo.all(BaseSkill) |> Enum.at(0)
 
-      authenticated_request(UserFixture.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "attacks" => %{
+      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "attacks" => %{
         "0" => %{"weapon_name" => "Claws", "range" => "Engaged", "base_skill_id" => base_skill.id}
       }})
 
@@ -443,11 +394,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "deletes any attacks for that character that were not specified in the update" do
-      character = %Character{
-        name: "Greedo",
-        species: "Rodian",
-        career: "Bounty Hunter",
-      } |> Repo.insert
+      character = CharacterFactory.create_character
 
       %Attack{
         weapon_name: "Holdout Blaster",
@@ -455,7 +402,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         character_id: character.id
       } |> Repo.insert
 
-      authenticated_request(UserFixture.default_user, :put, "/characters/#{character.id}", %{"character" => %{}})
+      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.id}", %{"character" => %{}})
 
       attacks = Attack.for_character(character.id)
 
@@ -464,15 +411,11 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "creates new skills when they differ from default values" do
-      character = %Character{
-        name: "Greedo",
-        species: "Rodian",
-        career: "Bounty Hunter",
-      } |> Repo.insert
+      character = CharacterFactory.create_character
 
       base_skill = Repo.one(from bs in BaseSkill, where: bs.name == "Athletics")
 
-      authenticated_request(UserFixture.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 1, "is_career" => "on"}}})
+      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 1, "is_career" => "on"}}})
 
       [character_skill] = CharacterSkill.for_character(character.id)
 
@@ -482,25 +425,17 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "does not create new skills for skills that are not persisted and that do not differ from defaults" do
-      character = %Character{
-        name: "Greedo",
-        species: "Rodian",
-        career: "Bounty Hunter",
-      } |> Repo.insert
+      character = CharacterFactory.create_character
 
       base_skill = Repo.one(from bs in BaseSkill, where: bs.name == "Athletics")
 
-      authenticated_request(UserFixture.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 0}}})
+      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 0}}})
 
       assert Enum.count(CharacterSkill.for_character(character.id)) == 0
     end
 
     it "deletes previously-saved skills that are set back to the default" do
-      character = %Character{
-        name: "Greedo",
-        species: "Rodian",
-        career: "Bounty Hunter",
-      } |> Repo.insert
+      character = CharacterFactory.create_character
 
       base_skill = Repo.one(from bs in BaseSkill, where: bs.name == "Athletics")
 
@@ -510,17 +445,13 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         rank: 5
       } |> Repo.insert
 
-      authenticated_request(UserFixture.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 0, "id" => original_character_skill.id}}})
+      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 0, "id" => original_character_skill.id}}})
 
       assert [] == CharacterSkill.for_character(character.id)
     end
 
     it "re-renders the edit character page when there are errors" do
-      character = %Character{
-        name: "Greedo",
-        species: "Rodian",
-        career: "Bounty Hunter",
-      } |> Repo.insert
+      character = CharacterFactory.create_character
 
       base_skill = Repo.one(from bs in BaseSkill, where: bs.name == "Astrogation")
 
@@ -530,7 +461,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         rank: 5
       } |> Repo.insert
 
-      conn = authenticated_request(UserFixture.default_user, :put, "/characters/#{character.id}", %{
+      conn = authenticated_request(UserFactory.default_user, :put, "/characters/#{character.id}", %{
         "character" => %{
           "name" => "",
           "species" => "Rodian",
@@ -546,26 +477,15 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "requires authentication" do
-      character = %Character{
-        name: "Greedo",
-        species: "Rodian",
-        career: "Bounty Hunter"
-      } |> Repo.insert
-
-      conn = request(:put, "/characters/#{character.id}")
+      conn = request(:put, "/characters/123")
 
       assert requires_authentication?(conn)
     end
   end
 
   describe "delete" do
-
     it "deletes a character and all associated records" do
-      character = %Character{
-        name: "Greedo",
-        species: "Rodian",
-        career: "Bounty Hunter",
-      } |> Repo.insert
+      character = CharacterFactory.create_character
 
       base_skill = Repo.one(from bs in BaseSkill, where: bs.name == "Astrogation")
 
@@ -575,20 +495,14 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         rank: 5
       } |> Repo.insert
 
-      authenticated_request(UserFixture.default_user, :delete, "/characters/#{character.id}")
+      authenticated_request(UserFactory.default_user, :delete, "/characters/#{character.id}")
 
       assert is_nil(Repo.get(Character, character.id))
       assert is_nil(Repo.one(from cs in CharacterSkill, where: cs.id == ^(character.id)))
     end
 
     it "requires authentication" do
-      character = %Character{
-        name: "Greedo",
-        species: "Rodian",
-        career: "Bounty Hunter"
-      } |> Repo.insert
-
-      conn = request(:delete, "/characters/#{character.id}")
+      conn = request(:delete, "/characters/123")
 
       assert requires_authentication?(conn)
     end
