@@ -18,6 +18,7 @@ defmodule EdgeBuilder.Models.User do
       # using validate_format instead of validate_length because of the irritating message format of validate_length
       |> validate_format(:password, ~r/.{10,}/, message: "must be at least 10 characters")
       |> validate_format(:email, ~r/@/, message: "must be a valid email address")
+      |> validate_format(:username, ~r/^[a-zA-Z0-9]*$/, message: "must contain only letters and numbers")
       |> crypt_password_if_present
   end
 

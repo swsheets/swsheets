@@ -41,5 +41,10 @@ defmodule EdgeBuilder.Models.UserTest do
       changeset = User.changeset(%User{}, :create, %{"email" => "bobatbob.com"})
       assert has_error?(changeset, :email, "must be a valid email address")
     end
+
+    it "generates an error when the username contains characters other than a-zA-Z0-9" do
+      changeset = User.changeset(%User{}, :create, %{"username" => "Asmo Diel"})
+      assert has_error?(changeset, :username, "must contain only letters and numbers")
+    end
   end
 end
