@@ -177,6 +177,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     it "displays a link to create a new character" do
       conn = authenticated_request(UserFactory.default_user, :get, "/characters")
 
+      assert conn.status == 200
       assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.character_path(conn, :index))
     end
 
@@ -190,12 +191,27 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
       conn = authenticated_request(UserFactory.default_user, :get, "/characters")
 
-      assert conn.status == 200
-
       for character <- characters do
         assert String.contains?(conn.resp_body, character.name)
         assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.character_path(conn, :show, character.id))
       end
+    end
+
+    it "displays links for only characters owned by the current user" do
+      user = UserFactory.default_user
+      other = UserFactory.create_user
+
+      character = CharacterFactory.create_character(name: "Frank", user_id: other.id)
+
+      conn = authenticated_request(user, :get, "/characters")
+
+      assert !String.contains?(conn.resp_body, character.name)
+    end
+
+    it "requires authentication" do
+      conn = request(:get, "/characters")
+
+      assert requires_authentication?(conn)
     end
   end
 

@@ -12,7 +12,7 @@ defmodule Factories.UserFactory do
     field :password_confirmation, "jediknight"
   end
 
-  def create_user(overrides) do
+  def create_user(overrides \\ []) do
     params = attributes_for(:user, overrides) |> parametrize
     User.changeset(%User{}, :create, params) |> Repo.insert
   end

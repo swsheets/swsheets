@@ -8,7 +8,7 @@ defmodule EdgeBuilder.CharacterController do
   alias EdgeBuilder.Models.CharacterSkill
   alias EdgeBuilder.Changemap
 
-  plug Plug.Authentication, except: [:show, :index]
+  plug Plug.Authentication, except: [:show]
   plug :action
 
   def new(conn, _params) do
@@ -41,7 +41,7 @@ defmodule EdgeBuilder.CharacterController do
     render conn, "index.html",
       title: "My Characters",
       header: EdgeBuilder.CharacterView.render("_index_header.html"),
-      characters: EdgeBuilder.Repo.all(Character)
+      characters: Character.for_user_id(current_user_id(conn))
   end
 
   def show(conn, %{"id" => id}) do
