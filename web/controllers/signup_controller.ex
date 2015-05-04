@@ -25,9 +25,11 @@ defmodule EdgeBuilder.SignupController do
     user = User.changeset(%User{}, :create, user_params)
 
     if user.valid? do
-      EdgeBuilder.Repo.insert(user)
+      user = EdgeBuilder.Repo.insert(user)
 
-      redirect conn, to: "/"
+      conn
+        |> put_session(:current_user_id, user.id)
+        |> redirect to: "/"
     else
       render conn, "welcome.html",
         errors:          user.errors,

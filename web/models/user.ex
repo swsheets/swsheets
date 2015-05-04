@@ -13,18 +13,23 @@ defmodule EdgeBuilder.Models.User do
   def changeset(user, :create, params) do
     user
       |> cast(params, ~w(username email password), ~w(password_confirmation))
+      |> shared_validations
       |> validate_unique(:username, on: EdgeBuilder.Repo, downcase: true)
-      |> validate_password_match
-      # using validate_format instead of validate_length because of the irritating message format of validate_length
-      |> validate_format(:password, ~r/.{10,}/, message: "must be at least 10 characters")
-      |> validate_format(:email, ~r/@/, message: "must be a valid email address")
       |> validate_format(:username, ~r/^[a-zA-Z0-9]*$/, message: "must contain only letters and numbers")
-      |> crypt_password_if_present
+      |> validate_format(:username, ~r/^.{1,30}$/, message: "must contain no more than 30 characters")
   end
 
   def changeset(user, :update, params) do
     user
       |> cast(params, [], ~w(email password password_confirmation))
+      |> shared_validations
+  end
+
+  defp shared_validations(changeset) do
+    changeset
+      |> validate_password_match
+      |> validate_format(:password, ~r/^.{10,}$/, message: "must be at least 10 characters")
+      |> validate_format(:email, ~r/@/, message: "must be a valid email address")
       |> crypt_password_if_present
   end
 

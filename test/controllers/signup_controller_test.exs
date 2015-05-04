@@ -45,6 +45,7 @@ defmodule EdgeBuilder.Controllers.SignupControllerTest do
       assert user.username == "test"
       assert {:ok, user} == User.authenticate(user.username, "my$good14password15is_verylong")
       assert is_redirect_to?(conn, "/")
+      assert Plug.Conn.get_session(conn, :current_user_id) == user.id
     end
 
     it "renders an error if the username is already taken" do

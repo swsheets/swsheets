@@ -25,26 +25,49 @@ defmodule EdgeBuilder.Models.UserTest do
 
       changeset = User.changeset(%User{}, :create, %{"username" => "bobafett"})
       assert has_error?(changeset, :username, "has already been taken")
+
+      changeset = User.changeset(%User{}, :create, %{"username" => "gonzothegreat"})
+      assert !has_error?(changeset, :username, "has already been taken")
     end
 
     it "generates an error when the password and confirmation do not match" do
       changeset = User.changeset(%User{}, :create, %{"password" => "hot dogs", "password_confirmation" => "cream cheese"})
       assert has_error?(changeset, :password, "does not match the confirmation")
+
+      changeset = User.changeset(%User{}, :create, %{"password" => "cream cheese", "password_confirmation" => "cream cheese"})
+      assert !has_error?(changeset, :password, "does not match the confirmation")
     end
 
     it "generates an error when the password is not long enough" do
       changeset = User.changeset(%User{}, :create, %{"password" => "hot dogs"})
       assert has_error?(changeset, :password, "must be at least 10 characters")
+
+      changeset = User.changeset(%User{}, :create, %{"password" => "1234567890"})
+      assert !has_error?(changeset, :password, "must be at least 10 characters")
     end
 
     it "generates an error when the email address is not a valid email" do
-      changeset = User.changeset(%User{}, :create, %{"email" => "bobatbob.com"})
+      changeset = User.changeset(%User{}, :create, %{"email" => "bobatexample.com"})
       assert has_error?(changeset, :email, "must be a valid email address")
+
+      changeset = User.changeset(%User{}, :create, %{"email" => "bob@example.com"})
+      assert !has_error?(changeset, :email, "must be a valid email address")
     end
 
     it "generates an error when the username contains characters other than a-zA-Z0-9" do
       changeset = User.changeset(%User{}, :create, %{"username" => "Asmo Diel"})
       assert has_error?(changeset, :username, "must contain only letters and numbers")
+
+      changeset = User.changeset(%User{}, :create, %{"username" => "Asmo0Diel"})
+      assert !has_error?(changeset, :username, "must contain only letters and numbers")
+    end
+
+    it "generates an error when the username is too long" do
+      changeset = User.changeset(%User{}, :create, %{"username" => "1234567890123456789012345678901"})
+      assert has_error?(changeset, :username, "must contain no more than 30 characters")
+
+      changeset = User.changeset(%User{}, :create, %{"username" => "123456789012345678901234567890"})
+      assert !has_error?(changeset, :username, "must contain no more than 30 characters")
     end
   end
 end
