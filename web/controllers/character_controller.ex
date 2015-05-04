@@ -17,7 +17,7 @@ defmodule EdgeBuilder.CharacterController do
 
   def create(conn, params = %{"character" => character_params}) do
     changemap = %{
-      root: Character.changeset(%Character{}, conn.private[:current_user_id], character_params),
+      root: Character.changeset(%Character{}, current_user_id(conn), character_params),
       talents: child_changesets(params["talents"], Talent),
       attacks: child_changesets(params["attacks"], Attack),
       character_skills: character_skill_changesets(params["skills"])
@@ -51,7 +51,7 @@ defmodule EdgeBuilder.CharacterController do
       header: EdgeBuilder.CharacterView.render("_show_header.html"),
       footer: EdgeBuilder.CharacterView.render("footer.html"),
       title: character.name,
-      character: character |> Character.changeset(conn.private[:current_user_id]),
+      character: character |> Character.changeset(current_user_id(conn)),
       talents: character.talents |> Enum.map(&Talent.changeset/1),
       attacks: character.attacks |> Enum.map(&Attack.changeset/1),
       character_skills: character.character_skills |> CharacterSkill.add_missing_defaults
@@ -60,11 +60,11 @@ defmodule EdgeBuilder.CharacterController do
   def edit(conn, %{"id" => id}) do
     character = Character.full_character(id)
 
-    if character.user_id != conn.private[:current_user_id] do
+    if !is_owner?(conn, character) do
       redirect conn, to: "/"
     else
       render_edit conn,
-        character: character |> Character.changeset(conn.private[:current_user_id]),
+        character: character |> Character.changeset(current_user_id(conn)),
         talents: (if Enum.empty?(character.talents), do: [%Talent{}], else: character.talents) |> Enum.map(&Talent.changeset/1),
         attacks: (if Enum.empty?(character.attacks), do: [%Attack{}], else: character.attacks) |> Enum.map(&Attack.changeset/1),
         character_skills: character.character_skills |> CharacterSkill.add_missing_defaults
@@ -74,11 +74,11 @@ defmodule EdgeBuilder.CharacterController do
   def update(conn, params = %{"id" => id, "character" => character_params}) do
     character = Character.full_character(id)
 
-    if character.user_id != conn.private[:current_user_id] do
+    if !is_owner?(conn, character) do
       redirect conn, to: "/"
     else 
       changemap = %{
-        root: character |> Character.changeset(conn.private[:current_user_id], character_params),
+        root: character |> Character.changeset(current_user_id(conn), character_params),
         talents: child_changesets(params["talents"], Talent, character.talents),
         attacks: child_changesets(params["attacks"], Attack, character.attacks),
         character_skills: character_skill_changesets(params["skills"], character.character_skills)
@@ -104,7 +104,7 @@ defmodule EdgeBuilder.CharacterController do
   def delete(conn, %{"id" => id}) do
     character = Character.full_character(id)
 
-    if character.user_id != conn.private[:current_user_id] do
+    if !is_owner?(conn, character) do
       redirect conn, to: "/"
     else
       Character.delete(character)
@@ -118,7 +118,7 @@ defmodule EdgeBuilder.CharacterController do
       header: EdgeBuilder.CharacterView.render("_form_header.html"),
       nav_header: EdgeBuilder.CharacterView.render("_form_nav_header.html"),
       footer: EdgeBuilder.CharacterView.render("footer.html"),
-      character: (if is_nil(assignments[:character]), do: %Character{} |> Character.changeset(conn.private[:current_user_id]), else: assignments[:character]),
+      character: (if is_nil(assignments[:character]), do: %Character{} |> Character.changeset(current_user_id(conn)), else: assignments[:character]),
       talents: (if is_nil(assignments[:talents]) || Enum.empty?(assignments[:talents]), do: [%Talent{} |> Talent.changeset], else: assignments[:talents]),
       attacks: (if is_nil(assignments[:attacks]) || Enum.empty?(assignments[:attacks]), do: [%Attack{} |> Attack.changeset], else: assignments[:attacks]),
       character_skills: CharacterSkill.add_missing_defaults(assignments[:character_skills] || [])
@@ -133,7 +133,7 @@ defmodule EdgeBuilder.CharacterController do
       header: EdgeBuilder.CharacterView.render("_form_header.html"),
       nav_header: EdgeBuilder.CharacterView.render("_form_nav_header.html"),
       footer: EdgeBuilder.CharacterView.render("footer.html"),
-      character: (if is_nil(assignments[:character]), do: %Character{} |> Character.changeset(conn.private[:current_user_id]), else: assignments[:character]),
+      character: (if is_nil(assignments[:character]), do: %Character{} |> Character.changeset(current_user_id(conn)), else: assignments[:character]),
       talents: (if is_nil(assignments[:talents]) || Enum.empty?(assignments[:talents]), do: [%Talent{} |> Talent.changeset], else: assignments[:talents]),
       attacks: (if is_nil(assignments[:attacks]) || Enum.empty?(assignments[:attacks]), do: [%Attack{} |> Attack.changeset], else: assignments[:attacks]),
       character_skills: CharacterSkill.add_missing_defaults(assignments[:character_skills] || [])
@@ -165,4 +165,12 @@ defmodule EdgeBuilder.CharacterController do
       |> Enum.reject(&CharacterSkill.is_default_changeset?/1)
   end
   defp character_skill_changesets(_,_), do: []
+
+  def current_user_id(conn) do
+    conn.private[:current_user_id]
+  end
+
+  defp is_owner?(conn, character) do
+    character.user_id == current_user_id(conn)
+  end
 end
