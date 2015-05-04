@@ -91,7 +91,7 @@
       </div>
     </div>
   </div>
-  <% unless get_field(@character, :portait_url) |> is_nil do %>
+  <%= unless get_field(@character, :portrait_url) |> is_nil do %>
     <div class="col-md-4">
       <p class="text-center">
         <img src="<%= image_or_default(@character) %>" alt="Placeholder Image" class="img-thumbnail">

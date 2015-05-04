@@ -101,8 +101,8 @@
   </div>
   <div class="col-md-4">
     <div class="form-group">
-      <label for="imageUrl">Portrait URL</label>
-      <input type="url" class="form-control" name="imageUrl" value="<%= get_field(@character, :portrait_url) %>">
+      <label for="character[portrait_url]">Portrait URL</label>
+      <input type="url" class="form-control" name="character[portrait_url]" value="<%= get_field(@character, :portrait_url) %>">
     </div>
     <p class="text-center">
       <img src="<%= image_or_default(@character) %>" alt="Placeholder Image" class="img-thumbnail">

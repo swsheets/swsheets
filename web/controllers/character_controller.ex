@@ -133,7 +133,7 @@ defmodule EdgeBuilder.CharacterController do
       header: EdgeBuilder.CharacterView.render("_form_header.html"),
       nav_header: EdgeBuilder.CharacterView.render("_form_nav_header.html"),
       footer: EdgeBuilder.CharacterView.render("footer.html"),
-      character: (if is_nil(assignments[:character]), do: %Character{} |> Character.changeset(current_user_id(conn)), else: assignments[:character]),
+      character: assignments[:character],
       talents: (if is_nil(assignments[:talents]) || Enum.empty?(assignments[:talents]), do: [%Talent{} |> Talent.changeset], else: assignments[:talents]),
       attacks: (if is_nil(assignments[:attacks]) || Enum.empty?(assignments[:attacks]), do: [%Attack{} |> Attack.changeset], else: assignments[:attacks]),
       character_skills: CharacterSkill.add_missing_defaults(assignments[:character_skills] || [])
