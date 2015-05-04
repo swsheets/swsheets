@@ -60,47 +60,56 @@ defmodule EdgeBuilder.CharacterController do
   def edit(conn, %{"id" => id}) do
     character = Character.full_character(id)
 
-    if character.user_id == conn.private[:current_user_id] do
+    if character.user_id != conn.private[:current_user_id] do
+      redirect conn, to: "/"
+    else
       render_edit conn,
         character: character |> Character.changeset(conn.private[:current_user_id]),
         talents: (if Enum.empty?(character.talents), do: [%Talent{}], else: character.talents) |> Enum.map(&Talent.changeset/1),
         attacks: (if Enum.empty?(character.attacks), do: [%Attack{}], else: character.attacks) |> Enum.map(&Attack.changeset/1),
         character_skills: character.character_skills |> CharacterSkill.add_missing_defaults
-    else
-      redirect conn, to: "/"
     end
   end
 
   def update(conn, params = %{"id" => id, "character" => character_params}) do
     character = Character.full_character(id)
 
-    changemap = %{
-      root: character |> Character.changeset(conn.private[:current_user_id], character_params),
-      talents: child_changesets(params["talents"], Talent, character.talents),
-      attacks: child_changesets(params["attacks"], Attack, character.attacks),
-      character_skills: character_skill_changesets(params["skills"], character.character_skills)
-    }
+    if character.user_id != conn.private[:current_user_id] do
+      redirect conn, to: "/"
+    else 
+      changemap = %{
+        root: character |> Character.changeset(conn.private[:current_user_id], character_params),
+        talents: child_changesets(params["talents"], Talent, character.talents),
+        attacks: child_changesets(params["attacks"], Attack, character.attacks),
+        character_skills: character_skill_changesets(params["skills"], character.character_skills)
+      }
 
-    if Changemap.valid?(changemap) do
-      changemap
-        |> Changemap.apply
-        |> Changemap.delete_missing
+      if Changemap.valid?(changemap) do
+        changemap
+          |> Changemap.apply
+          |> Changemap.delete_missing
 
-      redirect conn, to: character_path(conn, :show, id)
-    else
-
-      render_edit conn,
-        character: changemap.root,
-        talents: changemap.talents,
-        attacks: changemap.attacks,
-        character_skills: changemap.character_skills,
-        errors: changemap.root.errors
+        redirect conn, to: character_path(conn, :show, id)
+      else
+        render_edit conn,
+          character: changemap.root,
+          talents: changemap.talents,
+          attacks: changemap.attacks,
+          character_skills: changemap.character_skills,
+          errors: changemap.root.errors
+      end
     end
   end
 
   def delete(conn, %{"id" => id}) do
-    Character.full_character(id) |> Character.delete
-    redirect conn, to: character_path(conn, :index)
+    character = Character.full_character(id)
+
+    if character.user_id != conn.private[:current_user_id] do
+      redirect conn, to: "/"
+    else
+      Character.delete(character)
+      redirect conn, to: character_path(conn, :index)
+    end
   end
 
   defp render_new(conn, assignments \\ []) do

@@ -481,6 +481,16 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
       assert requires_authentication?(conn)
     end
+
+    it "requires the current user to match the owning user" do
+      owner = UserFactory.default_user
+      other = UserFactory.create_user(username: "other")
+      character = CharacterFactory.create_character(user_id: owner.id)
+
+      conn = authenticated_request(other, :put, "/characters/#{character.id}", %{"character" => %{}})
+
+      assert is_redirect_to?(conn, "/")
+    end
   end
 
   describe "delete" do
@@ -505,6 +515,16 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       conn = request(:delete, "/characters/123")
 
       assert requires_authentication?(conn)
+    end
+
+    it "requires the current user to match the owning user" do
+      owner = UserFactory.default_user
+      other = UserFactory.create_user(username: "other")
+      character = CharacterFactory.create_character(user_id: owner.id)
+
+      conn = authenticated_request(other, :delete, "/characters/#{character.id}")
+
+      assert is_redirect_to?(conn, "/")
     end
   end
 end
