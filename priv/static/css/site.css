@@ -56,3 +56,23 @@ h4 {
   width: auto;
   display: inline-block;
 }
+
+.character-container {
+  border: 1px solid #aaa;
+  border-radius: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.pagination-newer {
+  font-size: 150%;
+  margin-left: 20px;
+}
+
+.pagination-older {
+  font-size: 150%;
+  margin-right: 20px;
+}

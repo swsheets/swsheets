@@ -1,33 +1,37 @@
+<style>
+  .col-lg-6 {
+    margin-bottom: 50px;
+  }
+  .character-thumbnail {
+    top: 15px;
+    position: relative;
+    float: right;
+    max-width:  200px;
+    max-height: 200px;
+  }
+</style>
+
 <div class="jumbotron">
-  <h2>Welcome to Phoenix!</h2>
-  <p class="lead">Phoenix is an Elixir Web Framework targeting full-featured, fault tolerant applications with realtime functionality.</p>
+  <h2>Welcome to EdgeBuilder</h2>
+  <p class="lead">EdgeBuilder is a community for creating, managing, and sharing your characters for Fantasy Flight Games' Star Wars: Edge of the Empire role-playing game. Take a look at some of the creations below, or <a href="<%= character_path(@conn, :new) %>">create your own</a></p>
 </div>
 
-<div class="row marketing">
+<div class="row">
   <div class="col-lg-6">
-    <h4>Resources</h4>
-    <ul>
-      <li>
-        <a href="http://hexdocs.pm/phoenix">Docs</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-    </ul>
-  </div>
-
-  <div class="col-lg-6">
-    <h4>Help</h4>
-    <ul>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix/issues?state=open">Issues</a>
-      </li>
-      <li>
-        <a href="irc://irc.freenode.net/elixir-lang">#elixir-lang on freenode IRC</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/chris_mccord">@chris_mccord</a>
-      </li>
-    </ul>
+    <h3>Recent Creations</h4>
+    <%= for character <- @characters do %>
+      <div class="character-container">
+        <%= unless is_nil(character.portrait_url) do %>
+          <img class="character-thumbnail img-thumbnail" src="<%= character.portrait_url %>">
+        <% end %>
+        <div class="row"><h2><a href="<%= character_path(@conn, :show, character.id) %>"><%= character.name %></a></h2></div>
+        <div class="row">
+          <div class="col-sm-6">
+            <p><%= character.species %> <%= character.career %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <%= render EdgeBuilder.SharedView, "_pagination.html", page_number: @page_number, total_pages: @total_pages %>
   </div>
 </div>
