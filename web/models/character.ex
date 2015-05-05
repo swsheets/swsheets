@@ -37,6 +37,8 @@ defmodule EdgeBuilder.Models.Character do
     field :description, :string
     field :other_notes, :string
     field :critical_injuries, :string
+    
+    timestamps
     belongs_to :user, User
 
     has_many :talents, Talent
@@ -60,7 +62,8 @@ defmodule EdgeBuilder.Models.Character do
   def for_user_id(user_id) do
     Repo.all(
       from c in __MODULE__,
-        where: c.user_id == ^user_id
+        where: c.user_id == ^user_id,
+        order_by: [desc: c.updated_at]
     )
   end
 

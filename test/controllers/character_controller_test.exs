@@ -197,6 +197,22 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       end
     end
 
+    it "displays characters in order of last updated" do
+      user = UserFactory.default_user
+
+      updated_character = CharacterFactory.create_character(name: "Frank", user_id: user.id)
+      second_character = CharacterFactory.create_character(name: "Boba Fett", user_id: user.id)
+
+      :timer.sleep(1000)
+      updated_character = Character.changeset(updated_character, user.id, %{"name" => "Mike"}) |> Repo.update
+
+      conn = authenticated_request(user, :get, "/characters")
+      {first_position, _} = :binary.match(conn.resp_body, updated_character.name)
+      {second_position, _} = :binary.match(conn.resp_body, second_character.name)
+
+      assert first_position < second_position
+    end
+
     it "displays links for only characters owned by the current user" do
       user = UserFactory.default_user
       other = UserFactory.create_user
