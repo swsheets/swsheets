@@ -13,6 +13,7 @@ defmodule EdgeBuilder.SignupController do
       {:ok, user} -> 
         conn
           |> put_session(:current_user_id, user.id)
+          |> put_session(:current_user_username, user.username)
           |> redirect to: "/"
       _ ->
         conn
@@ -29,6 +30,7 @@ defmodule EdgeBuilder.SignupController do
 
       conn
         |> put_session(:current_user_id, user.id)
+        |> put_session(:current_user_username, user.username)
         |> redirect to: "/"
     else
       render conn, "welcome.html",
@@ -36,5 +38,12 @@ defmodule EdgeBuilder.SignupController do
         signup_username: user_params["username"],
         signup_email:    user_params["email"]
     end
+  end
+
+  def logout(conn, _params) do
+    conn
+      |> delete_session(:current_user_id)
+      |> delete_session(:current_user_username)
+      |> redirect to: "/"
   end
 end

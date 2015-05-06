@@ -8,4 +8,12 @@ defmodule EdgeBuilder.LayoutView do
       _ -> "#{title} | EdgeBuilder"
     end
   end
+
+  def logged_in?(conn) do
+    !is_nil(Plug.Conn.get_session(conn, :current_user_id))
+  end
+
+  def username(conn) do
+    Plug.Conn.get_session(conn, :current_user_username)
+  end
 end

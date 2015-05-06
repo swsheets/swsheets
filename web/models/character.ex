@@ -59,14 +59,6 @@ defmodule EdgeBuilder.Models.Character do
     )
   end
 
-  def for_user_id(user_id) do
-    Repo.all(
-      from c in __MODULE__,
-        where: c.user_id == ^user_id,
-        order_by: [desc: c.updated_at]
-    )
-  end
-
   def delete(character) do
     Enum.each [Talent, Attack, CharacterSkill], fn(child_module) ->
       Repo.delete_all(from c in child_module, where: c.character_id == ^character.id)

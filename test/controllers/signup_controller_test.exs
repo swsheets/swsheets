@@ -46,6 +46,7 @@ defmodule EdgeBuilder.Controllers.SignupControllerTest do
       assert {:ok, user} == User.authenticate(user.username, "my$good14password15is_verylong")
       assert is_redirect_to?(conn, "/")
       assert Plug.Conn.get_session(conn, :current_user_id) == user.id
+      assert Plug.Conn.get_session(conn, :current_user_username) == user.username
     end
 
     it "renders an error if the username is already taken" do
@@ -79,6 +80,7 @@ defmodule EdgeBuilder.Controllers.SignupControllerTest do
 
       assert conn.status == 302
       assert Plug.Conn.get_session(conn, :current_user_id) == user.id
+      assert Plug.Conn.get_session(conn, :current_user_username) == user.username
     end
 
     it "displays an error message when the login's password doesn't match" do
@@ -103,6 +105,16 @@ defmodule EdgeBuilder.Controllers.SignupControllerTest do
       })
 
       assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text == "No matching username and password could be found"
+    end
+  end
+
+  describe "logout" do
+    it "logs out the user" do
+      conn = authenticated_request(UserFactory.default_user, :post, "/logout")
+
+      assert is_redirect_to?(conn, "/")
+      assert is_nil(Plug.Conn.get_session(conn, :current_user_id))
+      assert is_nil(Plug.Conn.get_session(conn, :current_user_username))
     end
   end
 end

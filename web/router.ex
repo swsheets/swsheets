@@ -21,6 +21,7 @@ defmodule EdgeBuilder.Router do
     resources "/characters", CharacterController
     get  "/welcome", SignupController, :welcome
     post "/login", SignupController, :login
+    post "/logout", SignupController, :logout
     post "/signup", SignupController, :signup
     resource "/user", SettingsController, only: [:edit, :update]
   end

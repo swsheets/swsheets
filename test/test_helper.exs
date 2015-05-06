@@ -50,7 +50,11 @@ defmodule EdgeBuilder.ControllerTest do
       end
 
       def authenticated_request(user, verb, path, params \\ %{}) do
-        request(verb, path, params, fn(conn) -> put_session(conn, :current_user_id, user.id) end)
+        request(verb, path, params, fn(conn) ->
+          conn
+          |> put_session(:current_user_id, user.id)
+          |> put_session(:current_user_username, user.username)
+        end)
       end
 
       def is_redirect_to?(conn, path) do

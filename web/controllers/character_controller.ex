@@ -6,7 +6,9 @@ defmodule EdgeBuilder.CharacterController do
   alias EdgeBuilder.Models.Talent
   alias EdgeBuilder.Models.Attack
   alias EdgeBuilder.Models.CharacterSkill
+  alias EdgeBuilder.Repo
   alias EdgeBuilder.Changemap
+  import Ecto.Query, only: [from: 2]
 
   plug Plug.Authentication, except: [:show]
   plug :action
@@ -37,11 +39,15 @@ defmodule EdgeBuilder.CharacterController do
     end
   end
 
-  def index(conn, _params) do
+  def index(conn, params) do
+    page = Repo.paginate((from c in Character, where: c.user_id == ^current_user_id(conn), order_by: [desc: c.updated_at]), page: params["page"])
+
     render conn, "index.html",
       title: "My Characters",
       header: EdgeBuilder.CharacterView.render("_index_header.html"),
-      characters: Character.for_user_id(current_user_id(conn))
+      characters: page.entries,
+      page_number: page.page_number,
+      total_pages: page.total_pages
   end
 
   def show(conn, %{"id" => id}) do

@@ -1,4 +1,11 @@
+<style>
+  .col-md-6 {
+    margin-bottom: 50px;
+  }
+</style>
 <h1>My Characters</h1>
+
+<h2><small><a href="<%= character_path(@conn, :new) %>">Create a New Character</a></small></h2>
 
 <div class="row">
   <div class="col-md-6">
@@ -30,7 +37,6 @@
         </div>
       </div>
     <% end %>
+    <%= render EdgeBuilder.SharedView, "_pagination.html", page_number: @page_number, total_pages: @total_pages %>
   </div>
 </div>
-
-<h2><small><a href="<%= character_path(@conn, :new) %>">Create a New Character</a></small></h2>

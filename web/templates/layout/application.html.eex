@@ -41,6 +41,7 @@
             <li><a href="<%= character_path(@conn, :index) %>">My Characters</a></li>
             <%= @nav_header %>
           </ul>
+          <%= render "_user_dropdown.html", conn: @conn %>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>

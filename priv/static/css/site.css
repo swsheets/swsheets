@@ -31,6 +31,16 @@ h4 {
   font-weight: bold;
 }
 
+.dropdown-menu>li>form>a {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: 400;
+  line-height: 1.42857143;
+  color: #333;
+  white-space: nowrap;
+}
+
 .main-container {
   margin-top: 80px;
 }
@@ -75,4 +85,12 @@ h4 {
 .pagination-older {
   font-size: 150%;
   margin-right: 20px;
+}
+
+.glyphicon-user {
+  color: #fff;
+}
+
+.nav-divider {
+  border-left: 1px solid #666;
 }
