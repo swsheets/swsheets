@@ -5,13 +5,13 @@
 <% end %>
 
 <style>
-  .well {
-    padding-top: 0px;
-    margin-top: 70px;
-  }
   .row {
     height: 450px;
   }
+  .col-md-offset-2 {
+    margin-top: 70px;
+  }
+
   .col-md-1 {
     height: 100%;
   }
@@ -27,9 +27,9 @@
 </style>
 
 <div class="row">
-  <div class="col-md-3 col-md-offset-2 well">
+  <div class="col-md-3 col-md-offset-2">
     <h3>Welcome Back</h3>
-    <%= form_tag(signup_path(@conn, :login), role: "form", method: "POST", class: "form") %>
+    <%= form_tag(signup_path(@conn, :login), role: "form", method: "POST", class: "form well") %>
       <div class="form-group">
         <label for="login[loginname]" class='control-label'>Username</label>
         <input type="text" class="form-control" name="login[username]" />
