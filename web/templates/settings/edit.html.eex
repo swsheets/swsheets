@@ -1,28 +1,38 @@
 <%= render EdgeBuilder.SharedView, "_errors.html", errors: @errors %>
 
-<%= form_tag(settings_path(@conn, :update), role: "form", method: "PUT", class: "form-horizontal") %>
-  <div class="form-group">
-    <label for="user[email]" class='col-sm-2 control-label'>Email Address</label>
-    <div class='col-sm-10'>
-      <input type="email" class="form-control" name="user[email]" id="email" value="<%= get_field(@user, :email) %>"/>
-    </div>
+<%= unless is_nil(@saved) do %>
+  <div class="alert alert-success">
+    <p>Your settings have been updated</p>
   </div>
-  <div class="form-group">
-    <label for="user[username]" class='col-sm-2 control-label'>Username</label>
-    <div class='col-sm-10'>
-      <%= get_field(@user, :username) %>
+<% end %>
+
+<div class="col-md-6 col-md-offset-3">
+  <h3>Account Settings</h3>
+  <%= form_tag(settings_path(@conn, :update), role: "form", method: "PUT", class: "form-horizontal well") %>
+    <div class="form-group">
+      <label for="user[email]" class='col-sm-2 control-label'>Email Address</label>
+      <div class='col-sm-10'>
+        <input type="email" class="form-control" name="user[email]" id="email" value="<%= get_field(@user, :email) %>"/>
+      </div>
     </div>
-  </div>
-  <div class="form-group">
-    <label for="user[password]" class='col-sm-2 control-label'>Password</label>
-    <div class='col-sm-10'>
-      <input type="password" class="form-control" name="user[password]" id="password" />
+    <div class="form-group">
+      <label for="user[username]" class='col-sm-2 control-label'>Username</label>
+      <div class='col-sm-10'>
+        <%= get_field(@user, :username) %>
+      </div>
     </div>
-  </div>
-  <div class="form-group">
-    <label for="user[password_confirmation]" class='col-sm-2 control-label'>Password Confirmation</label>
-    <div class='col-sm-10'>
-      <input type="password" class="form-control" name="user[password_confirmation]" id="password_confirmation" />
+    <div class="form-group">
+      <label for="user[password]" class='col-sm-2 control-label'>Password</label>
+      <div class='col-sm-10'>
+        <input type="password" class="form-control" name="user[password]" id="password" placeholder="(leave blank to keep your current password)" />
+      </div>
     </div>
-  </div>
-</form>
+    <div class="form-group">
+      <label for="user[password_confirmation]" class='col-sm-2 control-label'>Password Confirmation</label>
+      <div class='col-sm-10'>
+        <input type="password" class="form-control" name="user[password_confirmation]" id="password_confirmation" />
+      </div>
+    </div>
+    <input class="btn btn-info btn-block" type="submit" value="Update">
+  </form>
+</div>

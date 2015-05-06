@@ -1,2 +1,0 @@
-<%= render EdgeBuilder.SharedView, "_errors.html", errors: @errors %>
-

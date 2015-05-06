@@ -12,4 +12,15 @@ defmodule EdgeBuilder.SettingsController do
 
     render conn, "edit.html", user: user
   end
+
+  def update(conn, %{"user" => user_params}) do
+    user = Repo.get(User, get_session(conn, :current_user_id)) |> User.changeset(:update, user_params)
+
+    if user.valid? do
+      Repo.update(user)
+      render conn, "edit.html", user: user, saved: true
+    else
+      render conn, :edit, user: user, errors: user.errors
+    end
+  end
 end
