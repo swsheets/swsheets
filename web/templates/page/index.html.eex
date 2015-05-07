@@ -13,11 +13,11 @@
 
 <div class="jumbotron">
   <h2>Welcome to EdgeBuilder</h2>
-  <p class="lead">EdgeBuilder is a community for creating, managing, and sharing your characters for Fantasy Flight Games' Star Wars: Edge of the Empire role-playing game. Take a look at some of the creations below, or <a href="<%= character_path(@conn, :new) %>">create your own</a></p>
+  <p class="lead">EdgeBuilder is a community for creating, managing, and sharing your characters for <strong>Fantasy Flight Games' Star Wars: Edge of the Empire</strong> role-playing game. Take a look at some of the creations below, or <a href="<%= character_path(@conn, :new) %>">create your own</a></p>
 </div>
 
 <div class="row">
-  <div class="col-lg-6">
+  <div class="col-lg-6 col-lg-offset-3">
     <h3>Recent Creations</h4>
     <%= for character <- @characters do %>
       <div class="character-container">
