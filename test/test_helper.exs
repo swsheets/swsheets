@@ -46,6 +46,7 @@ defmodule EdgeBuilder.ControllerTest do
           |> fetch_session
           |> f.()
           |> put_private(:plug_skip_csrf_protection, true)
+          |> put_private(:phoenix_endpoint, EdgeBuilder.Endpoint)
           |> EdgeBuilder.Router.call([])
       end
 

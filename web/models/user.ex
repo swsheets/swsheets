@@ -4,6 +4,7 @@ defmodule EdgeBuilder.Models.User do
   schema "users" do
     field :username, :string
     field :email, :string
+    field :password_reset_token, Ecto.UUID
     field :crypted_password, :binary
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
@@ -22,6 +23,12 @@ defmodule EdgeBuilder.Models.User do
   def changeset(user, :update, params) do
     user
       |> cast(params, [], ~w(email password password_confirmation))
+      |> shared_validations
+  end
+
+  def changeset(user, :password_reset, params) do
+    user
+      |> cast(params, ~w(password_reset_token))
       |> shared_validations
   end
 

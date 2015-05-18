@@ -20,6 +20,10 @@ defmodule EdgeBuilder.Router do
     get "/reference", PageController, :reference
     resources "/characters", CharacterController
     get  "/welcome", SignupController, :welcome
+    get  "/password-reset", PasswordResetController, :request
+    post  "/password-reset", PasswordResetController, :submit_request
+    get  "/password-reset/reset", PasswordResetController, :reset
+    post  "/password-reset/reset", PasswordResetController, :submit_reset
     post "/login", SignupController, :login
     post "/logout", SignupController, :logout
     post "/signup", SignupController, :signup
