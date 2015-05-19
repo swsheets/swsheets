@@ -33,5 +33,15 @@ defmodule EdgeBuilder.Controllers.PasswordResetControllerTest do
         )
       end
     end
+
+    it "shows a success message" do
+      conn = request(:post, "/password-reset", %{"password_reset" => %{"email" => UserFactory.default_user.email}})
+      assert String.contains?(conn.resp_body, "Instructions have been sent to that email address. If you do not see an email within a few minutes, double-check that you entered the correct email address.")
+    end
+
+    it "shows a success message even when the email address doesn't exist" do
+      conn = request(:post, "/password-reset", %{"password_reset" => %{"email" => "TOTALLY MADE UP EMAIL"}})
+      assert String.contains?(conn.resp_body, "Instructions have been sent to that email address. If you do not see an email within a few minutes, double-check that you entered the correct email address.")
+    end
   end
 end
