@@ -2,7 +2,8 @@ use Mix.Config
 
 config :edge_builder, EdgeBuilder.Endpoint,
   http: [port: System.get_env("PORT") || 4000],
-  debug_errors: true
+  debug_errors: true,
+  code_reloader: true
 
 config :edge_builder,
   mailgun_domain: System.get_env("MAILGUN_DOMAIN"),

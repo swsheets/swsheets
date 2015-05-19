@@ -12,7 +12,7 @@
   "meck": {:hex, :meck, "0.8.2"},
   "mochiweb": {:hex, :mochiweb, "2.12.2"},
   "mock": {:hex, :mock, "0.1.1"},
-  "phoenix": {:hex, :phoenix, "0.10.0"},
+  "phoenix": {:hex, :phoenix, "0.11.0"},
   "phoenix_ecto": {:hex, :phoenix_ecto, "0.2.0"},
   "plug": {:hex, :plug, "0.11.3"},
   "poison": {:hex, :poison, "1.4.0"},

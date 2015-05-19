@@ -7,6 +7,7 @@ use Mix.Config
 
 # Configures the endpoint
 config :edge_builder, EdgeBuilder.Endpoint,
+  root: Path.expand("..", __DIR__),
   url: [host: "localhost"],
   secret_key_base: "9gHweeZJaqUL1PGBXTxahiuf9fQuc5FJvN5AfL3XJpG5UkKkH8g/ApPrixTs67nE",
   debug_errors: false,
