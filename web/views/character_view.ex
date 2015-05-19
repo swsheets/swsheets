@@ -16,12 +16,12 @@ defmodule EdgeBuilder.CharacterView do
   def base_skill_options(skill_id) do
     Enum.map(BaseSkill.attack_skills, fn s ->
       "<option value='#{s.id}'#{if s.id == skill_id, do: " selected"}>#{s.name}</option>"
-    end) |> safe
+    end) |> raw
   end
 
   def range_options(selected_range) do
     Enum.map(~w(Engaged Short Medium Long Extreme), fn range ->
       "<option#{if range == selected_range, do: " selected"}>#{range}</option>"
-    end) |> safe
+    end) |> raw
   end
 end
