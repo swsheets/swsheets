@@ -12,8 +12,8 @@
 </style>
 
 <div class="jumbotron">
-  <h2>Welcome to EdgeBuilder</h2>
-  <p class="lead">EdgeBuilder is a community for creating, managing, and sharing your characters for <strong>Fantasy Flight Games' Star Wars: Edge of the Empire</strong> role-playing game. Take a look at some of the creations below, or <a href="<%= character_path(@conn, :new) %>">create your own</a></p>
+  <h2>Welcome to <%= application_name %></h2>
+  <p class="lead"><%= application_name %> is a community for creating, managing, and sharing your characters for <strong>Fantasy Flight Games' Star Wars: Edge of the Empire</strong> role-playing game. Take a look at some of the creations below, or <a href="<%= character_path(@conn, :new) %>">create your own</a></p>
 </div>
 
 <div class="row">

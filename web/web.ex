@@ -21,6 +21,7 @@ defmodule EdgeBuilder.Web do
 
       # Import all HTML functions (forms, tags, etc)
       use Phoenix.HTML
+      import EdgeBuilder.ViewHelpers
     end
   end
 

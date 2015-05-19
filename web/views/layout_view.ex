@@ -4,8 +4,8 @@ defmodule EdgeBuilder.LayoutView do
   def title_or_default(title) when is_nil(title), do: title_or_default("")
   def title_or_default(title) do
     case String.length(title) do
-      0 -> "EdgeBuilder"
-      _ -> "#{title} | EdgeBuilder"
+      0 -> application_name
+      _ -> "#{title} | #{application_name}"
     end
   end
 

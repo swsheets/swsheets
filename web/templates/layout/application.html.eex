@@ -32,7 +32,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">EdgeBuilder</a>
+          <a class="navbar-brand" href="/"><%= application_name %></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -52,7 +52,7 @@
 
     <footer class="footer">
       <div class="container">
-        <p>EdgeBuilder</p>
+        <p><%= application_name %></p>
       </div>
     </footer>
 
