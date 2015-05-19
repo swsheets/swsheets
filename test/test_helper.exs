@@ -59,7 +59,7 @@ defmodule EdgeBuilder.ControllerTest do
       end
 
       def is_redirect_to?(conn, path) do
-        Enum.member?(conn.resp_headers, {"Location", path}) 
+        Enum.member?(conn.resp_headers, {"location", path}) 
       end
 
       def requires_authentication?(conn) do

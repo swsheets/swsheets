@@ -22,7 +22,7 @@ defmodule EdgeBuilder.Mixfile do
   #
   # Type `mix help deps` for examples and options
   defp deps do
-    [{:phoenix, "~> 0.11.0"},
+    [{:phoenix, "~> 0.12.0"},
      {:phoenix_ecto, "~> 0.2.0"},
      {:cowboy, "~> 1.0"},
      {:postgrex, "~> 0.6"},
