@@ -35,6 +35,12 @@ defmodule EdgeBuilder.Web do
       # Import URL helpers from the router
       import EdgeBuilder.Router.Helpers
 
+      def set_current_user(conn, user) do
+        conn
+          |> put_session(:current_user_id, user.id)
+          |> put_session(:current_user_username, user.username)
+      end
+
       def render_404(conn), do: conn |> put_status(:not_found) |> render(EdgeBuilder.ErrorView, "404.html")
     end
   end

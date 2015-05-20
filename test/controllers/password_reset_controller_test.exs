@@ -66,14 +66,17 @@ defmodule EdgeBuilder.Controllers.PasswordResetControllerTest do
   end
 
   describe "submit_reset" do
-    it "resets the password" do
+    it "resets the password and logs in" do
       user = UserFactory.create_user |> UserFactory.add_password_reset_token
 
-      request(:post, "/password-reset", %{"password_reset" => %{"password" => "asdasdasdasd", "password_confirmation" => "asdasdasdasd", "token" => user.password_reset_token}})
+      conn = request(:post, "/password-reset", %{"password_reset" => %{"password" => "asdasdasdasd", "password_confirmation" => "asdasdasdasd", "token" => user.password_reset_token}})
 
       assert {:ok, _} = User.authenticate(user.username, "asdasdasdasd")
       user = Repo.get(User, user.id)
       assert is_nil(user.password_reset_token)
+
+      assert Plug.Conn.get_session(conn, :current_user_id) == user.id
+      assert Plug.Conn.get_session(conn, :current_user_username) == user.username
     end
 
     it "redirects to the welcome page with a notice about resetting the password" do

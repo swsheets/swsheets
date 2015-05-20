@@ -13,6 +13,7 @@ defmodule EdgeBuilder.PageController do
     render conn, :index,
       characters: page.entries,
       page_number: page.page_number,
-      total_pages: page.total_pages
+      total_pages: page.total_pages,
+      has_reset_password: get_flash(conn, :has_reset_password)
   end
 end

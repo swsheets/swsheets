@@ -14,7 +14,7 @@
       <label for="password_reset[password_confirmation]" class='control-label'>Password Confirmation</label>
       <input type="password" class="form-control" name="password_reset[password_confirmation]" />
     </div>
-    <input type="hidden" name"password_reset[token]" value="<%= @token %>" />
+    <input type="hidden" name="password_reset[token]" value="<%= @token %>" />
     <input class="btn btn-primary btn-block" type="submit" value="Change my password">
   </form>
 </div>

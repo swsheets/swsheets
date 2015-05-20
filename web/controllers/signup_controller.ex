@@ -12,8 +12,7 @@ defmodule EdgeBuilder.SignupController do
     case User.authenticate(username, password) do
       {:ok, user} -> 
         conn
-          |> put_session(:current_user_id, user.id)
-          |> put_session(:current_user_username, user.username)
+          |> set_current_user(user)
           |> redirect to: "/"
       _ ->
         conn
@@ -29,8 +28,7 @@ defmodule EdgeBuilder.SignupController do
       user = EdgeBuilder.Repo.insert(user)
 
       conn
-        |> put_session(:current_user_id, user.id)
-        |> put_session(:current_user_username, user.username)
+        |> set_current_user(user)
         |> redirect to: "/"
     else
       render conn, "welcome.html",

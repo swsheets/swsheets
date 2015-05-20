@@ -32,8 +32,9 @@ defmodule EdgeBuilder.PasswordResetController do
       user ->
         user = User.changeset(user, :password_reset, Map.put(params, "password_reset_token", nil))
         if user.valid? do
-          user |> Repo.update
+          user = Repo.update(user)
           conn
+            |> set_current_user(user)
             |> put_flash(:has_reset_password, true)
             |> redirect to: "/"
         else
