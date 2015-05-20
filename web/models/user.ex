@@ -28,7 +28,7 @@ defmodule EdgeBuilder.Models.User do
 
   def changeset(user, :password_reset, params) do
     user
-      |> cast(params, ~w(password_reset_token))
+      |> cast(params, [], ~w(password password_confirmation password_reset_token))
       |> shared_validations
   end
 

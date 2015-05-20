@@ -34,6 +34,8 @@ defmodule EdgeBuilder.Web do
 
       # Import URL helpers from the router
       import EdgeBuilder.Router.Helpers
+
+      def render_404(conn), do: conn |> put_status(:not_found) |> render(EdgeBuilder.ErrorView, "404.html")
     end
   end
 

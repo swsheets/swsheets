@@ -1,13 +1,15 @@
-<h3>Password Reset</h3>
+<div class='col-sm-6 col-sm-offset-3'>
+  <h3>Password Reset</h3>
 
-<%= if @after_request do %>
-  <div class="alert alert-success"><p>Instructions have been sent to that email address. If you do not see an email within a few minutes, double-check that you entered the correct email address.</p></div>
-<% end %>
-<p>Please enter your email address below, and a link to reset your password will be emailed to you.</h3>
-<%= form_tag(password_reset_path(@conn, :submit_request), role: "form", method: "POST", class: "form well") %>
-  <div class="form-group">
-    <label for="password_reset[email]" class='control-label'>Email Address</label>
-    <input type="text" class="form-control" name="password_reset[email]" />
-  </div>
-  <input class="btn btn-primary btn-block" type="submit" value="Email me my link!">
-</form>
+  <%= if @after_request do %>
+    <div class="alert alert-success"><p>Instructions have been sent to that email address. If you do not see an email within a few minutes, double-check that you entered the correct email address.</p></div>
+  <% end %>
+  <p>Please enter your email address below, and a link to reset your password will be emailed to you.</p>
+  <%= form_tag(password_reset_path(@conn, :submit_request), role: "form", method: "POST", class: "form well") %>
+    <div class="form-group">
+      <label for="password_reset[email]" class='control-label'>Email Address</label>
+      <input type="email" class="form-control" name="password_reset[email]" />
+    </div>
+    <input class="btn btn-primary btn-block" type="submit" value="Email me my link!">
+  </form>
+</div>

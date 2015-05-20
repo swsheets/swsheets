@@ -18,4 +18,34 @@ defmodule EdgeBuilder.PasswordResetController do
 
     render conn, :request, after_request: true
   end
+
+  def reset(conn, %{"token" => token}) do
+    case find_user_by_token(token) do
+      nil -> render_404(conn)
+      _ -> render conn, :reset, token: token
+    end
+  end
+
+  def submit_reset(conn, %{"password_reset" => params}) do
+    case find_user_by_token(params["token"]) do
+      nil -> render_404(conn)
+      user ->
+        user = User.changeset(user, :password_reset, Map.put(params, "password_reset_token", nil))
+        if user.valid? do
+          user |> Repo.update
+          conn
+            |> put_flash(:has_reset_password, true)
+            |> redirect to: "/"
+        else
+          render conn, :reset, token: params["token"], errors: user.errors
+        end
+    end
+  end
+
+  defp find_user_by_token(token) do
+    case Ecto.UUID.cast(token) do
+      :error -> nil
+      _ -> Repo.one(from u in User, where: u.password_reset_token == ^token)
+    end
+  end
 end
