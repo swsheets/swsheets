@@ -166,10 +166,18 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     it "displays the character information" do
       character = CharacterFactory.create_character
 
-      conn = authenticated_request(UserFactory.default_user, :get, "/characters/#{character.id}")
+      conn = request(:get, "/characters/#{character.id}")
 
       assert conn.status == 200
       assert String.contains?(conn.resp_body, character.name)
+    end
+
+    it "displays edit and delete buttons when viewed by the owner" do
+      character = CharacterFactory.create_character(user_id: UserFactory.default_user.id)
+
+      conn = authenticated_request(UserFactory.default_user, :get, "/characters/#{character.id}")
+
+      assert String.contains?(conn.resp_body, "Edit")
     end
   end
 

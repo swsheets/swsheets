@@ -1,0 +1,14 @@
+<button type="button" class="btn btn-danger <%= @extra_classes %>" data-toggle="modal" data-target="#deleteModal<%= @character_id %>">Delete</button>
+<div class="modal fade" id="deleteModal<%= @character_id %>" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <p>You're sure that you want to delete <strong><%= @character_name %></strong>?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="pull-left btn btn-default" data-dismiss="modal">Cancel</button>
+        <%= link "Delete", to: character_path(@conn, :delete, @character_id), method: :delete, class: "btn btn-danger" %>
+      </div>
+    </div>
+  </div>
+</div>

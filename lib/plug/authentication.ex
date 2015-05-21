@@ -21,7 +21,7 @@ defmodule Plug.Authentication do
   defp ensure_user(conn, user_id) do
     case Repo.get(User, user_id) do
       nil -> prompt_for_login(conn)
-      _ -> Plug.Conn.put_private(conn, :current_user_id, user_id)
+      _ -> conn
     end
   end
 

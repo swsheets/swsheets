@@ -60,7 +60,8 @@ defmodule EdgeBuilder.CharacterController do
       character: character |> Character.changeset(current_user_id(conn)),
       talents: character.talents |> Enum.map(&Talent.changeset/1),
       attacks: character.attacks |> Enum.map(&Attack.changeset/1),
-      character_skills: character.character_skills |> CharacterSkill.add_missing_defaults
+      character_skills: character.character_skills |> CharacterSkill.add_missing_defaults,
+      viewed_by_owner: is_owner?(conn, character)
   end
 
   def edit(conn, %{"id" => id}) do
@@ -122,7 +123,6 @@ defmodule EdgeBuilder.CharacterController do
     assignments = Keyword.merge(assignments, [
       title: "New Character",
       header: EdgeBuilder.CharacterView.render("_form_header.html"),
-      nav_header: EdgeBuilder.CharacterView.render("_form_nav_header.html"),
       footer: EdgeBuilder.CharacterView.render("footer.html"),
       character: (if is_nil(assignments[:character]), do: %Character{} |> Character.changeset(current_user_id(conn)), else: assignments[:character]),
       talents: (if is_nil(assignments[:talents]) || Enum.empty?(assignments[:talents]), do: [%Talent{} |> Talent.changeset], else: assignments[:talents]),
@@ -137,7 +137,6 @@ defmodule EdgeBuilder.CharacterController do
     assignments = Keyword.merge(assignments, [
       title: "Editing #{Ecto.Changeset.get_field(assignments[:character], :name)}",
       header: EdgeBuilder.CharacterView.render("_form_header.html"),
-      nav_header: EdgeBuilder.CharacterView.render("_form_nav_header.html"),
       footer: EdgeBuilder.CharacterView.render("footer.html"),
       character: assignments[:character],
       talents: (if is_nil(assignments[:talents]) || Enum.empty?(assignments[:talents]), do: [%Talent{} |> Talent.changeset], else: assignments[:talents]),
@@ -173,7 +172,7 @@ defmodule EdgeBuilder.CharacterController do
   defp character_skill_changesets(_,_), do: []
 
   def current_user_id(conn) do
-    conn.private[:current_user_id]
+    get_session(conn, :current_user_id)
   end
 
   defp is_owner?(conn, character) do

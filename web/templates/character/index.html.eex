@@ -17,22 +17,9 @@
             <p><%= character.species %> <%= character.career %></p>
           </div>
           <div class="col-sm-6 text-right">
-            <a class="btn btn-primary" href="<%= character_path(@conn, :show, character) %>">View</a>
-            <a class="btn btn-success" href="<%= character_path(@conn, :edit, character) %>">Edit</a>
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal<%= character.id %>">Delete</button>
-            <div class="modal fade" id="deleteModal<%= character.id %>" tabindex="-1" role="dialog">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-body text-center">
-                    <p>You're sure that you want to delete <strong><%= character.name %></strong>?</p>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="pull-left btn btn-default" data-dismiss="modal">Cancel</button>
-                    <%= link "Delete", to: character_path(@conn, :delete, character), method: :delete, class: "btn btn-danger" %>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <a class="btn btn-success" href="<%= character_path(@conn, :show, character) %>">View</a>
+            <a class="btn btn-primary" href="<%= character_path(@conn, :edit, character) %>">Edit</a>
+            <%= render "_delete_button.html", conn: @conn, character_name: character.name, character_id: character.id %>
           </div>
         </div>
       </div>

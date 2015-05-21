@@ -1,4 +1,11 @@
-<div class="row">
+<%= if @viewed_by_owner do %>
+  <div class="row well save-panel">
+    <a class="btn btn-primary" href="<%= character_path(@conn, :edit, get_field(@character, :id)) %>">Edit</a>
+    <%= render "_delete_button.html", conn: @conn, character_id: get_field(@character, :id), character_name: get_field(@character, :name), extra_classes: "pull-right" %>
+  </div>
+<% end %>
+
+<div class="row main-area">
   <div class="<%= if get_field(@character, :portrait_url) |> is_nil, do: "col-md-12", else: "col-md-8" %>">
     <div class="row">
       <h3>Character Name</h3>

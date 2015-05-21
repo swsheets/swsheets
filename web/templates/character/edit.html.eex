@@ -2,5 +2,5 @@
 
 <%= form_tag(character_path(@conn, :update, get_field(@character, :id)), role: "form", id: "character_form", method: "PUT") %>
 
-  <%= render "_form.html", character: @character, talents: @talents, attacks: @attacks, character_skills: @character_skills %>
+  <%= render "_form.html", conn: @conn, character: @character, talents: @talents, attacks: @attacks, character_skills: @character_skills %>
 </form>
