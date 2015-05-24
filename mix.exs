@@ -7,6 +7,8 @@ defmodule EdgeBuilder.Mixfile do
      elixir: "~> 1.0",
      elixirc_paths: ["lib", "web"],
      compilers: [:phoenix] ++ Mix.compilers,
+     build_embedded: Mix.env == :prod,
+     start_permanent: Mix.env == :prod,
      deps: deps]
   end
 
@@ -15,7 +17,7 @@ defmodule EdgeBuilder.Mixfile do
   # Type `mix help compile.app` for more information
   def application do
     [mod: {EdgeBuilder, []},
-     applications: [:phoenix, :cowboy, :logger, :postgrex, :ecto, :httpoison]]
+     applications: [:phoenix, :cowboy, :logger, :postgrex, :ecto, :httpoison, :phoenix_ecto, :phoenix_html]]
   end
 
   # Specifies your project dependencies
