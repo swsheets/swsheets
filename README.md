@@ -1,6 +1,6 @@
-# EdgeBuilder
+# SWSheets
 
-EdgeBuilder is a simple application for creating, storing, sharing, and printing Edge of the Empire characters online. It is not intended to enforce any rules of character building or provide any aids beyond calculating die rolls.
+SWSheets is a simple application for creating, storing, sharing, and printing Edge of the Empire characters online. It is not intended to enforce any rules of character building or provide any aids beyond calculating die rolls. It used to be called EdgeBuiler until I couldn't get that domain. I'm not going to rename that in the code anytime soon though.
 
 ## Planned Features
 
@@ -10,7 +10,7 @@ EdgeBuilder is a simple application for creating, storing, sharing, and printing
 
 ## Setup
 
-EdgeBuilder was built against Elixir 1.0.2, Erlang 17.3, and PostgreSQL 9.3. Once you have all three installed, do the following to set up the app:
+SWSheets was built against Elixir 1.0.2, Erlang 17.3, and PostgreSQL 9.3. Once you have all three installed, do the following to set up the app:
 
 ```
 > mix deps.get
@@ -27,9 +27,13 @@ Once Mix has fetched all dependencies, you'll need to set up the database. An ea
 
 ## Running
 
-To run EdgeBuilder, type `mix phoenix.server`.
+To run SWSheets, type `mix phoenix.server`.
 
 Now you can visit `localhost:4000` from your browser.
+
+## Deploying
+
+I use [ansible-swsheets](https://github.com/citizenparker/ansible-swsheets). You could probably use Heroku too though.
 
 ## Testing
 To set up the test database, you'll need to run through the following steps in your commandline, similar to the initial setup
