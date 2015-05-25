@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <h2>About <%= application_name %></h2>
+
+    <p><%= application_name %> is a free tool for storing your Edge of the Empire character sheets online.</p>
+
+    <h3>FAQs</h3>
+
+    <p><strong>Who made this?</strong></p>
+
+    <p>Me! I'm Scott Parker. I have a Star Wars: Edge of the Empire blog if you're curious or want to get in touch, <a href="http://rollcasual.com">rollcasual.com</a>.</p>
+
+    <p><strong>What about characters for Age of Rebellion or Force and Destiny?</strong></p>
+
+    <p>If there's interest, I'll get around to those eventually. See "I have an idea for a neat feature!" below if you want to chime in.</p>
+
+    <p><strong>What about custom skills?</strong></p>
+
+    <p>Probably not. Generally speaking, I don't find custom skills to be worthwhile.</p>
+
+    <p><strong>You should add a bunch of logic to enforce the rules of character creation.</strong></p>
+
+    <p>Definitely not I'm afraid. That's a lot of work, and <a href="https://community.fantasyflightgames.com/index.php?/topic/89135-another-character-generator/">OggDude's Character Generator</a> does that better. Besides, that would bring me uncomfortably close to ripping off FFG rather than supporting it. Go <a href="http://store.fantasyflightgames.com/">buy their stuff</a>!</p>
+
+    <p><strong>Why does this exist when <a href="https://community.fantasyflightgames.com/index.php?/topic/89135-another-character-generator/">OggDude's Character Generator</a> exists?</strong></p>
+
+    <p>OggDude's tool is great! I wanted a tool to manage my characters online and share them with my group, though. Also I don't have a Windows computer. :(</p>
+
+    <p><strong>I found a bug!</strong></p>
+
+    <p>Sorry about that! If you could report it on the <a href="https://github.com/citizenparker/swsheets/issues/">issues page</a>, I'll take a look.</p>
+
+    <p><strong>I have an idea for a neat feature!</strong></p>
+
+    <p>I keep a list of every feature I plan to add on <a href="https://github.com/citizenparker/swsheets">the project page in Github</a>. If your feature isn't there, it's not something I'm planning on adding currently but you are still welcome to <a href="https://github.com/citizenparker/swsheets/issues">suggest it.</a></p>
+
+    <p><strong>I think you're claiming ownership of this intellectual property!</strong></p>
+
+    <p>Ha! Star Wars, Edge of the Empire, and all associated works remain the copyright of their respective copyright holders.</p>
+
+    <p><strong>What license is all this content under?</strong></p>
+
+    <p>Good question. Anything entered into this website is released under a <a href="https://creativecommons.org/licenses/by-nc/3.0/us/">Creative Commons Attribution-NonCommercial 3.0 United States</a> license (just like its source code). Essentially you are welcome to do what you like with this as long as you provide attribution and don't charge for it.</p>
+  </div>
+</div>

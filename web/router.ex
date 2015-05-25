@@ -17,7 +17,7 @@ defmodule EdgeBuilder.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    get "/reference", PageController, :reference
+    get "/about", PageController, :about
     resources "/characters", CharacterController
     get  "/welcome", SignupController, :welcome
     get  "/forgot-password", PasswordResetController, :request

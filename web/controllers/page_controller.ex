@@ -16,4 +16,8 @@ defmodule EdgeBuilder.PageController do
       total_pages: page.total_pages,
       has_reset_password: get_flash(conn, :has_reset_password)
   end
+
+  def about(conn, _params) do
+    render conn, :about
+  end
 end
