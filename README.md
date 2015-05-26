@@ -2,10 +2,9 @@
 
 SWSheets is a simple application for creating, storing, sharing, and printing Edge of the Empire characters online. It is not intended to enforce any rules of character building or provide any aids beyond calculating die rolls. It used to be called EdgeBuiler until I couldn't get that domain. I'm not going to rename that in the code anytime soon though.
 
-## Planned Features
+## Planned Features & Suggestions
 
-* Print a character
-* “GM mode” - combine a list of characters to view key stats & skills.
+Please use the [issues page](https://github.com/citizenparker/swsheets/issues)
 
 ## Setup
 
