@@ -4,7 +4,6 @@ SWSheets is a simple application for creating, storing, sharing, and printing Ed
 
 ## Planned Features
 
-* CRUD a character
 * Print a character
 * “GM mode” - combine a list of characters to view key stats & skills.
 
