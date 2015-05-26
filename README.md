@@ -19,9 +19,7 @@ Once Mix has fetched all dependencies, you'll need to set up the database. An ea
 
 ```
 > createuser pair -d
-> mix ecto.create
-> mix ecto.migrate
-> mix seed
+> script/dbdo
 ```
 
 ## Running
@@ -35,14 +33,10 @@ Now you can visit `localhost:4000` from your browser.
 I use [ansible-swsheets](https://github.com/citizenparker/ansible-swsheets). You could probably use Heroku too though.
 
 ## Testing
-To set up the test database, you'll need to run through the following steps in your commandline, similar to the initial setup
+If you have run `script/dbdo` then you're ready to test with
 ```
-> MIX_ENV=test mix ecto.create
-> MIX_ENV=test mix ecto.migrate
-> MIX_ENV=test mix seed
+> mix test
 ```
-
-To run the test suite, type `mix test`.
 
 ## License
 
