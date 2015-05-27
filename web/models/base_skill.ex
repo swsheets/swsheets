@@ -9,7 +9,10 @@ defmodule EdgeBuilder.Models.BaseSkill do
   end
 
   def all do
-    Repo.all(__MODULE__)
+    Repo.all(
+      from bs in __MODULE__,
+        order_by: :skill_position
+    )
   end
 
   def by_name(name) do

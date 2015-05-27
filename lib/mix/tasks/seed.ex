@@ -58,6 +58,10 @@ defmodule Mix.Tasks.Seed do
         characteristic: "Intellect"
       },
       %BaseSkill {
+        name: "Medicine",
+        characteristic: "Intellect"
+      },
+      %BaseSkill {
         name: "Negotiation",
         characteristic: "Presence"
       },

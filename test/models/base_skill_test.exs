@@ -3,6 +3,16 @@ defmodule EdgeBuilder.Models.BaseSkillTest do
 
   alias EdgeBuilder.Models.BaseSkill
 
+  describe "all" do
+    it "orders by skill position" do
+      new_base_skill = %BaseSkill{name: "Foosball", characteristic: "Agility", skill_position: -1} |> EdgeBuilder.Repo.insert
+
+      [skill | _] = BaseSkill.all
+
+      assert skill.name == "Foosball"
+    end
+  end
+
   describe "by_name" do
     it "retrieves a base skill by name" do
       skill = BaseSkill.by_name("Athletics")
