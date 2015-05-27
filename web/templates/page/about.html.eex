@@ -8,7 +8,15 @@
 
     <p><strong>Who made this?</strong></p>
 
+    <a id="open-source"></a>
+
     <p>Me! I'm Scott Parker. I have a Star Wars: Edge of the Empire blog if you're curious or want to get in touch, <a href="http://rollcasual.com">rollcasual.com</a>.</p>
+
+    <p><strong>Is this really free? What is this open-source thing you mention?</strong></p>
+
+    <p>Yes, this is totally free and will remain that way. All content on this website is licensed under a <a href="https://creativecommons.org/licenses/by-nc/3.0/us/">CC BY-NC 3.0 US</a> license which means I couldn't make money off it even if I wanted to. No ads, no charges, nothing.</p>
+
+    <p>As for "open-source," it just means that all the code that powers this website <a href="https://github.com/citizenparker/swsheets">is available online</a> and is open to contributions from others. I'd love your help in making this site awesome, but ultimately you're free to do anything you like with that code as long as you provide attribution and don't make money off it.</p>
 
     <p><strong>What about characters for Age of Rebellion or Force and Destiny?</strong></p>
 
@@ -20,11 +28,11 @@
 
     <p><strong>You should add a bunch of logic to enforce the rules of character creation.</strong></p>
 
-    <p>Definitely not I'm afraid. That's a lot of work, and <a href="https://community.fantasyflightgames.com/index.php?/topic/89135-another-character-generator/">OggDude's Character Generator</a> does that better. Besides, that would bring me uncomfortably close to ripping off FFG rather than supporting it. Go <a href="http://store.fantasyflightgames.com/">buy their stuff</a>!</p>
+    <p>Not in the foreseeable future. That's a lot of work, and <a href="https://community.fantasyflightgames.com/index.php?/topic/89135-another-character-generator/">OggDude's Character Generator</a> does that better.</p>
 
     <p><strong>Why does this exist when <a href="https://community.fantasyflightgames.com/index.php?/topic/89135-another-character-generator/">OggDude's Character Generator</a> exists?</strong></p>
 
-    <p>OggDude's tool is great! I wanted a tool to manage my characters online and share them with my group, though. Also I don't have a Windows computer. :(</p>
+    <p>OggDude's tool is great! I wanted a tool to manage my characters online and share them with my group, though. Also, I don't have a Windows computer. :(</p>
 
     <p><strong>I found a bug!</strong></p>
 
@@ -32,14 +40,14 @@
 
     <p><strong>I have an idea for a neat feature!</strong></p>
 
-    <p>I keep a list of every feature I plan to add on <a href="https://github.com/citizenparker/swsheets">the project page in Github</a>. If your feature isn't there, it's not something I'm planning on adding currently but you are still welcome to <a href="https://github.com/citizenparker/swsheets/issues">suggest it.</a></p>
+    <p>Awesome! I keep a list of good suggestions and features I plan to add on <a href="https://github.com/citizenparker/swsheets/issues">SWSheets Github Issues page</a>. I'd love for you to chime in there.</p>
 
     <p><strong>I think you're claiming ownership of this intellectual property!</strong></p>
 
     <p>Ha! Star Wars, Edge of the Empire, and all associated works remain the copyright of their respective copyright holders.</p>
 
-    <p><strong>What license is all this content under?</strong></p>
+    <p><strong>What license are my created characters under?</strong></p>
 
-    <p>Good question. Anything entered into this website is released under a <a href="https://creativecommons.org/licenses/by-nc/3.0/us/">Creative Commons Attribution-NonCommercial 3.0 United States</a> license (just like its source code). Essentially you are welcome to do what you like with this as long as you provide attribution and don't charge for it.</p>
+    <p>Good question. Anything entered into this website is released under a <a href="https://creativecommons.org/licenses/by-nc/3.0/us/">Creative Commons Attribution-NonCommercial 3.0 United States</a> license (just like its source code). Essentially you are welcome to do what you like with this as long as you provide attribution to the original author and don't make money from it, directly or indirectly..</p>
   </div>
 </div>
