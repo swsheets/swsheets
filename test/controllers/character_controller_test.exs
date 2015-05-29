@@ -106,7 +106,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert first_attack.base_skill_id == BaseSkill.by_name("Ranged: Light").id
       assert first_attack.specials == "Stun Setting"
       assert first_attack.weapon_name == "Holdout Blaster"
- 
+
       assert second_attack.critical == "5"
       assert second_attack.damage == "+1"
       assert second_attack.range == "Engaged"
@@ -123,7 +123,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert second_talent.book_and_page == "DC p200"
       assert second_talent.description == "Upgrade all checks by one"
       assert second_talent.name == "Adversary 1"
-      
+
       [character_skill] = CharacterSkill.for_character(character.id)
 
       assert character_skill.base_skill_id == BaseSkill.by_name("Athletics").id
@@ -159,6 +159,33 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       conn = request(:post, "/characters")
 
       assert requires_authentication?(conn)
+    end
+
+    it "respects the original ordering of the talents and attacks from the page" do
+      authenticated_request(UserFactory.default_user, :post, "/characters", %{
+        "character" => %{
+          "name" => "Greedo",
+          "species" => "Rodian",
+          "career" => "Bounty Hunter",
+        },
+        "attacks" => %{
+          "1" => %{"critical" => "3", "damage" => "4", "range" => "Short", "base_skill_id" => BaseSkill.by_name("Ranged: Light").id, "specials" => "Stun Setting", "weapon_name" => "Holdout Blaster", "display_order" => "1"},
+          "10" => %{"id" => "", "critical" => "5", "damage" => "+1", "range" => "Engaged", "base_skill_id" => BaseSkill.by_name("Brawl").id, "specials" => "", "weapon_name" => "Fists", "display_order" => "10"},
+          "2" => %{"id" => "", "critical" => "5", "damage" => "+1", "range" => "Engaged", "base_skill_id" => BaseSkill.by_name("Brawl").id, "specials" => "", "weapon_name" => "Claws", "display_order" => "2"}
+        },
+        "talents" => %{
+          "1" => %{"book_and_page" => "EotE p25", "description" => "Draw as incidental", "name" => "Quick Draw", "display_order" => "1"},
+          "10" => %{"book_and_page" => "DC p200", "description" => "Upgrade all checks by one", "name" => "Adversary 1", "display_order" => "10"},
+          "2" => %{"book_and_page" => "NR 100", "description" => "Launch a fire bomb attack", "name" => "Fire Bomb", "display_order" => "2"}
+        },
+      })
+
+      character = Repo.all(Character) |> Enum.at(0)
+
+      conn = request(:get, "/characters/#{character.id}")
+
+      assert String.match?(conn.resp_body, ~r/Quick Draw.*Fire Bomb.*Adversary 1/s)
+      assert String.match?(conn.resp_body, ~r/Holdout Blaster.*Claws.*Fists/s)
     end
   end
 

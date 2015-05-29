@@ -37,7 +37,7 @@ defmodule EdgeBuilder.Models.Character do
     field :description, :string
     field :other_notes, :string
     field :critical_injuries, :string
-    
+
     timestamps
     belongs_to :user, User
 

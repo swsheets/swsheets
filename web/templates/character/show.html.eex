@@ -200,7 +200,7 @@
           <%= render "_show_skills.html", character_skills: @character_skills %>
         </div>
         <div class="col-sm-7">
-          <%= render "_show_attacks.html", attacks: @attacks %>
+          <%= render "_show_attacks.html", attacks: in_display_order(@attacks) %>
           <hr>
           <div class="row">
             <div class="col-md-6">
@@ -260,7 +260,7 @@
           </div>
         </div>
       </div>
-      <%= render "_show_talents.html", talents: @talents %>
+      <%= render "_show_talents.html", talents: in_display_order(@talents) %>
     </div>
     <div role="tabpanel" class="tab-pane" id="bio">
       <div class="row">

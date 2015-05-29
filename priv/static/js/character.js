@@ -49,10 +49,11 @@ var CharacterForm = (function() {
     talentTable.append(talentRow);
 
     talentRow.attr("data-talent", index);
-    talentRow.find("[type=hidden]").remove();
     talentRow.find("[type=text]").val("");
     talentRow.find("[name]").attr("name", function(i, currentName) { return currentName.replace("talents["+previousIndex+"]", "talents["+index+"]") });
     talentRow.find("[for]").attr("for", function(i, currentFor) { return currentFor.replace("talents["+previousIndex+"]", "talents["+index+"]") });
+    talentRow.find("[name='talents["+index+"][id]']").remove();
+    talentRow.find("[name='talents["+index+"][display_order]']").val(index);
     talentRow.find("[data-remove-talent]").attr("data-remove-talent", index);
 
     enableDisableRemoveTalentButtons();
@@ -92,7 +93,8 @@ var CharacterForm = (function() {
       row.find("[for]").attr("for", function(i, currentFor) { return currentFor.replace("attacks["+previousIndex+"]", "attacks["+index+"]") });
     });
 
-    firstAttackRow.find("[type=hidden]").remove();
+    firstAttackRow.find("[name='attacks["+index+"][id]']").remove();
+    firstAttackRow.find("[name='attacks["+index+"][display_order]']").val(index);
     firstAttackRow.find("[data-attack-roll-index]").attr("data-attack-roll-index", index);
     firstAttackRow.find("[data-attack-index]").attr("data-attack-index", index);
     firstAttackRow.find("select").val(function() { return $(this).find("option:first").val() }).change();

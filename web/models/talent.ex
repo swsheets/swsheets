@@ -7,12 +7,13 @@ defmodule EdgeBuilder.Models.Talent do
     field :name, :string
     field :book_and_page, :string
     field :description, :string
+    field :display_order, :integer, default: 0
     belongs_to :character, Character
   end
 
   def changeset(talent, params \\ %{}) do
     talent
-      |> cast(params, [], ~w(character_id name book_and_page description))
+      |> cast(params, [], ~w(character_id name book_and_page description display_order))
   end
 
   def is_default_changeset?(changeset) do

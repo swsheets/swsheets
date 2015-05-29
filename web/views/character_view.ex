@@ -25,6 +25,10 @@ defmodule EdgeBuilder.CharacterView do
     end) |> raw
   end
 
+  def in_display_order(coll) do
+    Enum.sort(coll, &(get_field(&1, :display_order) < get_field(&2, :display_order)))
+  end
+
   def render_text(changeset, field) do
     {:safe, escaped_value} = get_field(changeset, field) |> Phoenix.HTML.html_escape
 

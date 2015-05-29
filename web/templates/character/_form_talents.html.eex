@@ -10,6 +10,7 @@
       <tr class="talent-row" data-talent="<%= i %>">
         <td>
           <input type="hidden" name="talents[<%= i %>][id]" value="<%= get_field(talent, :id) %>" />
+          <input type="hidden" name="talents[<%= i %>][display_order]" value="<%= get_field(talent, :display_order) %>" />
           <div class="form-group-sm">
             <label for="talents[<%= i %>][name]" class="sr-only">Name</label>
             <input type="text" class="form-control" name="talents[<%= i %>][name]" placeholder="Name" value="<%= get_field(talent, :name) %>" />

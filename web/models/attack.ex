@@ -10,13 +10,14 @@ defmodule EdgeBuilder.Models.Attack do
     field :specials, :string
     field :damage, :string
     field :critical, :string
+    field :display_order, :integer, default: 0
     belongs_to :character, Character
     belongs_to :base_skill, BaseSkill
   end
 
   def changeset(attack, params \\ %{}) do
     attack
-      |> cast(params, [], ~w(character_id weapon_name range specials damage critical base_skill_id))
+      |> cast(params, [], ~w(character_id weapon_name range specials damage critical base_skill_id display_order))
   end
 
   def is_default_changeset?(changeset) do

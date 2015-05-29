@@ -7,6 +7,7 @@
       <tr class="attack-first-row<%= if rem(i, 2) == 0, do: " active" %>" data-attack=<%= i %>>
         <td class="col-md-5">
           <input type="hidden" name="attacks[<%= i %>][id]" value="<%= get_field(attack, :id) %>" />
+          <input type="hidden" name="attacks[<%= i %>][display_order]" value="<%= get_field(attack, :display_order) %>" />
           <div class="form-group form-group-sm">
             <label class="sr-only" for="attacks[<%= i %>][weapon_name]">Weapon</label>
             <input type="text" class="form-control" name="attacks[<%= i %>][weapon_name]" placeholder="Weapon Name" value="<%= get_field(attack, :weapon_name) %>" />
