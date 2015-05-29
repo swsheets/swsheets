@@ -12,7 +12,7 @@
     </tr>
     <%= for skill <- @character_skills do %>
       <tr class="<%= if skill.is_attack_skill, do: ~s(active) %>">
-        <td><%= skill.name %></td>
+        <td><%= skill_display_name(skill) %></td>
         <td class="career-check"><%= if skill.is_career, do: "X" %></td>
         <td class="value">
           <input type="hidden" data-skill="<%= skill.name %>" data-base-characteristic="<%= skill.characteristic %>" value="<%= skill.rank %>" />
