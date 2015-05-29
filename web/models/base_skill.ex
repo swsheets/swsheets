@@ -4,14 +4,14 @@ defmodule EdgeBuilder.Models.BaseSkill do
   schema "base_skills" do
     field :name, :string
     field :characteristic, :string
-    field :skill_position, :integer
+    field :display_order, :integer
     field :is_attack_skill, :boolean, default: false
   end
 
   def all do
     Repo.all(
       from bs in __MODULE__,
-        order_by: :skill_position
+        order_by: :display_order
     )
   end
 
@@ -26,7 +26,7 @@ defmodule EdgeBuilder.Models.BaseSkill do
     Repo.all(
       from bs in __MODULE__,
         where: bs.is_attack_skill == true,
-        order_by: :skill_position
+        order_by: :display_order
     )
   end
 end

@@ -154,7 +154,7 @@ defmodule Mix.Tasks.Seed do
 
     base_skills
       |> Enum.with_index
-      |> Enum.map( fn({skill, i}) -> %{skill | skill_position: i} end)
+      |> Enum.map( fn({skill, i}) -> %{skill | display_order: i} end)
       |> Enum.map(&EdgeBuilder.Repo.insert/1)
   end
 end
