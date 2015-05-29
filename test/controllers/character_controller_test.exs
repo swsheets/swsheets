@@ -179,6 +179,22 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
       assert String.contains?(conn.resp_body, "Edit")
     end
+
+    it "inserts appropriate line breaks for long text fields" do
+      character = CharacterFactory.create_character(gear: "Belt\nWatch")
+
+      conn = request(:get, "/characters/#{character.id}")
+
+      assert String.contains?(conn.resp_body, "Belt<br>Watch")
+    end
+
+    it "escapes HTML input in text fields" do
+      character = CharacterFactory.create_character(gear: "Belt<script></script>Watch")
+
+      conn = request(:get, "/characters/#{character.id}")
+
+      assert !String.contains?(conn.resp_body, "Belt<script></script>Watch")
+    end
   end
 
   describe "index" do
