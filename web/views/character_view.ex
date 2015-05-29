@@ -4,6 +4,7 @@ defmodule EdgeBuilder.CharacterView do
 
   alias EdgeBuilder.Repo
   alias EdgeBuilder.Models.BaseSkill
+  alias EdgeBuilder.Models.Characteristic
 
   def image_or_default(character) do
     get_field(character, :portrait_url) || "/images/250x250.gif"
@@ -33,5 +34,9 @@ defmodule EdgeBuilder.CharacterView do
     {:safe, escaped_value} = get_field(changeset, field) |> Phoenix.HTML.html_escape
 
     {:safe, String.replace(escaped_value, "\n", "<br>")}
+  end
+
+  def skill_display_name(skill) do
+    "#{skill.name} (#{Characteristic.shorthand_for(skill.characteristic)})"
   end
 end

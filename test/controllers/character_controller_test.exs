@@ -25,6 +25,17 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
       assert requires_authentication?(conn)
     end
+
+    it "renders characteristics next to skills" do
+      conn = authenticated_request(UserFactory.default_user, :get, "/characters/new")
+
+      assert String.contains?(conn.resp_body, "Astrogation (Int)")
+      assert String.contains?(conn.resp_body, "Athletics (Br)")
+      assert String.contains?(conn.resp_body, "Charm (Pr)")
+      assert String.contains?(conn.resp_body, "Coercion (Will)")
+      assert String.contains?(conn.resp_body, "Coordination (Ag)")
+      assert String.contains?(conn.resp_body, "Deception (Cun)")
+    end
   end
 
   describe "create" do
@@ -221,6 +232,19 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       conn = request(:get, "/characters/#{character.id}")
 
       assert !String.contains?(conn.resp_body, "Belt<script></script>Watch")
+    end
+
+    it "renders characteristics next to skills" do
+      character = CharacterFactory.create_character
+
+      conn = request(:get, "/characters/#{character.id}")
+
+      assert String.contains?(conn.resp_body, "Astrogation (Int)")
+      assert String.contains?(conn.resp_body, "Athletics (Br)")
+      assert String.contains?(conn.resp_body, "Charm (Pr)")
+      assert String.contains?(conn.resp_body, "Coercion (Will)")
+      assert String.contains?(conn.resp_body, "Coordination (Ag)")
+      assert String.contains?(conn.resp_body, "Deception (Cun)")
     end
   end
 

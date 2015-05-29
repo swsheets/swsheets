@@ -12,7 +12,7 @@
     </tr>
     <%= for {skill,i} <- Enum.with_index(@character_skills) do %>
       <tr class="<%= if skill.is_attack_skill, do: ~s(active) %>">
-        <td><%= skill.name %></td>
+        <td><%= skill_display_name(skill) %></td>
         <td><input type="checkbox" name="skills[<%= i %>][is_career]" <%= if skill.is_career, do: "checked" %>></input></td>
         <td>
           <input type="hidden" name="skills[<%= i %>][base_skill_id]" value="<%= skill.base_skill_id %>" />
