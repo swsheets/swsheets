@@ -6,6 +6,9 @@ config :edge_builder, EdgeBuilder.Endpoint,
   http: [port: 4001],
   server: false
 
+config :edge_builder,
+  application_base_url: "http://example.com"
+
 # Print only warnings and errors during test
 config :logger, level: :warn
 
