@@ -9,7 +9,7 @@ defmodule EdgeBuilder.PasswordResetService do
       to: user.email,
       template: :password_reset,
       username: user.username,
-      password_reset_link: Application.get_env(:edge_builder, :application_base_url) <> EdgeBuilder.Router.Helpers.password_reset_path(conn, :reset, %{token: user.password_reset_token})
+      password_reset_link: EdgeBuilder.Router.Helpers.password_reset_url(conn, :reset, %{token: user.password_reset_token})
     )
   end
 end

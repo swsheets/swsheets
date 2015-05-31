@@ -8,7 +8,7 @@ use Mix.Config
 # meaningful, we use this information when generating URLs.
 config :edge_builder, EdgeBuilder.Endpoint,
   http: [port: {:system, "PORT"}],
-  url: [host: "example.com"]
+  url: [host: "swsheets.com", port: 80]
 
 # ## SSL Support
 #
