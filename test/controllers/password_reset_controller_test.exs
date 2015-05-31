@@ -30,7 +30,7 @@ defmodule EdgeBuilder.Controllers.PasswordResetControllerTest do
           to: user.email,
           template: :password_reset,
           username: user.username,
-          password_reset_link: "http://example.com/password-reset?token=#{user.password_reset_token}"
+          password_reset_link: "http://localhost:4001/password-reset?token=#{user.password_reset_token}"
         )
       end
     end

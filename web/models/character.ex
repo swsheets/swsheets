@@ -7,6 +7,7 @@ defmodule EdgeBuilder.Models.Character do
   alias EdgeBuilder.Models.CharacterSkill
 
   schema "characters" do
+    field :url_slug, :string, read_after_writes: true
     field :name, :string
     field :species, :string
     field :career, :string
@@ -46,6 +47,12 @@ defmodule EdgeBuilder.Models.Character do
     has_many :character_skills, CharacterSkill
   end
 
+  before_insert Ecto.Changeset, :delete_change, [:url_slug]
+  before_update Ecto.Changeset, :delete_change, [:url_slug]
+
+  defp required_fields, do: [:name, :species, :career, :user_id]
+  defp optional_fields, do: __schema__(:fields) -- ([:id, :url_slug] ++ required_fields)
+
   def changeset(character, user_id, params \\ %{}) do
     character
       |> cast(Map.put(params, "user_id", user_id), required_fields, optional_fields)
@@ -66,7 +73,4 @@ defmodule EdgeBuilder.Models.Character do
 
     Repo.delete(character)
   end
-
-  defp required_fields, do: [:name, :species, :career, :user_id]
-  defp optional_fields, do: __schema__(:fields) -- [:id | required_fields]
 end
