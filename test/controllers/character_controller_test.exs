@@ -148,7 +148,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
       character = Repo.one!(from c in Character, where: c.name == ^params["name"])
 
-      assert is_redirect_to?(conn, EdgeBuilder.Router.Helpers.character_path(conn, :show, character.id))
+      assert is_redirect_to?(conn, EdgeBuilder.Router.Helpers.character_path(conn, :show, character))
     end
 
     it "re-renders the new character page when there are errors" do
@@ -193,7 +193,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
       character = Repo.all(Character) |> Enum.at(0)
 
-      conn = request(:get, "/characters/#{character.id}")
+      conn = request(:get, "/characters/#{character.permalink}")
 
       assert String.match?(conn.resp_body, ~r/Quick Draw.*Fire Bomb.*Adversary 1/s)
       assert String.match?(conn.resp_body, ~r/Holdout Blaster.*Claws.*Fists/s)
@@ -204,7 +204,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     it "displays the character information" do
       character = CharacterFactory.create_character
 
-      conn = request(:get, "/characters/#{character.id}")
+      conn = request(:get, "/characters/#{character.permalink}")
 
       assert conn.status == 200
       assert String.contains?(conn.resp_body, character.name)
@@ -213,7 +213,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     it "displays edit and delete buttons when viewed by the owner" do
       character = CharacterFactory.create_character(user_id: UserFactory.default_user.id)
 
-      conn = authenticated_request(UserFactory.default_user, :get, "/characters/#{character.id}")
+      conn = authenticated_request(UserFactory.default_user, :get, "/characters/#{character.permalink}")
 
       assert String.contains?(conn.resp_body, "Edit")
     end
@@ -221,7 +221,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     it "inserts appropriate line breaks for long text fields" do
       character = CharacterFactory.create_character(gear: "Belt\nWatch")
 
-      conn = request(:get, "/characters/#{character.id}")
+      conn = request(:get, "/characters/#{character.permalink}")
 
       assert String.contains?(conn.resp_body, "Belt<br>Watch")
     end
@@ -229,7 +229,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     it "escapes HTML input in text fields" do
       character = CharacterFactory.create_character(gear: "Belt<script></script>Watch")
 
-      conn = request(:get, "/characters/#{character.id}")
+      conn = request(:get, "/characters/#{character.permalink}")
 
       assert !String.contains?(conn.resp_body, "Belt<script></script>Watch")
     end
@@ -237,7 +237,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     it "renders characteristics next to skills" do
       character = CharacterFactory.create_character
 
-      conn = request(:get, "/characters/#{character.id}")
+      conn = request(:get, "/characters/#{character.permalink}")
 
       assert String.contains?(conn.resp_body, "Astrogation (Int)")
       assert String.contains?(conn.resp_body, "Athletics (Br)")
@@ -268,7 +268,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
       for character <- characters do
         assert String.contains?(conn.resp_body, character.name)
-        assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.character_path(conn, :show, character.id))
+        assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.character_path(conn, :show, character))
       end
     end
 
@@ -326,7 +326,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         character_id: character.id
       } |> Repo.insert
 
-      conn = authenticated_request(UserFactory.default_user, :get, "/characters/#{character.id}/edit")
+      conn = authenticated_request(UserFactory.default_user, :get, "/characters/#{character.permalink}/edit")
 
       assert conn.status == 200
       assert String.contains?(conn.resp_body, character.name)
@@ -346,7 +346,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       other = UserFactory.create_user(username: "other")
       character = CharacterFactory.create_character(user_id: owner.id)
 
-      conn = authenticated_request(other, :get, "/characters/#{character.id}/edit")
+      conn = authenticated_request(other, :get, "/characters/#{character.permalink}/edit")
 
       assert is_redirect_to?(conn, "/")
     end
@@ -356,7 +356,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     it "updates the character's basic attributes" do
       character = CharacterFactory.create_character(name: "asdasd", species: "gogogo")
 
-      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.id}", %{"character" => %{"name" => "Do'mesh", "species" => "Twi'lek"}})
+      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.permalink}", %{"character" => %{"name" => "Do'mesh", "species" => "Twi'lek"}})
 
       character = Repo.get(Character, character.id)
 
@@ -367,10 +367,10 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     it "redirects to the character show page" do
       character = CharacterFactory.create_character
 
-      conn = authenticated_request(UserFactory.default_user, :put, "/characters/#{character.id}", %{"character" => %{"name" => "Do'mesh", "species" => "Twi'lek"}})
+      conn = authenticated_request(UserFactory.default_user, :put, "/characters/#{character.permalink}", %{"character" => %{"name" => "Do'mesh", "species" => "Twi'lek"}})
 
       assert conn.status == 302
-      assert is_redirect_to?(conn, EdgeBuilder.Router.Helpers.character_path(conn, :show, character.id))
+      assert is_redirect_to?(conn, EdgeBuilder.Router.Helpers.character_path(conn, :show, character))
     end
 
     it "updates the character's optional attributes" do
@@ -380,7 +380,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         description: "A slow shooter"
       )
 
-      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.id}", %{"character" => %{
+      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.permalink}", %{"character" => %{
         "xp_total" => "60",
         "xp_available" => "",
         "description" =>  "tbd"
@@ -404,7 +404,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         character_id: character.id
       } |> Repo.insert
 
-      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "talents" => %{
+      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.permalink}", %{"character" => %{}, "talents" => %{
         "0" => %{"book_and_page" => "DC p43", "description" => "Do stuff", "id" => talent.id, "name" => "Awesome Guy"}
       }})
 
@@ -418,7 +418,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     it "creates new talents for the character" do
       character = CharacterFactory.create_character
 
-      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "talents" => %{
+      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.permalink}", %{"character" => %{}, "talents" => %{
         "0" => %{"book_and_page" => "DC p43", "description" => "Do stuff", "name" => "Awesome Guy"}
       }})
 
@@ -439,7 +439,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         character_id: character.id
       } |> Repo.insert
 
-      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "talents" => %{
+      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.permalink}", %{"character" => %{}, "talents" => %{
         "0" => %{"book_and_page" => "", "description" => "", "name" => ""},
         "1" => %{"book_and_page" => "", "description" => "", "name" => "", "id" => talent.id}
       }})
@@ -457,7 +457,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         character_id: character.id
       } |> Repo.insert
 
-      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.id}", %{"character" => %{}})
+      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.permalink}", %{"character" => %{}})
 
       talents = Talent.for_character(character.id)
 
@@ -474,7 +474,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         character_id: character.id
       } |> Repo.insert
 
-      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "attacks" => %{
+      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.permalink}", %{"character" => %{}, "attacks" => %{
         "0" => %{"weapon_name" => "Claws", "range" => "Engaged", "id" => attack.id}
       }})
 
@@ -489,7 +489,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
       base_skill = Repo.all(BaseSkill) |> Enum.at(0)
 
-      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "attacks" => %{
+      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.permalink}", %{"character" => %{}, "attacks" => %{
         "0" => %{"weapon_name" => "Claws", "range" => "Engaged", "base_skill_id" => base_skill.id}
       }})
 
@@ -509,7 +509,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         character_id: character.id
       } |> Repo.insert
 
-      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.id}", %{"character" => %{}})
+      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.permalink}", %{"character" => %{}})
 
       attacks = Attack.for_character(character.id)
 
@@ -522,7 +522,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
       base_skill = BaseSkill.by_name("Athletics")
 
-      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 1, "is_career" => "on"}}})
+      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.permalink}", %{"character" => %{}, "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 1, "is_career" => "on"}}})
 
       [character_skill] = CharacterSkill.for_character(character.id)
 
@@ -536,7 +536,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
       base_skill = BaseSkill.by_name("Athletics")
 
-      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 0}}})
+      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.permalink}", %{"character" => %{}, "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 0}}})
 
       assert Enum.count(CharacterSkill.for_character(character.id)) == 0
     end
@@ -552,7 +552,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         rank: 5
       } |> Repo.insert
 
-      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.id}", %{"character" => %{}, "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 0, "id" => original_character_skill.id}}})
+      authenticated_request(UserFactory.default_user, :put, "/characters/#{character.permalink}", %{"character" => %{}, "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 0, "id" => original_character_skill.id}}})
 
       assert [] == CharacterSkill.for_character(character.id)
     end
@@ -568,7 +568,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         rank: 5
       } |> Repo.insert
 
-      conn = authenticated_request(UserFactory.default_user, :put, "/characters/#{character.id}", %{
+      conn = authenticated_request(UserFactory.default_user, :put, "/characters/#{character.permalink}", %{
         "character" => %{
           "name" => "",
           "species" => "Rodian",
@@ -594,7 +594,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       other = UserFactory.create_user(username: "other")
       character = CharacterFactory.create_character(user_id: owner.id)
 
-      conn = authenticated_request(other, :put, "/characters/#{character.id}", %{"character" => %{}})
+      conn = authenticated_request(other, :put, "/characters/#{character.permalink}", %{"character" => %{}})
 
       assert is_redirect_to?(conn, "/")
     end
@@ -612,7 +612,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         rank: 5
       } |> Repo.insert
 
-      authenticated_request(UserFactory.default_user, :delete, "/characters/#{character.id}")
+      authenticated_request(UserFactory.default_user, :delete, "/characters/#{character.permalink}")
 
       assert is_nil(Repo.get(Character, character.id))
       assert is_nil(Repo.one(from cs in CharacterSkill, where: cs.id == ^(character.id)))
@@ -629,7 +629,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       other = UserFactory.create_user(username: "other")
       character = CharacterFactory.create_character(user_id: owner.id)
 
-      conn = authenticated_request(other, :delete, "/characters/#{character.id}")
+      conn = authenticated_request(other, :delete, "/characters/#{character.permalink}")
 
       assert is_redirect_to?(conn, "/")
     end

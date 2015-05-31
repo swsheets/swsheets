@@ -11,7 +11,7 @@
   <div class="col-md-6">
     <%= for character <- @characters do %>
       <div class="character-container">
-        <div class="row"><h2><a href="<%= character_path(@conn, :show, character.id) %>"><%= character.name %></a></h2></div>
+        <div class="row"><h2><a href="<%= character_path(@conn, :show, character) %>"><%= character.name %></a></h2></div>
         <div class="row">
           <div class="col-sm-6">
             <p><%= character.species %> <%= character.career %></p>
@@ -19,7 +19,7 @@
           <div class="col-sm-6 text-right">
             <a class="btn btn-success" href="<%= character_path(@conn, :show, character) %>">View</a>
             <a class="btn btn-primary" href="<%= character_path(@conn, :edit, character) %>">Edit</a>
-            <%= render "_delete_button.html", conn: @conn, character_name: character.name, character_id: character.id %>
+            <%= render "_delete_button.html", conn: @conn, character: character %>
           </div>
         </div>
       </div>

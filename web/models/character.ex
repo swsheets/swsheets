@@ -1,13 +1,16 @@
 defmodule EdgeBuilder.Models.Character do
-  use EdgeBuilder.Model
+  use EdgeBuilder.Web, :model
 
+  alias EdgeBuilder.Repo
   alias EdgeBuilder.Models.Talent
   alias EdgeBuilder.Models.Talent
   alias EdgeBuilder.Models.Attack
   alias EdgeBuilder.Models.CharacterSkill
 
+  @derive {Phoenix.Param, key: :permalink}
   schema "characters" do
     field :url_slug, :string, read_after_writes: true
+    field :permalink, :string, virtual: true
     field :name, :string
     field :species, :string
     field :career, :string
@@ -49,6 +52,8 @@ defmodule EdgeBuilder.Models.Character do
 
   before_insert Ecto.Changeset, :delete_change, [:url_slug]
   before_update Ecto.Changeset, :delete_change, [:url_slug]
+  after_insert __MODULE__, :_set_permalink_for_changeset
+  after_load __MODULE__, :_set_permalink
 
   defp required_fields, do: [:name, :species, :career, :user_id]
   defp optional_fields, do: __schema__(:fields) -- ([:id, :url_slug] ++ required_fields)
@@ -58,10 +63,12 @@ defmodule EdgeBuilder.Models.Character do
       |> cast(Map.put(params, "user_id", user_id), required_fields, optional_fields)
   end
 
-  def full_character(id) do
+  def full_character(permalink) do
+    url_slug = String.replace(permalink, ~r/-.*/, "")
+
     Repo.one!(
       from c in __MODULE__,
-        where: c.id == ^id,
+        where: c.url_slug == ^url_slug,
         preload: [:talents, :attacks, :character_skills]
     )
   end
@@ -72,5 +79,19 @@ defmodule EdgeBuilder.Models.Character do
     end
 
     Repo.delete(character)
+  end
+
+  def _set_permalink_for_changeset(changeset) do
+    update_in(changeset.model, &_set_permalink/1)
+  end
+
+  def _set_permalink(character) do
+    Map.put(character, :permalink, "#{character.url_slug}-#{urlify(character.name)}")
+  end
+
+  defp urlify(name) do
+    String.replace(name, ~r/\W/, "-")
+    |> String.slice(0, 15)
+    |> String.downcase
   end
 end

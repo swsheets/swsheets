@@ -28,7 +28,7 @@
         <%= unless is_nil(character.portrait_url) do %>
           <img class="character-thumbnail img-thumbnail" src="<%= character.portrait_url %>">
         <% end %>
-        <div class="row"><h2><a href="<%= character_path(@conn, :show, character.id) %>"><%= character.name %></a></h2></div>
+        <div class="row"><h2><a href="<%= character_path(@conn, :show, character) %>"><%= character.name %></a></h2></div>
         <div class="row">
           <div class="col-sm-6">
             <p><%= character.species %> <%= character.career %></p>

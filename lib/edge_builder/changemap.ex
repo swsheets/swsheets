@@ -22,6 +22,8 @@ defmodule EdgeBuilder.Changemap do
         where: not a.id in ^Enum.map(models, &(&1.id))
       )
     end)
+
+    changemap
   end
 
   def apply(changemap = %{root: root}) do

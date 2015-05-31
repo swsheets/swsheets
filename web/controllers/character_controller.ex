@@ -28,7 +28,7 @@ defmodule EdgeBuilder.CharacterController do
     if Changemap.valid?(changemap) do
       changes = Changemap.apply(changemap)
 
-      redirect conn, to: character_path(conn, :show, changes.root.id)
+      redirect conn, to: character_path(conn, :show, changes.root)
     else
       render_new conn,
         character: changemap.root,
@@ -96,7 +96,7 @@ defmodule EdgeBuilder.CharacterController do
           |> Changemap.apply
           |> Changemap.delete_missing
 
-        redirect conn, to: character_path(conn, :show, id)
+        redirect conn, to: character_path(conn, :show, changemap.root.model)
       else
         render_edit conn,
           character: changemap.root,
