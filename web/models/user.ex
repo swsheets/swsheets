@@ -40,6 +40,14 @@ defmodule EdgeBuilder.Models.User do
     |> crypt_password_if_present
   end
 
+  def by_username(nil), do: nil
+  def by_username(username) do
+    Repo.one(
+      from u in __MODULE__,
+        where: u.username == ^username
+    )
+  end
+
   def authenticate(username, pw) do
     user = EdgeBuilder.Repo.one(from u in __MODULE__, where: u.username == ^username)
 
