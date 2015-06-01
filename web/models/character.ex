@@ -1,7 +1,6 @@
 defmodule EdgeBuilder.Models.Character do
   use EdgeBuilder.Web, :model
 
-  alias EdgeBuilder.Repo
   alias EdgeBuilder.Models.Talent
   alias EdgeBuilder.Models.Talent
   alias EdgeBuilder.Models.Attack

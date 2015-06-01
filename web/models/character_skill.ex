@@ -1,5 +1,5 @@
 defmodule EdgeBuilder.Models.CharacterSkill do
-  use EdgeBuilder.Model
+  use EdgeBuilder.Web, :model
 
   alias EdgeBuilder.Models.Character
   alias EdgeBuilder.Models.BaseSkill

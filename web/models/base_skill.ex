@@ -1,5 +1,5 @@
 defmodule EdgeBuilder.Models.BaseSkill do
-  use EdgeBuilder.Model
+  use EdgeBuilder.Web, :model
 
   schema "base_skills" do
     field :name, :string

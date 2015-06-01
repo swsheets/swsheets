@@ -1,5 +1,5 @@
 defmodule EdgeBuilder.Models.Talent do
-  use EdgeBuilder.Model
+  use EdgeBuilder.Web, :model
 
   alias EdgeBuilder.Models.Character
 

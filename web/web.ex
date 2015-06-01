@@ -48,6 +48,8 @@ defmodule EdgeBuilder.Web do
   def model do
     quote do
       use Ecto.Model
+      alias EdgeBuilder.Repo
+      import Ecto.Query, only: [from: 2]
     end
   end
 

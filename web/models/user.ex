@@ -1,5 +1,5 @@
 defmodule EdgeBuilder.Models.User do
-  use EdgeBuilder.Model
+  use EdgeBuilder.Web, :model
 
   schema "users" do
     field :username, :string
