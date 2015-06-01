@@ -10,6 +10,7 @@ defmodule EdgeBuilder.CharacterView do
     get_field(character, :portrait_url) || "/images/250x250.gif"
   end
 
+  def lookup_skill(nil), do: nil
   def lookup_skill(skill_id) do
     Repo.get(BaseSkill, skill_id).name
   end

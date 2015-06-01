@@ -246,6 +246,15 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert String.contains?(conn.resp_body, "Coordination (Ag)")
       assert String.contains?(conn.resp_body, "Deception (Cun)")
     end
+
+    it "displays partial attacks" do
+      character = CharacterFactory.create_character
+      Repo.insert(%Attack{character_id: character.id, weapon_name: "Claws"})
+
+      conn = request(:get, "/c/#{character.permalink}")
+
+      assert String.contains?(conn.resp_body, "Claws")
+    end
   end
 
   describe "index" do
