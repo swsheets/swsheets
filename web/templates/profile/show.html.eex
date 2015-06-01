@@ -1,1 +1,5 @@
-<%= @user.username %>
+<div class='jumbotron profile'>
+  <h1><%= @user.username %></h1>
+  <p>Member since <%= format_date(@user.inserted_at) %></p>
+  <p><%= @character_count %> Heroes Created</p>
+</div>

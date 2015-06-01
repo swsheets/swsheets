@@ -8,6 +8,8 @@ defmodule EdgeBuilder.Models.User do
     field :crypted_password, :binary
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
+
+    timestamps
   end
 
   def changeset(user, context, params \\ %{})
