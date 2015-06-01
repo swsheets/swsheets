@@ -41,15 +41,15 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
   describe "create" do
     it "creates a character" do
       base_skills = BaseSkill.all
-        |> Enum.reject(&(&1.name == "Athletics"))
-        |> Enum.with_index
-        |> Enum.map(fn {skill, index} ->
-            {index, %{"base_skill_id" => skill.id, "rank" => "0"}}
-          end)
-        |> Enum.into(%{})
+      |> Enum.reject(&(&1.name == "Athletics"))
+      |> Enum.with_index
+      |> Enum.map(fn {skill, index} ->
+          {index, %{"base_skill_id" => skill.id, "rank" => "0"}}
+        end)
+      |> Enum.into(%{})
 
       skills_with_user_edit = base_skills
-        |> Map.put("Athletics", %{"base_skill_id" => BaseSkill.by_name("Athletics").id, "rank" => "3", "is_career" => "on"})
+      |> Map.put("Athletics", %{"base_skill_id" => BaseSkill.by_name("Athletics").id, "rank" => "3", "is_career" => "on"})
 
       authenticated_request(UserFactory.default_user, :post, "/characters", %{
         "character" => %{

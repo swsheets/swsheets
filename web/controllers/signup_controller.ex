@@ -12,12 +12,12 @@ defmodule EdgeBuilder.SignupController do
     case User.authenticate(username, password) do
       {:ok, user} -> 
         conn
-          |> set_current_user(user)
-          |> redirect to: "/"
+        |> set_current_user(user)
+        |> redirect to: "/"
       _ ->
         conn
-          |> delete_session(:current_user_id)
-          |> render "welcome.html", login_error: true
+        |> delete_session(:current_user_id)
+        |> render "welcome.html", login_error: true
     end
   end
 
@@ -28,8 +28,8 @@ defmodule EdgeBuilder.SignupController do
       user = EdgeBuilder.Repo.insert(user)
 
       conn
-        |> set_current_user(user)
-        |> redirect to: "/"
+      |> set_current_user(user)
+      |> redirect to: "/"
     else
       render conn, "welcome.html",
         errors:          user.errors,
@@ -40,8 +40,8 @@ defmodule EdgeBuilder.SignupController do
 
   def logout(conn, _params) do
     conn
-      |> delete_session(:current_user_id)
-      |> delete_session(:current_user_username)
-      |> redirect to: "/"
+    |> delete_session(:current_user_id)
+    |> delete_session(:current_user_username)
+    |> redirect to: "/"
   end
 end

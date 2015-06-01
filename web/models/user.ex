@@ -13,31 +13,31 @@ defmodule EdgeBuilder.Models.User do
   def changeset(user, context, params \\ %{})
   def changeset(user, :create, params) do
     user
-      |> cast(params, ~w(username email password), ~w(password_confirmation))
-      |> shared_validations
-      |> validate_unique(:username, on: EdgeBuilder.Repo, downcase: true)
-      |> validate_format(:username, ~r/^[a-zA-Z0-9]*$/, message: "must contain only letters and numbers")
-      |> validate_format(:username, ~r/^.{1,30}$/, message: "must contain no more than 30 characters")
+    |> cast(params, ~w(username email password), ~w(password_confirmation))
+    |> shared_validations
+    |> validate_unique(:username, on: EdgeBuilder.Repo, downcase: true)
+    |> validate_format(:username, ~r/^[a-zA-Z0-9]*$/, message: "must contain only letters and numbers")
+    |> validate_format(:username, ~r/^.{1,30}$/, message: "must contain no more than 30 characters")
   end
 
   def changeset(user, :update, params) do
     user
-      |> cast(params, [], ~w(email password password_confirmation))
-      |> shared_validations
+    |> cast(params, [], ~w(email password password_confirmation))
+    |> shared_validations
   end
 
   def changeset(user, :password_reset, params) do
     user
-      |> cast(params, [], ~w(password password_confirmation password_reset_token))
-      |> shared_validations
+    |> cast(params, [], ~w(password password_confirmation password_reset_token))
+    |> shared_validations
   end
 
   defp shared_validations(changeset) do
     changeset
-      |> validate_password_match
-      |> validate_format(:password, ~r/^.{10,}$/, message: "must be at least 10 characters")
-      |> validate_format(:email, ~r/@/, message: "must be a valid email address")
-      |> crypt_password_if_present
+    |> validate_password_match
+    |> validate_format(:password, ~r/^.{10,}$/, message: "must be at least 10 characters")
+    |> validate_format(:email, ~r/@/, message: "must be a valid email address")
+    |> crypt_password_if_present
   end
 
   def authenticate(username, pw) do

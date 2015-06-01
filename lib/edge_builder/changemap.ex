@@ -3,9 +3,9 @@ defmodule EdgeBuilder.Changemap do
 
   def valid?(changemap) do
     changemap
-      |> Map.values
-      |> List.flatten
-      |> Enum.all?(&(&1.valid?))
+    |> Map.values
+    |> List.flatten
+    |> Enum.all?(&(&1.valid?))
   end
 
   def delete_missing(changemap = %{root: root}) do
@@ -30,11 +30,11 @@ defmodule EdgeBuilder.Changemap do
     root = apply_changes(root)
 
     changemap
-      |> Map.delete(:root)
-      |> Enum.map(fn {field, changesets} ->
-          {field, changesets |> Enum.map(&(add_relation(&1, field, root))) |> Enum.map(&apply_changes/1)}
-        end)
-      |> Enum.into(%{root: root})
+    |> Map.delete(:root)
+    |> Enum.map(fn {field, changesets} ->
+        {field, changesets |> Enum.map(&(add_relation(&1, field, root))) |> Enum.map(&apply_changes/1)}
+      end)
+    |> Enum.into(%{root: root})
   end
 
   defp apply_changes(changesets) when is_list(changesets), do: Enum.map(changesets, &apply_changes/1)
@@ -48,6 +48,6 @@ defmodule EdgeBuilder.Changemap do
 
   defp add_relation(changeset, association_field, parent_model) do
     changeset
-      |> Ecto.Changeset.put_change(parent_model.__struct__.__schema__(:association, association_field).assoc_key, parent_model.id)
+    |> Ecto.Changeset.put_change(parent_model.__struct__.__schema__(:association, association_field).assoc_key, parent_model.id)
   end
 end

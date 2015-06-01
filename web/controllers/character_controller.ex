@@ -93,8 +93,8 @@ defmodule EdgeBuilder.CharacterController do
 
       if Changemap.valid?(changemap) do
         changemap
-          |> Changemap.apply
-          |> Changemap.delete_missing
+        |> Changemap.apply
+        |> Changemap.delete_missing
 
         redirect conn, to: character_path(conn, :show, changemap.root.model)
       else
@@ -150,9 +150,9 @@ defmodule EdgeBuilder.CharacterController do
   defp child_changesets(params, child_model, instances \\ [])
   defp child_changesets(params, child_model, instances) when is_map(params) do
     params
-      |> Map.values
-      |> Enum.map(&(to_changeset(&1, child_model, instances)))
-      |> Enum.reject(&child_model.is_default_changeset?/1)
+    |> Map.values
+    |> Enum.map(&(to_changeset(&1, child_model, instances)))
+    |> Enum.reject(&child_model.is_default_changeset?/1)
   end
   defp child_changesets(_,_,_), do: []
 
@@ -164,10 +164,10 @@ defmodule EdgeBuilder.CharacterController do
   defp character_skill_changesets(params, instances \\ [])
   defp character_skill_changesets(params, instances) when is_map(params) do
     params
-      |> Map.values
-      |> Enum.map(&(Map.put(&1, "is_career", !is_nil(&1["is_career"]))))
-      |> Enum.map(&(to_changeset(&1, CharacterSkill, instances)))
-      |> Enum.reject(&CharacterSkill.is_default_changeset?/1)
+    |> Map.values
+    |> Enum.map(&(Map.put(&1, "is_career", !is_nil(&1["is_career"]))))
+    |> Enum.map(&(to_changeset(&1, CharacterSkill, instances)))
+    |> Enum.reject(&CharacterSkill.is_default_changeset?/1)
   end
   defp character_skill_changesets(_,_), do: []
 

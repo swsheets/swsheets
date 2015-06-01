@@ -34,7 +34,7 @@ defmodule EdgeBuilder.Models.CharacterSkill do
 
   def add_missing_defaults(character_skills) do
     BaseSkill.all
-      |> Enum.map(&(character_skill_or_default(&1, character_skills)))
+    |> Enum.map(&(character_skill_or_default(&1, character_skills)))
   end
 
   defp character_skill_or_default(base_skill, character_skills_or_changesets) do

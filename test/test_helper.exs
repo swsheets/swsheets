@@ -7,7 +7,7 @@ defmodule EdgeBuilder.Test do
 
       def has_error?(changeset, field, error_text) do
         Keyword.get_values(changeset.errors, field)
-          |> Enum.member?(error_text)
+        |> Enum.member?(error_text)
       end
     end
   end
@@ -41,13 +41,13 @@ defmodule EdgeBuilder.ControllerTest do
 
       def request(verb, path, params \\ %{}, f \\ &(&1)) do
         conn(verb, path, params)
-          |> Map.put(:secret_key_base, "this is a string that is at least 64 bytes in length aaaaaaaaaaaaaaaaaaaa")
-          |> Plug.Session.call(@session)
-          |> fetch_session
-          |> f.()
-          |> put_private(:plug_skip_csrf_protection, true)
-          |> put_private(:phoenix_endpoint, EdgeBuilder.Endpoint)
-          |> EdgeBuilder.Router.call([])
+        |> Map.put(:secret_key_base, "this is a string that is at least 64 bytes in length aaaaaaaaaaaaaaaaaaaa")
+        |> Plug.Session.call(@session)
+        |> fetch_session
+        |> f.()
+        |> put_private(:plug_skip_csrf_protection, true)
+        |> put_private(:phoenix_endpoint, EdgeBuilder.Endpoint)
+        |> EdgeBuilder.Router.call([])
       end
 
       def authenticated_request(user, verb, path, params \\ %{}) do

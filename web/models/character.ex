@@ -60,7 +60,7 @@ defmodule EdgeBuilder.Models.Character do
 
   def changeset(character, user_id, params \\ %{}) do
     character
-      |> cast(Map.put(params, "user_id", user_id), required_fields, optional_fields)
+    |> cast(Map.put(params, "user_id", user_id), required_fields, optional_fields)
   end
 
   def full_character(permalink) do
