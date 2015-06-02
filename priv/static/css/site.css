@@ -16,6 +16,29 @@ h4 {
   color: #aaa;
 }
 
+.navbar-brand {
+  padding: 0;
+}
+
+.navbar-brand p {
+  padding: 15px;
+  margin-left: 50px;
+  display: inline-block;
+  color: #fefefe;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.toplogo {
+  background-color: #ffca07;
+  background-image: url(/images/logo.png);
+  height: 51px;
+  width: 53px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
 .footer {
   position: absolute;
   bottom: 0;
