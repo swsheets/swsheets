@@ -113,3 +113,22 @@ h4 {
 .modal-content {
   margin-top: 100px;
 }
+
+.character-list-group-item {
+  height: 120px;
+}
+
+.character-list-group-item h3 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: #337ab7 !important;
+}
+
+.character-list-group-item p {
+  font-size: 110%;
+}
+
+.character-list-group-item .character-thumbnail {
+  height: 100px;
+  float: right;
+}

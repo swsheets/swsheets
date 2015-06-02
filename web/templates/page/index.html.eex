@@ -22,7 +22,7 @@
 
 <div class="row">
   <div class="col-lg-6 col-lg-offset-3">
-    <h3>Recent Creations</h4>
+    <h3>Recent Creations</h3>
     <%= for character <- @characters do %>
       <div class="character-container">
         <%= unless is_nil(character.portrait_url) do %>

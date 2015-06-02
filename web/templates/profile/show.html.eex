@@ -1,5 +1,32 @@
 <div class='jumbotron profile'>
   <h1><%= @user.username %></h1>
   <p>Member since <%= format_date(@user.inserted_at) %></p>
-  <p><%= @character_count %> Heroes Created</p>
+  <p><%= Enum.count(@characters) %> Heroes Created</p>
+</div>
+
+<div class='row'>
+  <div class="col-lg-6 col-lg-offset-3">
+    <h2>Recent Creations</h2>
+    <div class='list-group'>
+      <%= for character <- @characters do %>
+        <a href="<%= character_path(@conn, :show, character) %>" class='list-group-item character-list-group-item'>
+          <div class='row'>
+            <div class='col-sm-8'>
+              <h3 class="list-group-item-heading"><%= character.name %></h3>
+              <div class="row">
+                <div class="col-sm-6">
+                  <p><%= character.species %> <%= character.career %></p>
+                </div>
+              </div>
+            </div>
+            <div class='col-sm-4'>
+              <%= unless is_nil(character.portrait_url) do %>
+                <img class="character-thumbnail img-thumbnail" src="<%= character.portrait_url %>">
+              <% end %>
+            </div>
+          </div>
+        </a>
+      <% end %>
+    </div>
+  </div>
 </div>
