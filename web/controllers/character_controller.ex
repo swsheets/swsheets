@@ -2,6 +2,7 @@ defmodule EdgeBuilder.CharacterController do
   use EdgeBuilder.Web, :controller
 
   import EdgeBuilder.Router.Helpers
+  alias EdgeBuilder.Models.User
   alias EdgeBuilder.Models.Character
   alias EdgeBuilder.Models.Talent
   alias EdgeBuilder.Models.Attack
@@ -52,6 +53,7 @@ defmodule EdgeBuilder.CharacterController do
 
   def show(conn, %{"id" => id}) do
     character = Character.full_character(id)
+    user = Repo.get!(User, character.user_id)
 
     render conn, "show.html",
       header: EdgeBuilder.CharacterView.render("_show_header.html"),
@@ -61,7 +63,8 @@ defmodule EdgeBuilder.CharacterController do
       talents: character.talents |> Enum.map(&Talent.changeset/1),
       attacks: character.attacks |> Enum.map(&Attack.changeset/1),
       character_skills: character.character_skills |> CharacterSkill.add_missing_defaults,
-      viewed_by_owner: is_owner?(conn, character)
+      viewed_by_owner: is_owner?(conn, character),
+      user: user
   end
 
   def edit(conn, %{"id" => id}) do

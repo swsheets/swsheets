@@ -255,6 +255,14 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
       assert String.contains?(conn.resp_body, "Claws")
     end
+
+    it "displays a link to the author's profile" do
+      character = CharacterFactory.create_character(user_id: UserFactory.default_user.id)
+
+      conn = request(:get, "/c/#{character.permalink}")
+
+      assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.profile_path(conn, :show, UserFactory.default_user))
+    end
   end
 
   describe "index" do

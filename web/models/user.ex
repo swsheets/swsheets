@@ -1,6 +1,7 @@
 defmodule EdgeBuilder.Models.User do
   use EdgeBuilder.Web, :model
 
+  @derive {Phoenix.Param, key: :username}
   schema "users" do
     field :username, :string
     field :email, :string
