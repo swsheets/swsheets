@@ -9,6 +9,7 @@
   "hackney": {:hex, :hackney, "1.1.0"},
   "httpoison": {:hex, :httpoison, "0.6.2"},
   "idna": {:hex, :idna, "1.0.2"},
+  "inflex": {:hex, :inflex, "1.0.0"},
   "meck": {:hex, :meck, "0.8.2"},
   "mochiweb": {:hex, :mochiweb, "2.12.2"},
   "mock": {:hex, :mock, "0.1.1"},

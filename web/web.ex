@@ -22,6 +22,7 @@ defmodule EdgeBuilder.Web do
       # Import all HTML functions (forms, tags, etc)
       use Phoenix.HTML
       import EdgeBuilder.ViewHelpers
+      import Inflex, only: [inflect: 2]
     end
   end
 

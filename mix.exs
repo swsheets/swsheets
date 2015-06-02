@@ -33,6 +33,7 @@ defmodule EdgeBuilder.Mixfile do
      {:scrivener, "~> 0.6"},
      {:comeonin, "~> 0.8"},
      {:httpoison, "~> 0.6"},
+     {:inflex, "~> 1.0.0" },
      {:mock, "~> 0.1", only: :test},
      {:factory_girl_elixir, "~> 0.1", only: :test},
      {:floki, "~> 0.1", only: :test},

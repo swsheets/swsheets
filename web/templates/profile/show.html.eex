@@ -1,7 +1,7 @@
 <div class='jumbotron profile'>
   <h1><%= @user.username %></h1>
   <p>Member since <%= format_date(@user.inserted_at) %></p>
-  <p><%= Enum.count(@characters) %> Heroes Created</p>
+  <p><%= Enum.count(@characters) %> <%= inflect("Character", Enum.count(@characters)) %> Created</p>
 </div>
 
 <div class='row'>
