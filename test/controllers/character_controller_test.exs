@@ -219,7 +219,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "inserts appropriate line breaks for long text fields" do
-      character = CharacterFactory.create_character(gear: "Belt\nWatch")
+      character = CharacterFactory.create_character(personal_gear: "Belt\nWatch")
 
       conn = request(:get, "/c/#{character.permalink}")
 
@@ -227,7 +227,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "escapes HTML input in text fields" do
-      character = CharacterFactory.create_character(gear: "Belt<script></script>Watch")
+      character = CharacterFactory.create_character(personal_gear: "Belt<script></script>Watch")
 
       conn = request(:get, "/c/#{character.permalink}")
 

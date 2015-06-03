@@ -196,10 +196,6 @@
     <hr>
     <div class="row">
       <div class="col-md-6">
-        <h4>Gear</h4>
-        <textarea rows=16 class="form-control col-md-8" name="character[gear]"><%= get_field(@character, :gear) %></textarea>
-      </div>
-      <div class="col-md-6">
         <div class="row">
           <div class="col-md-6">
             <div class="panel panel-default">
@@ -245,34 +241,47 @@
           </div>
         </div>
         <div class="row">
-          <h4>Critical Injuries & Conditions</h4>
-          <textarea rows=4 class="form-control col-offset-2 col-md-8" name="character[critical_injuries]"><%= get_field(@character, :critical_injuries) %></textarea>
         </div>
+      </div>
+      <div class="col-md-6">
+        <h4>Critical Injuries & Conditions</h4>
+        <textarea rows=8 class="form-control col-md-8" name="character[critical_injuries]"><%= get_field(@character, :critical_injuries) %></textarea>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col-md-6'>
+        <h4>Weapons &amp; Armor</h4>
+        <textarea rows=10 class="form-control" name="character[weapons_and_armor]"><%= get_field(@character, :weapons_and_armor) %></textarea>
+      </div>
+      <div class='col-md-6'>
+        <h4>Personal Gear</h4>
+        <textarea rows=10 class="form-control" name="character[personal_gear]"><%= get_field(@character, :personal_gear) %></textarea>
       </div>
     </div>
   </div>
 </div>
 
 <%= render "_form_talents.html", talents: in_display_order(@talents) %>
+<hr>
 
 <div class="row">
   <div class="col-md-6">
     <h4>Background</h4>
-    <textarea name="character[background]" rows=20 class="form-control"><%= get_field(@character, :background) %></textarea>
+    <textarea name="character[background]" rows=10 class="form-control"><%= get_field(@character, :background) %></textarea>
     <h4>Motivation</h4>
-    <textarea name="character[motivation]" rows=20 class="form-control"><%= get_field(@character, :motivation) %></textarea>
+    <textarea name="character[motivation]" rows=10 class="form-control"><%= get_field(@character, :motivation) %></textarea>
   </div>
   <div class="col-md-6">
-    <h4>Obligation</h4>
-    <textarea name="character[obligation]" rows=20 class="form-control"><%= get_field(@character, :obligation) %></textarea>
+    <h4>Obligations</h4>
+    <textarea name="character[obligation]" rows=10 class="form-control"><%= get_field(@character, :obligation) %></textarea>
     <h4>Description</h4>
-    <textarea name="character[description]" rows=20 class="form-control"><%= get_field(@character, :description) %></textarea>
+    <textarea name="character[description]" rows=10 class="form-control"><%= get_field(@character, :description) %></textarea>
   </div>
 </div>
 
 <div class="row">
   <h4>Other Notes</h4>
-  <textarea name="character[other_notes]" rows=20 class="form-control"><%= get_field(@character, :other_notes) %></textarea>
+  <textarea name="character[other_notes]" rows=10 class="form-control"><%= get_field(@character, :other_notes) %></textarea>
 </div>
 
 <div class="row">
