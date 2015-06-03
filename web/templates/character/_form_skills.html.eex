@@ -1,28 +1,25 @@
-<div class="row">
-  <h4>Skills</h4>
-</div>
+<h4>Skills</h4>
 <img id="dieProficiency" src="/images/die_proficiency.png" height=15 style="display:none" /><img id="dieAbility" src="/images/die_ability.png" height=15 style="display:none" />
-<div class="row">
-  <table class="table table-condensed">
-    <tr>
-      <th>Skill</th>
-      <th>Career?</th>
-      <th class="col-md-1">Rank</th>
-      <th class="col-md-3">Roll</th>
+
+<table class="table table-condensed">
+  <tr>
+    <th>Skill</th>
+    <th>Career?</th>
+    <th class="col-md-1">Rank</th>
+    <th class="col-md-3">Roll</th>
+  </tr>
+  <%= for {skill,i} <- Enum.with_index(@character_skills) do %>
+    <tr class="<%= if skill.is_attack_skill, do: ~s(active) %>">
+      <td><%= skill_display_name(skill) %></td>
+      <td><input type="checkbox" name="skills[<%= i %>][is_career]" <%= if skill.is_career, do: "checked" %>></input></td>
+      <td>
+        <input type="hidden" name="skills[<%= i %>][base_skill_id]" value="<%= skill.base_skill_id %>" />
+        <input type="hidden" name="skills[<%= i %>][id]" value="<%= skill.id %>" />
+        <input type="text" class="form-control input-sm" data-skill="<%= skill.name %>" data-base-characteristic="<%= skill.characteristic %>" name="skills[<%= i %>][rank]" value="<%= skill.rank %>" />
+      </td>
+      <td>
+        <span data-skill-roll="<%= skill.name %>"></span>
+      </td>
     </tr>
-    <%= for {skill,i} <- Enum.with_index(@character_skills) do %>
-      <tr class="<%= if skill.is_attack_skill, do: ~s(active) %>">
-        <td><%= skill_display_name(skill) %></td>
-        <td><input type="checkbox" name="skills[<%= i %>][is_career]" <%= if skill.is_career, do: "checked" %>></input></td>
-        <td>
-          <input type="hidden" name="skills[<%= i %>][base_skill_id]" value="<%= skill.base_skill_id %>" />
-          <input type="hidden" name="skills[<%= i %>][id]" value="<%= skill.id %>" />
-          <input type="text" class="form-control input-sm" data-skill="<%= skill.name %>" data-base-characteristic="<%= skill.characteristic %>" name="skills[<%= i %>][rank]" value="<%= skill.rank %>" />
-        </td>
-        <td>
-          <span data-skill-roll="<%= skill.name %>"></span>
-        </td>
-      </tr>
-    <% end %>
-  </table>
-</div>
+  <% end %>
+</table>

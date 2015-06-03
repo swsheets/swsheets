@@ -107,183 +107,172 @@
   <% end %>
 </div>
 
-<div role="tabpanel">
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#stats" aria-controls="stats" role="tab" data-toggle="tab">Stats</a></li>
-    <li role="presentation"><a href="#bio" aria-controls="bio" role="tab" data-toggle="tab">Bio</a></li>
-  </ul>
+<div class="row">
+  <h4>Characteristics</h4>
+</div>
 
-  <!-- Tab panes -->
-  <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="stats">
-      <div class="row">
-        <h4>Characteristics</h4>
+  <!-- characteristics -->
+<div class="row">
+  <div class="col-md-2">
+    <div class="panel panel-default">
+      <div class="panel-body panel-value">
+        <%= get_field(@character, :characteristic_brawn) %>
+        <input id="Brawn" data-characteristic type="hidden" value="<%= get_field(@character, :characteristic_brawn) %>" />
       </div>
-
-      <!-- characteristics -->
-      <div class="row">
-        <div class="col-md-2">
-          <div class="panel panel-default">
-            <div class="panel-body panel-value">
-              <%= get_field(@character, :characteristic_brawn) %>
-              <input id="Brawn" data-characteristic type="hidden" value="<%= get_field(@character, :characteristic_brawn) %>" />
-            </div>
-            <div class="panel-footer text-center">
-              <label for="character[characteristic_brawn]">Brawn</label>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-2">
-          <div class="panel panel-default">
-            <div class="panel-body panel-value">
-              <%= get_field(@character, :characteristic_agility) %>
-              <input id="Agility" data-characteristic type="hidden" value="<%= get_field(@character, :characteristic_agility) %>" />
-            </div>
-            <div class="panel-footer text-center">
-              <label for="character[characteristic_agility]">Agility</label>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-2">
-          <div class="panel panel-default">
-            <div class="panel-body panel-value">
-              <%= get_field(@character, :characteristic_intellect) %>
-              <input id="Intellect" data-characteristic type="hidden" value="<%= get_field(@character, :characteristic_intellect) %>" />
-            </div>
-            <div class="panel-footer text-center">
-              <label for="character[characteristic_intellect]">Intellect</label>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-2">
-          <div class="panel panel-default">
-            <div class="panel-body panel-value">
-              <%= get_field(@character, :characteristic_cunning) %>
-              <input id="Cunning" data-characteristic type="hidden" value="<%= get_field(@character, :characteristic_cunning) %>" />
-            </div>
-            <div class="panel-footer text-center">
-              <label for="character[characteristic_cunning]">Cunning</label>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-2">
-          <div class="panel panel-default">
-            <div class="panel-body panel-value">
-              <%= get_field(@character, :characteristic_willpower) %>
-              <input id="Willpower" data-characteristic type="hidden" value="<%= get_field(@character, :characteristic_willpower) %>" />
-            </div>
-            <div class="panel-footer text-center">
-              <label for="character[characteristic_willpower]">Willpower</label>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-2">
-          <div class="panel panel-default">
-            <div class="panel-body panel-value">
-              <%= get_field(@character, :characteristic_presence) %>
-              <input id="Presence" data-characteristic type="hidden" value="<%= get_field(@character, :characteristic_presence) %>" />
-            </div>
-            <div class="panel-footer text-center">
-              <label for="character[characteristic_presence]">Presence</label>
-            </div>
-          </div>
-        </div>
+      <div class="panel-footer text-center">
+        <label for="character[characteristic_brawn]">Brawn</label>
       </div>
-
-      <div class="row">
-        <hr>
-      </div>
-
-      <div class="row">
-        <div class="col-sm-5">
-          <%= render "_show_skills.html", character_skills: @character_skills %>
-        </div>
-        <div class="col-sm-7">
-          <%= render "_show_attacks.html", attacks: in_display_order(@attacks) %>
-          <hr>
-          <div class="row">
-            <div class="col-md-6">
-              <h4>Gear</h4>
-              <div class="long-text gear"><%= render_text(@character, :gear) %></div>
-            </div>
-            <div class="col-md-6">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="panel panel-default">
-                    <div class="panel-body panel-value">
-                      <%= get_field(@character, :credits) %>
-                    </div>
-                    <div class="panel-footer text-center">
-                      <label for="character[credits]">Credits</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="panel panel-default">
-                    <div class="panel-body panel-value">
-                      <%= get_field(@character, :encumbrance) %>
-                    </div>
-                    <div class="panel-footer text-center">
-                      <label for="character[encumbrance]">Encumbrance</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="panel panel-default">
-                    <div class="panel-body panel-value">
-                      <%= get_field(@character, :xp_available) %>
-                    </div>
-                    <div class="panel-footer text-center">
-                      <label for="character[xp_available]">Available XP</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="panel panel-default">
-                    <div class="panel-body panel-value">
-                      <%= get_field(@character, :xp_total) %>
-                    </div>
-                    <div class="panel-footer text-center">
-                      <label for="character[xp_total]">Total XP</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <h4>Critical Injuries & Conditions</h4>
-                <div class="long-text"><%= render_text(@character, :critical_injuries) %></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <%= render "_show_talents.html", talents: in_display_order(@talents) %>
     </div>
-    <div role="tabpanel" class="tab-pane" id="bio">
-      <div class="row">
-        <div class="col-md-6">
-          <h4>Background</h4>
-          <div class="long-text"><%= render_text(@character, :background) %></div>
-          <h4>Motivation</h4>
-          <div class="long-text"><%= render_text(@character, :motivation) %></div>
-        </div>
-        <div class="col-md-6">
-          <h4>Obligation</h4>
-          <div class="long-text"><%= render_text(@character, :obligation) %></div>
-          <h4>Description</h4>
-          <div class="long-text"><%= render_text(@character, :description) %></div>
-        </div>
+  </div>
+  <div class="col-md-2">
+    <div class="panel panel-default">
+      <div class="panel-body panel-value">
+        <%= get_field(@character, :characteristic_agility) %>
+        <input id="Agility" data-characteristic type="hidden" value="<%= get_field(@character, :characteristic_agility) %>" />
       </div>
-      <div class="row">
-        <h4>Other Notes</h4>
-        <div class="long-text"><%= render_text(@character, :other_notes) %></div>
+      <div class="panel-footer text-center">
+        <label for="character[characteristic_agility]">Agility</label>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="panel panel-default">
+      <div class="panel-body panel-value">
+        <%= get_field(@character, :characteristic_intellect) %>
+        <input id="Intellect" data-characteristic type="hidden" value="<%= get_field(@character, :characteristic_intellect) %>" />
+      </div>
+      <div class="panel-footer text-center">
+        <label for="character[characteristic_intellect]">Intellect</label>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="panel panel-default">
+      <div class="panel-body panel-value">
+        <%= get_field(@character, :characteristic_cunning) %>
+        <input id="Cunning" data-characteristic type="hidden" value="<%= get_field(@character, :characteristic_cunning) %>" />
+      </div>
+      <div class="panel-footer text-center">
+        <label for="character[characteristic_cunning]">Cunning</label>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="panel panel-default">
+      <div class="panel-body panel-value">
+        <%= get_field(@character, :characteristic_willpower) %>
+        <input id="Willpower" data-characteristic type="hidden" value="<%= get_field(@character, :characteristic_willpower) %>" />
+      </div>
+      <div class="panel-footer text-center">
+        <label for="character[characteristic_willpower]">Willpower</label>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="panel panel-default">
+      <div class="panel-body panel-value">
+        <%= get_field(@character, :characteristic_presence) %>
+        <input id="Presence" data-characteristic type="hidden" value="<%= get_field(@character, :characteristic_presence) %>" />
+      </div>
+      <div class="panel-footer text-center">
+        <label for="character[characteristic_presence]">Presence</label>
       </div>
     </div>
   </div>
 </div>
+
+<div class="row">
+  <hr>
+</div>
+
+<div class="row">
+  <div class="col-sm-5">
+    <%= render "_show_skills.html", character_skills: @character_skills %>
+  </div>
+  <div class="col-sm-7">
+    <%= render "_show_attacks.html", attacks: in_display_order(@attacks) %>
+    <hr>
+    <div class="row">
+      <div class="col-md-6">
+        <h4>Gear</h4>
+        <div class="long-text gear"><%= render_text(@character, :gear) %></div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-body panel-value">
+                <%= get_field(@character, :credits) %>
+              </div>
+              <div class="panel-footer text-center">
+                <label for="character[credits]">Credits</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-body panel-value">
+                <%= get_field(@character, :encumbrance) %>
+              </div>
+              <div class="panel-footer text-center">
+                <label for="character[encumbrance]">Encumbrance</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-body panel-value">
+                <%= get_field(@character, :xp_available) %>
+              </div>
+              <div class="panel-footer text-center">
+                <label for="character[xp_available]">Available XP</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-body panel-value">
+                <%= get_field(@character, :xp_total) %>
+              </div>
+              <div class="panel-footer text-center">
+                <label for="character[xp_total]">Total XP</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <h4>Critical Injuries & Conditions</h4>
+          <div class="long-text"><%= render_text(@character, :critical_injuries) %></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render "_show_talents.html", talents: in_display_order(@talents) %>
+
+<div class="row">
+  <div class="col-md-6">
+    <h4>Background</h4>
+    <div class="long-text"><%= render_text(@character, :background) %></div>
+    <h4>Motivation</h4>
+    <div class="long-text"><%= render_text(@character, :motivation) %></div>
+  </div>
+  <div class="col-md-6">
+    <h4>Obligation</h4>
+    <div class="long-text"><%= render_text(@character, :obligation) %></div>
+    <h4>Description</h4>
+    <div class="long-text"><%= render_text(@character, :description) %></div>
+  </div>
+</div>
+
+<div class="row">
+  <h4>Other Notes</h4>
+  <div class="long-text"><%= render_text(@character, :other_notes) %></div>
+</div>
+
 <div class="row">
   <p class="text-center return-box">
     <a href="#">Return to Top</a>
