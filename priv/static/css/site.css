@@ -4,8 +4,13 @@ html {
 }
 
 body {
-  font-family: 'PT Sans', sans-serif;
+  font-family: 'Droid Sans', sans-serif;
   margin-bottom: 100px;
+}
+
+h1 {
+  font-family: 'PT Sans', sans-serif;
+  font-weight: bold;
 }
 
 h4 {
@@ -17,6 +22,7 @@ h4 {
 }
 
 .navbar-brand {
+  font-family: 'PT Sans', sans-serif;
   padding: 0;
 }
 
@@ -153,4 +159,24 @@ h4 {
 
 .character-list-group-item .character-thumbnail {
   height: 100px;
+}
+
+.welcome-jumbotron {
+  border: 1px solid #ddd;
+  padding-left: 210px !important;
+  padding-right: 180px !important;
+  background-image: url(/images/sw.png);
+  background-size: cover;
+  margin-bottom: 0px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.welcome-jumbotron p {
+  font-size: 18px;
+}
+
+.jumbotron-credit {
+  font-size: 12px;
+  padding: 0px;
 }
