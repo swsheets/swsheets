@@ -163,13 +163,33 @@ h4 {
 
 .welcome-jumbotron {
   border: 1px solid #ddd;
-  padding-left: 210px !important;
-  padding-right: 180px !important;
-  background-image: url(/images/sw.png);
-  background-size: cover;
-  margin-bottom: 0px;
-  padding-top: 30px;
-  padding-bottom: 30px;
+  background-color: #fcfcfc;
+  padding: 0px !important;
+  margin: 0px;
+}
+
+.welcome-jumbotron .row {
+  margin: 0px;
+}
+
+.welcome-jumbotron-left {
+  padding: 0px;
+}
+
+.welcome-jumbotron-left img{
+  height: 300px;
+}
+
+.welcome-jumbotron-center {
+  padding: 30px;
+}
+
+.welcome-jumbotron-right {
+  padding: 0px;
+}
+
+.welcome-jumbotron-right img{
+  height: 300px;
 }
 
 .welcome-jumbotron p {
