@@ -42,3 +42,5 @@ If you have run `script/dbdo` then you're ready to test with
 All work within this repo is released under a [Creative Commons Attribution-NonCommercial 3.0 United States](https://creativecommons.org/licenses/by-nc/3.0/us/) license. Essentially you are welcome to do what you like with this as long as you provide attribution and don't charge for it.
 
 Star Wars, Edge of the Empire, and all associated works remain the copyright of their respective copyright holders.
+
+Artwork from "[Star Wars Sketch Cards Cantina](http://antonvandort.deviantart.com/art/Star-Wars-Sketch-Cards-Cantina-110607962)" by antonvandort is included under its original [CC BY-NC ND](http://creativecommons.org/licenses/by-nc-nd/3.0/) license.
