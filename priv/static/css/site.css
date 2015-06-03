@@ -182,6 +182,8 @@ h4 {
 
 .welcome-jumbotron-center {
   padding: 30px;
+  padding-right: 0px;
+  text-align: justify;
 }
 
 .welcome-jumbotron-right {
