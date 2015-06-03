@@ -166,32 +166,16 @@ h4 {
   background-color: #fefefe;
   padding: 0px !important;
   margin: 0px;
+  min-height: 302px;
 }
 
-.welcome-jumbotron .row {
-  margin: 0px;
-}
-
-.welcome-jumbotron-left {
-  padding: 0px;
-}
-
-.welcome-jumbotron-left img{
+.welcome-jumbotron img{
   height: 300px;
 }
 
-.welcome-jumbotron-center {
-  padding: 30px;
-  padding-right: 0px;
+.welcome-jumbotron-content {
   text-align: justify;
-}
-
-.welcome-jumbotron-right {
-  padding: 0px;
-}
-
-.welcome-jumbotron-right img{
-  height: 300px;
+  padding: 30px;
 }
 
 .welcome-jumbotron p {

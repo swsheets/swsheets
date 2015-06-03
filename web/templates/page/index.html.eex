@@ -9,13 +9,11 @@
 <% end %>
 
 <div class="jumbotron welcome-jumbotron">
-  <div class="row">
-    <div class='hidden-xs hidden-sm col-md-2 welcome-jumbotron-left'><img src='/images/jumbotron-left.png'></div>
-    <div class='col-md-8 welcome-jumbotron-center'>
-      <h1>Heroes Wanted</h1>
-      <p><%= application_name %> is a community for creating, managing, and sharing your characters for <strong>Fantasy Flight Games' Star Wars: Edge of the Empire</strong> role-playing game. It is completely free and open-source (<a href="/about#open-source">more on that here</a>). Take a look at some of the creations below, or <a href="<%= character_path(@conn, :new) %>">create your own</a></p>
-    </div>
-    <div class='hidden-xs hidden-sm col-md-2 welcome-jumbotron-right'><img src='/images/jumbotron-right.png'></div>
+  <img src='/images/jumbotron-left.png' class='pull-left hidden-xs hidden-sm'>
+  <img src='/images/jumbotron-right.png' class='pull-right hidden-xs hidden-sm'>
+  <div class='welcome-jumbotron-content'>
+    <h1>Heroes Wanted</h1>
+    <p><%= application_name %> is a community for creating, managing, and sharing your characters for <strong>Fantasy Flight Games' Star Wars: Edge of the Empire</strong> role-playing game. It is completely free and open-source (<a href="/about#open-source">more on that here</a>). Take a look at some of the creations below, or <a href="<%= character_path(@conn, :new) %>">create your own</a></p>
   </div>
 </div>
 <div class='pull-right jumbotron-credit'><a href="http://antonvandort.deviantart.com/art/Star-Wars-Sketch-Cards-Cantina-110607962">"Star Wars Sketch Cards Cantina" by antonvandort</a></div>
