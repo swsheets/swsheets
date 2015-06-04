@@ -30,6 +30,7 @@ defmodule EdgeBuilder.Models.Character do
     field :characteristic_presence, :integer, default: 1
     field :weapons_and_armor, :string
     field :personal_gear, :string
+    field :assets_and_resources, :string
     field :credits, :integer
     field :encumbrance, :string
     field :xp_available, :integer
