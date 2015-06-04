@@ -9,7 +9,7 @@
   <div class="<%= if get_field(@character, :portrait_url) |> is_nil, do: "col-md-12", else: "col-md-8" %>">
     <div class="row">
       <h3>Character Name</h3>
-      <h2><%= get_field(@character, :name) %> <small>by <a href="<%= profile_path(@conn, :show, @user) %>"><%= @user.username %></a></small></h2>
+      <h2><%= get_field(@character, :name) %> <small>by <%= profile_link(@conn, @user, 15) %></small></h2>
       <div class="row">
         <div class="col-sm-3">
           <h5>Species</h5>
