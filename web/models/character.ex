@@ -28,7 +28,9 @@ defmodule EdgeBuilder.Models.Character do
     field :characteristic_cunning, :integer, default: 1
     field :characteristic_willpower, :integer, default: 1
     field :characteristic_presence, :integer, default: 1
-    field :gear, :string
+    field :weapons_and_armor, :string
+    field :personal_gear, :string
+    field :assets_and_resources, :string
     field :credits, :integer
     field :encumbrance, :string
     field :xp_available, :integer

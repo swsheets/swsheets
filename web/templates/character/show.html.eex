@@ -193,59 +193,65 @@
     <%= render "_show_attacks.html", attacks: in_display_order(@attacks) %>
     <hr>
     <div class="row">
+      <div class="col-md-3 col-xs-6">
+        <div class="panel panel-default">
+          <div class="panel-body panel-value">
+            <%= get_field(@character, :xp_available) %>
+          </div>
+          <div class="panel-footer text-center">
+            <label for="character[xp_available]">Available XP</label>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-xs-6">
+        <div class="panel panel-default">
+          <div class="panel-body panel-value">
+            <%= get_field(@character, :xp_total) %>
+          </div>
+          <div class="panel-footer text-center">
+            <label for="character[xp_total]">Total XP</label>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-xs-6">
+        <div class="panel panel-default">
+          <div class="panel-body panel-value">
+            <%= get_field(@character, :credits) %>
+          </div>
+          <div class="panel-footer text-center">
+            <label for="character[credits]">Credits</label>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-xs-6">
+        <div class="panel panel-default">
+          <div class="panel-body panel-value">
+            <%= get_field(@character, :encumbrance) %>
+          </div>
+          <div class="panel-footer text-center">
+            <label for="character[encumbrance]">Encumbrance</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-md-6">
-        <h4>Gear</h4>
-        <div class="long-text gear"><%= render_text(@character, :gear) %></div>
+        <h4>Weapons &amp; Armor</h4>
+        <div class="long-text"><%= render_text(@character, :weapons_and_armor) %></div>
       </div>
       <div class="col-md-6">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="panel panel-default">
-              <div class="panel-body panel-value">
-                <%= get_field(@character, :credits) %>
-              </div>
-              <div class="panel-footer text-center">
-                <label for="character[credits]">Credits</label>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="panel panel-default">
-              <div class="panel-body panel-value">
-                <%= get_field(@character, :encumbrance) %>
-              </div>
-              <div class="panel-footer text-center">
-                <label for="character[encumbrance]">Encumbrance</label>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="panel panel-default">
-              <div class="panel-body panel-value">
-                <%= get_field(@character, :xp_available) %>
-              </div>
-              <div class="panel-footer text-center">
-                <label for="character[xp_available]">Available XP</label>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="panel panel-default">
-              <div class="panel-body panel-value">
-                <%= get_field(@character, :xp_total) %>
-              </div>
-              <div class="panel-footer text-center">
-                <label for="character[xp_total]">Total XP</label>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <h4>Critical Injuries & Conditions</h4>
-          <div class="long-text"><%= render_text(@character, :critical_injuries) %></div>
-        </div>
+        <h4>Personal Gear</h4>
+        <div class="long-text"><%= render_text(@character, :personal_gear) %></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <h4>Assets &amp; Resources</h4>
+        <div class="long-text"><%= render_text(@character, :assets_and_resources) %></div>
+      </div>
+      <div class="col-md-6">
+        <h4>Critical Injuries &amp; Conditions</h4>
+        <div class="long-text"><%= render_text(@character, :critical_injuries) %></div>
       </div>
     </div>
   </div>
