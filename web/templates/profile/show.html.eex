@@ -1,7 +1,13 @@
 <div class='jumbotron profile'>
-  <h1><%= @user.username %></h1>
+  <h1><%= profile_link(@conn, @user, 25) %></h1>
   <p>Member since <%= format_date(@user.inserted_at) %></p>
   <p><%= Enum.count(@characters) %> <%= inflect("Character", Enum.count(@characters)) %> Created</p>
+  <%= unless is_nil(@user.pull_requested_at) do %>
+    <p><img src="/images/advantage.png" height="20px"> - submitted at least one pull request</p>
+  <% end %>
+  <%= unless is_nil(@user.bug_reported_at) do %>
+    <p><img src="/images/success.png" height="20px"> - reported at least one bug</p>
+  <% end %>
 </div>
 
 <div class='row'>

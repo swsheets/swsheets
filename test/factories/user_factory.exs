@@ -21,6 +21,10 @@ defmodule Factories.UserFactory do
     User.changeset(user, :password_reset, %{password_reset_token: Ecto.UUID.generate}) |> Repo.update
   end
 
+  def set_contributions(user, overrides) do
+    User.changeset(user, :contributions, Enum.into(overrides, %{})) |> Repo.update
+  end
+
   @default_username "phil"
   def default_user do
     case Repo.one(from u in User, where: u.username == ^@default_username) do

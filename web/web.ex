@@ -21,8 +21,9 @@ defmodule EdgeBuilder.Web do
 
       # Import all HTML functions (forms, tags, etc)
       use Phoenix.HTML
-      import EdgeBuilder.ViewHelpers
+      use EdgeBuilder.ViewHelpers
       import Inflex, only: [inflect: 2]
+      import Phoenix.Controller, only: [get_csrf_token: 0, get_flash: 2, view_module: 1, controller_template: 1]
     end
   end
 

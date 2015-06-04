@@ -85,8 +85,22 @@ h4 {
   white-space: nowrap;
 }
 
+.jedi-council {
+  margin-top: 50px;
+  background-color: #eee;
+  text-align: center;
+}
+
+.jedi-council p {
+  margin: 0px;
+}
+
+.jedi-question {
+  text-decoration: underline;
+}
+
 .main-container {
-  margin-top: 80px;
+  margin-top: 30px;
 }
 
 .label-lg {
@@ -185,4 +199,8 @@ h4 {
 .jumbotron-credit {
   font-size: 12px;
   padding: 0px;
+}
+
+.profile a{
+  color: rgb(51,51,51);
 }

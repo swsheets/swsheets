@@ -19,7 +19,7 @@
 <div class='pull-right jumbotron-credit hidden-xs hidden-sm'><a href="http://antonvandort.deviantart.com/art/Star-Wars-Sketch-Cards-Cantina-110607962">"Star Wars Sketch Cards Cantina" by antonvandort</a></div>
 
 <div class="row">
-  <div class="col-lg-6 col-lg-offset-3">
+  <div class="col-md-6 col-md-offset-3">
     <h2>Recent Creations</h2>
     <%= render EdgeBuilder.CharacterView, "list_view.html", conn: @conn, characters: @characters %>
     <%= render EdgeBuilder.SharedView, "_pagination.html", page_number: @page_number, total_pages: @total_pages %>

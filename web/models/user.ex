@@ -9,6 +9,8 @@ defmodule EdgeBuilder.Models.User do
     field :crypted_password, :binary
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
+    field :bug_reported_at, Ecto.DateTime
+    field :pull_requested_at, Ecto.DateTime
 
     timestamps
   end
@@ -35,6 +37,12 @@ defmodule EdgeBuilder.Models.User do
     |> shared_validations
   end
 
+  def changeset(user, :contributions, params) do
+    user
+    |> cast(params, [], ~w(bug_reported_at pull_requested_at))
+    |> shared_validations
+  end
+
   defp shared_validations(changeset) do
     changeset
     |> validate_password_match
@@ -48,6 +56,31 @@ defmodule EdgeBuilder.Models.User do
     Repo.one(
       from u in __MODULE__,
         where: u.username == ^username
+    )
+  end
+
+  def contributors(limit \\ 1000) do
+    Repo.all(
+      from u in __MODULE__,
+        where: fragment("bug_reported_at is not null or pull_requested_at is not null"),
+        order_by: fragment("greatest(bug_reported_at, pull_requested_at) desc"),
+        limit: ^limit
+    )
+  end
+
+  def pull_requesters do
+    Repo.all(
+      from u in __MODULE__,
+        where: fragment("pull_requested_at is not null"),
+        order_by: [desc: :pull_requested_at]
+    )
+  end
+
+  def bug_reporters do
+    Repo.all(
+      from u in __MODULE__,
+        where: fragment("bug_reported_at is not null"),
+        order_by: [desc: :bug_reported_at]
     )
   end
 
