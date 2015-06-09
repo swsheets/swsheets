@@ -6,6 +6,12 @@ defmodule EdgeBuilder.Models.BaseSkill do
     field :characteristic, :string
     field :display_order, :integer
     field :is_attack_skill, :boolean, default: false
+    field :system, Ecto.Types.Enumeration
+  end
+
+  def changeset(params) do
+    %EdgeBuilder.Models.BaseSkill{}
+    |> cast(params, [], ~w(name characteristic display_order is_attack_skill system))
   end
 
   def all do
