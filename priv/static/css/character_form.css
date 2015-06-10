@@ -36,3 +36,49 @@
 .navbar-btn {
   margin-right: 10px;
 }
+
+.select-button {
+  display: block;
+}
+
+.select-button .btn-default:hover, .select-button .btn-default:focus,.select-button .btn-default:active {
+  background-color: #fff;
+}
+
+#systemButton {
+  margin-right: -30px;
+  padding-left: 20px;
+}
+
+#systemButton, .select-button .dropdown-menu {
+  width: 100%;
+  text-align: left;
+}
+
+.select-button .dropdown-toggle {
+  float: right;
+  z-index: 1000;
+}
+
+#systemButton, .select-button a {
+  padding: 2px !important;
+}
+
+.system-logo {
+  margin-right: 10px;
+}
+
+.system-eote {
+  border: 1px solid #ccc;
+  background-color: #fafafa !important;
+}
+
+.system-aor {
+  border: 1px solid #850000;
+  background-color: #c22527 !important;
+}
+
+.system-fad {
+  border: 1px solid #fff461;
+  background-color: #000;
+}

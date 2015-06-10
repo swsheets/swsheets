@@ -11,6 +11,7 @@ defmodule Factories.CharacterFactory do
     field :name, &("ZappoGrappo#{&1}")
     field :species, "Fuzz"
     field :career, "Stock Broker"
+    field :system, :eote
   end
 
   def create_character(overrides \\ []) do

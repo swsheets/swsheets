@@ -131,6 +131,25 @@ var CharacterForm = (function() {
     enableDisableRemoveAttackButtons();
   }
 
+  function setSystem(system) {
+    $("#systemButton").empty();
+    $("[data-value="+system+"]").contents().clone().appendTo("#systemButton");
+    $("#systemValue").val(system);
+
+    $("[data-system]").each(function() {
+      if( $(this).attr("data-system") == system) {
+        $(this).show();
+      } else {
+        $(this).hide();
+      }
+    });
+  }
+
+  function setSystemOrDefault() {
+    var system = $("#systemValue").val() || "eote";
+    setSystem(system);
+  }
+
   function initializeHandlers() {
     $("[data-skill]").change(function() { refreshRollsFromSkill($(this)) });
     $("[data-characteristic]").change(function() { refreshRollsFromCharacteristic($(this)) });
@@ -140,6 +159,8 @@ var CharacterForm = (function() {
     $("[data-remove-talent]").click(function() { removeTalent($(this).attr("data-remove-talent")) });
     $("#addOneTalentButton").click(addTalent);
     $("#addFiveTalentsButton").click(function() { for(var i = 0; i < 5; i++) { addTalent() } });
+    $("#systemButton").click(function() { $("#systemDropdown").dropdown('toggle'); return false; });
+    $(".select-button a").click(function() { setSystem($(this).attr('data-value')); });
   }
 
   function refreshAllDice() {
@@ -153,6 +174,7 @@ var CharacterForm = (function() {
       refreshAllDice();
       enableDisableRemoveAttackButtons();
       enableDisableRemoveTalentButtons();
+      setSystemOrDefault();
     }
   };
 })();

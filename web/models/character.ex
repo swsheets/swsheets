@@ -57,7 +57,7 @@ defmodule EdgeBuilder.Models.Character do
   after_insert __MODULE__, :_set_permalink_for_changeset
   after_load __MODULE__, :_set_permalink
 
-  defp required_fields, do: [:name, :species, :career, :user_id]
+  defp required_fields, do: [:name, :species, :career, :user_id, :system]
   defp optional_fields, do: __schema__(:fields) -- ([:id, :url_slug] ++ required_fields)
 
   def changeset(character, user_id, params \\ %{}) do

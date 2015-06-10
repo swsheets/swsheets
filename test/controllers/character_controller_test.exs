@@ -56,6 +56,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
           "name" => "Greedo",
           "species" => "Rodian",
           "career" => "Bounty Hunter",
+          "system" => "eote",
           "credits" => "3000",
           "defense_melee" => "1",
           "defense_ranged" => "2",
@@ -155,7 +156,8 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       conn = authenticated_request(UserFactory.default_user, :post, "/c", %{
         "character" => %{
           "species" => "Rodian",
-          "career" => "Bounty Hunter"
+          "career" => "Bounty Hunter",
+          "system" => "eote"
         },
         "skills" => %{"0" => %{"base_skill_id" => BaseSkill.by_name("Athletics").id, "rank" => "3", "is_career" => "on"}}
       })
@@ -178,6 +180,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
           "name" => "Greedo",
           "species" => "Rodian",
           "career" => "Bounty Hunter",
+          "system" => "eote"
         },
         "attacks" => %{
           "1" => %{"critical" => "3", "damage" => "4", "range" => "Short", "base_skill_id" => BaseSkill.by_name("Ranged: Light").id, "specials" => "Stun Setting", "weapon_name" => "Holdout Blaster", "display_order" => "1"},

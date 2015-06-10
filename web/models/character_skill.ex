@@ -42,7 +42,8 @@ defmodule EdgeBuilder.Models.CharacterSkill do
       name: base_skill.name,
       characteristic: base_skill.characteristic,
       base_skill_id: base_skill.id,
-      is_attack_skill: base_skill.is_attack_skill
+      is_attack_skill: base_skill.is_attack_skill,
+      system: base_skill.system
     }
 
     character_skill_or_changeset = Enum.find(character_skills_or_changesets, %EdgeBuilder.Models.CharacterSkill{}, &(Extensions.Changeset.get_field(&1, :base_skill_id) == base_skill.id))

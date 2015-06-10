@@ -60,6 +60,7 @@ defmodule EdgeBuilder.Models.CharacterSkillTest do
       assert is_nil(unmatched_character_skill.id)
       assert unmatched_character_skill.rank == 0
     end
+
     it "takes a collection of character skill changesets and ensures all base skills are represented" do
       character = %Character{
         name: "Greedo",

@@ -9,7 +9,7 @@
     <th class="col-md-3">Roll</th>
   </tr>
   <%= for {skill,i} <- Enum.with_index(@character_skills) do %>
-    <tr class="<%= if skill.is_attack_skill, do: ~s(active) %>">
+    <tr class="<%= if skill.is_attack_skill, do: ~s(active) %>" <%= unless is_nil(skill.system), do: "data-system=#{skill.system}" %>>
       <td><%= skill_display_name(skill) %></td>
       <td><input type="checkbox" name="skills[<%= i %>][is_career]" <%= if skill.is_career, do: "checked" %>></input></td>
       <td>
