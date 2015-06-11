@@ -45,7 +45,6 @@ defmodule EdgeBuilder.CharacterController do
 
     render conn, "index.html",
       title: "My Characters",
-      header: EdgeBuilder.CharacterView.render("_index_header.html"),
       characters: page.entries,
       page_number: page.page_number,
       total_pages: page.total_pages
@@ -56,8 +55,6 @@ defmodule EdgeBuilder.CharacterController do
     user = Repo.get!(User, character.user_id)
 
     render conn, "show.html",
-      header: EdgeBuilder.CharacterView.render("_show_header.html"),
-      footer: EdgeBuilder.CharacterView.render("footer.html"),
       title: character.name,
       character: character |> Character.changeset(current_user_id(conn)),
       talents: character.talents |> Enum.map(&Talent.changeset/1),
@@ -125,8 +122,6 @@ defmodule EdgeBuilder.CharacterController do
   defp render_new(conn, assignments \\ []) do
     assignments = Keyword.merge(assignments, [
       title: "New Character",
-      header: EdgeBuilder.CharacterView.render("_form_header.html"),
-      footer: EdgeBuilder.CharacterView.render("footer.html"),
       character: (if is_nil(assignments[:character]), do: %Character{} |> Character.changeset(current_user_id(conn)), else: assignments[:character]),
       talents: (if is_nil(assignments[:talents]) || Enum.empty?(assignments[:talents]), do: [%Talent{} |> Talent.changeset], else: assignments[:talents]),
       attacks: (if is_nil(assignments[:attacks]) || Enum.empty?(assignments[:attacks]), do: [%Attack{} |> Attack.changeset], else: assignments[:attacks]),
@@ -139,8 +134,6 @@ defmodule EdgeBuilder.CharacterController do
   defp render_edit(conn, assignments) do
     assignments = Keyword.merge(assignments, [
       title: "Editing #{Ecto.Changeset.get_field(assignments[:character], :name)}",
-      header: EdgeBuilder.CharacterView.render("_form_header.html"),
-      footer: EdgeBuilder.CharacterView.render("footer.html"),
       character: assignments[:character],
       talents: (if is_nil(assignments[:talents]) || Enum.empty?(assignments[:talents]), do: [%Talent{} |> Talent.changeset], else: assignments[:talents]),
       attacks: (if is_nil(assignments[:attacks]) || Enum.empty?(assignments[:attacks]), do: [%Attack{} |> Attack.changeset], else: assignments[:attacks]),

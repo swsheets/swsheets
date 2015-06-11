@@ -13,7 +13,6 @@ defmodule EdgeBuilder.ProfileController do
     characters = Repo.all(from c in Character, where: c.user_id == ^user.id, order_by: [desc: c.inserted_at])
 
     render conn, :show,
-      header: EdgeBuilder.ProfileView.render("_header.html"),
       user: user,
       characters: characters
   end
