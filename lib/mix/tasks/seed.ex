@@ -158,8 +158,8 @@ defmodule Mix.Tasks.Seed do
     ]
 
     base_skills
-    |> Enum.reject(&existing_skill?/1)
     |> Enum.with_index
+    |> Enum.reject(&existing_skill?/1)
     |> Enum.map( fn({skill, i}) ->
       Map.put(skill, :display_order, i)
       |> BaseSkill.changeset
@@ -167,7 +167,7 @@ defmodule Mix.Tasks.Seed do
     end)
   end
 
-  defp existing_skill?(%{name: name}) do
+  defp existing_skill?({ %{name: name}, _}) do
     !is_nil(BaseSkill.by_name(name))
   end
 end

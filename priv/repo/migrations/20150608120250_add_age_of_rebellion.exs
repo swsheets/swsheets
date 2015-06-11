@@ -12,6 +12,5 @@ defmodule EdgeBuilder.Repo.Migrations.AddAgeOfRebellion do
     end
 
     execute "update characters set system = 'eote'"
-    execute "update base_skills set system = 'eote'"
   end
 end
