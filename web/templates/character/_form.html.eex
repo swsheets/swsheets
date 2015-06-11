@@ -19,7 +19,7 @@
           <div class='select-button'>
             <div class="btn-group btn-block">
               <button type="button" class="btn btn-default" id="systemButton">Age of Rebellion</button>
-              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="systemDropdown">
+              <button type="button" tabindex="-1" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="systemDropdown">
                 <span class="caret"></span>
                 <span class="sr-only">Toggle Dropdown</span>
               </button>

@@ -8,7 +8,7 @@
     <th>Rank</th>
     <th class="col-md-3">Roll</th>
   </tr>
-  <%= for skill <- @character_skills do %>
+  <%= for skill <- skills_in_system(@character_skills, @system) do %>
     <tr class="<%= if skill.is_attack_skill, do: ~s(active) %>">
       <td><%= skill_display_name(skill) %></td>
       <td class="career-check"><%= if skill.is_career, do: "X" %></td>

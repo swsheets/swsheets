@@ -128,9 +128,8 @@ h4 {
 .character-container {
   border: 1px solid #aaa;
   border-radius: 10px;
-  padding-left: 30px;
+  padding-left: 20px;
   padding-right: 30px;
-  padding-top: 10px;
   padding-bottom: 10px;
   margin-bottom: 10px;
 }
@@ -158,11 +157,12 @@ h4 {
 }
 
 .character-list-group-item {
-  height: 120px;
+  height: 120;
+  padding-top: 15px;
+  padding-bottom: 5px;
 }
 
 .character-list-group-item h3 {
-  margin-top: 10px;
   margin-bottom: 10px;
   color: #337ab7 !important;
 }
@@ -173,6 +173,10 @@ h4 {
 
 .character-list-group-item .character-thumbnail {
   height: 100px;
+}
+
+.system-container {
+  color: #999;
 }
 
 .welcome-jumbotron {
@@ -203,4 +207,19 @@ h4 {
 
 .profile a{
   color: rgb(51,51,51);
+}
+
+.system-eote {
+  border: 1px solid #ccc;
+  background-color: #fafafa !important;
+}
+
+.system-aor {
+  border: 1px solid #850000;
+  background-color: #c22527 !important;
+}
+
+.system-fad {
+  border: 1px solid #fff461;
+  background-color: #000;
 }

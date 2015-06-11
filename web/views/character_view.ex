@@ -40,4 +40,10 @@ defmodule EdgeBuilder.CharacterView do
   def skill_display_name(skill) do
     "#{skill.name} (#{Characteristic.shorthand_for(skill.characteristic)})"
   end
+
+  def skills_in_system(character_skills, system) do
+    Enum.filter(character_skills, fn(cs) ->
+      is_nil(cs.system) || cs.system == system
+    end)
+  end
 end

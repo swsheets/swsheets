@@ -6,22 +6,31 @@
 <% end %>
 
 <div class="row main-area">
-  <div class="<%= if get_field(@character, :portrait_url) |> is_nil, do: "col-md-12", else: "col-md-8" %>">
+  <div class="<%= if get_field(@character, :portrait_url) |> is_nil, do: "col-md-12", else: "col-md-9" %>">
     <div class="row">
       <h3>Character Name</h3>
       <h2><%= get_field(@character, :name) %> <small>by <%= profile_link(@conn, @user, 15) %></small></h2>
       <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <h5>Species</h5>
           <div class="value"><%= get_field(@character, :species) %></div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <h5>Career</h5>
           <div class="value"><%= get_field(@character, :career) %></div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-4">
           <h5>Specializations</h5>
           <div class="value"><%= get_field(@character, :specializations) %></div>
+        </div>
+        <div class="col-sm-4">
+          <h5>System</h5>
+          <%= case get_field(@character, :system) do %>
+            <%= :eote -> %>
+              <img src='/images/eote.png' class='img-thumbnail system-logo system-eote' />Edge of the Empire
+            <%= :aor -> %>
+              <img src='/images/aor.png' class='img-thumbnail system-logo system-aor' />Age of Rebellion
+          <% end %>
         </div>
       </div>
       <div class="row">
@@ -99,7 +108,7 @@
     </div>
   </div>
   <%= unless get_field(@character, :portrait_url) |> is_nil do %>
-    <div class="col-md-4">
+    <div class="col-md-3">
       <p class="text-center">
         <img src="<%= image_or_default(@character) %>" alt="Placeholder Image" class="img-thumbnail">
       </p>
@@ -187,7 +196,7 @@
 
 <div class="row">
   <div class="col-sm-5">
-    <%= render "_show_skills.html", character_skills: @character_skills %>
+    <%= render "_show_skills.html", system: get_field(@character, :system), character_skills: @character_skills %>
   </div>
   <div class="col-sm-7">
     <%= render "_show_attacks.html", attacks: in_display_order(@attacks) %>
@@ -267,8 +276,14 @@
     <div class="long-text"><%= render_text(@character, :motivation) %></div>
   </div>
   <div class="col-md-6">
-    <h4>Obligation</h4>
-    <div class="long-text"><%= render_text(@character, :obligation) %></div>
+    <%= case get_field(@character, :system) do %>
+      <%= :eote -> %>
+        <h4>Obligations</h4>
+        <div class="long-text"><%= render_text(@character, :obligation) %></div>
+      <%= :aor -> %> 
+        <h4>Duties</h4>
+        <div class="long-text"><%= render_text(@character, :duty) %></div>
+    <% end %>
     <h4>Description</h4>
     <div class="long-text"><%= render_text(@character, :description) %></div>
   </div>
