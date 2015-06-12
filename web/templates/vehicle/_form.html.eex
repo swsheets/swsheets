@@ -70,91 +70,6 @@
           </div>
         </div>
       </div>
-      <div class='row'>
-        <div class='col-sm-9'>
-          <h4>Defense</h4>
-        </div>
-      </div>
-      <div class='row'>
-        <div class='col-sm-9 defense-container'>
-          <div class='defense-fore defense'>
-            <div class="panel panel-default base">
-              <div class="panel-body">
-                <input type="text" pattern="[0-9]*" class="form-control" name="vehicle[defense_fore]" value="<%= get_field(@vehicle, :defense_fore) %>" />
-              </div>
-              <div class="panel-footer text-center">
-                <label for="vehicle[defense_fore]">Defense</label>
-              </div>
-            </div>
-            <div class="panel panel-default current">
-              <div class="panel-body">
-                <input type="text" pattern="[0-9]*" class="form-control" name="vehicle[defense_fore_current]" value="<%= get_field(@vehicle, :defense_fore_current) %>" />
-              </div>
-              <div class="panel-footer text-center">
-                <label for="vehicle[defense_fore_current]">Current</label>
-              </div>
-            </div>
-            <div class='defense-label'>Fore</div>
-          </div>
-          <div class='defense-aft defense'>
-            <div class='defense-label'>Aft</div>
-            <div class="panel panel-default base">
-              <div class="panel-body">
-                <input type="text" pattern="[0-9]*" class="form-control" name="vehicle[defense_aft]" value="<%= get_field(@vehicle, :defense_aft) %>" />
-              </div>
-              <div class="panel-footer text-center">
-                <label for="vehicle[defense_aft]">Defense</label>
-              </div>
-            </div>
-            <div class="panel panel-default current">
-              <div class="panel-body">
-                <input type="text" pattern="[0-9]*" class="form-control" name="vehicle[defense_aft_current]" value="<%= get_field(@vehicle, :defense_aft_current) %>" />
-              </div>
-              <div class="panel-footer text-center">
-                <label for="vehicle[defense_aft_current]">Current</label>
-              </div>
-            </div>
-          </div>
-          <div class='defense-port defense'>
-            <div class="panel panel-default base">
-              <div class="panel-body">
-                <input type="text" pattern="[0-9]*" class="form-control" name="vehicle[defense_port]" value="<%= get_field(@vehicle, :defense_port) %>" />
-              </div>
-              <div class="panel-footer text-center">
-                <label for="vehicle[defense_port]">Defense</label>
-              </div>
-            </div>
-            <div class="panel panel-default current">
-              <div class="panel-body">
-                <input type="text" pattern="[0-9]*" class="form-control" name="vehicle[defense_port_current]" value="<%= get_field(@vehicle, :defense_port_current) %>" />
-              </div>
-              <div class="panel-footer text-center">
-                <label for="vehicle[defense_port_current]">Current</label>
-              </div>
-            </div>
-            <div class='defense-label'>Port</div>
-          </div>
-          <div class='defense-starboard defense'>
-            <div class="panel panel-default base">
-              <div class="panel-body">
-                <input type="text" pattern="[0-9]*" class="form-control" name="vehicle[defense_starboard]" value="<%= get_field(@vehicle, :defense_starboard) %>" />
-              </div>
-              <div class="panel-footer text-center">
-                <label for="vehicle[defense_starboard]">Defense</label>
-              </div>
-            </div>
-            <div class="panel panel-default current">
-              <div class="panel-body">
-                <input type="text" pattern="[0-9]*" class="form-control" name="vehicle[defense_starboard_current]" value="<%= get_field(@vehicle, :defense_starboard_current) %>" />
-              </div>
-              <div class="panel-footer text-center">
-                <label for="vehicle[defense_starboard_current]">Current</label>
-              </div>
-            </div>
-            <div class='defense-label'>Starboard</div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
   <div class='col-md-4'>
@@ -165,5 +80,165 @@
     <p class="text-center">
       <img src="<%= image_or_default(@vehicle) %>" alt="Placeholder Image" class="img-thumbnail">
     </p>
+  </div>
+</div>
+
+<div class='row'>
+  <div class='col-sm-6'>
+    <h4>Defense</h4>
+  </div>
+</div>
+
+<div class='row'>
+  <div class='col-sm-2'>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="input-group">
+          <div class="input-group-addon addon-core-attr">Threshold</div>
+          <label for="vehicle[hull_threshold]" class="sr-only">Hull Trauma Threshold</label>
+          <input type="text" pattern="[0-9]*" class="form-control" name="vehicle[hull_threshold]" value="<%= get_field(@vehicle, :hull_threshold) %>" />
+        </div>
+        <div class="input-group">
+          <div class="input-group-addon addon-core-attr">Current</div>
+          <label for="vehicle[hull_current]" class="sr-only">Current Hull Trauma</label>
+          <input type="text" pattern="[0-9]*" class="form-control" name="vehicle[hull_current]" value="<%= get_field(@vehicle, :hull_current) %>" />
+        </div>
+      </div>
+      <div class="panel-footer text-center">
+        <label>Hull Trauma</label>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="input-group">
+          <div class="input-group-addon addon-core-attr">Threshold</div>
+          <label for="vehicle[strain_threshold]" class="sr-only">System Strain Threshold</label>
+          <input type="text" pattern="[0-9]*" class="form-control" name="vehicle[strain_threshold]" value="<%= get_field(@vehicle, :strain_threshold) %>" />
+        </div>
+        <div class="input-group">
+          <div class="input-group-addon addon-core-attr">Current</div>
+          <label for="vehicle[strain_current]" class="sr-only">Current System Strain</label>
+          <input type="text" pattern="[0-9]*" class="form-control" name="vehicle[strain_current]" value="<%= get_field(@vehicle, :strain_current) %>" />
+        </div>
+      </div>
+      <div class="panel-footer text-center">
+        <label>System Strain</label>
+      </div>
+    </div>
+  </div>
+  <div class='col-sm-6 defense-container'>
+    <div class='defense-fore defense'>
+      <div class="panel panel-default base">
+        <div class="panel-body">
+          <input type="text" pattern="[0-9]*" class="form-control" name="vehicle[defense_fore]" value="<%= get_field(@vehicle, :defense_fore) %>" />
+        </div>
+        <div class="panel-footer text-center">
+          <label for="vehicle[defense_fore]">Defense</label>
+        </div>
+      </div>
+      <div class="panel panel-default current">
+        <div class="panel-body">
+          <input type="text" pattern="[0-9]*" class="form-control" name="vehicle[defense_fore_current]" value="<%= get_field(@vehicle, :defense_fore_current) %>" />
+        </div>
+        <div class="panel-footer text-center">
+          <label for="vehicle[defense_fore_current]">Current</label>
+        </div>
+      </div>
+      <div class='defense-label'>Fore</div>
+    </div>
+    <div class='defense-aft defense'>
+      <div class='defense-label'>Aft</div>
+      <div class="panel panel-default base">
+        <div class="panel-body">
+          <input type="text" pattern="[0-9]*" class="form-control" name="vehicle[defense_aft]" value="<%= get_field(@vehicle, :defense_aft) %>" />
+        </div>
+        <div class="panel-footer text-center">
+          <label for="vehicle[defense_aft]">Defense</label>
+        </div>
+      </div>
+      <div class="panel panel-default current">
+        <div class="panel-body">
+          <input type="text" pattern="[0-9]*" class="form-control" name="vehicle[defense_aft_current]" value="<%= get_field(@vehicle, :defense_aft_current) %>" />
+        </div>
+        <div class="panel-footer text-center">
+          <label for="vehicle[defense_aft_current]">Current</label>
+        </div>
+      </div>
+    </div>
+    <div class='defense-port defense'>
+      <div class="panel panel-default base">
+        <div class="panel-body">
+          <input type="text" pattern="[0-9]*" class="form-control" name="vehicle[defense_port]" value="<%= get_field(@vehicle, :defense_port) %>" />
+        </div>
+        <div class="panel-footer text-center">
+          <label for="vehicle[defense_port]">Defense</label>
+        </div>
+      </div>
+      <div class="panel panel-default current">
+        <div class="panel-body">
+          <input type="text" pattern="[0-9]*" class="form-control" name="vehicle[defense_port_current]" value="<%= get_field(@vehicle, :defense_port_current) %>" />
+        </div>
+        <div class="panel-footer text-center">
+          <label for="vehicle[defense_port_current]">Current</label>
+        </div>
+      </div>
+      <div class='defense-label'>Port</div>
+    </div>
+    <div class='defense-starboard defense'>
+      <div class="panel panel-default base">
+        <div class="panel-body">
+          <input type="text" pattern="[0-9]*" class="form-control" name="vehicle[defense_starboard]" value="<%= get_field(@vehicle, :defense_starboard) %>" />
+        </div>
+        <div class="panel-footer text-center">
+          <label for="vehicle[defense_starboard]">Defense</label>
+        </div>
+      </div>
+      <div class="panel panel-default current">
+        <div class="panel-body">
+          <input type="text" pattern="[0-9]*" class="form-control" name="vehicle[defense_starboard_current]" value="<%= get_field(@vehicle, :defense_starboard_current) %>" />
+        </div>
+        <div class="panel-footer text-center">
+          <label for="vehicle[defense_starboard_current]">Current</label>
+        </div>
+      </div>
+      <div class='defense-label'>Starboard</div>
+    </div>
+  </div>
+  <div class='col-sm-4'>
+    <div class='form-group'>
+      <label for="vehicle[crew]">Crew</label>
+      <input type="text" class="form-control" name="vehicle[crew]" value="<%= get_field(@vehicle, :crew) %>" />
+    </div>
+    <div class='form-group'>
+      <label for="vehicle[passengers]">Passengers</label>
+      <input type="text" class="form-control" name="vehicle[passengers]" value="<%= get_field(@vehicle, :passengers) %>" />
+    </div>
+    <div class='form-group'>
+      <label for="vehicle[crew]">Crew</label>
+      <input type="text" class="form-control" name="vehicle[crew]" value="<%= get_field(@vehicle, :crew) %>" />
+    </div>
+    <div class='form-group'>
+      <label for="vehicle[consumables]">Consumables</label>
+      <input type="text" class="form-control" name="vehicle[consumables]" value="<%= get_field(@vehicle, :consumables) %>" />
+    </div>
+    <div class='form-group'>
+      <label for="vehicle[hyperdrive]">Hyperdrive</label>
+      <input type="text" class="form-control" name="vehicle[hyperdrive]" value="<%= get_field(@vehicle, :hyperdrive) %>" />
+    </div>
+    <div class='form-group'>
+      <label for="vehicle[sensor_range]">Sensor Range</label>
+      <select class='form-control' name='vehicle[sensor_range]'>
+        <option>Engaged</option>
+        <option>Short</option>
+        <option>Medium</option>
+        <option>Long</option>
+        <option>Extreme</option>
+        <option>n/a</option>
+      </select>
+    </div>
+    <div class='form-group'>
+      <label for="vehicle[price_rarity]">Price / Rarity</label>
+      <input type="text" class="form-control" name="vehicle[price_rarity]" value="<%= get_field(@vehicle, :price_rarity) %>" />
+    </div>
   </div>
 </div>
