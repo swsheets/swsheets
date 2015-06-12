@@ -167,10 +167,6 @@ defmodule EdgeBuilder.CharacterController do
   end
   defp character_skill_changesets(_,_), do: []
 
-  def current_user_id(conn) do
-    get_session(conn, :current_user_id)
-  end
-
   defp is_owner?(conn, character) do
     character.user_id == current_user_id(conn)
   end

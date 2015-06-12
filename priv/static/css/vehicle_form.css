@@ -1,0 +1,39 @@
+.defense-container {
+  background-image: url(/images/defense-four.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 400px;
+  height: 500px;
+}
+
+.defense-fore {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  margin-left: -80px;
+}
+
+.defense-container .base, .defense-container .current {
+  display: inline-block;
+  width: 80px;
+  font-size: 12px;
+}
+
+.defense-container .base {
+  margin-right: -4px;
+}
+
+.defense-container .panel-footer {
+  padding: 0px;
+  padding-top: 4px;
+}
+
+.defense-container .base .panel-footer, .defense-container .base.panel {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.defense-container .current .panel-footer, .defense-container .current.panel {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}

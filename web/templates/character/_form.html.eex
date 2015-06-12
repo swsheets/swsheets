@@ -1,5 +1,5 @@
 <div class="row well save-panel">
-  <button form="character_form" type="submit" class="btn btn-success">Save</button>
+  <button type="submit" class="btn btn-success">Save</button>
   <a class="btn btn-default pull-right" href="<%= character_path(@conn, :index) %>">Cancel</a>
 </div>
 

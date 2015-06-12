@@ -19,8 +19,9 @@ defmodule EdgeBuilder.Router do
     get "/", PageController, :index
     get "/about", PageController, :about
     get "/thanks", PageController, :thanks
-    resources "/u", ProfileController, only: [:show]
     resources "/c", CharacterController
+    resources "/u", ProfileController, only: [:show]
+    resources "/v", VehicleController, only: [:new, :create]
     get  "/welcome", SignupController, :welcome
     get  "/forgot-password", PasswordResetController, :request
     post  "/forgot-password", PasswordResetController, :submit_request

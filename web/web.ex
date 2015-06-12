@@ -43,6 +43,10 @@ defmodule EdgeBuilder.Web do
           |> put_session(:current_user_username, user.username)
       end
 
+      def current_user_id(conn) do
+        get_session(conn, :current_user_id)
+      end
+
       def render_404(conn), do: conn |> put_status(:not_found) |> render(EdgeBuilder.ErrorView, "404.html")
     end
   end
