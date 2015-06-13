@@ -20,7 +20,7 @@ defmodule EdgeBuilder.Models.VehicleAttack do
   def is_default_changeset?(changeset) do
     default = struct(__MODULE__)
 
-    Enum.all?([:weapon_name ,:firing_arc ,:range ,:specials ,:damage ,:critical ,:display_order], fn field ->
+    Enum.all?([:weapon_name, :firing_arc, :range, :specials, :damage, :critical, :display_order], fn field ->
       Ecto.Changeset.get_field(changeset, field) == Map.fetch!(default, field)
     end)
   end

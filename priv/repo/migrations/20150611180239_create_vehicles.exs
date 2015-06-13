@@ -66,13 +66,11 @@ defmodule EdgeBuilder.Repo.Migrations.CreateVehicles do
 
     create table(:vehicle_attachments) do
       add :vehicle_id, :integer, null: false
-      add :weapon_name, :string
-      add :firing_arc, :string
-      add :damage, :string
-      add :range, :string
-      add :critical, :string
-      add :specials, :string
-      add :display_order, :integer
+      add :name, :string
+      add :hard_points_required, :integer, default: 0
+      add :base_modifiers, :string
+      add :modifications, :string
+      add :display_order, :integer, default: 0
     end
   end
 end
