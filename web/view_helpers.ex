@@ -17,6 +17,12 @@ defmodule EdgeBuilder.ViewHelpers do
       def profile_link(conn, user, size) do
         render EdgeBuilder.ProfileView, "profile_link.html", conn: conn, user: user, size: size
       end
+
+      def options(value, options) do
+        Enum.map(options, fn opt ->
+          "<option#{if value == opt, do: " selected"}>#{opt}</option>"
+        end) |> raw
+      end
     end
   end
 end

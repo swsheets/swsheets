@@ -70,3 +70,19 @@
   right: 40px;
   margin-top: -46px;
 }
+
+.attack-second-row td {
+  border-top-width: 0px !important;
+}
+
+.attack-table td, .attack-table .form-group {
+  margin:0px;
+}
+
+.attack-table label {
+  font-size: 12px;
+}
+
+.attack-remove-container {
+  vertical-align: middle !important;
+}

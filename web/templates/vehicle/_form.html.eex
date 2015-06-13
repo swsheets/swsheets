@@ -249,15 +249,15 @@
 </div>
 
 <div class='row'>
-  <div class='col-lg-7'>
+  <div class='col-lg-8'>
     <div class='row'>
-      weapons
+      <%= render "_form_attacks.html", vehicle_attacks: @vehicle_attacks %>
     </div>
     <div class='row'>
       attachments
     </div>
   </div>
-  <div class='col-lg-5'>
+  <div class='col-lg-4'>
     <div class='col-lg-12 col-sm-6'>
       <h4>Cargo</h4>
       <textarea name="vehicle[cargo]" rows=10 class="form-control"><%= get_field(@vehicle, :cargo) %></textarea>
