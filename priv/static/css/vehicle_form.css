@@ -3,7 +3,7 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: 400px;
-  height: 500px;
+  height: 550px;
 }
 
 .defense-container .panel {
@@ -45,14 +45,14 @@
 
 .defense-fore {
   position: absolute;
-  top: 10px;
+  top: 35px;
   left: 50%;
   margin-left: -80px;
 }
 
 .defense-aft {
   position: absolute;
-  top: 370px;
+  top: 405px;
   left: 50%;
   margin-left: -80px;
 }
