@@ -247,3 +247,30 @@
     </div>
   </div>
 </div>
+
+<div class='row'>
+  <div class='col-lg-7'>
+    <div class='row'>
+      weapons
+    </div>
+    <div class='row'>
+      attachments
+    </div>
+  </div>
+  <div class='col-lg-5'>
+    <div class='col-lg-12 col-sm-6'>
+      <h4>Cargo</h4>
+      <textarea name="vehicle[cargo]" rows=10 class="form-control"><%= get_field(@vehicle, :cargo) %></textarea>
+    </div>
+    <div class='col-lg-12 col-sm-6'>
+      <h4>Notes</h4>
+      <textarea name="vehicle[notes]" rows=10 class="form-control"><%= get_field(@vehicle, :notes) %></textarea>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <p class="text-center return-box">
+    <a href="#">Return to Top</a>
+  </p>
+</div>
