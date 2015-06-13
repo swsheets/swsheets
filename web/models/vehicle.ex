@@ -31,8 +31,9 @@ defmodule EdgeBuilder.Models.Vehicle do
     field :defense_starboard_current, :integer, default: 0
     field :sensor_range, :string, default: "Short"
     field :cargo, :string
-    field :hyperdrive, :boolean, default: true
-    field :standard_crew, :string
+    field :notes, :string
+    field :hyperdrive, :string, default: "Primary: Class 2, Backup: None"
+    field :crew, :string
     field :passenger_capacity, :integer, default: 0
 
     timestamps

@@ -26,8 +26,9 @@ defmodule EdgeBuilder.Repo.Migrations.CreateVehicles do
       add :defense_starboard_current, :integer
       add :sensor_range, :string
       add :cargo, :text
-      add :hyperdrive, :boolean
-      add :standard_crew, :string
+      add :notes, :text
+      add :hyperdrive, :string
+      add :crew, :string
       add :passenger_capacity, :integer
       add :portrait_url, :string
       add :user_id, :integer
