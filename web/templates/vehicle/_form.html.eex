@@ -252,25 +252,37 @@
   <div class='col-lg-8'>
     <div class='row'>
       <%= render "_form_attacks.html", vehicle_attacks: @vehicle_attacks %>
+      <p class='text-center col-sm-4 col-sm-offset-4'>
+        <button id="addAttackButton" type="button" class="btn btn-block btn-default">Add Attack</button>
+      </p>
     </div>
     <div class='row'>
-      attachments
+      <%= render "_form_attachments.html", vehicle_attachments: @vehicle_attachments %>
+      <p class='text-center col-sm-4 col-sm-offset-4'>
+        <button id="addAttachmentButton" type="button" class="btn btn-block btn-default">Add Attachment</button>
+      </p>
     </div>
   </div>
   <div class='col-lg-4'>
-    <div class='col-lg-12 col-sm-6'>
-      <h4>Cargo</h4>
-      <textarea name="vehicle[cargo]" rows=10 class="form-control"><%= get_field(@vehicle, :cargo) %></textarea>
-    </div>
-    <div class='col-lg-12 col-sm-6'>
-      <h4>Notes</h4>
-      <textarea name="vehicle[notes]" rows=10 class="form-control"><%= get_field(@vehicle, :notes) %></textarea>
-    </div>
+    <h4>Special Features</h4>
+    <textarea name="vehicle[special_features]" rows=15 class="form-control"><%= get_field(@vehicle, :special_features) %></textarea>
   </div>
 </div>
 
+<hr>
+
 <div class="row">
-  <p class="text-center return-box">
-    <a href="#">Return to Top</a>
-  </p>
+  <div class='col-sm-6'>
+    <h4>Cargo</h4>
+    <textarea name="vehicle[cargo]" rows=15 class="form-control"><%= get_field(@vehicle, :cargo) %></textarea>
+  </div>
+  <div class='col-sm-6'>
+    <h4>Notes</h4>
+    <textarea name="vehicle[notes]" rows=15 class="form-control"><%= get_field(@vehicle, :notes) %></textarea>
+  </div>
+  <div class='col-sm-12'>
+    <p class="text-center return-box">
+      <a href="#">Return to Top</a>
+    </p>
+  </div>
 </div>

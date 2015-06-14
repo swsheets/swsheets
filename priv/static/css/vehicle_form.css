@@ -1,3 +1,7 @@
+.addon-core-attr {
+  width: 90px;
+}
+
 .defense-container {
   background-image: url(/images/defense-four.svg);
   background-repeat: no-repeat;
@@ -71,18 +75,18 @@
   margin-top: -46px;
 }
 
-.attack-second-row td {
+.child-second-row td {
   border-top-width: 0px !important;
 }
 
-.attack-table td, .attack-table .form-group {
+.child-table td, .child-table .form-group {
   margin:0px;
 }
 
-.attack-table label {
+.child-table label {
   font-size: 12px;
 }
 
-.attack-remove-container {
+.child-remove-container {
   vertical-align: middle !important;
 }
