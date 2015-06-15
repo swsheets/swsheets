@@ -3,11 +3,26 @@
 }
 
 .defense-container {
-  background-image: url(/images/defense-four.svg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 400px;
   height: 550px;
+}
+
+.four-zones {
+  background-image: url(/images/defense-four.svg);
+}
+
+.two-zones {
+  background-image: url(/images/defense-two.svg);
+}
+
+.two-zones .defense-port {
+  display: none;
+}
+
+.two-zones .defense-starboard {
+  display: none;
 }
 
 .defense-container .panel {
