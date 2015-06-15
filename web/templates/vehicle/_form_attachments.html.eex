@@ -1,9 +1,11 @@
 <h4>Attachments</h4>
 
-<table class='table table-condensed child-table'>
+<table class='table table-condensed child-table attachment'>
   <%= for {attachment, i} <- Enum.with_index(@vehicle_attachments) do %>
-    <tr class="child-first-row<%= if rem(i, 2) == 0, do: " active" %>" data-attachment=<%= i %>>
+    <tr class="attachment child-first-row<%= if rem(i, 2) == 0, do: " active" %>" data-attachment=<%= i %>>
       <td colspan=2>
+        <input type="hidden" name="attachments[<%= i %>][id]" value="<%= get_field(attachment, :id) %>" />
+        <input type="hidden" name="attachments[<%= i %>][display_order]" value="<%= get_field(attachment, :display_order) %>" />
         <div class="form-group form-group-sm">
           <label class="sr-only" for="attachments[<%= i %>][name]">Name</label>
           <input type="text" class="form-control" name="attachments[<%= i %>][name]" placeholder="Name" value="<%= get_field(attachment, :name) %>" />
@@ -19,7 +21,7 @@
         <button type="button" class="btn btn-block btn-danger btn-xs" data-remove-attachment=<%= i %>>Remove</button>
       </td>
     </tr>
-    <tr class="child-second-row<%= if rem(i, 2) == 0, do: " active" %>" data-attachment=<%= i %>>
+    <tr class="attachment child-second-row<%= if rem(i, 2) == 0, do: " active" %>" data-attachment=<%= i %>>
       <td class='form-inline'>
         <div class="form-group form-group-sm pull-right">
           <label for="attachments[<%= i %>][hard_points_required]">Hard Points</label>

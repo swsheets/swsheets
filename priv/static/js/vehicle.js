@@ -1,4 +1,58 @@
 var VehicleForm = (function() {
+  function addAttachment() {
+    var firstAttachmentRow = $(".attachment.child-first-row:last").clone(true);
+    var secondAttachmentRow = $(".attachment.child-second-row:last").clone(true);
+    var previousIndex = parseInt(firstAttachmentRow.attr("data-attachment"));
+    var index = previousIndex + 1;
+    var attachmentTable = $(".attachment.child-table");
+
+    $.each([firstAttachmentRow, secondAttachmentRow], function(_, row) {
+      attachmentTable.append(row);
+
+      row
+        .attr("data-attachment", index)
+        .toggleClass("active");
+
+      row.find("[type=text]").val("");
+      row.find("[name]").attr("name", function(i, currentName) { return currentName.replace("attachments["+previousIndex+"]", "attachments["+index+"]") });
+      row.find("[for]").attr("for", function(i, currentFor) { return currentFor.replace("attachments["+previousIndex+"]", "attachments["+index+"]") });
+    });
+
+    firstAttachmentRow.find("[name='attachments["+index+"][id]']").remove();
+    firstAttachmentRow.find("[name='attachments["+index+"][display_order]']").val(index);
+    firstAttachmentRow.find("[data-remove-attachment]").attr("data-remove-attachment", index);
+
+    enableDisableRemoveAttachmentButtons();
+  }
+
+  function enableDisableRemoveAttachmentButtons() {
+    var removeButtons = $("[data-remove-attachment]");
+    if(removeButtons.length == 1) {
+      removeButtons.attr("disabled", "disabled");
+    } else {
+      removeButtons.removeAttr("disabled");
+    }
+  }
+
+  function removeAttachment(attachmentIndex) {
+    $("[data-attachment="+attachmentIndex+"]").remove();
+
+    $.each([".attachment.child-first-row", ".attachment.child-second-row"], function(i, selector) {
+      var i = 0;
+
+      $(selector).each( function() {
+        if(i % 2 == 0) {
+          $(this).addClass("active");
+        } else {
+          $(this).removeClass("active");
+        }
+        i++;
+      });
+    });
+
+    enableDisableRemoveAttachmentButtons();
+  }
+
   function addAttack() {
     var firstAttackRow = $(".attack.child-first-row:last").clone(true);
     var secondAttackRow = $(".attack.child-second-row:last").clone(true);
@@ -69,6 +123,8 @@ var VehicleForm = (function() {
     $("#silhouette").change(setDefenseFromSilhouette);
     $("[data-remove-attack]").click(function() { removeAttack($(this).attr("data-remove-attack")) });
     $("#addAttackButton").click(addAttack);
+    $("[data-remove-attachment]").click(function() { removeAttachment($(this).attr("data-remove-attachment")) });
+    $("#addAttachmentButton").click(addAttachment);
   }
 
   return {
