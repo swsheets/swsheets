@@ -28,7 +28,7 @@
       <div class='col-sm-3 form-group'>
         <div class="panel panel-default">
           <div class="panel-body">
-            <input type="text" pattern="[0-9]*" class="form-control" name="vehicle[silhouette]" value="<%= get_field(@vehicle, :silhouette) %>" />
+            <input type="number" min=0 max=10 step=1 class="form-control" id="silhouette" name="vehicle[silhouette]" value="<%= get_field(@vehicle, :silhouette) %>" />
           </div>
           <div class="panel-footer text-center">
             <label for="vehicle[silhouette]">Silhouette</label>
@@ -38,7 +38,7 @@
       <div class='col-sm-3 form-group'>
         <div class="panel panel-default">
           <div class="panel-body">
-            <input type="text" pattern="[0-9]*" class="form-control" name="vehicle[armor]" value="<%= get_field(@vehicle, :armor) %>" />
+            <input type="number" min=0 max=10 step=1 class="form-control" name="vehicle[armor]" value="<%= get_field(@vehicle, :armor) %>" />
           </div>
           <div class="panel-footer text-center">
             <label for="vehicle[armor]">Armor</label>
@@ -48,7 +48,7 @@
       <div class='col-sm-3 form-group'>
         <div class="panel panel-default">
           <div class="panel-body">
-            <input type="text" pattern="[0-9]*" class="form-control" name="vehicle[speed]" value="<%= get_field(@vehicle, :speed) %>" />
+            <input type="number" min=0 max=10 step=1 class="form-control" name="vehicle[speed]" value="<%= get_field(@vehicle, :speed) %>" />
           </div>
           <div class="panel-footer text-center">
             <label for="vehicle[speed]">Speed</label>
@@ -58,7 +58,7 @@
       <div class='col-sm-3 form-group'>
         <div class="panel panel-default">
           <div class="panel-body">
-            <input type="text" pattern="[0-9]*" class="form-control" name="vehicle[current_speed]" value="<%= get_field(@vehicle, :current_speed) %>" />
+            <input type="number" min=0 max=10 step=1 class="form-control" name="vehicle[current_speed]" value="<%= get_field(@vehicle, :current_speed) %>" />
           </div>
           <div class="panel-footer text-center">
             <label for="vehicle[current_speed]">Cur. Speed</label>
