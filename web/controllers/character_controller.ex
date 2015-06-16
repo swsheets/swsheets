@@ -166,8 +166,4 @@ defmodule EdgeBuilder.CharacterController do
     |> Enum.reject(&CharacterSkill.is_default_changeset?/1)
   end
   defp character_skill_changesets(_,_), do: []
-
-  defp is_owner?(conn, character) do
-    character.user_id == current_user_id(conn)
-  end
 end

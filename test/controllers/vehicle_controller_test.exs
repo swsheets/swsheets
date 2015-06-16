@@ -7,6 +7,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
   alias EdgeBuilder.Models.VehicleAttachment
   alias EdgeBuilder.Repo
   alias Factories.UserFactory
+  alias Factories.VehicleFactory
 
   describe "new" do
     it "renders the edit form for a new vehicle" do
@@ -175,6 +176,46 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
       conn = request(:post, "/v")
 
       assert requires_authentication?(conn)
+    end
+  end
+
+  describe "edit" do
+    it "renders the vehicle edit form" do
+      vehicle = VehicleFactory.create_vehicle(user_id: UserFactory.default_user.id)
+
+      vehicle_attack = %VehicleAttack{
+        weapon_name: "ship claws",
+        vehicle_id: vehicle.id
+      } |> Repo.insert
+
+      vehicle_attachment = %VehicleAttachment{
+        name: "green shell",
+        vehicle_id: vehicle.id
+      } |> Repo.insert
+
+      conn = authenticated_request(UserFactory.default_user, :get, "/v/#{vehicle.permalink}/edit")
+
+      assert String.contains?(conn.resp_body, vehicle.name)
+      assert String.contains?(conn.resp_body, vehicle_attack.weapon_name)
+      assert String.contains?(conn.resp_body, vehicle_attachment.name)
+    end
+
+    it "requires authentication" do
+      vehicle = VehicleFactory.create_vehicle
+
+      conn = request(:get, "/v/#{vehicle.permalink}/edit")
+
+      assert requires_authentication?(conn)
+    end
+
+    it "requires the current user to match the owning user" do
+      owner = UserFactory.default_user
+      other = UserFactory.create_user(username: "other")
+      vehicle = VehicleFactory.create_vehicle(user_id: owner.id)
+
+      conn = authenticated_request(other, :get, "/v/#{vehicle.permalink}/edit")
+
+      assert is_redirect_to?(conn, "/")
     end
   end
 end

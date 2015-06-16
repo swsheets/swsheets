@@ -47,6 +47,10 @@ defmodule EdgeBuilder.Web do
         get_session(conn, :current_user_id)
       end
 
+      def is_owner?(conn, model) do
+        model.user_id == current_user_id(conn)
+      end
+
       def render_404(conn), do: conn |> put_status(:not_found) |> render(EdgeBuilder.ErrorView, "404.html")
     end
   end

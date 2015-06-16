@@ -38,6 +38,20 @@ defmodule EdgeBuilder.VehicleController do
     end
   end
 
+  def edit(conn, %{"id" => id}) do
+    vehicle = Vehicle.full_vehicle(id)
+
+    if !is_owner?(conn, vehicle) do
+      redirect conn, to: "/"
+    else
+      render conn, :edit,
+        title: "Editing #{vehicle.name}",
+        vehicle: vehicle |> Vehicle.changeset(current_user_id(conn)),
+        vehicle_attacks: (if Enum.empty?(vehicle.vehicle_attacks), do: [%VehicleAttack{}], else: vehicle.vehicle_attacks) |> Enum.map(&VehicleAttack.changeset/1),
+        vehicle_attachments: (if Enum.empty?(vehicle.vehicle_attachments), do: [%VehicleAttachment{}], else: vehicle.vehicle_attachments) |> Enum.map(&VehicleAttachment.changeset/1)
+    end
+  end
+
   defp child_changesets(params, child_model, instances \\ [])
   defp child_changesets(params, child_model, instances) when is_map(params) do
     params
