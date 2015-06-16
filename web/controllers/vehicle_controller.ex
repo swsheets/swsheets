@@ -11,11 +11,10 @@ defmodule EdgeBuilder.VehicleController do
   plug :action
 
   def new(conn, _params) do
-    render conn, :new,
-      title: "New Vehicle",
+    render_vehicle conn, :new,
       vehicle: %Vehicle{} |> Vehicle.changeset(current_user_id(conn)),
-      vehicle_attacks: [%VehicleAttack{} |> VehicleAttack.changeset],
-      vehicle_attachments: [%VehicleAttachment{} |> VehicleAttachment.changeset]
+      vehicle_attacks: [],
+      vehicle_attachments: []
   end
 
   def create(conn, params = %{"vehicle" => vehicle_params}) do
@@ -30,11 +29,10 @@ defmodule EdgeBuilder.VehicleController do
 
       redirect conn, to: vehicle_path(conn, :show, changemap.root)
     else
-      render conn, :new,
-        title: "New Vehicle",
+      render_vehicle conn, :new,
         vehicle: changemap.root,
-        vehicle_attacks: (if Enum.empty?(changemap.vehicle_attacks), do: [%VehicleAttack{} |> VehicleAttack.changeset], else: changemap.vehicle_attacks),
-        vehicle_attachments: (if Enum.empty?(changemap.vehicle_attachments), do: [%VehicleAttachment{} |> VehicleAttachment.changeset], else: changemap.vehicle_attachments),
+        vehicle_attacks: changemap.vehicle_attacks,
+        vehicle_attachments: changemap.vehicle_attachments,
         errors: changemap.root.errors
     end
   end
@@ -45,11 +43,10 @@ defmodule EdgeBuilder.VehicleController do
     if !is_owner?(conn, vehicle) do
       redirect conn, to: "/"
     else
-      render conn, :edit,
-        title: "Editing #{vehicle.name}",
+      render_vehicle conn, :edit,
         vehicle: vehicle |> Vehicle.changeset(current_user_id(conn)),
-        vehicle_attacks: (if Enum.empty?(vehicle.vehicle_attacks), do: [%VehicleAttack{}], else: vehicle.vehicle_attacks) |> Enum.map(&VehicleAttack.changeset/1),
-        vehicle_attachments: (if Enum.empty?(vehicle.vehicle_attachments), do: [%VehicleAttachment{}], else: vehicle.vehicle_attachments) |> Enum.map(&VehicleAttachment.changeset/1)
+        vehicle_attacks: Enum.map(vehicle.vehicle_attacks, &VehicleAttack.changeset/1),
+        vehicle_attachments: Enum.map(vehicle.vehicle_attachments, &VehicleAttachment.changeset/1)
     end
   end
 
@@ -71,11 +68,10 @@ defmodule EdgeBuilder.VehicleController do
 
         redirect conn, to: vehicle_path(conn, :show, changemap.root.model)
       else
-        render conn, :edit,
-          title: "Editing #{get_field(changemap.root, :name)}",
+        render_vehicle conn, :edit,
           vehicle: changemap.root,
-          vehicle_attacks: (if Enum.empty?(changemap.vehicle_attacks), do: [%VehicleAttack{} |> VehicleAttack.changeset], else: changemap.vehicle_attacks),
-          vehicle_attachments: (if Enum.empty?(changemap.vehicle_attachments), do: [%VehicleAttachment{} |> VehicleAttachment.changeset], else: changemap.vehicle_attachments),
+          vehicle_attacks: changemap.vehicle_attacks,
+          vehicle_attachments: changemap.vehicle_attachments,
           errors: changemap.root.errors
       end
     end
@@ -94,4 +90,20 @@ defmodule EdgeBuilder.VehicleController do
     Enum.find(instances, &(to_string(&1.id) == to_string(id))) |> model.changeset(params)
   end
   defp to_changeset(params, model, _), do: model.changeset(struct(model), params)
+
+  defp render_vehicle(conn, :new, assignments) do
+    render_vehicle_base(conn, :new, Keyword.merge(assignments, title: "New Vehicle"))
+  end
+  defp render_vehicle(conn, :edit, assignments) do
+    render_vehicle_base(conn, :new, Keyword.merge(assignments, title: "Editing #{get_field(assignments[:vehicle], :name)}"))
+  end
+  defp render_vehicle_base(conn, template, assignments) do
+    render conn, template,
+      Keyword.merge(assignments,
+        title: assignments[:title],
+        vehicle: assignments[:vehicle],
+        vehicle_attacks: (if Enum.empty?(assignments[:vehicle_attacks]), do: [%VehicleAttack{} |> VehicleAttack.changeset], else: assignments[:vehicle_attacks]),
+        vehicle_attachments: (if Enum.empty?(assignments[:vehicle_attachments]), do: [%VehicleAttachment{} |> VehicleAttachment.changeset], else: assignments[:vehicle_attachments])
+      )
+  end
 end
