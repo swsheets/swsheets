@@ -316,5 +316,56 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
       assert second_attachment.name == "horn"
       assert third_attachment.name == "star"
     end
+
+    it "filters out empty child changes" do
+      vehicle = VehicleFactory.create_vehicle(user_id: UserFactory.default_user.id)
+
+      authenticated_request(UserFactory.default_user, :put, "/v/#{vehicle.permalink}", %{
+        "vehicle" => %{},
+        "attacks" => %{
+          "1" => %{"weapon_name" => "", "display_order" => "1"},
+        },
+        "attachments" => %{
+          "1" => %{"name" => "", "display_order" => "3"},
+        }
+      })
+
+      vehicle = Vehicle.full_vehicle(vehicle.permalink)
+
+      assert vehicle.vehicle_attacks == []
+      assert vehicle.vehicle_attachments == []
+    end
+
+    it "re-renders the edit page when there are errors" do
+      vehicle = VehicleFactory.create_vehicle(user_id: UserFactory.default_user.id)
+
+      conn = authenticated_request(UserFactory.default_user, :put, "/v/#{vehicle.permalink}", %{
+        "vehicle" => %{"name" => ""},
+        "attacks" => %{
+          "1" => %{"weapon_name" => "Wololo", "display_order" => "1"},
+        }
+      })
+
+      assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text == "Name can't be blank"
+      assert !is_nil(FlokiExt.element(conn, "[data-attack=0]"))
+      assert !is_nil(FlokiExt.element(conn, "[data-attachment=0]"))
+      assert String.contains?(conn.resp_body, "Wololo")
+    end
+
+    it "requires authentication" do
+      conn = request(:put, "/v/123")
+
+      assert requires_authentication?(conn)
+    end
+
+    it "requires the current user to match the owning user" do
+      owner = UserFactory.default_user
+      other = UserFactory.create_user(username: "other")
+      vehicle = VehicleFactory.create_vehicle(user_id: owner.id)
+
+      conn = authenticated_request(other, :put, "/v/#{vehicle.permalink}", %{"vehicle" => %{}})
+
+      assert is_redirect_to?(conn, "/")
+    end
   end
 end

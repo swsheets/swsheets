@@ -5,6 +5,7 @@ defmodule EdgeBuilder.VehicleController do
   alias EdgeBuilder.Models.Vehicle
   alias EdgeBuilder.Models.VehicleAttack
   alias EdgeBuilder.Models.VehicleAttachment
+  import Ecto.Changeset, only: [get_field: 2]
 
   plug Plug.Authentication, except: [:show]
   plug :action
@@ -61,10 +62,23 @@ defmodule EdgeBuilder.VehicleController do
       vehicle_attachments: child_changesets(params["attachments"], VehicleAttachment, vehicle.vehicle_attachments)
     }
 
-    Changemap.apply(changemap)
-    |> Changemap.delete_missing
+    if !is_owner?(conn, vehicle) do
+      redirect conn, to: "/"
+    else
+      if Changemap.valid?(changemap) do
+        Changemap.apply(changemap)
+        |> Changemap.delete_missing
 
-    redirect conn, to: vehicle_path(conn, :show, changemap.root.model)
+        redirect conn, to: vehicle_path(conn, :show, changemap.root.model)
+      else
+        render conn, :edit,
+          title: "Editing #{get_field(changemap.root, :name)}",
+          vehicle: changemap.root,
+          vehicle_attacks: (if Enum.empty?(changemap.vehicle_attacks), do: [%VehicleAttack{} |> VehicleAttack.changeset], else: changemap.vehicle_attacks),
+          vehicle_attachments: (if Enum.empty?(changemap.vehicle_attachments), do: [%VehicleAttachment{} |> VehicleAttachment.changeset], else: changemap.vehicle_attachments),
+          errors: changemap.root.errors
+      end
+    end
   end
 
   defp child_changesets(params, child_model, instances \\ [])
