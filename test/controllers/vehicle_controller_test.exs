@@ -9,6 +9,8 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
   alias Factories.UserFactory
   alias Factories.VehicleFactory
 
+  import Ecto.Query, only: [from: 2]
+
   describe "new" do
     it "renders the edit form for a new vehicle" do
       conn = authenticated_request(UserFactory.default_user, :get, "/v/new")
@@ -364,6 +366,44 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
       vehicle = VehicleFactory.create_vehicle(user_id: owner.id)
 
       conn = authenticated_request(other, :put, "/v/#{vehicle.permalink}", %{"vehicle" => %{}})
+
+      assert is_redirect_to?(conn, "/")
+    end
+  end
+
+  describe "delete" do
+    it "deletes a vehicle and all associated records" do
+      vehicle = VehicleFactory.create_vehicle
+
+      %VehicleAttack{
+        weapon_name: "ship claws",
+        vehicle_id: vehicle.id
+      } |> Repo.insert
+
+      %VehicleAttachment{
+        name: "green shell",
+        vehicle_id: vehicle.id
+      } |> Repo.insert
+
+      authenticated_request(UserFactory.default_user, :delete, "/v/#{vehicle.permalink}")
+
+      assert is_nil(Repo.get(Vehicle, vehicle.id))
+      assert is_nil(Repo.one(from va in VehicleAttack, where: va.vehicle_id == ^(vehicle.id)))
+      assert is_nil(Repo.one(from va in VehicleAttachment, where: va.vehicle_id == ^(vehicle.id)))
+    end
+
+    it "requires authentication" do
+      conn = request(:delete, "/v/123")
+
+      assert requires_authentication?(conn)
+    end
+
+    it "requires the current user to match the owning user" do
+      owner = UserFactory.default_user
+      other = UserFactory.create_user(username: "other")
+      vehicle = VehicleFactory.create_vehicle(user_id: owner.id)
+
+      conn = authenticated_request(other, :delete, "/v/#{vehicle.permalink}")
 
       assert is_redirect_to?(conn, "/")
     end

@@ -77,6 +77,17 @@ defmodule EdgeBuilder.VehicleController do
     end
   end
 
+  def delete(conn, %{"id" => id}) do
+    vehicle = Vehicle.full_vehicle(id)
+
+    if !is_owner?(conn, vehicle) do
+      redirect conn, to: "/"
+    else
+      Vehicle.delete(vehicle)
+      redirect conn, to: vehicle_path(conn, :index)
+    end
+  end
+
   defp child_changesets(params, child_model, instances \\ [])
   defp child_changesets(params, child_model, instances) when is_map(params) do
     params

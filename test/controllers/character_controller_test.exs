@@ -635,7 +635,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       authenticated_request(UserFactory.default_user, :delete, "/c/#{character.permalink}")
 
       assert is_nil(Repo.get(Character, character.id))
-      assert is_nil(Repo.one(from cs in CharacterSkill, where: cs.id == ^(character.id)))
+      assert is_nil(Repo.one(from cs in CharacterSkill, where: cs.character_id == ^(character.id)))
     end
 
     it "requires authentication" do
