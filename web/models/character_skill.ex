@@ -28,7 +28,8 @@ defmodule EdgeBuilder.Models.CharacterSkill do
     default = struct(__MODULE__)
 
     Enum.all?([:rank, :is_career], fn field ->
-      Ecto.Changeset.get_field(changeset, field) == Map.fetch!(default, field)
+      value = Ecto.Changeset.get_field(changeset, field)
+      is_nil(value) || value == Map.fetch!(default, field)
     end)
   end
 

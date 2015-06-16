@@ -27,10 +27,16 @@ defmodule EdgeBuilder.Repo.Migrations.CreateVehicles do
       add :sensor_range, :string
       add :cargo, :text
       add :notes, :text
+      add :special_features, :text
       add :hyperdrive, :string
       add :crew, :string
-      add :passenger_capacity, :integer
-      add :portrait_url, :string
+      add :passengers, :string
+      add :consumables, :string
+      add :faction, :string
+      add :picture_url, :string
+      add :price, :string
+      add :rarity, :string
+      add :type, :string
       add :user_id, :integer
       add :inserted_at, :timestamp
       add :updated_at, :timestamp

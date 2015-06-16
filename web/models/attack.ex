@@ -24,7 +24,8 @@ defmodule EdgeBuilder.Models.Attack do
     default = struct(__MODULE__)
 
     Enum.all?([:weapon_name, :range, :specials, :damage, :critical, :base_skill_id], fn field ->
-      Ecto.Changeset.get_field(changeset, field) == Map.fetch!(default, field)
+      value = Ecto.Changeset.get_field(changeset, field)
+      is_nil(value) || value == Map.fetch!(default, field)
     end)
   end
 

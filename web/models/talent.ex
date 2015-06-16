@@ -20,7 +20,8 @@ defmodule EdgeBuilder.Models.Talent do
     default = struct(__MODULE__)
 
     Enum.all?([:name, :book_and_page, :description], fn field ->
-      Ecto.Changeset.get_field(changeset, field) == Map.fetch!(default, field)
+      value = Ecto.Changeset.get_field(changeset, field)
+      is_nil(value) || value == Map.fetch!(default, field)
     end)
   end
 

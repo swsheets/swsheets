@@ -132,6 +132,7 @@ var VehicleForm = (function() {
       initializeHandlers();
       setDefenseFromSilhouette();
       enableDisableRemoveAttackButtons();
+      enableDisableRemoveAttachmentButtons();
     }
   };
 })();

@@ -34,7 +34,14 @@ defmodule EdgeBuilder.Models.Vehicle do
     field :notes, :string
     field :hyperdrive, :string, default: "Primary: Class 2, Backup: None"
     field :crew, :string
-    field :passenger_capacity, :integer, default: 0
+    field :passengers, :string
+    field :consumables, :string
+    field :price, :string
+    field :rarity, :string
+    field :special_features, :string
+    field :faction, :string
+    field :picture_url, :string
+    field :type, :string
 
     timestamps
     belongs_to :user, User
@@ -51,8 +58,8 @@ defmodule EdgeBuilder.Models.Vehicle do
   defp required_fields, do: [:name]
   defp optional_fields, do: __schema__(:fields) -- ([:id, :url_slug] ++ required_fields)
 
-  def changeset(character, user_id, params \\ %{}) do
-    character
+  def changeset(vehicle, user_id, params \\ %{}) do
+    vehicle
     |> cast(Map.put(params, "user_id", user_id), required_fields, optional_fields)
   end
 
