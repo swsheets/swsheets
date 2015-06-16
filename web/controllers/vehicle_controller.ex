@@ -52,6 +52,21 @@ defmodule EdgeBuilder.VehicleController do
     end
   end
 
+  def update(conn, params = %{"id" => id, "vehicle" => vehicle_params}) do
+    vehicle = Vehicle.full_vehicle(id)
+
+    changemap = %{
+      root: Vehicle.changeset(vehicle, current_user_id(conn), vehicle_params),
+      vehicle_attacks: child_changesets(params["attacks"], VehicleAttack, vehicle.vehicle_attacks),
+      vehicle_attachments: child_changesets(params["attachments"], VehicleAttachment, vehicle.vehicle_attachments)
+    }
+
+    Changemap.apply(changemap)
+    |> Changemap.delete_missing
+
+    redirect conn, to: vehicle_path(conn, :show, changemap.root.model)
+  end
+
   defp child_changesets(params, child_model, instances \\ [])
   defp child_changesets(params, child_model, instances) when is_map(params) do
     params

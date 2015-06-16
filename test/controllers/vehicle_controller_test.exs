@@ -218,4 +218,103 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
       assert is_redirect_to?(conn, "/")
     end
   end
+
+  describe "update" do
+    it "updates the vehicle" do
+      vehicle = VehicleFactory.create_vehicle(name: "Foo Bar", faction: "Goose")
+
+      authenticated_request(UserFactory.default_user, :put, "/v/#{vehicle.permalink}", %{"vehicle" => %{"name" => "Bob Log", "faction" => "Bobs"}})
+
+      vehicle = Repo.get(Vehicle, vehicle.id)
+
+      assert vehicle.name == "Bob Log"
+      assert vehicle.faction == "Bobs"
+    end
+
+    it "handles blank appropriately" do
+      vehicle = VehicleFactory.create_vehicle(name: "Foo Bar", faction: "Goose")
+
+      authenticated_request(UserFactory.default_user, :put, "/v/#{vehicle.permalink}", %{"vehicle" => %{"faction" => ""}})
+
+      vehicle = Repo.get(Vehicle, vehicle.id)
+
+      assert is_nil(vehicle.faction)
+    end
+
+    it "redirects to the vehicle show page" do
+      vehicle = VehicleFactory.create_vehicle
+
+      conn = authenticated_request(UserFactory.default_user, :put, "/v/#{vehicle.permalink}", %{"vehicle" => %{"name" => "Bob Log", "faction" => "Bobs"}})
+
+      assert is_redirect_to?(conn, "/v/#{vehicle.permalink}")
+    end
+
+    it "updates child entities appropriately" do
+      vehicle = VehicleFactory.create_vehicle(user_id: UserFactory.default_user.id)
+
+      unchanged_vehicle_attack = %VehicleAttack{
+        weapon_name: "ship claws",
+        display_order: 0,
+        vehicle_id: vehicle.id
+      } |> Repo.insert
+
+      renamed_vehicle_attack = %VehicleAttack{
+        weapon_name: "big blaster",
+        display_order: 1,
+        vehicle_id: vehicle.id
+      } |> Repo.insert
+
+      _deleted_vehicle_attack = %VehicleAttack{
+        weapon_name: "missiles",
+        display_order: 2,
+        vehicle_id: vehicle.id
+      } |> Repo.insert
+
+      unchanged_vehicle_attachment = %VehicleAttachment{
+        name: "green shell",
+        display_order: 0,
+        vehicle_id: vehicle.id
+      } |> Repo.insert
+
+      renamed_vehicle_attachment = %VehicleAttachment{
+        name: "red shell",
+        display_order: 1,
+        vehicle_id: vehicle.id
+      } |> Repo.insert
+
+      _deleted_vehicle_attachment = %VehicleAttachment{
+        name: "banana",
+        display_order: 2,
+        vehicle_id: vehicle.id
+      } |> Repo.insert
+
+      authenticated_request(UserFactory.default_user, :put, "/v/#{vehicle.permalink}", %{
+        "vehicle" => %{},
+        "attacks" => %{
+          "0" => %{"id" => unchanged_vehicle_attack.id},
+          "1" => %{"id" => renamed_vehicle_attack.id, "weapon_name" => "small blaster"},
+          "2" => %{"weapon_name" => "ion cannon", "display_order" => "3"},
+        },
+        "attachments" => %{
+          "0" => %{"id" => unchanged_vehicle_attachment.id},
+          "1" => %{"id" => renamed_vehicle_attachment.id, "name" => "horn"},
+          "2" => %{"name" => "star", "display_order" => "3"},
+        }
+      })
+
+      vehicle = Vehicle.full_vehicle(vehicle.permalink)
+
+      [first_attack, second_attack, third_attack] = vehicle.vehicle_attacks |> Enum.sort(&(&1.display_order < &2.display_order))
+
+      assert unchanged_vehicle_attack == first_attack
+      assert second_attack.weapon_name == "small blaster"
+      assert third_attack.weapon_name == "ion cannon"
+
+      [first_attachment, second_attachment, third_attachment] = vehicle.vehicle_attachments |> Enum.sort(&(&1.display_order < &2.display_order))
+
+      assert unchanged_vehicle_attachment == first_attachment
+      assert second_attachment.name == "horn"
+      assert third_attachment.name == "star"
+    end
+  end
 end
