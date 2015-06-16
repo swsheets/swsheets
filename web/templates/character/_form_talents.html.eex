@@ -29,7 +29,7 @@
           </div>
         </td>
         <td class="col-md-1">
-          <button type="button" class="btn btn-block btn-danger btn-xs" data-remove-talent=<%= i %>>Remove</button>
+          <button type="button" tabindex="-1" class="btn btn-block btn-danger btn-xs" data-remove-talent=<%= i %>>Remove</button>
         </td>
       </tr>
     <% end %>

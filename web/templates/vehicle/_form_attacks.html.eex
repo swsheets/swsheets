@@ -29,7 +29,7 @@
         </div>
       </td>
       <td rowspan='2' class='child-remove-container'>
-        <button type="button" class="btn btn-block btn-danger btn-xs" data-remove-attack=<%= i %>>Remove</button>
+        <button type="button" tabindex="-1" class="btn btn-block btn-danger btn-xs" data-remove-attack=<%= i %>>Remove</button>
       </td>
     </tr>
     <tr class="attack child-second-row<%= if rem(i, 2) == 0, do: " active" %>" data-attack=<%= i %>>
