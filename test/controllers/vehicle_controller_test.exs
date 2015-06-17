@@ -181,6 +181,16 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
     end
   end
 
+  describe "show" do
+    it "renders the vehicle show form" do
+      vehicle = VehicleFactory.create_vehicle
+      conn = request(:get, "/v/#{vehicle.permalink}")
+
+      assert conn.status == 200
+      assert String.contains?(conn.resp_body, vehicle.name)
+    end
+  end
+
   describe "edit" do
     it "renders the vehicle edit form" do
       vehicle = VehicleFactory.create_vehicle(user_id: UserFactory.default_user.id)

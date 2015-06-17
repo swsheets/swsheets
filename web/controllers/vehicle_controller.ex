@@ -2,6 +2,7 @@ defmodule EdgeBuilder.VehicleController do
   use EdgeBuilder.Web, :controller
 
   alias EdgeBuilder.Changemap
+  alias EdgeBuilder.Models.User
   alias EdgeBuilder.Models.Vehicle
   alias EdgeBuilder.Models.VehicleAttack
   alias EdgeBuilder.Models.VehicleAttachment
@@ -35,6 +36,19 @@ defmodule EdgeBuilder.VehicleController do
         vehicle_attachments: changemap.vehicle_attachments,
         errors: changemap.root.errors
     end
+  end
+
+  def show(conn, %{"id" => id}) do
+    vehicle = Vehicle.full_vehicle(id)
+    user = Repo.get!(User, vehicle.user_id)
+
+    render conn, :show,
+      title: vehicle.name,
+      vehicle: vehicle |> Vehicle.changeset(current_user_id(conn)),
+      vehicle_attacks: Enum.map(vehicle.vehicle_attacks, &VehicleAttack.changeset/1),
+      vehicle_attachments: Enum.map(vehicle.vehicle_attachments, &VehicleAttachment.changeset/1),
+      viewed_by_owner: is_owner?(conn, vehicle),
+      user: user
   end
 
   def edit(conn, %{"id" => id}) do
@@ -106,7 +120,7 @@ defmodule EdgeBuilder.VehicleController do
     render_vehicle_base(conn, :new, Keyword.merge(assignments, title: "New Vehicle"))
   end
   defp render_vehicle(conn, :edit, assignments) do
-    render_vehicle_base(conn, :new, Keyword.merge(assignments, title: "Editing #{get_field(assignments[:vehicle], :name)}"))
+    render_vehicle_base(conn, :edit, Keyword.merge(assignments, title: "Editing #{get_field(assignments[:vehicle], :name)}"))
   end
   defp render_vehicle_base(conn, template, assignments) do
     render conn, template,

@@ -1,0 +1,136 @@
+.save-panel {
+  position: fixed;
+  z-index: 10;
+  width: 200px;
+  left: 50%;
+  margin-left: -100px;
+  top: 48px;
+  border: 1px solid #bbb;
+}
+
+h3 {
+  font-size: 16px;
+  color: #aaa;
+}
+
+h5, h6 {
+  font-weight: bold;
+}
+
+h6 {
+  display: inline;
+}
+
+.panel-value {
+  text-align: center;
+  font-weight: bold;
+  font-size: 130%;
+}
+
+.panel-footer {
+  font-weight: bold;
+}
+
+.defense-container {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 400px;
+  height: 550px;
+}
+
+.four-zones {
+  background-image: url(/images/defense-four.svg);
+}
+
+.two-zones {
+  background-image: url(/images/defense-two.svg);
+}
+
+.two-zones .defense-port {
+  display: none;
+}
+
+.two-zones .defense-starboard {
+  display: none;
+}
+
+.defense-container .panel {
+  margin-bottom: 0px;
+}
+
+.defense-container .base, .defense-container .current {
+  display: inline-block;
+  width: 80px;
+  font-size: 12px;
+}
+
+.defense-container .base {
+  margin-right: -4px;
+}
+
+.defense-container .panel-footer {
+  padding: 0px;
+  padding-top: 4px;
+}
+
+.defense-container .base .panel-footer, .defense-container .base.panel {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.defense-container .current .panel-footer, .defense-container .current.panel {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+.defense-label {
+  color: #fff;
+  background-color: #7a0515;
+  text-align: center;
+  width: 50%;
+  margin: auto;
+}
+
+.defense-fore {
+  position: absolute;
+  top: 35px;
+  left: 50%;
+  margin-left: -80px;
+}
+
+.defense-aft {
+  position: absolute;
+  top: 405px;
+  left: 50%;
+  margin-left: -80px;
+}
+
+.defense-port {
+  position: absolute;
+  top: 50%;
+  left: 40px;
+  margin-top: -46px;
+}
+
+.defense-starboard {
+  position: absolute;
+  top: 50%;
+  right: 40px;
+  margin-top: -46px;
+}
+
+.panel-first-row td, .child-second-row td {
+  border-top-width: 0px !important;
+}
+
+.panel-body table {
+  margin-bottom: 0px;
+}
+
+.child-table td, .child-table .form-group {
+  margin:0px;
+}
+
+.child-table label {
+  font-size: 12px;
+}
