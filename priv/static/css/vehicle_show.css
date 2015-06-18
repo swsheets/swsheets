@@ -134,3 +134,9 @@ h6 {
 .child-table label {
   font-size: 12px;
 }
+
+.long-text {
+  border: 1px solid #ccc;
+  padding: 10px;
+  min-height: 100px;
+}

@@ -23,6 +23,12 @@ defmodule EdgeBuilder.ViewHelpers do
           "<option#{if value == opt, do: " selected"}>#{opt}</option>"
         end) |> raw
       end
+
+      def render_text(changeset, field) do
+        {:safe, escaped_value} = Ecto.Changeset.get_field(changeset, field) |> Phoenix.HTML.html_escape
+
+        {:safe, String.replace(escaped_value, "\n", "<br>")}
+      end
     end
   end
 end

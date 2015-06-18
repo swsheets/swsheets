@@ -1,0 +1,32 @@
+<h4>Weapons</h4>
+
+<table class='table table-condensed'>
+  <%= for {attack, i} <- Enum.with_index(@vehicle_attacks) do %>
+    <tr class="attack child-first-row<%= if rem(i, 2) == 0, do: " active" %>">
+      <td class='col-sm-6'>
+        <%= i %>
+      </td>
+      <td class="col-sm-3 ">
+        <h6>Firing Arc</h6>
+        <%= get_field(attack, :firing_arc) %>
+      </td>
+      <td class="col-sm-2 ">
+        <h6>Range</h6>
+        <%=get_field(attack, :range) %>
+      </td>
+    </tr>
+    <tr class="attack child-second-row<%= if rem(i, 2) == 0, do: " active" %>" data-attack=<%= i %>>
+      <td>
+        <em><%= get_field(attack, :specials) %></em>
+      </td>
+      <td>
+        <h6>Damage</h6>
+        <%= get_field(attack, :damage) %>
+      </td>
+      <td>
+        <h6>Critical</h6>
+        <%= get_field(attack, :critical) %>
+      </td>
+    </tr>
+  <% end %>
+</table>

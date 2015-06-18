@@ -1,0 +1,25 @@
+<h4>Attachments</h4>
+
+<table class='table table-condensed'>
+  <%= for {attachment, i} <- Enum.with_index(@vehicle_attachments) do %>
+    <tr class="attachment child-first-row<%= if rem(i, 2) == 0, do: " active" %>">
+      <td>
+        <%= get_field(attachment, :name) %>
+      </td>
+      <td>
+        <h6>Base Modifiers</h6>
+        <%= get_field(attachment, :base_modifiers) %>
+      </td>
+    </tr>
+    <tr class="attachment child-second-row<%= if rem(i, 2) == 0, do: " active" %>">
+      <td>
+        <h6>Hard Points</h6>
+        <%= get_field(attachment, :hard_points_required) %>
+      </td>
+      <td>
+        <h6>Modifications</h6>
+        <%= get_field(attachment, :modifications) %>
+      </td>
+    </tr>
+  <% end %>
+</table>
