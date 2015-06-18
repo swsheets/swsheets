@@ -33,6 +33,7 @@
       <div class='col-sm-3 col-xs-6'>
         <div class="panel panel-default">
           <div class="panel-body panel-value">
+            <input type='hidden' id='silhouette' value=<%= get_field(@vehicle, :silhouette) %> />
             <%= get_field(@vehicle, :silhouette) %>
           </div>
           <div class="panel-footer text-center">
