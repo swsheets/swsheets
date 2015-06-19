@@ -3,20 +3,32 @@ defmodule EdgeBuilder.Controllers.PageControllerTest do
 
   alias Factories.UserFactory
   alias Factories.CharacterFactory
+  alias Factories.VehicleFactory
 
   describe "index" do
     it "shows a list of characters" do
-      user = UserFactory.default_user
-
       characters = [
-        CharacterFactory.create_character(name: "Frank", user_id: user.id),
-        CharacterFactory.create_character(name: "Boba Fett", user_id: user.id)
+        CharacterFactory.create_character(name: "Frank"),
+        CharacterFactory.create_character(name: "Boba Fett")
       ]
 
       conn = request(:get, "/")
 
       for character <- characters do
         assert String.contains?(conn.resp_body, character.name)
+      end
+    end
+
+    it "shows a list of vehicles" do
+      vehicles = [
+        VehicleFactory.create_vehicle(name: "The Boss"),
+        VehicleFactory.create_vehicle(name: "The Sauce")
+      ]
+
+      conn = request(:get, "/")
+
+      for vehicle <- vehicles do
+        assert String.contains?(conn.resp_body, vehicle.name)
       end
     end
 

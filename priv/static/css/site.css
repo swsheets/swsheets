@@ -125,7 +125,7 @@ h4 {
   display: inline-block;
 }
 
-.character-container {
+.creation-owner-container {
   border: 1px solid #aaa;
   border-radius: 10px;
   padding-left: 20px;
@@ -156,22 +156,22 @@ h4 {
   margin-top: 100px;
 }
 
-.character-list-group-item {
+.creation-list-group-item {
   height: 120;
   padding-top: 15px;
   padding-bottom: 5px;
 }
 
-.character-list-group-item h3 {
+.creation-list-group-item h3 {
   margin-bottom: 10px;
   color: #337ab7 !important;
 }
 
-.character-list-group-item p {
+.creation-list-group-item p {
   font-size: 110%;
 }
 
-.character-list-group-item .character-thumbnail {
+.creation-list-group-item .creation-thumbnail {
   height: 100px;
 }
 

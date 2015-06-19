@@ -3,19 +3,20 @@ defmodule EdgeBuilder.PageController do
 
   alias EdgeBuilder.Models.User
   alias EdgeBuilder.Models.Character
+  alias EdgeBuilder.Models.Vehicle
   alias EdgeBuilder.Repo
   import Ecto.Query, only: [from: 2]
 
   plug :action
 
   def index(conn, params) do
-    page = Repo.paginate((from c in Character, order_by: [desc: :inserted_at], limit: 30), page: params["page"], page_size: 5)
+    characters = Repo.all(from c in Character, order_by: [desc: :inserted_at], limit: 5)
+    vehicles = Repo.all(from c in Vehicle, order_by: [desc: :inserted_at], limit: 5)
 
     render conn, :index,
       contributors: User.contributors(5),
-      characters: page.entries,
-      page_number: page.page_number,
-      total_pages: page.total_pages,
+      characters: characters,
+      vehicles: vehicles,
       has_reset_password: get_flash(conn, :has_reset_password)
   end
 

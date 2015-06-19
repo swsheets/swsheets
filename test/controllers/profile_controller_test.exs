@@ -3,6 +3,7 @@ defmodule EdgeBuilder.Controllers.ProfileControllerTest do
 
   alias Factories.UserFactory
   alias Factories.CharacterFactory
+  alias Factories.VehicleFactory
 
   describe "show" do
     it "shows the username" do
@@ -33,6 +34,60 @@ defmodule EdgeBuilder.Controllers.ProfileControllerTest do
       for character <- characters do
         assert String.contains?(conn.resp_body, character.permalink)
       end
+    end
+  end
+
+  describe "my_content" do
+    it "displays a link to create a new character" do
+      conn = authenticated_request(UserFactory.default_user, :get, "/my-content")
+
+      assert conn.status == 200
+      assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.character_path(conn, :new))
+    end
+
+    it "displays links for each character" do
+      user = UserFactory.default_user
+
+      characters = [
+        CharacterFactory.create_character(name: "Frank", user_id: user.id),
+        CharacterFactory.create_character(name: "Boba Fett", user_id: user.id)
+      ]
+
+      conn = authenticated_request(UserFactory.default_user, :get, "/my-content")
+
+      for character <- characters do
+        assert String.contains?(conn.resp_body, character.name)
+        assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.character_path(conn, :show, character))
+      end
+    end
+
+    it "displays a link to create a new vehicle" do
+      conn = authenticated_request(UserFactory.default_user, :get, "/my-content")
+
+      assert conn.status == 200
+      assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.vehicle_path(conn, :new))
+    end
+
+    it "displays links for each vehicle" do
+      user = UserFactory.default_user
+
+      vehicles = [
+        VehicleFactory.create_vehicle(name: "Boo Bar", user_id: user.id),
+        VehicleFactory.create_vehicle(name: "The Flier", user_id: user.id)
+      ]
+
+      conn = authenticated_request(UserFactory.default_user, :get, "/my-content")
+
+      for vehicle <- vehicles do
+        assert String.contains?(conn.resp_body, vehicle.name)
+        assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.vehicle_path(conn, :show, vehicle))
+      end
+    end
+
+    it "requires authentication" do
+      conn = request(:get, "/my-content")
+
+      assert requires_authentication?(conn)
     end
   end
 end
