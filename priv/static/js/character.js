@@ -233,7 +233,7 @@ var CharacterForm = (function() {
   function setSystem(system) {
     $("#systemButton").empty();
     $("[data-value="+system+"]").contents().clone().appendTo("#systemButton");
-    $("#systemValue").val(system);
+    $("#systemValue").val(system).change();
 
     $("[data-system]").each(function() {
       if( $(this).attr("data-system") == system && $(this).attr("data-skill-hidden") === undefined) {
@@ -343,6 +343,101 @@ var CharacterForm = (function() {
       dataType: "json",
       contentType: "application/json"
     });
+
+  var careersBySystem = {
+    eote: [
+      {
+        name: "Bounty Hunter",
+        specializations: ["Assassin", "Gadgeteer", "Survivalist"]
+      },
+      {
+        name: "Colonist",
+        specializations: ["Doctor", "Politico", "Scholar", "Entrepreneur", "Performer", "Marshall"]
+      },
+      {
+        name: "Explorer",
+        specializations: ["Fringer", "Scout", "Trader", "Archaeologist", "Big-Game Hunter", "Driver"]
+      },
+      {
+        name: "Hired Gun",
+        specializations: ["Bodyguard", "Marauder", "Mercenary Soldier", "Enforcer", "Demolitionist", "Heavy"]
+      },
+      {
+        name: "Smuggler",
+        specializations: ["Pilot", "Scoundrel", "Thief", "Technician", "Mechanic", "Outlaw Tech", "Slicer"]
+      }
+    ],
+    aor: [
+      {
+        name: "Ace",
+        specializations: ["Driver", "Gunner", "Pilot"]
+      },
+      {
+        name: "Commander",
+        specializations: ["Commodore", "Squad Leader", "Tactician"]
+      },
+      {
+        name: "Diplomat",
+        specializations: ["Ambassador", "Agitator", "Quartermaster"]
+      },
+      {
+        name: "Engineer",
+        specializations: ["Mechanic", "Saboteur", "Scientist"]
+      },
+      {
+        name: "Soldier",
+        specializations: ["Commando", "Medic", "Sharpshooter"]
+      },
+      {
+        name: "Spy",
+        specializations: ["Infiltrator", "Scout", "Slicer"]
+      }
+    ]
+  };
+
+  var $careerSelect;
+
+  function initializeCareer() {
+    var $origField = $("#character-career");
+    if (!$origField[0]) return;
+    $careerSelect = selectizeInput($origField, careerNames());
+    setTimeout(function() {
+      $("#systemValue").change(function() {
+        updateSelectOptions($careerSelect, careerNames());
+      });
+    });
+  }
+
+  function careerNames() {
+    var system = $("#systemValue").val(),
+        careers = careersBySystem[system];
+    return careers.map(function(c) { return c.name; });
+  }
+
+  function selectizeInput($input, options) {
+    var $select = $("<select></select>"),
+        value = $input.val(),
+        name = $input.attr("name"),
+        classes = $input.attr("class");
+    updateSelectOptions($select, options);
+    $select.val(value);
+    $select.attr("class", classes);
+    $select.change(function() {
+      $input.val($select.val());
+    });
+    $input.before($select);
+    $input.hide();
+    return $select;
+  }
+
+  function updateSelectOptions($select, arrayOfStrings) {
+    var origVal = $select.val();
+    $select.empty();
+    for(var i=0; i < arrayOfStrings.length; i++) {
+      var str = arrayOfStrings[i];
+      $select.append("<option value='"+str+"'>"+str+"</option>");
+    }
+    $select.val(origVal);
   }
 
   return {
@@ -356,6 +451,7 @@ var CharacterForm = (function() {
       hideHiddenSkills();
       setSystemOrDefault();
       initializeIncrementers();
+      initializeCareer();
     }
   };
 })();
