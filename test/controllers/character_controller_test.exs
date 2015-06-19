@@ -219,6 +219,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       conn = authenticated_request(UserFactory.default_user, :get, "/c/#{character.permalink}")
 
       assert String.contains?(conn.resp_body, "Edit")
+      assert String.contains?(conn.resp_body, "Delete")
     end
 
     it "inserts appropriate line breaks for long text fields" do

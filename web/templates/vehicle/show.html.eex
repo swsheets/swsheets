@@ -1,8 +1,5 @@
 <%= if @viewed_by_owner do %>
-  <div class="row well save-panel">
-    <a class="btn btn-primary" href="<%= vehicle_path(@conn, :edit, @vehicle.model) %>">Edit</a>
-    <%= # render "_delete_button.html", conn: @conn, vehicle: @vehicle.model, extra_classes: "pull-right" %>
-  </div>
+  <%= render EdgeBuilder.SharedView, "_save_panel.html", conn: @conn, model: @vehicle.model, helper: :vehicle_path %>
 <% end %>
 
 <div class='row main-form'>

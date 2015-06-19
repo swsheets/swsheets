@@ -1,0 +1,18 @@
+<div class="row well save-panel">
+  <a class="btn btn-primary" href="<%= apply(EdgeBuilder.Router.Helpers, @helper, [@conn, :edit, @model]) %>">Edit</a>
+  <%= render "_delete_button.html", conn: @conn, model: @model, extra_classes: "pull-right" %>
+</div>
+
+<div class="modal fade" id="deleteModal<%= @model.url_slug %>" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <p>Are you sure that you want to delete <strong><%= @model.name %></strong>?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="pull-left btn btn-default" data-dismiss="modal">Cancel</button>
+        <%= link "Delete", to: apply(EdgeBuilder.Router.Helpers, @helper, [@conn, :delete, @model]), method: :delete, class: "btn btn-danger" %>
+      </div>
+    </div>
+  </div>
+</div>

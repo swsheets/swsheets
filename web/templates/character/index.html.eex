@@ -29,7 +29,8 @@
           <div class="col-sm-6 text-right">
             <a class="btn btn-success" href="<%= character_path(@conn, :show, character) %>">View</a>
             <a class="btn btn-primary" href="<%= character_path(@conn, :edit, character) %>">Edit</a>
-            <%= render "_delete_button.html", conn: @conn, character: character %>
+            <%= render EdgeBuilder.SharedView, "_delete_button.html", conn: @conn, model: character %>
+            <%= render EdgeBuilder.SharedView, "_delete_modal.html", conn: @conn, model: character, helper: :character_path %>
           </div>
         </div>
       </div>

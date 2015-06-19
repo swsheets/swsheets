@@ -189,6 +189,39 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
       assert conn.status == 200
       assert String.contains?(conn.resp_body, vehicle.name)
     end
+
+    it "displays edit and delete buttons when viewed by the owner" do
+      vehicle = VehicleFactory.create_vehicle(user_id: UserFactory.default_user.id)
+
+      conn = authenticated_request(UserFactory.default_user, :get, "/v/#{vehicle.permalink}")
+
+      assert String.contains?(conn.resp_body, "Edit")
+      assert String.contains?(conn.resp_body, "Delete")
+    end
+
+    it "inserts appropriate line breaks for long text fields" do
+      vehicle = VehicleFactory.create_vehicle(cargo: "Belt\nWatch")
+
+      conn = request(:get, "/v/#{vehicle.permalink}")
+
+      assert String.contains?(conn.resp_body, "Belt<br>Watch")
+    end
+
+    it "escapes HTML input in text fields" do
+      vehicle = VehicleFactory.create_vehicle(cargo: "Belt<script></script>Watch")
+
+      conn = request(:get, "/v/#{vehicle.permalink}")
+
+      assert !String.contains?(conn.resp_body, "Belt<script></script>Watch")
+    end
+
+    it "displays a link to the author's profile" do
+      vehicle = VehicleFactory.create_vehicle(user_id: UserFactory.default_user.id)
+
+      conn = request(:get, "/v/#{vehicle.permalink}")
+
+      assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.profile_path(conn, :show, UserFactory.default_user))
+    end
   end
 
   describe "edit" do
