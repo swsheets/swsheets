@@ -306,6 +306,27 @@ var CharacterForm = (function() {
     $("[data-skill-hidden]").hide();
   }
 
+  function initializeIncrementers() {
+    $("#increment-wounds").click(function() {
+      incrementElement($("#current-wounds"), 1);
+    });
+    $("#decrement-wounds").click(function() {
+      incrementElement($("#current-wounds"), -1);
+    });
+    $("#increment-strain").click(function() {
+      incrementElement($("#current-strain"), 1);
+    });
+    $("#decrement-strain").click(function() {
+      incrementElement($("#current-strain"), -1);
+    });
+  }
+
+  function incrementElement($el, num) {
+    var current = parseInt($el.text(), 10),
+        updated = current + num;
+    $el.text("" + updated);
+  }
+
   return {
     init: function() {
       initializeHandlers();
@@ -316,6 +337,7 @@ var CharacterForm = (function() {
       enableDisableRemoveAllForcePowerUpgradeButtons();
       hideHiddenSkills();
       setSystemOrDefault();
+      initializeIncrementers();
     }
   };
 })();

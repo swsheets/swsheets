@@ -81,3 +81,7 @@ td.value {
   border-top: 0px !important;
   padding-top: 0px !important;
  }
+
+.increment-buttons {
+  float: right;
+}

@@ -56,12 +56,16 @@
                 </tr>
                 <tr>
                   <td>Current</td>
-                  <td class="panel-value"><%= get_field(@character, :wounds_current) %></td>
+                  <td id="current-wounds" class="panel-value"><%= get_field(@character, :wounds_current) %></td>
                 </tr>
               </table>
             </div>
             <div class="panel-footer text-center">
               Wounds
+              <span class="increment-buttons">
+                <button id="decrement-wounds">-</button>
+                <button id="increment-wounds">+</button>
+              </span>
             </div>
           </div>
         </div>
@@ -75,12 +79,16 @@
                 </tr>
                 <tr>
                   <td>Current</td>
-                  <td class="panel-value"><%= get_field(@character, :strain_current) %></td>
+                  <td id="current-strain" class="panel-value"><%= get_field(@character, :strain_current) %></td>
                 </tr>
               </table>
             </div>
             <div class="panel-footer text-center">
               <label>Strain</label>
+              <span class="increment-buttons">
+                <button id="decrement-strain">-</button>
+                <button id="increment-strain">+</button>
+              </span>
             </div>
           </div>
         </div>
