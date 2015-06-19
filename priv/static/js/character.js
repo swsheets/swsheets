@@ -271,20 +271,31 @@ var CharacterForm = (function() {
         value = $input.val(),
         name = $input.attr("name"),
         classes = $input.attr("class");
-    updateSelectOptions($select, options);
+    updateSelectOptions($select, options, value);
     $select.val(value);
     $select.attr("class", classes);
     $select.change(function() {
-      $input.val($select.val());
+      var val = $select.val();
+      if (val === "_") {
+        $input.val("");
+        $input.show();
+        $select.remove();
+      } else {
+        $input.val(val);
+      }
     });
     $input.before($select);
     $input.hide();
     return $select;
   }
 
-  function updateSelectOptions($select, arrayOfStrings) {
-    var origVal = $select.val();
+  function updateSelectOptions($select, arrayOfStrings, origVal) {
+    origVal = origVal || $select.val();
     $select.empty();
+    $select.append("<option value='_'>Create Your Own</option>");
+    if (arrayOfStrings.indexOf(origVal) === -1) {
+      arrayOfStrings.unshift(origVal);
+    }
     for(var i=0; i < arrayOfStrings.length; i++) {
       var str = arrayOfStrings[i];
       $select.append("<option value='"+str+"'>"+str+"</option>");
