@@ -393,25 +393,103 @@ var CharacterForm = (function() {
         specializations: ["Infiltrator", "Scout", "Slicer"]
       }
     ]
+
+  var systemData = {
+    eote: {
+      species: [
+        "Aqualish (Aquala)", "Aqualish (Quara)", "Aqualish (Ualaq)",
+        "Arcona", "Bothan", "Chevin", "Chiss", "Drall",
+        "Droid", "Duros", "Gand", "Gank", "Human", "Human (Corellian)",
+        "Hutt", "Klatooinian", "Rodian", "Selonian", "Toydarian",
+        "Twi'lek", "Weequay", "Wookiee"
+      ],
+      careers: [
+        {
+          name: "Bounty Hunter",
+          specializations: ["Assassin", "Gadgeteer", "Survivalist"]
+        },
+        {
+          name: "Colonist",
+          specializations: ["Doctor", "Politico", "Scholar", "Entrepreneur", "Performer", "Marshall"]
+        },
+        {
+          name: "Explorer",
+          specializations: ["Fringer", "Scout", "Trader", "Archaeologist", "Big-Game Hunter", "Driver"]
+        },
+        {
+          name: "Hired Gun",
+          specializations: ["Bodyguard", "Marauder", "Mercenary Soldier", "Enforcer", "Demolitionist", "Heavy"]
+        },
+        {
+          name: "Smuggler",
+          specializations: ["Pilot", "Scoundrel", "Thief", "Technician", "Mechanic", "Outlaw Tech", "Slicer"]
+        }
+      ]
+    },
+    aor: {
+      species: [
+        "Caamasi", "Chadra-Fan", "Dressellian", "Droid",
+        "Duros", "Gossam", "Gran", "Human", "Ithorian",
+        "Mon Calamari", "Neimoidian", "Sullustan", "Xexto"
+      ],
+      careers: [
+        {
+          name: "Ace",
+          specializations: ["Driver", "Gunner", "Pilot"]
+        },
+        {
+          name: "Commander",
+          specializations: ["Commodore", "Squad Leader", "Tactician"]
+        },
+        {
+          name: "Diplomat",
+          specializations: ["Ambassador", "Agitator", "Quartermaster"]
+        },
+        {
+          name: "Engineer",
+          specializations: ["Mechanic", "Saboteur", "Scientist"]
+        },
+        {
+          name: "Soldier",
+          specializations: ["Commando", "Medic", "Sharpshooter"]
+        },
+        {
+          name: "Spy",
+          specializations: ["Infiltrator", "Scout", "Slicer"]
+        }
+      ]
+    }
   };
 
-  var $careerSelect;
+  var $careerSelect, $speciesSelect;
 
   function initializeCareer() {
     var $origField = $("#character-career");
     if (!$origField[0]) return;
     $careerSelect = selectizeInput($origField, careerNames());
-    setTimeout(function() {
-      $("#systemValue").change(function() {
-        updateSelectOptions($careerSelect, careerNames());
-      });
+    $("#systemValue").change(function() {
+      updateSelectOptions($careerSelect, careerNames());
+    });
+  }
+
+  function initializeSpecies() {
+    var $origField = $("#character-species");
+    if (!$origField[0]) return;
+    $speciesSelect = selectizeInput($origField, speciesNames());
+    $("#systemValue").change(function() {
+      updateSelectOptions($speciesSelect, speciesNames());
     });
   }
 
   function careerNames() {
     var system = $("#systemValue").val(),
-        careers = careersBySystem[system];
+        careers = systemData[system].careers;
     return careers.map(function(c) { return c.name; });
+  }
+
+  function speciesNames() {
+    var system = $("#systemValue").val();
+    return systemData[system].species;
   }
 
   function selectizeInput($input, options) {
@@ -452,6 +530,7 @@ var CharacterForm = (function() {
       setSystemOrDefault();
       initializeIncrementers();
       initializeCareer();
+      initializeSpecies();
     }
   };
 })();
