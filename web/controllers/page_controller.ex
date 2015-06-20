@@ -9,7 +9,7 @@ defmodule EdgeBuilder.PageController do
 
   plug :action
 
-  def index(conn, params) do
+  def index(conn, _params) do
     characters = Repo.all(from c in Character, order_by: [desc: :inserted_at], limit: 5)
     vehicles = Repo.all(from c in Vehicle, order_by: [desc: :inserted_at], limit: 5)
 

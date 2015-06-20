@@ -271,59 +271,24 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
   describe "index" do
     it "displays a link to create a new character" do
-      conn = authenticated_request(UserFactory.default_user, :get, "/c")
+      conn = request(:get, "/c")
 
       assert conn.status == 200
       assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.character_path(conn, :index))
     end
 
-    it "displays links for each character" do
-      user = UserFactory.default_user
-
+    it "displays links for each character regardless of creator" do
       characters = [
-        CharacterFactory.create_character(name: "Frank", user_id: user.id),
-        CharacterFactory.create_character(name: "Boba Fett", user_id: user.id)
+        CharacterFactory.create_character(name: "Frank", user_id: UserFactory.default_user.id),
+        CharacterFactory.create_character(name: "Boba Fett", user_id: UserFactory.create_user.id)
       ]
 
-      conn = authenticated_request(UserFactory.default_user, :get, "/c")
+      conn = request(:get, "/c")
 
       for character <- characters do
         assert String.contains?(conn.resp_body, character.name)
         assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.character_path(conn, :show, character))
       end
-    end
-
-    it "displays characters in order of last updated" do
-      user = UserFactory.default_user
-
-      updated_character = CharacterFactory.create_character(name: "Frank", user_id: user.id)
-      second_character = CharacterFactory.create_character(name: "Boba Fett", user_id: user.id)
-
-      :timer.sleep(1000)
-      updated_character = Character.changeset(updated_character, user.id, %{"name" => "Mike"}) |> Repo.update
-
-      conn = authenticated_request(user, :get, "/c")
-      {first_position, _} = :binary.match(conn.resp_body, updated_character.name)
-      {second_position, _} = :binary.match(conn.resp_body, second_character.name)
-
-      assert first_position < second_position
-    end
-
-    it "displays links for only characters owned by the current user" do
-      user = UserFactory.default_user
-      other = UserFactory.create_user
-
-      character = CharacterFactory.create_character(name: "Frank", user_id: other.id)
-
-      conn = authenticated_request(user, :get, "/c")
-
-      assert !String.contains?(conn.resp_body, character.name)
-    end
-
-    it "requires authentication" do
-      conn = request(:get, "/c")
-
-      assert requires_authentication?(conn)
     end
   end
 

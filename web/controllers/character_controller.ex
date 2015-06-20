@@ -11,7 +11,7 @@ defmodule EdgeBuilder.CharacterController do
   alias EdgeBuilder.Changemap
   import Ecto.Query, only: [from: 2]
 
-  plug Plug.Authentication, except: [:show]
+  plug Plug.Authentication, except: [:show, :index]
   plug :action
 
   def new(conn, _params) do
@@ -41,10 +41,10 @@ defmodule EdgeBuilder.CharacterController do
   end
 
   def index(conn, params) do
-    page = Repo.paginate((from c in Character, where: c.user_id == ^current_user_id(conn), order_by: [desc: c.updated_at]), page: params["page"])
+    page = Repo.paginate((from c in Character, order_by: [desc: c.inserted_at]), page: params["page"])
 
     render conn, "index.html",
-      title: "My Characters",
+      title: "Characters",
       characters: page.entries,
       page_number: page.page_number,
       total_pages: page.total_pages
