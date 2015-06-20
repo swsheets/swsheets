@@ -43,7 +43,7 @@ defmodule EdgeBuilder.CharacterController do
   def index(conn, params) do
     page = Repo.paginate((from c in Character, order_by: [desc: c.inserted_at]), page: params["page"])
 
-    render conn, "index.html",
+    render conn, :index,
       title: "Characters",
       characters: page.entries,
       page_number: page.page_number,
@@ -54,7 +54,7 @@ defmodule EdgeBuilder.CharacterController do
     character = Character.full_character(id)
     user = Repo.get!(User, character.user_id)
 
-    render conn, "show.html",
+    render conn, :show,
       title: character.name,
       character: character |> Character.changeset(current_user_id(conn)),
       talents: character.talents |> Enum.map(&Talent.changeset/1),
@@ -128,7 +128,7 @@ defmodule EdgeBuilder.CharacterController do
       character_skills: CharacterSkill.add_missing_defaults(assignments[:character_skills] || [])
     ])
 
-    render conn, "new.html", assignments
+    render conn, :new, assignments
   end
 
   defp render_edit(conn, assignments) do
@@ -140,7 +140,7 @@ defmodule EdgeBuilder.CharacterController do
       character_skills: CharacterSkill.add_missing_defaults(assignments[:character_skills] || [])
     ])
 
-    render conn, "edit.html", assignments
+    render conn, :edit, assignments
   end
 
   defp child_changesets(params, child_model, instances \\ [])

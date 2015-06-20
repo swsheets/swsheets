@@ -181,6 +181,29 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
     end
   end
 
+  describe "index" do
+    it "displays a link to create a new vehicle" do
+      conn = request(:get, "/v")
+
+      assert conn.status == 200
+      assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.vehicle_path(conn, :index))
+    end
+
+    it "displays links for each vehicle regardless of creator" do
+      vehicles = [
+        VehicleFactory.create_vehicle(name: "Frank", user_id: UserFactory.default_user.id),
+        VehicleFactory.create_vehicle(name: "Boba Fett", user_id: UserFactory.create_user.id)
+      ]
+
+      conn = request(:get, "/v")
+
+      for vehicle <- vehicles do
+        assert String.contains?(conn.resp_body, vehicle.name)
+        assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.vehicle_path(conn, :show, vehicle))
+      end
+    end
+  end
+
   describe "show" do
     it "renders the vehicle show form" do
       vehicle = VehicleFactory.create_vehicle
