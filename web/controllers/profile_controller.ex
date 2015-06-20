@@ -19,12 +19,12 @@ defmodule EdgeBuilder.ProfileController do
       characters: characters
   end
 
-  def my_content(conn, _params) do
+  def my_creations(conn, _params) do
     user = Repo.get(User, current_user_id(conn))
     characters = Repo.all(from c in Character, where: c.user_id == ^user.id, order_by: [desc: c.updated_at])
     vehicles = Repo.all(from v in Vehicle, where: v.user_id == ^user.id, order_by: [desc: v.updated_at])
 
-    render conn, :my_content,
+    render conn, :my_creations,
       user: user,
       characters: characters,
       vehicles: vehicles

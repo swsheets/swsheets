@@ -37,9 +37,9 @@ defmodule EdgeBuilder.Controllers.ProfileControllerTest do
     end
   end
 
-  describe "my_content" do
+  describe "my_creations" do
     it "displays a link to create a new character" do
-      conn = authenticated_request(UserFactory.default_user, :get, "/my-content")
+      conn = authenticated_request(UserFactory.default_user, :get, "/my-creations")
 
       assert conn.status == 200
       assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.character_path(conn, :new))
@@ -53,7 +53,7 @@ defmodule EdgeBuilder.Controllers.ProfileControllerTest do
         CharacterFactory.create_character(name: "Boba Fett", user_id: user.id)
       ]
 
-      conn = authenticated_request(UserFactory.default_user, :get, "/my-content")
+      conn = authenticated_request(UserFactory.default_user, :get, "/my-creations")
 
       for character <- characters do
         assert String.contains?(conn.resp_body, character.name)
@@ -62,7 +62,7 @@ defmodule EdgeBuilder.Controllers.ProfileControllerTest do
     end
 
     it "displays a link to create a new vehicle" do
-      conn = authenticated_request(UserFactory.default_user, :get, "/my-content")
+      conn = authenticated_request(UserFactory.default_user, :get, "/my-creations")
 
       assert conn.status == 200
       assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.vehicle_path(conn, :new))
@@ -76,7 +76,7 @@ defmodule EdgeBuilder.Controllers.ProfileControllerTest do
         VehicleFactory.create_vehicle(name: "The Flier", user_id: user.id)
       ]
 
-      conn = authenticated_request(UserFactory.default_user, :get, "/my-content")
+      conn = authenticated_request(UserFactory.default_user, :get, "/my-creations")
 
       for vehicle <- vehicles do
         assert String.contains?(conn.resp_body, vehicle.name)
@@ -85,7 +85,7 @@ defmodule EdgeBuilder.Controllers.ProfileControllerTest do
     end
 
     it "requires authentication" do
-      conn = request(:get, "/my-content")
+      conn = request(:get, "/my-creations")
 
       assert requires_authentication?(conn)
     end
