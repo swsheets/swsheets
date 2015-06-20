@@ -13,10 +13,12 @@ defmodule EdgeBuilder.ProfileController do
   def show(conn, %{"id" => username}) do
     user = User.by_username(username)
     characters = Repo.all(from c in Character, where: c.user_id == ^user.id, order_by: [desc: c.updated_at])
+    vehicles = Repo.all(from v in Vehicle, where: v.user_id == ^user.id, order_by: [desc: v.updated_at])
 
     render conn, :show,
       user: user,
-      characters: characters
+      characters: characters,
+      vehicles: vehicles
   end
 
   def my_creations(conn, _params) do

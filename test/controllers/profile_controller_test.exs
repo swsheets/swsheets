@@ -14,10 +14,14 @@ defmodule EdgeBuilder.Controllers.ProfileControllerTest do
       assert String.contains?(conn.resp_body, user.username)
     end
 
-    test "shows a number of characters created" do
-      for {count, text} <- [{0, "0 Characters"}, {1, "1 Character"}, {2, "2 Characters"}] do
+    test "shows a number of creations" do
+      for {count, text} <- [{0, "0 Creations"}, {1, "1 Creation"}, {2, "2 Creations"}] do
         user = UserFactory.create_user
-        Stream.repeatedly(fn () -> CharacterFactory.create_character(user_id: user.id) end) |> Enum.take(count)
+
+        Stream.cycle([
+          fn () -> CharacterFactory.create_character(user_id: user.id) end,
+          fn () -> VehicleFactory.create_vehicle(user_id: user.id) end
+        ]) |> Stream.take(count) |> Enum.map(&(&1.()))
 
         conn = request(:get, "/u/#{user.username}")
 
@@ -33,6 +37,17 @@ defmodule EdgeBuilder.Controllers.ProfileControllerTest do
 
       for character <- characters do
         assert String.contains?(conn.resp_body, character.permalink)
+      end
+    end
+
+    it "shows a list of vehicles they have created" do
+      user = UserFactory.create_user
+      vehicles = [VehicleFactory.create_vehicle(user_id: user.id), VehicleFactory.create_vehicle(user_id: user.id)]
+
+      conn = request(:get, "/u/#{user.username}")
+
+      for vehicle <- vehicles do
+        assert String.contains?(conn.resp_body, vehicle.permalink)
       end
     end
   end
