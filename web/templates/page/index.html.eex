@@ -14,11 +14,11 @@
 
 <div class="row new-content">
   <div class="col-md-5 col-md-offset-1">
-    <h2>Newest Characters <small>(<a href="/">See All</a>)</small></h2>
+    <h2>Newest Characters <small>(<a href="<%= character_path(@conn, :index) %>">See All</a>)</small></h2>
     <%= render EdgeBuilder.CharacterView, "list_view.html", conn: @conn, characters: @characters %>
   </div>
   <div class="col-md-5">
-    <h2>Newest Vehicles <small>(<a href="/">See All</a>)</small></h2>
+    <h2>Newest Vehicles <small>(<a href="<%= vehicle_path(@conn, :index) %>">See All</a>)</small></h2>
     <%= render EdgeBuilder.VehicleView, "list_view.html", conn: @conn, vehicles: @vehicles %>
   </div>
 </div>
