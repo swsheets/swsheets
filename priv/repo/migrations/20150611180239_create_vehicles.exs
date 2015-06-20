@@ -33,7 +33,7 @@ defmodule EdgeBuilder.Repo.Migrations.CreateVehicles do
       add :passengers, :string
       add :consumables, :string
       add :faction, :string
-      add :picture_url, :string
+      add :portrait_url, :string
       add :price, :string
       add :rarity, :string
       add :type, :string

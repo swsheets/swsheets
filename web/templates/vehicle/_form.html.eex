@@ -74,8 +74,8 @@
   </div>
   <div class='col-md-4'>
     <div class="form-group">
-      <label for="vehicle[picture_url]">Picture URL</label>
-      <input type="url" class="form-control" name="vehicle[picture_url]" value="<%= get_field(@vehicle, :picture_url) %>">
+      <label for="vehicle[portrait_url]">Portrait URL</label>
+      <input type="url" class="form-control" name="vehicle[portrait_url]" value="<%= get_field(@vehicle, :portrait_url) %>">
     </div>
     <p class="text-center">
       <img src="<%= image_or_default(@vehicle) %>" alt="Placeholder Image" class="img-thumbnail">

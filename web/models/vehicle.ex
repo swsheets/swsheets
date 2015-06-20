@@ -40,7 +40,7 @@ defmodule EdgeBuilder.Models.Vehicle do
     field :rarity, :string
     field :special_features, :string
     field :faction, :string
-    field :picture_url, :string
+    field :portrait_url, :string
     field :type, :string
 
     timestamps

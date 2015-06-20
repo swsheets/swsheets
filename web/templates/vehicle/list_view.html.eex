@@ -2,13 +2,13 @@
   <%= for vehicle <- @vehicles do %>
     <a href="<%= vehicle_path(@conn, :show, vehicle) %>" class='list-group-item creation-list-group-item'>
       <div class='row'>
-        <div class='<%= if is_nil(vehicle.picture_url), do: "col-xs-12", else: "col-xs-8" %>'>
+        <div class='<%= if is_nil(vehicle.portrait_url), do: "col-xs-12", else: "col-xs-8" %>'>
           <h3 class="list-group-item-heading"><%= vehicle.name %></h3>
           <p><%= vehicle.faction %> <%= vehicle.type %> (<%= vehicle.make %>)</p>
         </div>
         <div class='col-xs-4'>
-          <%= unless is_nil(vehicle.picture_url) do %>
-            <img class="pull-right creation-thumbnail img-thumbnail" src="<%= vehicle.picture_url %>">
+          <%= unless is_nil(vehicle.portrait_url) do %>
+            <img class="pull-right creation-thumbnail img-thumbnail" src="<%= vehicle.portrait_url %>">
           <% end %>
         </div>
       </div>
