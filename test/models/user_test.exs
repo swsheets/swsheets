@@ -1,5 +1,5 @@
 defmodule EdgeBuilder.Models.UserTest do
-  use EdgeBuilder.Test
+  use EdgeBuilder.TestCase
 
   alias Factories.UserFactory
   alias EdgeBuilder.Models.User

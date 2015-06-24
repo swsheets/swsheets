@@ -1,5 +1,5 @@
 defmodule EdgeBuilder.Models.CharacterTest do
-  use EdgeBuilder.Test
+  use EdgeBuilder.TestCase
 
   alias Factories.CharacterFactory
   alias EdgeBuilder.Models.Character

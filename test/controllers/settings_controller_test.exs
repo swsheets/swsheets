@@ -1,5 +1,5 @@
 defmodule EdgeBuilder.Controllers.SettingsControllerTest do
-  use EdgeBuilder.ControllerTest
+  use EdgeBuilder.ConnCase
 
   alias EdgeBuilder.Models.User
   alias Factories.UserFactory
@@ -9,14 +9,14 @@ defmodule EdgeBuilder.Controllers.SettingsControllerTest do
     it "displays your user information" do
       user = UserFactory.default_user
 
-      conn = authenticated_request(user, :get, "/user/edit")
+      conn = conn() |> authenticate_as(user) |> get("/user/edit")
 
       assert FlokiExt.find(conn.resp_body, "#email") |> FlokiExt.attribute("value") == user.email
       assert String.contains?(conn.resp_body, user.username)
     end
 
     it "requires authentication" do
-      conn = request(:get, "/user/edit")
+      conn = conn() |> get("/user/edit")
 
       assert is_redirect_to?(conn, "/welcome")
     end
@@ -26,7 +26,7 @@ defmodule EdgeBuilder.Controllers.SettingsControllerTest do
     it "updates your email address" do
       user = UserFactory.create_user(email: "tom@example.com")
 
-      conn = authenticated_request(user, :put, "/user", %{"user" => %{"email" => "bruce@example.com"}})
+      conn = conn() |> authenticate_as(user) |> put("/user", %{"user" => %{"email" => "bruce@example.com"}})
 
       user = EdgeBuilder.Repo.get(User, user.id)
 
@@ -37,7 +37,9 @@ defmodule EdgeBuilder.Controllers.SettingsControllerTest do
     it "updates your password" do
       user = UserFactory.create_user(password: "thisismypassword", password_confirmation: "thisismypassword")
 
-      authenticated_request(user, :put, "/user", %{"user" =>
+      conn()
+      |> authenticate_as(user)
+      |> put("/user", %{"user" =>
         %{"password" => "asdasdasdasd",
           "password_confirmation" => "asdasdasdasd"
         }})
@@ -46,7 +48,9 @@ defmodule EdgeBuilder.Controllers.SettingsControllerTest do
     end
 
     it "re-renders the page with errors if there are errors" do
-      conn = authenticated_request(UserFactory.default_user, :put, "/user", %{"user" =>
+      conn = conn()
+      |> authenticate_as(UserFactory.default_user)
+      |> put("/user", %{"user" =>
         %{"email" => "bruceatexample.com",
           "password" => "asdasdasdasd",
           "password_confirmation" => "asdasdasd123"

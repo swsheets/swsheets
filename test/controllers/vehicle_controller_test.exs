@@ -1,5 +1,5 @@
 defmodule EdgeBuilder.Controllers.VehicleControllerTest do
-  use EdgeBuilder.ControllerTest
+  use EdgeBuilder.ConnCase
 
   alias Helpers.FlokiExt
   alias EdgeBuilder.Models.Vehicle
@@ -13,14 +13,14 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
 
   describe "new" do
     it "renders the edit form for a new vehicle" do
-      conn = authenticated_request(UserFactory.default_user, :get, "/v/new")
+      conn = conn() |> authenticate_as(UserFactory.default_user) |> get("/v/new")
 
       assert conn.status == 200
       assert String.contains?(conn.resp_body, "New Vehicle")
     end
 
     it "requires authentication" do
-      conn = request(:get, "/v/new")
+      conn = conn() |> get("/v/new")
 
       assert requires_authentication?(conn)
     end
@@ -28,7 +28,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
 
   describe "create" do
     it "creates a vehicle" do
-      authenticated_request(UserFactory.default_user, :post, "/v", %{
+      conn() |> authenticate_as(UserFactory.default_user) |> post("/v", %{
         "vehicle" => %{
           "armor" => "3",
           "cargo" => "1 wookie rug (missing)",
@@ -137,7 +137,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
     end
 
     it "redirects to the vehicle show page on success" do
-      conn = authenticated_request(UserFactory.default_user, :post, "/v", %{ "vehicle" => %{"name" => "The Foobar"} })
+      conn = conn() |> authenticate_as(UserFactory.default_user) |> post("/v", %{ "vehicle" => %{"name" => "The Foobar"} })
 
       vehicle = Repo.all(Vehicle) |> Enum.at(0)
 
@@ -145,7 +145,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
     end
 
     it "re-renders the page with an error when required fields are missing" do
-      conn = authenticated_request(UserFactory.default_user, :post, "/v", %{
+      conn = conn() |> authenticate_as(UserFactory.default_user) |> post("/v", %{
         "vehicle" => %{"name" => "", "faction" => "thin mints"},
         "attacks" => %{"0" => %{"critical" => "3", "damage" => "7", "display_order" => "1", "firing_arc" => "All", "id" => nil, "range" => "Short", "specials" => "Pierce 2", "weapon_name" => "Dorsal Turbolaser"}},
       })
@@ -158,7 +158,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
     end
 
     it "doesn't create empty attacks or attachments" do
-      authenticated_request(UserFactory.default_user, :post, "/v", %{
+      conn() |> authenticate_as(UserFactory.default_user) |> post("/v", %{
         "vehicle" => %{"name" => "The Foobar"},
         "attachments" => %{
           "0" => %{"base_modifiers" => "", "display_order" => "0", "hard_points_required" => "", "modifications" => "", "name" => ""}
@@ -175,7 +175,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
     end
 
     it "requires authentication" do
-      conn = request(:post, "/v")
+      conn = conn() |> post("/v")
 
       assert requires_authentication?(conn)
     end
@@ -183,7 +183,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
 
   describe "index" do
     it "displays a link to create a new vehicle" do
-      conn = request(:get, "/v")
+      conn = conn() |> get("/v")
 
       assert conn.status == 200
       assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.vehicle_path(conn, :index))
@@ -195,7 +195,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
         VehicleFactory.create_vehicle(name: "Boba Fett", user_id: UserFactory.create_user.id)
       ]
 
-      conn = request(:get, "/v")
+      conn = conn() |> get("/v")
 
       for vehicle <- vehicles do
         assert String.contains?(conn.resp_body, vehicle.name)
@@ -207,7 +207,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
   describe "show" do
     it "renders the vehicle show form" do
       vehicle = VehicleFactory.create_vehicle
-      conn = request(:get, "/v/#{vehicle.permalink}")
+      conn = conn() |> get("/v/#{vehicle.permalink}")
 
       assert conn.status == 200
       assert String.contains?(conn.resp_body, vehicle.name)
@@ -216,7 +216,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
     it "displays edit and delete buttons when viewed by the owner" do
       vehicle = VehicleFactory.create_vehicle(user_id: UserFactory.default_user.id)
 
-      conn = authenticated_request(UserFactory.default_user, :get, "/v/#{vehicle.permalink}")
+      conn = conn() |> authenticate_as(UserFactory.default_user) |> get("/v/#{vehicle.permalink}")
 
       assert String.contains?(conn.resp_body, "Edit")
       assert String.contains?(conn.resp_body, "Delete")
@@ -225,7 +225,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
     it "inserts appropriate line breaks for long text fields" do
       vehicle = VehicleFactory.create_vehicle(cargo: "Belt\nWatch")
 
-      conn = request(:get, "/v/#{vehicle.permalink}")
+      conn = conn() |> get("/v/#{vehicle.permalink}")
 
       assert String.contains?(conn.resp_body, "Belt<br>Watch")
     end
@@ -233,7 +233,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
     it "escapes HTML input in text fields" do
       vehicle = VehicleFactory.create_vehicle(cargo: "Belt<script></script>Watch")
 
-      conn = request(:get, "/v/#{vehicle.permalink}")
+      conn = conn() |> get("/v/#{vehicle.permalink}")
 
       assert !String.contains?(conn.resp_body, "Belt<script></script>Watch")
     end
@@ -241,7 +241,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
     it "displays a link to the author's profile" do
       vehicle = VehicleFactory.create_vehicle(user_id: UserFactory.default_user.id)
 
-      conn = request(:get, "/v/#{vehicle.permalink}")
+      conn = conn() |> get("/v/#{vehicle.permalink}")
 
       assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.profile_path(conn, :show, UserFactory.default_user))
     end
@@ -261,7 +261,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
         vehicle_id: vehicle.id
       } |> Repo.insert
 
-      conn = authenticated_request(UserFactory.default_user, :get, "/v/#{vehicle.permalink}/edit")
+      conn = conn() |> authenticate_as(UserFactory.default_user) |> get("/v/#{vehicle.permalink}/edit")
 
       assert String.contains?(conn.resp_body, vehicle.name)
       assert String.contains?(conn.resp_body, vehicle_attack.weapon_name)
@@ -271,7 +271,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
     it "requires authentication" do
       vehicle = VehicleFactory.create_vehicle
 
-      conn = request(:get, "/v/#{vehicle.permalink}/edit")
+      conn = conn() |> get("/v/#{vehicle.permalink}/edit")
 
       assert requires_authentication?(conn)
     end
@@ -281,7 +281,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
       other = UserFactory.create_user(username: "other")
       vehicle = VehicleFactory.create_vehicle(user_id: owner.id)
 
-      conn = authenticated_request(other, :get, "/v/#{vehicle.permalink}/edit")
+      conn = conn() |> authenticate_as(other) |> get("/v/#{vehicle.permalink}/edit")
 
       assert is_redirect_to?(conn, "/")
     end
@@ -291,7 +291,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
     it "updates the vehicle" do
       vehicle = VehicleFactory.create_vehicle(name: "Foo Bar", faction: "Goose")
 
-      authenticated_request(UserFactory.default_user, :put, "/v/#{vehicle.permalink}", %{"vehicle" => %{"name" => "Bob Log", "faction" => "Bobs"}})
+      conn() |> authenticate_as(UserFactory.default_user) |> put("/v/#{vehicle.permalink}", %{"vehicle" => %{"name" => "Bob Log", "faction" => "Bobs"}})
 
       vehicle = Repo.get(Vehicle, vehicle.id)
 
@@ -302,7 +302,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
     it "handles blank appropriately" do
       vehicle = VehicleFactory.create_vehicle(name: "Foo Bar", faction: "Goose")
 
-      authenticated_request(UserFactory.default_user, :put, "/v/#{vehicle.permalink}", %{"vehicle" => %{"faction" => ""}})
+      conn() |> authenticate_as(UserFactory.default_user) |> put("/v/#{vehicle.permalink}", %{"vehicle" => %{"faction" => ""}})
 
       vehicle = Repo.get(Vehicle, vehicle.id)
 
@@ -312,7 +312,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
     it "redirects to the vehicle show page" do
       vehicle = VehicleFactory.create_vehicle
 
-      conn = authenticated_request(UserFactory.default_user, :put, "/v/#{vehicle.permalink}", %{"vehicle" => %{"name" => "Bob Log", "faction" => "Bobs"}})
+      conn = conn() |> authenticate_as(UserFactory.default_user) |> put("/v/#{vehicle.permalink}", %{"vehicle" => %{"name" => "Bob Log", "faction" => "Bobs"}})
 
       assert is_redirect_to?(conn, "/v/#{vehicle.permalink}")
     end
@@ -356,7 +356,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
         vehicle_id: vehicle.id
       } |> Repo.insert
 
-      authenticated_request(UserFactory.default_user, :put, "/v/#{vehicle.permalink}", %{
+      conn() |> authenticate_as(UserFactory.default_user) |> put("/v/#{vehicle.permalink}", %{
         "vehicle" => %{},
         "attacks" => %{
           "0" => %{"id" => unchanged_vehicle_attack.id},
@@ -388,7 +388,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
     it "filters out empty child changes" do
       vehicle = VehicleFactory.create_vehicle(user_id: UserFactory.default_user.id)
 
-      authenticated_request(UserFactory.default_user, :put, "/v/#{vehicle.permalink}", %{
+      conn() |> authenticate_as(UserFactory.default_user) |> put("/v/#{vehicle.permalink}", %{
         "vehicle" => %{},
         "attacks" => %{
           "1" => %{"weapon_name" => "", "display_order" => "1"},
@@ -407,7 +407,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
     it "re-renders the edit page when there are errors" do
       vehicle = VehicleFactory.create_vehicle(user_id: UserFactory.default_user.id)
 
-      conn = authenticated_request(UserFactory.default_user, :put, "/v/#{vehicle.permalink}", %{
+      conn = conn() |> authenticate_as(UserFactory.default_user) |> put("/v/#{vehicle.permalink}", %{
         "vehicle" => %{"name" => ""},
         "attacks" => %{
           "1" => %{"weapon_name" => "Wololo", "display_order" => "1"},
@@ -421,7 +421,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
     end
 
     it "requires authentication" do
-      conn = request(:put, "/v/123")
+      conn = conn() |> put("/v/123")
 
       assert requires_authentication?(conn)
     end
@@ -431,7 +431,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
       other = UserFactory.create_user(username: "other")
       vehicle = VehicleFactory.create_vehicle(user_id: owner.id)
 
-      conn = authenticated_request(other, :put, "/v/#{vehicle.permalink}", %{"vehicle" => %{}})
+      conn = conn() |> authenticate_as(other) |> put("/v/#{vehicle.permalink}", %{"vehicle" => %{}})
 
       assert is_redirect_to?(conn, "/")
     end
@@ -451,7 +451,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
         vehicle_id: vehicle.id
       } |> Repo.insert
 
-      authenticated_request(UserFactory.default_user, :delete, "/v/#{vehicle.permalink}")
+      conn() |> authenticate_as(UserFactory.default_user) |> delete("/v/#{vehicle.permalink}")
 
       assert is_nil(Repo.get(Vehicle, vehicle.id))
       assert is_nil(Repo.one(from va in VehicleAttack, where: va.vehicle_id == ^(vehicle.id)))
@@ -459,7 +459,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
     end
 
     it "requires authentication" do
-      conn = request(:delete, "/v/123")
+      conn = conn() |> delete("/v/123")
 
       assert requires_authentication?(conn)
     end
@@ -469,7 +469,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
       other = UserFactory.create_user(username: "other")
       vehicle = VehicleFactory.create_vehicle(user_id: owner.id)
 
-      conn = authenticated_request(other, :delete, "/v/#{vehicle.permalink}")
+      conn = conn() |> authenticate_as(other) |> delete("/v/#{vehicle.permalink}")
 
       assert is_redirect_to?(conn, "/")
     end

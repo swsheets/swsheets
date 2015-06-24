@@ -1,5 +1,5 @@
 defmodule EdgeBuilder.Models.AttackTest do
-  use EdgeBuilder.Test
+  use EdgeBuilder.TestCase
 
   alias EdgeBuilder.Models.Character
   alias EdgeBuilder.Models.Attack

@@ -1,5 +1,5 @@
 defmodule EdgeBuilder.Controllers.ProfileControllerTest do
-  use EdgeBuilder.ControllerTest
+  use EdgeBuilder.ConnCase
 
   alias Factories.UserFactory
   alias Factories.CharacterFactory
@@ -9,7 +9,7 @@ defmodule EdgeBuilder.Controllers.ProfileControllerTest do
     it "shows the username" do
       user = UserFactory.create_user
 
-      conn = request(:get, "/u/#{user.username}")
+      conn = conn() |> get("/u/#{user.username}")
 
       assert String.contains?(conn.resp_body, user.username)
     end
@@ -23,7 +23,7 @@ defmodule EdgeBuilder.Controllers.ProfileControllerTest do
           fn () -> VehicleFactory.create_vehicle(user_id: user.id) end
         ]) |> Stream.take(count) |> Enum.map(&(&1.()))
 
-        conn = request(:get, "/u/#{user.username}")
+        conn = conn() |> get("/u/#{user.username}")
 
         assert String.contains?(conn.resp_body, text), "Expected to find #{text}"
       end
@@ -33,7 +33,7 @@ defmodule EdgeBuilder.Controllers.ProfileControllerTest do
       user = UserFactory.create_user
       characters = [CharacterFactory.create_character(user_id: user.id), CharacterFactory.create_character(user_id: user.id)]
 
-      conn = request(:get, "/u/#{user.username}")
+      conn = conn() |> get("/u/#{user.username}")
 
       for character <- characters do
         assert String.contains?(conn.resp_body, character.permalink)
@@ -44,7 +44,7 @@ defmodule EdgeBuilder.Controllers.ProfileControllerTest do
       user = UserFactory.create_user
       vehicles = [VehicleFactory.create_vehicle(user_id: user.id), VehicleFactory.create_vehicle(user_id: user.id)]
 
-      conn = request(:get, "/u/#{user.username}")
+      conn = conn() |> get("/u/#{user.username}")
 
       for vehicle <- vehicles do
         assert String.contains?(conn.resp_body, vehicle.permalink)
@@ -54,7 +54,7 @@ defmodule EdgeBuilder.Controllers.ProfileControllerTest do
 
   describe "my_creations" do
     it "displays a link to create a new character" do
-      conn = authenticated_request(UserFactory.default_user, :get, "/my-creations")
+      conn = conn() |> authenticate_as(UserFactory.default_user) |> get("/my-creations")
 
       assert conn.status == 200
       assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.character_path(conn, :new))
@@ -68,7 +68,7 @@ defmodule EdgeBuilder.Controllers.ProfileControllerTest do
         CharacterFactory.create_character(name: "Boba Fett", user_id: user.id)
       ]
 
-      conn = authenticated_request(UserFactory.default_user, :get, "/my-creations")
+      conn = conn() |> authenticate_as(UserFactory.default_user) |> get("/my-creations")
 
       for character <- characters do
         assert String.contains?(conn.resp_body, character.name)
@@ -77,7 +77,7 @@ defmodule EdgeBuilder.Controllers.ProfileControllerTest do
     end
 
     it "displays a link to create a new vehicle" do
-      conn = authenticated_request(UserFactory.default_user, :get, "/my-creations")
+      conn = conn() |> authenticate_as(UserFactory.default_user) |> get("/my-creations")
 
       assert conn.status == 200
       assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.vehicle_path(conn, :new))
@@ -91,7 +91,7 @@ defmodule EdgeBuilder.Controllers.ProfileControllerTest do
         VehicleFactory.create_vehicle(name: "The Flier", user_id: user.id)
       ]
 
-      conn = authenticated_request(UserFactory.default_user, :get, "/my-creations")
+      conn = conn() |> authenticate_as(UserFactory.default_user) |> get("/my-creations")
 
       for vehicle <- vehicles do
         assert String.contains?(conn.resp_body, vehicle.name)
@@ -100,7 +100,7 @@ defmodule EdgeBuilder.Controllers.ProfileControllerTest do
     end
 
     it "requires authentication" do
-      conn = request(:get, "/my-creations")
+      conn = conn() |> get("/my-creations")
 
       assert requires_authentication?(conn)
     end

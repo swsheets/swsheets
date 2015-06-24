@@ -1,19 +1,22 @@
 defmodule Factories.UserFactory do
-  use FactoryGirlElixir.Factory
+  use Factories.BaseFactory
 
   alias EdgeBuilder.Models.User
   alias EdgeBuilder.Repo
   import Ecto.Query, only: [from: 2]
 
-  factory :user do
-    field :username, &("bobafett#{&1}")
-    field :email, "fett@example.com"
-    field :password, "jediknight"
-    field :password_confirmation, "jediknight"
-  end
+  @defaults %{
+    username: "bobafett",
+    email: "fett@example.com",
+    password: "jediknight",
+    password_confirmation: "jediknight"
+  }
 
   def create_user(overrides \\ []) do
-    params = attributes_for(:user, overrides) |> parametrize
+    if is_nil(overrides[:username]) do
+      overrides = Keyword.put(overrides, :username, @defaults[:username] <> Integer.to_string(next_counter))
+    end
+    params = Enum.into(overrides, @defaults)
     User.changeset(%User{}, :create, params) |> Repo.insert
   end
 

@@ -1,5 +1,5 @@
 defmodule EdgeBuilder.Controllers.PageControllerTest do
-  use EdgeBuilder.ControllerTest
+  use EdgeBuilder.ConnCase
 
   alias Factories.UserFactory
   alias Factories.CharacterFactory
@@ -12,7 +12,7 @@ defmodule EdgeBuilder.Controllers.PageControllerTest do
         CharacterFactory.create_character(name: "Boba Fett")
       ]
 
-      conn = request(:get, "/")
+      conn = conn() |> get("/")
 
       for character <- characters do
         assert String.contains?(conn.resp_body, character.name)
@@ -25,7 +25,7 @@ defmodule EdgeBuilder.Controllers.PageControllerTest do
         VehicleFactory.create_vehicle(name: "The Sauce")
       ]
 
-      conn = request(:get, "/")
+      conn = conn() |> get("/")
 
       for vehicle <- vehicles do
         assert String.contains?(conn.resp_body, vehicle.name)
@@ -49,20 +49,24 @@ defmodule EdgeBuilder.Controllers.PageControllerTest do
 
       UserFactory.create_user(username: "nocontributions")
 
-      conn = request(:get, "/")
+      conn = conn() |> get("/")
 
       assert String.match?(conn.resp_body, ~r/first.*second.*third/s)
       assert !String.contains?(conn.resp_body, "nocontributions")
     end
 
     it "shows a message if your password has just been reset" do
-      conn = request(:get, "/", %{}, fn(c) -> Plug.Conn.put_session(c, "phoenix_flash", %{"has_reset_password" => true}) end)
+      user = UserFactory.create_user |> UserFactory.add_password_reset_token
+
+      conn = conn
+      |> post("/password-reset", %{"password_reset" => %{"password" => "asdasdasdasd", "password_confirmation" => "asdasdasdasd", "token" => user.password_reset_token}})
+      |> get("/")
 
       assert String.contains?(conn.resp_body, "Your password has been reset and you are now logged in. Welcome back!")
     end
 
     it "shows no message if your password has not just been reset" do
-      conn = request(:get, "/")
+      conn = conn() |> get("/")
 
       assert !String.contains?(conn.resp_body, "Your password has been reset and you are now logged in. Welcome back!")
     end
@@ -83,7 +87,7 @@ defmodule EdgeBuilder.Controllers.PageControllerTest do
         pull_requested_at: %Ecto.DateTime{day: 8, month: 1, year: 2015, hour: 1, min: 1, sec: 1},
       )
 
-      conn = request(:get, "/thanks")
+      conn = conn() |> get("/thanks")
 
       assert String.contains?(conn.resp_body, "mark")
       assert String.contains?(conn.resp_body, "john")

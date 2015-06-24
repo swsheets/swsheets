@@ -5,7 +5,7 @@ defmodule EdgeBuilder.Mixfile do
     [app: :edge_builder,
      version: "0.0.1",
      elixir: "~> 1.0",
-     elixirc_paths: ["lib", "web"],
+     elixirc_paths: ["lib", "web"] ++ elixirc_paths(Mix.env),
      compilers: [:phoenix] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -19,6 +19,9 @@ defmodule EdgeBuilder.Mixfile do
     [mod: {EdgeBuilder, []},
      applications: [:phoenix, :cowboy, :logger, :postgrex, :ecto, :httpoison, :phoenix_ecto, :phoenix_html]]
   end
+
+  defp elixirc_paths(:test), do: ["test/support"]
+  defp elixirc_paths(_),     do: []
 
   # Specifies your project dependencies
   #
@@ -35,7 +38,6 @@ defmodule EdgeBuilder.Mixfile do
      {:httpoison, "~> 0.6"},
      {:inflex, "~> 1.0.0" },
      {:mock, "~> 0.1", only: :test},
-     {:factory_girl_elixir, "~> 0.1", only: :test},
      {:floki, "~> 0.1", only: :test},
      {:ex_spec, "~> 0.3", only: :test}]
   end

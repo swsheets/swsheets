@@ -1,5 +1,5 @@
 defmodule EdgeBuilder.Models.VehicleTest do
-  use EdgeBuilder.Test
+  use EdgeBuilder.TestCase
 
   alias Factories.VehicleFactory
   alias EdgeBuilder.Models.Vehicle
