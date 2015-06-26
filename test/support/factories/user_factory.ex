@@ -5,24 +5,30 @@ defmodule Factories.UserFactory do
   alias EdgeBuilder.Repo
   import Ecto.Query, only: [from: 2]
 
+  @default_password "jediknight"
+
   @defaults %{
     username: "bobafett",
     email: "fett@example.com",
-    password: "jediknight",
-    password_confirmation: "jediknight"
+    crypted_password: User.crypt_password(@default_password)
   }
 
   def create_user(overrides \\ []) do
     if is_nil(overrides[:username]) do
       overrides = Keyword.put(overrides, :username, @defaults[:username] <> Integer.to_string(next_counter))
     end
+    if !is_nil(overrides[:password]) do
+      overrides = Keyword.put(overrides, :crypted_password, User.crypt_password(overrides[:password]))
+    end
     params = Enum.into(overrides, @defaults)
-    User.changeset(%User{}, :create, params) |> Repo.insert
+    %User{} |> Map.merge(params) |> Repo.insert
   end
 
+  @token Ecto.UUID.generate
   def add_password_reset_token(user) do
-    User.changeset(user, :password_reset, %{password_reset_token: Ecto.UUID.generate}) |> Repo.update
+    User.changeset(user, :password_reset, %{password_reset_token: @token}) |> Repo.update
   end
+
 
   def set_contributions(user, overrides) do
     User.changeset(user, :contributions, Enum.into(overrides, %{})) |> Repo.update

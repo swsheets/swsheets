@@ -40,13 +40,8 @@ defmodule EdgeBuilder.ConnCase do
         is_redirect_to?(conn, "/welcome")
       end
 
-      # This is a somewhat ridiculous way to authenticate as a user - however, it's the only way that doesn't require foreknowledge
-      # of the user's password
       def authenticate_as(conn, user) do
-        user = Factories.UserFactory.add_password_reset_token(user)
-
-        conn
-        |> post("/password-reset", %{"password_reset" => %{"password" => "123456789012", "password_confirmation" => "123456789012", "token" => user.password_reset_token}})
+        conn = post(conn, "/test-support/fake-login/#{user.id}")
       end
     end
   end

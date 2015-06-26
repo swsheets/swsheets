@@ -117,7 +117,7 @@ defmodule EdgeBuilder.Models.User do
     end
   end
 
-  defp crypt_password(pw) do
+  def crypt_password(pw) do
     Comeonin.Bcrypt.hashpwsalt(pw)
   end
 end

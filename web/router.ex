@@ -32,5 +32,7 @@ defmodule EdgeBuilder.Router do
     post "/logout", SignupController, :logout
     post "/signup", SignupController, :signup
     resource "/user", SettingsController, only: [:edit, :update]
+
+    post "/test-support/fake-login/:id", TestSupportController, :fake_login
   end
 end
