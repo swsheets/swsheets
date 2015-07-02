@@ -307,7 +307,9 @@
 
 <div class="row">
   <h4>Other Notes</h4>
-  <textarea name="character[other_notes]" rows=10 class="form-control"><%= get_field(@character, :other_notes) %></textarea>
+  <div class='col-md-12'>
+    <textarea name="character[other_notes]" rows=10 class="form-control"><%= get_field(@character, :other_notes) %></textarea>
+  </div>
 </div>
 
 <div class="row">
