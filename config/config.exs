@@ -28,9 +28,6 @@ config :edge_builder, EdgeBuilder.Repo,
 config :edge_builder,
   application_name: "SWSheets"
 
-config :edge_builder, EdgeBuilder.Router,
-  session: [store: :cookie, key: "46587ade059260088e5307d26f8097fd"]
-
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"

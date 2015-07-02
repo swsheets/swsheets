@@ -49,11 +49,13 @@ defmodule EdgeBuilder.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
 
+  @expiry_in_ten_years (10 * 365 * 24 * 60 * 60)
   plug Plug.Session,
     store: :cookie,
     key: "_edge_builder_key",
     signing_salt: "YC5iCZqf",
-    encryption_salt: "UH3U4ow6"
+    encryption_salt: "UH3U4ow6",
+    max_age: @expiry_in_ten_years
 
   plug :router, EdgeBuilder.Router
 end
