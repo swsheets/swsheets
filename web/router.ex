@@ -32,8 +32,13 @@ defmodule EdgeBuilder.Router do
     post "/login", SignupController, :login
     post "/logout", SignupController, :logout
     post "/signup", SignupController, :signup
-    resource "/user", SettingsController, only: [:edit, :update]
+    resources "/user", SettingsController, only: [:edit, :update], singleton: true
 
     post "/test-support/fake-login/:id", TestSupportController, :fake_login
+  end
+
+  scope "/api", EdgeBuilder.API do
+    pipe_through :api
+    resources "/characters", CharacterController, only: [:update]
   end
 end

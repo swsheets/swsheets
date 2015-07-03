@@ -10,7 +10,6 @@ defmodule EdgeBuilder.VehicleController do
   import Ecto.Query, only: [from: 2]
 
   plug Plug.Authentication, except: [:show, :index]
-  plug :action
 
   def new(conn, _params) do
     render_vehicle conn, :new,

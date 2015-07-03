@@ -5,7 +5,6 @@ defmodule EdgeBuilder.SettingsController do
   alias EdgeBuilder.Repo
 
   plug Plug.Authentication
-  plug :action
 
   def edit(conn, _params) do
     user = Repo.get(User, get_session(conn, :current_user_id)) |> User.changeset(:update)

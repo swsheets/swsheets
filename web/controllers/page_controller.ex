@@ -7,8 +7,6 @@ defmodule EdgeBuilder.PageController do
   alias EdgeBuilder.Repo
   import Ecto.Query, only: [from: 2]
 
-  plug :action
-
   def index(conn, _params) do
     characters = Repo.all(from c in Character, order_by: [desc: :inserted_at], limit: 5)
     vehicles = Repo.all(from c in Vehicle, order_by: [desc: :inserted_at], limit: 5)

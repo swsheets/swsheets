@@ -8,8 +8,6 @@ defmodule EdgeBuilder.TestSupportController do
   alias EdgeBuilder.Repo
   import Ecto.Query, only: [from: 2]
 
-  plug :action
-
   def fake_login(conn, %{"id" => id}) do
     if Mix.env == :test do
       set_current_user(conn, Repo.get(User, id))

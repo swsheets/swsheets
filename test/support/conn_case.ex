@@ -43,6 +43,10 @@ defmodule EdgeBuilder.ConnCase do
       def authenticate_as(conn, user) do
         conn = post(conn, "/test-support/fake-login/#{user.id}")
       end
+
+      def api(conn) do
+        put_req_header(conn, "content-type", "application/json")
+      end
     end
   end
 

@@ -5,8 +5,6 @@ defmodule EdgeBuilder.PasswordResetController do
   alias EdgeBuilder.Repo
   import Ecto.Query, only: [from: 2]
 
-  plug :action
-
   def request(conn, _params) do
     render conn, :request
   end

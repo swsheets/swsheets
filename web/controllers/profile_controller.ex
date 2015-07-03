@@ -8,7 +8,6 @@ defmodule EdgeBuilder.ProfileController do
   import Ecto.Query, only: [from: 2]
 
   plug Plug.Authentication, except: [:show]
-  plug :action
 
   def show(conn, %{"id" => username}) do
     user = User.by_username(username)

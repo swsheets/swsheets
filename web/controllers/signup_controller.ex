@@ -2,7 +2,6 @@ defmodule EdgeBuilder.SignupController do
   use EdgeBuilder.Web, :controller
 
   alias EdgeBuilder.Models.User
-  plug :action
 
   def welcome(conn, _params) do
     render conn, "welcome.html"
