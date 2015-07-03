@@ -16,7 +16,7 @@ defmodule Factories.VehicleFactory do
     params = Enum.into(overrides, @defaults)
     user_id = params[:user_id] || UserFactory.default_user.id
 
-    Vehicle.changeset(%Vehicle{}, user_id, parameterize(params)) |> Repo.insert
+    Vehicle.changeset(%Vehicle{}, user_id, parameterize(params)) |> Repo.insert!
   end
 
   def default_parameters do

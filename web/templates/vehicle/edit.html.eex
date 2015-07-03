@@ -1,4 +1,4 @@
-<%= render EdgeBuilder.SharedView, "_errors.html", errors: @errors %>
+<%= render EdgeBuilder.SharedView, "_errors.html", errors: assigns[:errors] %>
 
 <%= form_tag(vehicle_path(@conn, :update, @vehicle.model), role: "form", method: "PUT") %>
   <%= render "_form.html", assigns %>

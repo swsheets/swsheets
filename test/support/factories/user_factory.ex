@@ -21,17 +21,17 @@ defmodule Factories.UserFactory do
       overrides = Keyword.put(overrides, :crypted_password, User.crypt_password(overrides[:password]))
     end
     params = Enum.into(overrides, @defaults)
-    %User{} |> Map.merge(params) |> Repo.insert
+    %User{} |> Map.merge(params) |> Repo.insert!
   end
 
   @token Ecto.UUID.generate
   def add_password_reset_token(user) do
-    User.changeset(user, :password_reset, %{password_reset_token: @token}) |> Repo.update
+    User.changeset(user, :password_reset, %{password_reset_token: @token}) |> Repo.update!
   end
 
 
   def set_contributions(user, overrides) do
-    User.changeset(user, :contributions, Enum.into(overrides, %{})) |> Repo.update
+    User.changeset(user, :contributions, Enum.into(overrides, %{})) |> Repo.update!
   end
 
   @default_username "phil"

@@ -1,7 +1,7 @@
 <div class='col-sm-6 col-sm-offset-3'>
   <h3>Password Reset</h3>
 
-  <%= if @after_request do %>
+  <%= if assigns[:after_request] do %>
     <div class="alert alert-success"><p>Instructions have been sent to that email address. If you do not see an email within a few minutes, double-check that you entered the correct email address.</p></div>
   <% end %>
 

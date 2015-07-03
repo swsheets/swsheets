@@ -19,7 +19,7 @@ defmodule Factories.CharacterFactory do
     params = Enum.into(overrides, @defaults)
     user_id = params[:user_id] || UserFactory.default_user.id
 
-    Character.changeset(%Character{}, user_id, parameterize(params)) |> Repo.insert
+    Character.changeset(%Character{}, user_id, parameterize(params)) |> Repo.insert!
   end
 
   def default_parameters do

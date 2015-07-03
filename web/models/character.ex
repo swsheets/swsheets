@@ -80,7 +80,7 @@ defmodule EdgeBuilder.Models.Character do
       Repo.delete_all(from c in child_module, where: c.character_id == ^character.id)
     end
 
-    Repo.delete(character)
+    Repo.delete!(character)
   end
 
   def _set_permalink_for_changeset(changeset) do

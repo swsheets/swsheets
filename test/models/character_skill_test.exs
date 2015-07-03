@@ -12,7 +12,7 @@ defmodule EdgeBuilder.Models.CharacterSkillTest do
         name: "Greedo",
         species: "Rodian",
         career: "Bounty Hunter"
-      } |> Repo.insert
+      } |> Repo.insert!
 
       base_skill = BaseSkill.all |> Enum.at(0)
 
@@ -20,13 +20,13 @@ defmodule EdgeBuilder.Models.CharacterSkillTest do
         rank: 2,
         base_skill_id: base_skill.id,
         character_id: character.id
-      } |> Repo.insert
+      } |> Repo.insert!
 
       _different_skill = %CharacterSkill{
         rank: 3,
         base_skill_id: base_skill.id,
         character_id: character.id + 1
-      } |> Repo.insert
+      } |> Repo.insert!
 
       assert CharacterSkill.for_character(character.id) == [greedos_skill]
     end
@@ -38,7 +38,7 @@ defmodule EdgeBuilder.Models.CharacterSkillTest do
         name: "Greedo",
         species: "Rodian",
         career: "Bounty Hunter"
-      } |> Repo.insert
+      } |> Repo.insert!
 
       base_skill = BaseSkill.all |> Enum.at(0)
 
@@ -46,7 +46,7 @@ defmodule EdgeBuilder.Models.CharacterSkillTest do
         rank: 2,
         base_skill_id: base_skill.id,
         character_id: character.id
-      } |> Repo.insert
+      } |> Repo.insert!
 
       all_character_skills = CharacterSkill.add_missing_defaults([greedos_skill])
 
@@ -66,7 +66,7 @@ defmodule EdgeBuilder.Models.CharacterSkillTest do
         name: "Greedo",
         species: "Rodian",
         career: "Bounty Hunter"
-      } |> Repo.insert
+      } |> Repo.insert!
 
       base_skill = BaseSkill.all |> Enum.at(0)
 
@@ -74,7 +74,7 @@ defmodule EdgeBuilder.Models.CharacterSkillTest do
         rank: 2,
         base_skill_id: base_skill.id,
         character_id: character.id
-      } |> Repo.insert |> CharacterSkill.changeset
+      } |> Repo.insert! |> CharacterSkill.changeset
 
       all_character_skills = CharacterSkill.add_missing_defaults([greedos_skill_changeset])
 

@@ -25,7 +25,7 @@ defmodule EdgeBuilder.SignupController do
     user = User.changeset(%User{}, :create, user_params)
 
     if user.valid? do
-      user = EdgeBuilder.Repo.insert(user)
+      user = EdgeBuilder.Repo.insert!(user)
 
       conn
       |> set_current_user(user)

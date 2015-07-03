@@ -5,7 +5,7 @@ defmodule EdgeBuilder.Models.BaseSkillTest do
 
   describe "all" do
     it "orders by skill position" do
-      %BaseSkill{name: "Foosball", characteristic: "Agility", display_order: -1} |> EdgeBuilder.Repo.insert
+      %BaseSkill{name: "Foosball", characteristic: "Agility", display_order: -1} |> EdgeBuilder.Repo.insert!
 
       [skill | _] = BaseSkill.all
 

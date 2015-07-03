@@ -78,7 +78,7 @@ defmodule EdgeBuilder.Models.Vehicle do
       Repo.delete_all(from c in child_module, where: c.vehicle_id == ^vehicle.id)
     end
 
-    Repo.delete(vehicle)
+    Repo.delete!(vehicle)
   end
 
   def _set_permalink_for_changeset(changeset) do

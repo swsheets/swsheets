@@ -254,12 +254,12 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
       vehicle_attack = %VehicleAttack{
         weapon_name: "ship claws",
         vehicle_id: vehicle.id
-      } |> Repo.insert
+      } |> Repo.insert!
 
       vehicle_attachment = %VehicleAttachment{
         name: "green shell",
         vehicle_id: vehicle.id
-      } |> Repo.insert
+      } |> Repo.insert!
 
       conn = conn() |> authenticate_as(UserFactory.default_user) |> get("/v/#{vehicle.permalink}/edit")
 
@@ -324,37 +324,37 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
         weapon_name: "ship claws",
         display_order: 0,
         vehicle_id: vehicle.id
-      } |> Repo.insert
+      } |> Repo.insert!
 
       renamed_vehicle_attack = %VehicleAttack{
         weapon_name: "big blaster",
         display_order: 1,
         vehicle_id: vehicle.id
-      } |> Repo.insert
+      } |> Repo.insert!
 
       _deleted_vehicle_attack = %VehicleAttack{
         weapon_name: "missiles",
         display_order: 2,
         vehicle_id: vehicle.id
-      } |> Repo.insert
+      } |> Repo.insert!
 
       unchanged_vehicle_attachment = %VehicleAttachment{
         name: "green shell",
         display_order: 0,
         vehicle_id: vehicle.id
-      } |> Repo.insert
+      } |> Repo.insert!
 
       renamed_vehicle_attachment = %VehicleAttachment{
         name: "red shell",
         display_order: 1,
         vehicle_id: vehicle.id
-      } |> Repo.insert
+      } |> Repo.insert!
 
       _deleted_vehicle_attachment = %VehicleAttachment{
         name: "banana",
         display_order: 2,
         vehicle_id: vehicle.id
-      } |> Repo.insert
+      } |> Repo.insert!
 
       conn() |> authenticate_as(UserFactory.default_user) |> put("/v/#{vehicle.permalink}", %{
         "vehicle" => %{},
@@ -444,12 +444,12 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
       %VehicleAttack{
         weapon_name: "ship claws",
         vehicle_id: vehicle.id
-      } |> Repo.insert
+      } |> Repo.insert!
 
       %VehicleAttachment{
         name: "green shell",
         vehicle_id: vehicle.id
-      } |> Repo.insert
+      } |> Repo.insert!
 
       conn() |> authenticate_as(UserFactory.default_user) |> delete("/v/#{vehicle.permalink}")
 

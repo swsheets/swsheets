@@ -40,9 +40,9 @@ defmodule EdgeBuilder.Changemap do
   defp apply_changes(changesets) when is_list(changesets), do: Enum.map(changesets, &apply_changes/1)
   defp apply_changes(changeset) do
     if is_nil(Ecto.Changeset.get_field(changeset, :id)) do
-      EdgeBuilder.Repo.insert(changeset)
+      EdgeBuilder.Repo.insert!(changeset)
     else
-      EdgeBuilder.Repo.update(changeset)
+      EdgeBuilder.Repo.update!(changeset)
     end
   end
 

@@ -11,17 +11,17 @@ defmodule EdgeBuilder.Models.AttackTest do
         name: "Greedo",
         species: "Rodian",
         career: "Bounty Hunter"
-      } |> Repo.insert
+      } |> Repo.insert!
 
       greedos_attack = %Attack{
         weapon_name: "nunchuks",
         character_id: character.id
-      } |> Repo.insert
+      } |> Repo.insert!
 
       _different_attack = %Attack{
         weapon_name: "switchblade",
         character_id: character.id + 1
-      } |> Repo.insert
+      } |> Repo.insert!
 
       assert Attack.for_character(character.id) == [greedos_attack]
     end

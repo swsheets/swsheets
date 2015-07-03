@@ -18,6 +18,6 @@ defmodule Mix.Tasks.AddContributor do
     EdgeBuilder.Repo.start_link
     User.by_username(username)
     |> User.changeset(:contributions, changes)
-    |> EdgeBuilder.Repo.update
+    |> EdgeBuilder.Repo.update!
   end
 end

@@ -1,6 +1,6 @@
-<%= render EdgeBuilder.SharedView, "_errors.html", errors: @errors %>
+<%= render EdgeBuilder.SharedView, "_errors.html", errors: assigns[:errors] %>
 
-<%= unless is_nil(@login_error) do %>
+<%= unless is_nil(assigns[:login_error]) do %>
   <div class="alert alert-danger"><p>No matching username and password could be found</p></div>
 <% end %>
 
@@ -54,11 +54,11 @@
     <%= form_tag(signup_path(@conn, :signup), role: "form", method: "POST", class: "form") %>
       <div class="form-group">
         <label for="signup[email]" class='control-label'>Email Address</label>
-        <input type="email" class="form-control" name="signup[email]" value="<%= @signup_email %>" />
+        <input type="email" class="form-control" name="signup[email]" value="<%= assigns[:signup_email] %>" />
       </div>
       <div class="form-group">
         <label for="signup[username]" class='control-label'>Username</label>
-        <input type="text" class="form-control" name="signup[username]" value="<%= @signup_username %>" />
+        <input type="text" class="form-control" name="signup[username]" value="<%= assigns[:signup_username] %>" />
       </div>
       <div class="form-group">
         <label for="signup[password]" class='control-label'>Password</label>

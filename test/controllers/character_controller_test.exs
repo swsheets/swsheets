@@ -253,7 +253,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
     it "displays partial attacks" do
       character = CharacterFactory.create_character
-      Repo.insert(%Attack{character_id: character.id, weapon_name: "Claws"})
+      Repo.insert!(%Attack{character_id: character.id, weapon_name: "Claws"})
 
       conn = conn() |> get("/c/#{character.permalink}")
 
@@ -300,17 +300,17 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         base_skill_id: BaseSkill.by_name("Athletics").id,
         rank: 4,
         character_id: character.id
-      } |> Repo.insert
+      } |> Repo.insert!
 
       talent = %Talent{
         name: "Quick Draw",
         character_id: character.id
-      } |> Repo.insert
+      } |> Repo.insert!
 
       attack = %Attack{
         weapon_name: "Holdout Blaster",
         character_id: character.id
-      } |> Repo.insert
+      } |> Repo.insert!
 
       conn = conn() |> authenticate_as(UserFactory.default_user) |> get("/c/#{character.permalink}/edit")
 
@@ -388,7 +388,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         book_and_page: "EotE Core p145",
         description: "Draws a gun quickly",
         character_id: character.id
-      } |> Repo.insert
+      } |> Repo.insert!
 
       conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "talents" => %{
         "0" => %{"book_and_page" => "DC p43", "description" => "Do stuff", "id" => talent.id, "name" => "Awesome Guy"}
@@ -423,7 +423,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         book_and_page: "EotE Core p145",
         description: "Draws a gun quickly",
         character_id: character.id
-      } |> Repo.insert
+      } |> Repo.insert!
 
       conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "talents" => %{
         "0" => %{"book_and_page" => "", "description" => "", "name" => ""},
@@ -441,7 +441,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         book_and_page: "EotE Core p145",
         description: "Draws a gun quickly",
         character_id: character.id
-      } |> Repo.insert
+      } |> Repo.insert!
 
       conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}})
 
@@ -458,7 +458,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         weapon_name: "Holdout Blaster",
         range: "Short",
         character_id: character.id
-      } |> Repo.insert
+      } |> Repo.insert!
 
       conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "attacks" => %{
         "0" => %{"weapon_name" => "Claws", "range" => "Engaged", "id" => attack.id}
@@ -493,7 +493,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         weapon_name: "Holdout Blaster",
         range: "Short",
         character_id: character.id
-      } |> Repo.insert
+      } |> Repo.insert!
 
       conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}})
 
@@ -536,7 +536,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         base_skill_id: base_skill.id,
         character_id: character.id,
         rank: 5
-      } |> Repo.insert
+      } |> Repo.insert!
 
       conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 0, "id" => original_character_skill.id}}})
 
@@ -552,7 +552,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         base_skill_id: base_skill.id,
         character_id: character.id,
         rank: 5
-      } |> Repo.insert
+      } |> Repo.insert!
 
       conn = conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{
         "character" => %{
@@ -596,7 +596,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         base_skill_id: base_skill.id,
         character_id: character.id,
         rank: 5
-      } |> Repo.insert
+      } |> Repo.insert!
 
       conn() |> authenticate_as(UserFactory.default_user) |> delete("/c/#{character.permalink}")
 

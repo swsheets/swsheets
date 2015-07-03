@@ -163,7 +163,7 @@ defmodule Mix.Tasks.Seed do
     |> Enum.map( fn({skill, i}) ->
       Map.put(skill, :display_order, i)
       |> BaseSkill.changeset
-      |> EdgeBuilder.Repo.insert
+      |> EdgeBuilder.Repo.insert!
     end)
   end
 

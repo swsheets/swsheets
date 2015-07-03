@@ -1,6 +1,6 @@
-<%= render EdgeBuilder.SharedView, "_errors.html", errors: @errors %>
+<%= render EdgeBuilder.SharedView, "_errors.html", errors: assigns[:errors] %>
 
-<%= unless is_nil(@saved) do %>
+<%= unless is_nil(assigns[:saved]) do %>
   <div class="alert alert-success">
     <p>Your settings have been updated</p>
   </div>
