@@ -41,7 +41,17 @@ defmodule EdgeBuilder.ConnCase do
       end
 
       def authenticate_as(conn, user) do
-        conn = post(conn, "/test-support/fake-login/#{user.id}")
+        conn = post(conn, "/test-support/fake-login/#{user.id}") |> recycle()
+      end
+
+      def json_put(conn, path, params \\ nil) do
+        if !is_nil(params) do
+          params = Poison.encode!(params)
+        end
+
+        conn
+        |> put_req_header("content-type", "application/json")
+        |> put(path, params)
       end
 
       def api(conn) do

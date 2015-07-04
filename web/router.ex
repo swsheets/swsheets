@@ -12,6 +12,9 @@ defmodule EdgeBuilder.Router do
 
   pipeline :api do
     plug :accepts, ~w(json)
+    plug :fetch_session
+    plug :fetch_flash
+    plug Plug.ScrubEmptyParams
   end
 
   scope "/", EdgeBuilder do
