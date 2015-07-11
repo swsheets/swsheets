@@ -38,7 +38,7 @@ defmodule EdgeBuilder.Models.Character do
     field :background, :string
     field :motivation, :string
     field :obligation, :string
-    field :obligation_amount, :string
+    field :duty, :string
     field :description, :string
     field :other_notes, :string
     field :critical_injuries, :string
