@@ -26,7 +26,7 @@ defmodule EdgeBuilder.VehicleController do
     }
 
     if Changemap.valid?(changemap)  do
-      changemap = Changemap.apply(changemap)
+      changemap = Changemap.apply_changes(changemap)
 
       redirect conn, to: vehicle_path(conn, :show, changemap.root)
     else
@@ -87,7 +87,7 @@ defmodule EdgeBuilder.VehicleController do
       redirect conn, to: "/"
     else
       if Changemap.valid?(changemap) do
-        Changemap.apply(changemap)
+        Changemap.apply_changes(changemap)
         |> Changemap.delete_missing
 
         redirect conn, to: vehicle_path(conn, :show, changemap.root.model)

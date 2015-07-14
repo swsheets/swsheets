@@ -7,6 +7,8 @@ defmodule EdgeBuilder.CharacterController do
   alias EdgeBuilder.Models.Talent
   alias EdgeBuilder.Models.Attack
   alias EdgeBuilder.Models.CharacterSkill
+  alias EdgeBuilder.Models.ForcePower
+  alias EdgeBuilder.Models.ForcePowerUpgrade
   alias EdgeBuilder.Repo
   alias EdgeBuilder.Changemap
   import Ecto.Query, only: [from: 2]
@@ -22,11 +24,12 @@ defmodule EdgeBuilder.CharacterController do
       root: Character.changeset(%Character{}, current_user_id(conn), character_params),
       talents: child_changesets(params["talents"], Talent),
       attacks: child_changesets(params["attacks"], Attack),
-      character_skills: character_skill_changesets(params["skills"])
+      character_skills: character_skill_changesets(params["skills"]),
+      force_powers: force_power_changesets(params["force_powers"])
     }
 
     if Changemap.valid?(changemap) do
-      changes = Changemap.apply(changemap)
+      changes = Changemap.apply_changes(changemap)
 
       redirect conn, to: character_path(conn, :show, changes.root)
     else
@@ -92,7 +95,7 @@ defmodule EdgeBuilder.CharacterController do
 
       if Changemap.valid?(changemap) do
         changemap
-        |> Changemap.apply
+        |> Changemap.apply_changes
         |> Changemap.delete_missing
 
         redirect conn, to: character_path(conn, :show, changemap.root.model)
@@ -150,6 +153,30 @@ defmodule EdgeBuilder.CharacterController do
     |> Enum.reject(&child_model.is_default_changeset?/1)
   end
   defp child_changesets(_,_,_), do: []
+
+  defp force_power_changesets(params, instances \\ [])
+  defp force_power_changesets(params, instances) when is_map(params) do
+    params
+    |> Map.values
+    |> Enum.map( fn parameters ->
+      to_changeset(parameters, ForcePower, instances)
+      |> with_upgrades(parameters["upgrades"])
+    end)
+    |> Enum.reject(&ForcePower.is_default_changeset?/1)
+  end
+  defp force_power_changesets(_,_), do: []
+
+  defp with_upgrades(force_power, upgrade_params) when is_map(upgrade_params) do
+    if Ecto.Changeset.get_field(force_power, :upgrades) |> Ecto.Association.loaded? do
+      instances = Ecto.Changeset.get_field(force_power, :upgrades)
+    else
+      instances = []
+    end
+
+    %{root: force_power,
+      force_power_upgrades: child_changesets(upgrade_params, ForcePowerUpgrade, instances)}
+  end
+  defp with_upgrades(force_power,_), do: force_power
 
   defp to_changeset(params = %{"id" => id}, model, instances) when not is_nil(id) do
     Enum.find(instances, &(to_string(&1.id) == to_string(id))) |> model.changeset(params)

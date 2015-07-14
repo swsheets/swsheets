@@ -2,6 +2,7 @@ defmodule Mix.Tasks.Seed do
   use Mix.Task
 
   alias EdgeBuilder.Models.BaseSkill
+  alias EdgeBuilder.Repo
 
   @shortdoc "Seed the database with default data"
 
@@ -112,6 +113,53 @@ defmodule Mix.Tasks.Seed do
         is_attack_skill: true,
       },
       %{
+        name: "Lightsaber",
+        characteristic: "Brawn",
+        is_attack_skill: true,
+        skill_group: "Lightsaber",
+        system: :fad
+      },
+      %{
+        name: "Lightsaber",
+        characteristic: "Agility",
+        is_attack_skill: true,
+        skill_group: "Lightsaber",
+        is_default_in_group: false,
+        system: :fad
+      },
+      %{
+        name: "Lightsaber",
+        characteristic: "Intellect",
+        is_attack_skill: true,
+        skill_group: "Lightsaber",
+        is_default_in_group: false,
+        system: :fad
+      },
+      %{
+        name: "Lightsaber",
+        characteristic: "Cunning",
+        is_attack_skill: true,
+        skill_group: "Lightsaber",
+        is_default_in_group: false,
+        system: :fad
+      },
+      %{
+        name: "Lightsaber",
+        characteristic: "Willpower",
+        is_attack_skill: true,
+        skill_group: "Lightsaber",
+        is_default_in_group: false,
+        system: :fad
+      },
+      %{
+        name: "Lightsaber",
+        characteristic: "Presence",
+        is_attack_skill: true,
+        skill_group: "Lightsaber",
+        is_default_in_group: false,
+        system: :fad
+      },
+      %{
         name: "Melee",
         characteristic: "Brawn",
         is_attack_skill: true,
@@ -159,15 +207,16 @@ defmodule Mix.Tasks.Seed do
 
     base_skills
     |> Enum.with_index
-    |> Enum.reject(&existing_skill?/1)
     |> Enum.map( fn({skill, i}) ->
       Map.put(skill, :display_order, i)
-      |> BaseSkill.changeset
-      |> EdgeBuilder.Repo.insert!
+      |> insert_or_update_skill
     end)
   end
 
-  defp existing_skill?({ %{name: name}, _}) do
-    !is_nil(BaseSkill.by_name(name))
+  defp insert_or_update_skill(base_skill = %{name: name, characteristic: characteristic}) do
+    case BaseSkill.by_name_and_characteristic(name, characteristic) do
+      nil -> BaseSkill.changeset(base_skill) |> Repo.insert!
+      current_skill -> BaseSkill.changeset(current_skill, base_skill) |> Repo.update!
+    end
   end
 end

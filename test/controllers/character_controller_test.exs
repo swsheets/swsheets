@@ -8,6 +8,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
   alias EdgeBuilder.Models.Attack
   alias EdgeBuilder.Models.BaseSkill
   alias EdgeBuilder.Models.CharacterSkill
+  alias EdgeBuilder.Models.ForcePower
   alias EdgeBuilder.Repo
   alias Helpers.FlokiExt
   import Ecto.Query, only: [from: 2]
@@ -141,6 +142,53 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert character_skill.base_skill_id == BaseSkill.by_name("Athletics").id
       assert character_skill.is_career
       assert character_skill.rank == 3
+    end
+
+    it "creates a Force & Destiny character" do
+      conn() |> authenticate_as(UserFactory.default_user) |> post("/c", %{
+        "character" => %{
+          "name" => "Ki Ar Mundi",
+          "species" => "Big headed folks",
+          "career" => "Jedi Manager",
+          "system" => "fad",
+          "morality" => "not so hot!",
+          "force_rating" => "5"
+        },
+        "force_powers" => %{
+          "0" => %{"name" => "Motivate", "description" => "Gets people up and at em!", "display_order" => "1", "upgrades" => %{
+              "0" => %{"name" => "Improved Productivity", "description" => "People work ten percent harder", "display_order" => "0"},
+              "1" => %{"name" => "Greater Productivity", "description" => "People work fifteen percent harder", "display_order" => "1"}
+              }
+          },
+          "1" => %{"name" => "Force Feedback", "description" => "Give effective individual feedback", "display_order" => "0"}
+        }
+      })
+
+      character = Repo.all(Character) |> Enum.at(0)
+
+      assert character.user_id == UserFactory.default_user.id
+      assert character.name == "Ki Ar Mundi"
+      assert character.force_rating == 5
+      assert character.morality == "not so hot!"
+
+      [first_power, second_power] = ForcePower.for_character(character.id) |> Enum.sort_by &(&1.display_order)
+
+      assert first_power.name == "Force Feedback"
+      assert first_power.description == "Give effective individual feedback"
+      assert first_power.display_order == 0
+
+      assert second_power.name == "Motivate"
+      assert second_power.description == "Gets people up and at em!"
+      assert second_power.display_order == 1
+
+      [first_upgrade, second_upgrade] = second_power.force_power_upgrades
+      assert first_upgrade.name == "Improved Productivity"
+      assert first_upgrade.description == "People work ten percent harder"
+      assert first_upgrade.display_order == 0
+
+      assert second_upgrade.name == "Greater Productivity"
+      assert second_upgrade.description == "People work fifteen percent harder"
+      assert second_upgrade.display_order == 1
     end
 
     it "redirects to the character show page" do

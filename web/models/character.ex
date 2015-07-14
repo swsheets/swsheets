@@ -5,6 +5,7 @@ defmodule EdgeBuilder.Models.Character do
   alias EdgeBuilder.Models.Talent
   alias EdgeBuilder.Models.Attack
   alias EdgeBuilder.Models.CharacterSkill
+  alias EdgeBuilder.Models.ForcePower
 
   @derive {Phoenix.Param, key: :permalink}
   schema "characters" do
@@ -39,9 +40,12 @@ defmodule EdgeBuilder.Models.Character do
     field :motivation, :string
     field :obligation, :string
     field :duty, :string
+    field :morality, :string
     field :description, :string
     field :other_notes, :string
     field :critical_injuries, :string
+    field :force_rating, :integer
+
     field :system, Ecto.Types.Enumeration
 
     timestamps
@@ -50,6 +54,7 @@ defmodule EdgeBuilder.Models.Character do
     has_many :talents, Talent
     has_many :attacks, Attack
     has_many :character_skills, CharacterSkill
+    has_many :force_powers, ForcePower
   end
 
   before_insert Ecto.Changeset, :delete_change, [:url_slug]
@@ -71,7 +76,8 @@ defmodule EdgeBuilder.Models.Character do
     Repo.one!(
       from c in __MODULE__,
         where: c.url_slug == ^url_slug,
-        preload: [:talents, :attacks, :character_skills]
+        preload: [:talents, :attacks, :character_skills],
+        preload: [force_powers: :force_power_upgrades]
     )
   end
 
