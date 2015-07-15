@@ -38,6 +38,7 @@ defmodule EdgeBuilder.CharacterController do
         talents: changemap.talents,
         attacks: changemap.attacks,
         character_skills: changemap.character_skills,
+        force_powers: changemap.force_powers,
         errors: changemap.root.errors
     end
   end
@@ -121,7 +122,7 @@ defmodule EdgeBuilder.CharacterController do
     end
   end
 
-  @empty_force_power %ForcePower{force_power_upgrades: [%ForcePowerUpgrade{}]}
+  @empty_force_power %ForcePower{force_power_upgrades: [%ForcePowerUpgrade{} |> ForcePowerUpgrade.changeset]} |> ForcePower.changeset
 
   defp render_new(conn, assignments \\ []) do
     assignments = Keyword.merge(assignments, [

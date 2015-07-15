@@ -1,7 +1,9 @@
 <div class="row"><h4>Force Powers</h4></div>
 <%= for {force_power, i} <- Enum.with_index(@force_powers) do %>
-  <div class="row force-power-row active" >
+  <div class="row force-power-row<%= if rem(i, 2) == 0, do: " active" %>" data-force-power="<%= i %>">
     <div class='col-sm-3 force-power-details'>
+      <input type="hidden" name="force_powers[<%= i %>][id]" value="<%= get_field(force_power, :id) %>" />
+      <input type="hidden" name="force_powers[<%= i %>][display_order]" value="<%= get_field(force_power, :display_order) %>" />
       <div class="form-group form-group-sm">
         <label for="force_powers[<%= i %>][name]">Power</label>
         <input type="text" class="form-control" name="force_powers[<%= i %>][name]" placeholder="Power" value="<%= get_field(force_power, :name) %>" />
@@ -10,7 +12,7 @@
         <label for="force_powers[<%= i %>][description]">Description</label>
         <textarea name="force_powers[<%= i %>][description]" rows=4 class="form-control" placeholder="Description"><%= get_field(force_power, :description) %></textarea>
       </div>
-      <button type="button" class="btn btn-block btn-danger">Remove Power</button>
+      <button type="button" class="btn btn-block btn-danger" data-remove-force-power="<%= i %>">Remove Power</button>
     </div>
     <div class='col-sm-9'>
       <table class='table table-condensed'>
@@ -19,26 +21,30 @@
           <th class='col-xs-8'>Effect</th>
           <th class='col-xs-1'>&nbsp;</th>
         </tr>
-        <tr>
-          <td>
-            <div class="form-group-sm">
-              <label for="force_powers[<%= i %>][force_power_upgrades][0][name]" class="sr-only">Upgrade</label>
-              <input type="text" class="form-control" name="force_powers[<%= i %>][force_power_upgrades][0][name]" placeholder="Upgrade" />
-            </div>
-          </td>
-          <td>
-            <div class="form-group-sm">
-              <label for="force_powers[<%= i %>][force_power_upgrades][0][description]" class="sr-only">Upgrade Effect</label>
-              <textarea placeholder="Effect" name="force_powers[<%= i %>][force_power_upgrades][0][description]" rows=1 class="form-control"></textarea>
-            </div>
-          </td>
-          <td>
-            <button class="btn btn-danger btn-sm" tabindex="-1"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-          </td>
-        </tr>
+        <%= for {upgrade, j} <- Enum.with_index(get_field(force_power, :force_power_upgrades)) do %>
+          <tr data-force-power-upgrade="<%= j %>">
+            <td>
+              <input type="hidden" name="force_powers[<%= i %>][force_power_upgrades][<%= j %>][id]" value="<%= get_field(upgrade, :id) %>" />
+              <input type="hidden" name="force_powers[<%= i %>][force_power_upgrades][<%= j %>][display_order]" value="<%= get_field(upgrade, :display_order) %>" />
+              <div class="form-group-sm">
+                <label for="force_powers[<%= i %>][force_power_upgrades][<%= j %>][name]" class="sr-only">Upgrade</label>
+                <input type="text" class="form-control" name="force_powers[<%= i %>][force_power_upgrades][<%= j %>][name]" placeholder="Upgrade" />
+              </div>
+            </td>
+            <td>
+              <div class="form-group-sm">
+                <label for="force_powers[<%= i %>][force_power_upgrades][<%= j %>][description]" class="sr-only">Upgrade Effect</label>
+                <textarea placeholder="Effect" name="force_powers[<%= i %>][force_power_upgrades][<%= j %>][description]" rows=1 class="form-control"></textarea>
+              </div>
+            </td>
+            <td>
+              <button class="btn btn-danger btn-sm" tabindex="-1" data-remove-force-power-upgrade="<%= j %>"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+            </td>
+          </tr>
+        <% end %>
       </table>
       <p class="text-center col-md-4 col-md-offset-4">
-        <button id="addOneTalentButton" type="button" class="btn btn-block btn-default">Add Upgrade</button>
+        <button type="button" class="btn btn-block btn-default" data-force-power-add-upgrade="<%= i %>">Add Upgrade</button>
       </p>
     </div>
   </div>
