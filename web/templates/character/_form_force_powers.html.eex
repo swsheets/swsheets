@@ -1,0 +1,45 @@
+<div class="row"><h4>Force Powers</h4></div>
+<%= for {force_power, i} <- Enum.with_index(@force_powers) do %>
+  <div class="row force-power-row active" >
+    <div class='col-sm-3 force-power-details'>
+      <div class="form-group form-group-sm">
+        <label for="force_powers[<%= i %>][name]">Power</label>
+        <input type="text" class="form-control" name="force_powers[<%= i %>][name]" placeholder="Power" value="<%= get_field(force_power, :name) %>" />
+      </div>
+      <div class="form-group">
+        <label for="force_powers[<%= i %>][description]">Description</label>
+        <textarea name="force_powers[<%= i %>][description]" rows=4 class="form-control" placeholder="Description"><%= get_field(force_power, :description) %></textarea>
+      </div>
+      <button type="button" class="btn btn-block btn-danger">Remove Power</button>
+    </div>
+    <div class='col-sm-9'>
+      <table class='table table-condensed'>
+        <tr>
+          <th class='col-xs-3'>Upgrade</th>
+          <th class='col-xs-8'>Effect</th>
+          <th class='col-xs-1'>&nbsp;</th>
+        </tr>
+        <tr>
+          <td>
+            <div class="form-group-sm">
+              <label for="force_powers[<%= i %>][force_power_upgrades][0][name]" class="sr-only">Upgrade</label>
+              <input type="text" class="form-control" name="force_powers[<%= i %>][force_power_upgrades][0][name]" placeholder="Upgrade" />
+            </div>
+          </td>
+          <td>
+            <div class="form-group-sm">
+              <label for="force_powers[<%= i %>][force_power_upgrades][0][description]" class="sr-only">Upgrade Effect</label>
+              <textarea placeholder="Effect" name="force_powers[<%= i %>][force_power_upgrades][0][description]" rows=1 class="form-control"></textarea>
+            </div>
+          </td>
+          <td>
+            <button class="btn btn-danger btn-sm" tabindex="-1"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+          </td>
+        </tr>
+      </table>
+      <p class="text-center col-md-4 col-md-offset-4">
+        <button id="addOneTalentButton" type="button" class="btn btn-block btn-default">Add Upgrade</button>
+      </p>
+    </div>
+  </div>
+<% end %>

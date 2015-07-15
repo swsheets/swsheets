@@ -284,6 +284,9 @@
 <%= render "_form_talents.html", talents: in_display_order(@talents) %>
 <hr>
 
+<%= render "_form_force_powers.html", force_powers: in_display_order(@force_powers) %>
+<hr>
+
 <div class="row">
   <div class="col-md-6">
     <h4>Background</h4>

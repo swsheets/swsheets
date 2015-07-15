@@ -1,6 +1,5 @@
 defmodule EdgeBuilder.CharacterView do
   use EdgeBuilder.Web, :view
-  import Ecto.Changeset, only: [get_field: 2]
 
   alias EdgeBuilder.Repo
   alias EdgeBuilder.Models.BaseSkill
@@ -21,10 +20,6 @@ defmodule EdgeBuilder.CharacterView do
     end) |> raw
   end
 
-  def in_display_order(coll) do
-    Enum.sort(coll, &(get_field(&1, :display_order) < get_field(&2, :display_order)))
-  end
-
   def skill_display_name(skill) do
     "#{skill.name} (#{Characteristic.shorthand_for(skill.characteristic)})"
   end
@@ -34,4 +29,5 @@ defmodule EdgeBuilder.CharacterView do
       is_nil(cs.system) || cs.system == system
     end)
   end
+
 end

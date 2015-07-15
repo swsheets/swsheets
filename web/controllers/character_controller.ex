@@ -121,12 +121,15 @@ defmodule EdgeBuilder.CharacterController do
     end
   end
 
+  @empty_force_power %ForcePower{force_power_upgrades: [%ForcePowerUpgrade{}]}
+
   defp render_new(conn, assignments \\ []) do
     assignments = Keyword.merge(assignments, [
       title: "New Character",
       character: (if is_nil(assignments[:character]), do: %Character{} |> Character.changeset(current_user_id(conn)), else: assignments[:character]),
       talents: (if is_nil(assignments[:talents]) || Enum.empty?(assignments[:talents]), do: [%Talent{} |> Talent.changeset], else: assignments[:talents]),
       attacks: (if is_nil(assignments[:attacks]) || Enum.empty?(assignments[:attacks]), do: [%Attack{} |> Attack.changeset], else: assignments[:attacks]),
+      force_powers: (if is_nil(assignments[:force_powers]) || Enum.empty?(assignments[:force_powers]), do: [@empty_force_power |> ForcePower.changeset], else: assignments[:force_powers]),
       character_skills: CharacterSkill.add_missing_defaults(assignments[:character_skills] || [])
     ])
 

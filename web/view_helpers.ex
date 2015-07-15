@@ -1,6 +1,8 @@
 defmodule EdgeBuilder.ViewHelpers do
   defmacro __using__(_opts) do
     quote do
+      import Ecto.Changeset, only: [get_field: 2]
+
       def application_name, do: Application.get_env(:edge_builder, :application_name)
 
       def format_date(nil), do: nil
@@ -28,6 +30,10 @@ defmodule EdgeBuilder.ViewHelpers do
         {:safe, escaped_value} = Ecto.Changeset.get_field(changeset, field) |> Phoenix.HTML.html_escape
 
         {:safe, String.replace(escaped_value, "\n", "<br>")}
+      end
+
+      def in_display_order(coll) do
+        Enum.sort(coll, &(get_field(&1, :display_order) < get_field(&2, :display_order)))
       end
     end
   end

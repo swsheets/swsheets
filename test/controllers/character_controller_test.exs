@@ -207,13 +207,22 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
           "career" => "Bounty Hunter",
           "system" => "eote"
         },
-        "skills" => %{"0" => %{"base_skill_id" => BaseSkill.by_name("Athletics").id, "rank" => "3", "is_career" => "on"}}
+        "skills" => %{"0" => %{"base_skill_id" => BaseSkill.by_name("Athletics").id, "rank" => "3", "is_career" => "on"}},
+        "force_powers" => %{
+          "0" => %{"name" => "Motivate", "description" => "Gets people up and at em!", "display_order" => "1", "upgrades" => %{
+              "0" => %{"name" => "Improved Productivity", "description" => "People work ten percent harder", "display_order" => "0"}
+              }
+          }
+        }
       })
 
       assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text == "Name can't be blank"
       assert FlokiExt.element(conn, "[data-skill=Athletics]") |> FlokiExt.attribute("value") == "3"
       assert !is_nil(FlokiExt.element(conn, ".attack-first-row"))
       assert !is_nil(FlokiExt.element(conn, ".talent-row"))
+
+      assert String.contains?(conn.resp_body, "Gets people up and at em!")
+      assert String.contains?(conn.resp_body, "People work ten percent harder")
     end
 
     it "requires authentication" do
