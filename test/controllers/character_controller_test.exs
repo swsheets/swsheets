@@ -9,6 +9,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
   alias EdgeBuilder.Models.BaseSkill
   alias EdgeBuilder.Models.CharacterSkill
   alias EdgeBuilder.Models.ForcePower
+  alias EdgeBuilder.Models.ForcePowerUpgrade
   alias EdgeBuilder.Repo
   alias Helpers.FlokiExt
   import Ecto.Query, only: [from: 2]
@@ -369,6 +370,16 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         character_id: character.id
       } |> Repo.insert!
 
+      force_power = %ForcePower{
+        name: "Force Vuvuzela",
+        character_id: character.id
+      } |> Repo.insert!
+
+      force_power_upgrade = %ForcePowerUpgrade{
+        name: "Horn Volumizer",
+        force_power_id: force_power.id
+      } |> Repo.insert!
+
       conn = conn() |> authenticate_as(UserFactory.default_user) |> get("/c/#{character.permalink}/edit")
 
       assert conn.status == 200
@@ -376,6 +387,8 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert String.contains?(conn.resp_body, character_skill.rank |> to_string)
       assert String.contains?(conn.resp_body, talent.name)
       assert String.contains?(conn.resp_body, attack.weapon_name)
+      assert String.contains?(conn.resp_body, force_power.name)
+      assert String.contains?(conn.resp_body, force_power_upgrade.name)
     end
 
     it "requires authentication" do

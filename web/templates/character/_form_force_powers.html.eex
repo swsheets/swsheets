@@ -28,13 +28,13 @@
               <input type="hidden" name="force_powers[<%= i %>][force_power_upgrades][<%= j %>][display_order]" value="<%= get_field(upgrade, :display_order) %>" />
               <div class="form-group-sm">
                 <label for="force_powers[<%= i %>][force_power_upgrades][<%= j %>][name]" class="sr-only">Upgrade</label>
-                <input type="text" class="form-control" name="force_powers[<%= i %>][force_power_upgrades][<%= j %>][name]" placeholder="Upgrade" />
+                <input type="text" class="form-control" name="force_powers[<%= i %>][force_power_upgrades][<%= j %>][name]" value="<%= get_field(upgrade, :name) %>" placeholder="Upgrade" />
               </div>
             </td>
             <td>
               <div class="form-group-sm">
                 <label for="force_powers[<%= i %>][force_power_upgrades][<%= j %>][description]" class="sr-only">Upgrade Effect</label>
-                <textarea placeholder="Effect" name="force_powers[<%= i %>][force_power_upgrades][<%= j %>][description]" rows=1 class="form-control"></textarea>
+                <textarea placeholder="Effect" name="force_powers[<%= i %>][force_power_upgrades][<%= j %>][description]" rows=1 class="form-control"><%= get_field(upgrade, :description) %></textarea>
               </div>
             </td>
             <td>

@@ -1,7 +1,7 @@
 defmodule EdgeBuilder.ViewHelpers do
   defmacro __using__(_opts) do
     quote do
-      import Ecto.Changeset, only: [get_field: 2]
+      import Extensions.Changeset, only: [get_field: 2]
 
       def application_name, do: Application.get_env(:edge_builder, :application_name)
 

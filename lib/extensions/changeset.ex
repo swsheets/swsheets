@@ -4,6 +4,12 @@ defmodule Extensions.Changeset do
     |> Enum.into %{}
   end
 
+  def get_field(changemap = %{root: model}, key) do
+    case Map.fetch(changemap, key) do
+      {:ok, value} -> value
+      :error -> get_field(model, key)
+    end
+  end
   def get_field(changeset_or_model, key) do
     case Map.fetch(changeset_or_model, key) do
       {:ok, value} -> value

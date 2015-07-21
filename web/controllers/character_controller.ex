@@ -77,7 +77,8 @@ defmodule EdgeBuilder.CharacterController do
         character: character |> Character.changeset(current_user_id(conn)),
         talents: (if Enum.empty?(character.talents), do: [%Talent{}], else: character.talents) |> Enum.map(&Talent.changeset/1),
         attacks: (if Enum.empty?(character.attacks), do: [%Attack{}], else: character.attacks) |> Enum.map(&Attack.changeset/1),
-        character_skills: character.character_skills |> CharacterSkill.add_missing_defaults
+        character_skills: character.character_skills |> CharacterSkill.add_missing_defaults,
+        force_powers: (if Enum.empty?(character.force_powers), do: [%ForcePower{}], else: character.force_powers) |> Enum.map(&to_force_power_changeset/1)
     end
   end
 
@@ -122,7 +123,7 @@ defmodule EdgeBuilder.CharacterController do
     end
   end
 
-  @empty_force_power %ForcePower{force_power_upgrades: [%ForcePowerUpgrade{} |> ForcePowerUpgrade.changeset]} |> ForcePower.changeset
+  @empty_force_power %ForcePower{force_power_upgrades: [%ForcePowerUpgrade{}]}
 
   defp render_new(conn, assignments \\ []) do
     assignments = Keyword.merge(assignments, [
@@ -130,7 +131,7 @@ defmodule EdgeBuilder.CharacterController do
       character: (if is_nil(assignments[:character]), do: %Character{} |> Character.changeset(current_user_id(conn)), else: assignments[:character]),
       talents: (if is_nil(assignments[:talents]) || Enum.empty?(assignments[:talents]), do: [%Talent{} |> Talent.changeset], else: assignments[:talents]),
       attacks: (if is_nil(assignments[:attacks]) || Enum.empty?(assignments[:attacks]), do: [%Attack{} |> Attack.changeset], else: assignments[:attacks]),
-      force_powers: (if is_nil(assignments[:force_powers]) || Enum.empty?(assignments[:force_powers]), do: [@empty_force_power |> ForcePower.changeset], else: assignments[:force_powers]),
+      force_powers: (if is_nil(assignments[:force_powers]) || Enum.empty?(assignments[:force_powers]), do: [@empty_force_power |> to_force_power_changeset], else: assignments[:force_powers]),
       character_skills: CharacterSkill.add_missing_defaults(assignments[:character_skills] || [])
     ])
 
@@ -143,6 +144,8 @@ defmodule EdgeBuilder.CharacterController do
       character: assignments[:character],
       talents: (if is_nil(assignments[:talents]) || Enum.empty?(assignments[:talents]), do: [%Talent{} |> Talent.changeset], else: assignments[:talents]),
       attacks: (if is_nil(assignments[:attacks]) || Enum.empty?(assignments[:attacks]), do: [%Attack{} |> Attack.changeset], else: assignments[:attacks]),
+      character_skills: CharacterSkill.add_missing_defaults(assignments[:character_skills] || []),
+      force_powers: (if is_nil(assignments[:force_powers]) || Enum.empty?(assignments[:force_powers]), do: [@empty_force_power |> to_force_power_changeset], else: assignments[:force_powers]),
       character_skills: CharacterSkill.add_missing_defaults(assignments[:character_skills] || [])
     ])
 
@@ -196,4 +199,14 @@ defmodule EdgeBuilder.CharacterController do
     |> Enum.reject(&CharacterSkill.is_default_changeset?/1)
   end
   defp character_skill_changesets(_,_), do: []
+
+  defp to_force_power_changeset(force_power) do
+    if Enum.empty?(force_power.force_power_upgrades) do
+      force_power = Map.put(force_power, :force_power_upgrades, [%ForcePowerUpgrade{}])
+    end
+
+    force_power
+    |> Map.put(:force_power_upgrades, Enum.map(force_power.force_power_upgrades, &ForcePowerUpgrade.changeset/1))
+    |> ForcePower.changeset
+  end
 end
