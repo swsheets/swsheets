@@ -37,13 +37,13 @@
       <div class="col-sm-3">
         <div class="form-group">
           <label for="character[species]">Species</label>
-          <input type="text" class="form-control" name="character[species]" value="<%= get_field(@character, :species) %>" />
+          <input type="text" id="character-species" class="form-control" name="character[species]" value="<%= get_field(@character, :species) %>" />
         </div>
       </div>
       <div class="col-sm-3">
         <div class="form-group">
           <label for="character[career]">Career</label>
-          <input type="text" class="form-control" name="character[career]" value="<%= get_field(@character, :career) %>" />
+          <input type="text" id="character-career" class="form-control" name="character[career]" value="<%= get_field(@character, :career) %>" />
         </div>
       </div>
       <div class="col-sm-6">
