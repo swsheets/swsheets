@@ -174,7 +174,7 @@ defmodule EdgeBuilder.CharacterController do
   end
   defp force_power_changesets(_,_), do: []
 
-  defp with_upgrades(force_power, upgrade_params) when is_map(upgrade_params) do
+  defp with_upgrades(force_power, upgrade_params) do
     if Ecto.Changeset.get_field(force_power, :force_power_upgrades) |> Ecto.Association.loaded? do
       instances = Ecto.Changeset.get_field(force_power, :force_power_upgrades)
     else
@@ -184,7 +184,6 @@ defmodule EdgeBuilder.CharacterController do
     %{root: force_power,
       force_power_upgrades: child_changesets(upgrade_params, ForcePowerUpgrade, instances)}
   end
-  defp with_upgrades(force_power,_), do: force_power
 
   defp to_changeset(params = %{"id" => id}, model, instances) when not is_nil(id) do
     Enum.find(instances, &(to_string(&1.id) == to_string(id))) |> model.changeset(params)

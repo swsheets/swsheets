@@ -725,50 +725,71 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert force_power_upgrade.description == "Add boost die to attempts to upsell sandwich addons"
     end
 
-    # it "creates new force powers for the character" do
-    #   character = CharacterFactory.create_character
+    it "creates new force power upgrades for the character" do
+      character = CharacterFactory.create_character
 
-    #   conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "force_powers" => %{
-    #     "0" => %{"name" => "Sandwich Artistry", "description" => "Make great sandwiches"}
-    #   }})
+      force_power = %ForcePower{
+        name: "Sandwich Artistry",
+        character_id: character.id
+      } |> Repo.insert!
 
-    #   [force_power] = ForcePower.for_character(character.id)
+      conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "force_powers" => %{
+        "0" => %{"id" => force_power.id, "force_power_upgrades" => %{"0" => %{"name" => "Upselling", "description" => "Add boost die to attempts to upsell sandwich addons"}}}
+      }})
 
-    #   assert force_power.name == "Sandwich Artistry"
-    #   assert force_power.description == "Make great sandwiches"
-    # end
+      [force_power] = ForcePower.for_character(character.id)
+      [force_power_upgrade] = force_power.force_power_upgrades
 
-    # it "filters out empty force powers from the request" do
-    #   character = CharacterFactory.create_character
+      assert force_power_upgrade.name == "Upselling"
+      assert force_power_upgrade.description == "Add boost die to attempts to upsell sandwich addons"
+    end
 
-    #   force_power = %ForcePower{
-    #     name: "Sandwich Artistry",
-    #     character_id: character.id
-    #   } |> Repo.insert!
+    it "filters out empty force power upgrades from the request" do
+      character = CharacterFactory.create_character
 
-    #   conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "force_powers" => %{
-    #     "0" => %{"description" => "", "name" => ""},
-    #     "1" => %{"description" => "", "name" => "", "id" => force_power.id}
-    #   }})
+      force_power = %ForcePower{
+        name: "Sandwich Artistry",
+        character_id: character.id
+      } |> Repo.insert!
 
-    #   assert [] == ForcePower.for_character(character.id)
-    # end
+      force_power_upgrade = %ForcePowerUpgrade{
+        name: "Double Meat",
+        force_power_id: force_power.id
+      } |> Repo.insert!
 
-    # it "deletes any force powers for that character that were not specified in the update" do
-    #   character = CharacterFactory.create_character
+      conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "force_powers" => %{
+        "0" => %{"id" => force_power.id, "force_power_upgrades" => %{
+            "0" => %{"name" => "", "description" => ""},
+            "1" => %{"name" => "", "description" => "", "id" => force_power_upgrade.id}
+        }}
+      }})
 
-    #   %ForcePower{
-    #     name: "Sandwich Artistry",
-    #     character_id: character.id
-    #   } |> Repo.insert!
+      [force_power] = ForcePower.for_character(character.id)
 
-    #   conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}})
+      assert [] == force_power.force_power_upgrades
+    end
 
-    #   force_powers = ForcePower.for_character(character.id)
+    it "deletes any force power upgrades for that character that were not specified in the update" do
+      character = CharacterFactory.create_character
 
-    #   assert Enum.count(force_powers) == 0
-    #   assert Repo.all(ForcePower) |> Enum.count == 0
-    # end
+      force_power = %ForcePower{
+        name: "Sandwich Artistry",
+        character_id: character.id
+      } |> Repo.insert!
+
+      %ForcePowerUpgrade{
+        name: "Double Meat",
+        force_power_id: force_power.id
+      } |> Repo.insert!
+
+      conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "force_powers" => %{
+        "0" => %{"id" => force_power.id, "name" => "foo"}
+      }})
+
+      [force_power] = ForcePower.for_character(character.id)
+
+      assert [] == force_power.force_power_upgrades
+    end
 
     it "requires authentication" do
       conn = conn() |> put("/c/123")

@@ -12,19 +12,49 @@ defmodule EdgeBuilder.Changemap do
   def delete_missing(changemap = %{root: root}) do
     root_model = root.__struct__
 
-    associations = Map.delete(changemap, :root)
+    changemap = Map.delete(changemap, :root)
 
-    Enum.each(associations, fn {field, models} ->
+    Enum.each(changemap, fn {field, models} ->
       association = root_model.__schema__(:association, field)
 
-      EdgeBuilder.Repo.delete_all(
+      missing_children_ids = EdgeBuilder.Repo.all(
         from a in association.assoc,
         where: field(a, ^association.assoc_key) == ^root.id,
-        where: not a.id in ^Enum.map(models, &(&1.id))
-      )
+        where: not a.id in ^Enum.map(models, &get_id/1)
+      ) |> Enum.map(&get_id/1)
+
+      delete_with_children(association.assoc, missing_children_ids)
+
+      Enum.each(models, &delete_missing/1)
     end)
 
     changemap
+  end
+  def delete_missing(_), do: nil
+
+  defp get_id(%{root: model}), do: model.id
+  defp get_id(model), do: model.id
+
+  defp delete_with_children(model, ids_to_delete) do
+    model.__schema__(:associations)
+    |> Enum.map(&(model.__schema__(:association, &1)))
+    |> Enum.filter( fn
+      %Ecto.Association.Has{} -> true
+      _ -> false
+    end)
+    |> Enum.each( fn(association) -> 
+      missing_children_ids = EdgeBuilder.Repo.all(
+        from a in association.assoc,
+        where: field(a, ^association.assoc_key) in ^ids_to_delete
+      ) |> Enum.map(&get_id/1)
+
+      delete_with_children(association.assoc, missing_children_ids)
+    end)
+
+    EdgeBuilder.Repo.delete_all(
+      from a in model,
+      where: a.id in ^ids_to_delete
+    )
   end
 
   def apply_changes(changemap, association_field \\ nil, parent \\ nil)
