@@ -156,7 +156,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
           "force_rating" => "5"
         },
         "force_powers" => %{
-          "0" => %{"name" => "Motivate", "description" => "Gets people up and at em!", "display_order" => "1", "upgrades" => %{
+          "0" => %{"name" => "Motivate", "description" => "Gets people up and at em!", "display_order" => "1", "force_power_upgrades" => %{
               "0" => %{"name" => "Improved Productivity", "description" => "People work ten percent harder", "display_order" => "0"},
               "1" => %{"name" => "Greater Productivity", "description" => "People work fifteen percent harder", "display_order" => "1"}
               }
@@ -210,7 +210,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         },
         "skills" => %{"0" => %{"base_skill_id" => BaseSkill.by_name("Athletics").id, "rank" => "3", "is_career" => "on"}},
         "force_powers" => %{
-          "0" => %{"name" => "Motivate", "description" => "Gets people up and at em!", "display_order" => "1", "upgrades" => %{
+          "0" => %{"name" => "Motivate", "description" => "Gets people up and at em!", "display_order" => "1", "force_power_upgrades" => %{
               "0" => %{"name" => "Improved Productivity", "description" => "People work ten percent harder", "display_order" => "0"}
               }
           }
@@ -638,6 +638,137 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert !is_nil(FlokiExt.element(conn, ".attack-first-row"))
       assert !is_nil(FlokiExt.element(conn, ".talent-row"))
     end
+
+    it "updates the character's prior force powers" do
+      character = CharacterFactory.create_character
+
+      force_power = %ForcePower{
+        name: "Sandwich Artistry",
+        character_id: character.id
+      } |> Repo.insert!
+
+      conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "force_powers" => %{
+        "0" => %{"name" => "Hot Doggin'", "description" => "Do funny stuff on holonet terminals when unlocked", "id" => force_power.id, "display_order" => "0"}
+      }})
+
+      [force_power] = ForcePower.for_character(character.id)
+
+      assert force_power.name == "Hot Doggin'"
+      assert force_power.description == "Do funny stuff on holonet terminals when unlocked"
+    end
+
+    it "creates new force powers for the character" do
+      character = CharacterFactory.create_character
+
+      conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "force_powers" => %{
+        "0" => %{"name" => "Sandwich Artistry", "description" => "Make great sandwiches"}
+      }})
+
+      [force_power] = ForcePower.for_character(character.id)
+
+      assert force_power.name == "Sandwich Artistry"
+      assert force_power.description == "Make great sandwiches"
+    end
+
+    it "filters out empty force powers from the request" do
+      character = CharacterFactory.create_character
+
+      force_power = %ForcePower{
+        name: "Sandwich Artistry",
+        character_id: character.id
+      } |> Repo.insert!
+
+      conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "force_powers" => %{
+        "0" => %{"description" => "", "name" => ""},
+        "1" => %{"description" => "", "name" => "", "id" => force_power.id}
+      }})
+
+      assert [] == ForcePower.for_character(character.id)
+    end
+
+    it "deletes any force powers for that character that were not specified in the update" do
+      character = CharacterFactory.create_character
+
+      %ForcePower{
+        name: "Sandwich Artistry",
+        character_id: character.id
+      } |> Repo.insert!
+
+      conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}})
+
+      force_powers = ForcePower.for_character(character.id)
+
+      assert Enum.count(force_powers) == 0
+      assert Repo.all(ForcePower) |> Enum.count == 0
+    end
+
+    it "updates the character's prior force power upgrades" do
+      character = CharacterFactory.create_character
+
+      force_power = %ForcePower{
+        name: "Sandwich Artistry",
+        character_id: character.id
+      } |> Repo.insert!
+
+      force_power_upgrade = %ForcePowerUpgrade{
+        name: "Double Meat",
+        force_power_id: force_power.id
+      } |> Repo.insert!
+
+      conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "force_powers" => %{
+        "0" => %{"id" => force_power.id, "force_power_upgrades" => %{"0" => %{"name" => "Upselling", "description" => "Add boost die to attempts to upsell sandwich addons", "id" => force_power_upgrade.id}}}
+      }})
+
+      force_power_upgrade = Repo.get(ForcePowerUpgrade, force_power_upgrade.id)
+
+      assert force_power_upgrade.name == "Upselling"
+      assert force_power_upgrade.description == "Add boost die to attempts to upsell sandwich addons"
+    end
+
+    # it "creates new force powers for the character" do
+    #   character = CharacterFactory.create_character
+
+    #   conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "force_powers" => %{
+    #     "0" => %{"name" => "Sandwich Artistry", "description" => "Make great sandwiches"}
+    #   }})
+
+    #   [force_power] = ForcePower.for_character(character.id)
+
+    #   assert force_power.name == "Sandwich Artistry"
+    #   assert force_power.description == "Make great sandwiches"
+    # end
+
+    # it "filters out empty force powers from the request" do
+    #   character = CharacterFactory.create_character
+
+    #   force_power = %ForcePower{
+    #     name: "Sandwich Artistry",
+    #     character_id: character.id
+    #   } |> Repo.insert!
+
+    #   conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "force_powers" => %{
+    #     "0" => %{"description" => "", "name" => ""},
+    #     "1" => %{"description" => "", "name" => "", "id" => force_power.id}
+    #   }})
+
+    #   assert [] == ForcePower.for_character(character.id)
+    # end
+
+    # it "deletes any force powers for that character that were not specified in the update" do
+    #   character = CharacterFactory.create_character
+
+    #   %ForcePower{
+    #     name: "Sandwich Artistry",
+    #     character_id: character.id
+    #   } |> Repo.insert!
+
+    #   conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}})
+
+    #   force_powers = ForcePower.for_character(character.id)
+
+    #   assert Enum.count(force_powers) == 0
+    #   assert Repo.all(ForcePower) |> Enum.count == 0
+    # end
 
     it "requires authentication" do
       conn = conn() |> put("/c/123")

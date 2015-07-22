@@ -92,7 +92,8 @@ defmodule EdgeBuilder.CharacterController do
         root: character |> Character.changeset(current_user_id(conn), character_params),
         talents: child_changesets(params["talents"], Talent, character.talents),
         attacks: child_changesets(params["attacks"], Attack, character.attacks),
-        character_skills: character_skill_changesets(params["skills"], character.character_skills)
+        character_skills: character_skill_changesets(params["skills"], character.character_skills),
+        force_powers: force_power_changesets(params["force_powers"], character.force_powers)
       }
 
       if Changemap.valid?(changemap) do
@@ -167,15 +168,15 @@ defmodule EdgeBuilder.CharacterController do
     |> Map.values
     |> Enum.map( fn parameters ->
       to_changeset(parameters, ForcePower, instances)
-      |> with_upgrades(parameters["upgrades"])
+      |> with_upgrades(parameters["force_power_upgrades"])
     end)
     |> Enum.reject(&ForcePower.is_default_changeset?/1)
   end
   defp force_power_changesets(_,_), do: []
 
   defp with_upgrades(force_power, upgrade_params) when is_map(upgrade_params) do
-    if Ecto.Changeset.get_field(force_power, :upgrades) |> Ecto.Association.loaded? do
-      instances = Ecto.Changeset.get_field(force_power, :upgrades)
+    if Ecto.Changeset.get_field(force_power, :force_power_upgrades) |> Ecto.Association.loaded? do
+      instances = Ecto.Changeset.get_field(force_power, :force_power_upgrades)
     else
       instances = []
     end
@@ -188,7 +189,9 @@ defmodule EdgeBuilder.CharacterController do
   defp to_changeset(params = %{"id" => id}, model, instances) when not is_nil(id) do
     Enum.find(instances, &(to_string(&1.id) == to_string(id))) |> model.changeset(params)
   end
-  defp to_changeset(params, model, _), do: model.changeset(struct(model), params)
+  defp to_changeset(params, model, _) do
+    model.changeset(struct(model), params)
+  end
 
   defp character_skill_changesets(params, instances \\ [])
   defp character_skill_changesets(params, instances) when is_map(params) do
