@@ -1,4 +1,3 @@
-<div class="row"><h4>Force Powers</h4></div>
 <%= for {force_power, i} <- Enum.with_index(@force_powers) do %>
   <div class="row force-power-row<%= if rem(i, 2) == 0, do: " active" %>" data-force-power="<%= i %>">
     <div class='col-sm-3 force-power-details'>
@@ -12,7 +11,7 @@
         <label for="force_powers[<%= i %>][description]">Description</label>
         <textarea name="force_powers[<%= i %>][description]" rows=4 class="form-control" placeholder="Description"><%= get_field(force_power, :description) %></textarea>
       </div>
-      <button type="button" class="btn btn-block btn-danger" data-remove-force-power="<%= i %>">Remove Power</button>
+      <button tabindex="-1" type="button" class="btn btn-block btn-danger" data-remove-force-power="<%= i %>">Remove Power</button>
     </div>
     <div class='col-sm-9'>
       <table class='table table-condensed'>
@@ -44,7 +43,7 @@
         <% end %>
       </table>
       <p class="text-center col-md-4 col-md-offset-4">
-        <button type="button" class="btn btn-block btn-default" data-force-power-add-upgrade="<%= i %>">Add Upgrade</button>
+        <button tabindex="-1" type="button" class="btn btn-block btn-default" data-force-power-add-upgrade="<%= i %>">Add Upgrade</button>
       </p>
     </div>
   </div>
@@ -52,6 +51,6 @@
 
 <div class='add-force-button-container row'>
   <p class="text-center col-md-4 col-md-offset-4">
-    <button type="button" class="btn btn-block btn-default" id="addForcePowerButton">Add Force Power</button>
+    <button type="button" tabindex="-1" class="btn btn-block btn-default" id="addForcePowerButton">Add Force Power</button>
   </p>
 </div>

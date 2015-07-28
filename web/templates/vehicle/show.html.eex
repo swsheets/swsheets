@@ -243,8 +243,12 @@
 
 <div class='row'>
   <div class='col-lg-8'>
-    <%= render "_show_attacks.html", vehicle_attacks: @vehicle_attacks %>
-    <%= render "_show_attachments.html", vehicle_attachments: @vehicle_attachments %>
+    <%= unless Enum.empty?(@vehicle_attacks) do %>
+      <%= render "_show_attacks.html", vehicle_attacks: @vehicle_attacks %>
+    <% end %>
+    <%= unless Enum.empty?(@vehicle_attachments) do %>
+      <%= render "_show_attachments.html", vehicle_attachments: @vehicle_attachments %>
+    <% end %>
   </div>
   <div class='col-lg-4'>
     <h4>Special Features</h4>

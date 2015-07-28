@@ -87,7 +87,7 @@ var CharacterForm = (function() {
     newRow.find("textarea").val("");
     newRow.find("[name]").attr("name", function(i, currentName) { return currentName.replace("force_powers["+previousIndex+"]", "force_powers["+index+"]") });
     newRow.find("[for]").attr("for", function(i, currentFor) { return currentFor.replace("force_powers["+previousIndex+"]", "force_powers["+index+"]") });
-    newRow.find("[name='force_powers["+index+"][id]']").remove();
+    newRow.find("[name$='[id]']").remove();
     newRow.find("[name='force_powers["+index+"][display_order]']").val(index);
     newRow.find("[data-remove-force-power]").attr("data-remove-force-power", index);
     newRow.find("[data-force-power-add-upgrade]").attr("data-force-power-add-upgrade", index);
@@ -140,8 +140,8 @@ var CharacterForm = (function() {
     newRow.find("textarea").val("");
     newRow.find("[name]").attr("name", function(i, currentName) { return currentName.replace("[force_power_upgrades]["+previousIndex+"]", "[force_power_upgrades]["+index+"]") });
     newRow.find("[for]").attr("for", function(i, currentFor) { return currentFor.replace("[force_power_upgrades]["+previousIndex+"]", "[force_power_upgrades]["+index+"]") });
-    newRow.find("[name='force_power_upgrades["+index+"][id]']").remove();
-    newRow.find("[name='force_power_upgrades["+index+"][display_order]']").val(index);
+    newRow.find("[name='[force_power_upgrades]["+index+"][id]']").remove();
+    newRow.find("[name='[force_power_upgrades]["+index+"][display_order]']").val(index);
     newRow.find("[data-remove-force-power-upgrade]").attr("data-remove-force-power-upgrade", index);
 
     enableDisableRemoveForcePowerUpgradeButtons(forcePowerIndex);

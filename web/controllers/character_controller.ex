@@ -63,6 +63,7 @@ defmodule EdgeBuilder.CharacterController do
       talents: character.talents |> Enum.map(&Talent.changeset/1),
       attacks: character.attacks |> Enum.map(&Attack.changeset/1),
       character_skills: character.character_skills |> CharacterSkill.add_missing_defaults,
+      force_powers: character.force_powers |> Enum.map(&to_force_power_changeset/1),
       viewed_by_owner: is_owner?(conn, character),
       user: user
   end
