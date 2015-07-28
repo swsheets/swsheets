@@ -38,7 +38,7 @@
               </div>
             </td>
             <td>
-              <button class="btn btn-danger btn-sm" tabindex="-1" data-remove-force-power-upgrade="<%= j %>"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+              <button class="btn btn-danger btn-sm" tabindex="-1" data-parent-force-power="<%= i %>" data-remove-force-power-upgrade="<%= j %>"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
             </td>
           </tr>
         <% end %>
@@ -49,3 +49,9 @@
     </div>
   </div>
 <% end %>
+
+<div class='add-force-button-container row'>
+  <p class="text-center col-md-4 col-md-offset-4">
+    <button type="button" class="btn btn-block btn-default" id="addForcePowerButton">Add Force Power</button>
+  </p>
+</div>

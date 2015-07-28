@@ -74,6 +74,102 @@ var CharacterForm = (function() {
     enableDisableRemoveTalentButtons();
   }
 
+  function addForcePower() {
+    var lastRow = $(".force-power-row:last");
+    var newRow = lastRow.clone(true);
+    var previousIndex = parseInt(newRow.attr("data-force-power"));
+    var index = previousIndex + 1;
+    newRow.insertAfter(lastRow);
+
+    newRow.toggleClass("active");
+    newRow.attr("data-force-power", index);
+    newRow.find("[type=text]").val("");
+    newRow.find("textarea").val("");
+    newRow.find("[name]").attr("name", function(i, currentName) { return currentName.replace("force_powers["+previousIndex+"]", "force_powers["+index+"]") });
+    newRow.find("[for]").attr("for", function(i, currentFor) { return currentFor.replace("force_powers["+previousIndex+"]", "force_powers["+index+"]") });
+    newRow.find("[name='force_powers["+index+"][id]']").remove();
+    newRow.find("[name='force_powers["+index+"][display_order]']").val(index);
+    newRow.find("[data-remove-force-power]").attr("data-remove-force-power", index);
+    newRow.find("[data-force-power-add-upgrade]").attr("data-force-power-add-upgrade", index);
+    newRow.find("[data-parent-force-power]").attr("data-parent-force-power", index);
+
+    var upgradeCount = 0;
+    newRow.find("[data-force-power-upgrade]").each(function() {
+      if(upgradeCount > 0) {
+        $(this).remove();
+      }
+      upgradeCount++;
+    });
+
+    enableDisableRemoveForcePowerButtons();
+  }
+
+  function removeForcePower(index) {
+    $("[data-force-power="+index+"]").remove();
+
+    $(".force-power-row").each(function(i) {
+      if(i % 2 == 0) {
+        $(this).addClass("active");
+      } else {
+        $(this).removeClass("active");
+      }
+    });
+
+    enableDisableRemoveForcePowerButtons();
+  }
+
+  function enableDisableRemoveForcePowerButtons() {
+    var removeButtons = $("[data-remove-force-power]");
+
+    if(removeButtons.length == 1) {
+      removeButtons.attr("disabled", "disabled");
+    } else {
+      removeButtons.removeAttr("disabled");
+    }
+  }
+
+  function addForcePowerUpgrade(forcePowerIndex) {
+    var lastRow = $("[data-force-power="+forcePowerIndex+"] [data-force-power-upgrade]:last");
+    var newRow = lastRow.clone(true);
+    var previousIndex = parseInt(newRow.attr("data-force-power-upgrade"));
+    var index = previousIndex + 1;
+    newRow.insertAfter(lastRow);
+
+    newRow.attr("data-force-power-upgrade", index);
+    newRow.find("[type=text]").val("");
+    newRow.find("textarea").val("");
+    newRow.find("[name]").attr("name", function(i, currentName) { return currentName.replace("[force_power_upgrades]["+previousIndex+"]", "[force_power_upgrades]["+index+"]") });
+    newRow.find("[for]").attr("for", function(i, currentFor) { return currentFor.replace("[force_power_upgrades]["+previousIndex+"]", "[force_power_upgrades]["+index+"]") });
+    newRow.find("[name='force_power_upgrades["+index+"][id]']").remove();
+    newRow.find("[name='force_power_upgrades["+index+"][display_order]']").val(index);
+    newRow.find("[data-remove-force-power-upgrade]").attr("data-remove-force-power-upgrade", index);
+
+    enableDisableRemoveForcePowerUpgradeButtons(forcePowerIndex);
+  }
+
+  function removeForcePowerUpgrade(forcePowerIndex, forceUpgradeIndex) {
+    var forcePower = $("[data-force-power="+forcePowerIndex+"]");
+    forcePower.find("[data-force-power-upgrade="+forceUpgradeIndex+"]").remove();
+
+    enableDisableRemoveForcePowerUpgradeButtons(forcePowerIndex);
+  }
+
+  function enableDisableRemoveForcePowerUpgradeButtons(forcePowerIndex) {
+    var removeButtons = $("[data-force-power="+forcePowerIndex+"] [data-remove-force-power-upgrade]");
+
+    if(removeButtons.length == 1) {
+      removeButtons.attr("disabled", "disabled");
+    } else {
+      removeButtons.removeAttr("disabled");
+    }
+  }
+
+  function enableDisableRemoveAllForcePowerUpgradeButtons() {
+    $("[data-force-power]").each(function() {
+      enableDisableRemoveForcePowerUpgradeButtons($(this).attr("data-force-power"));
+    });
+  }
+
   function addAttack() {
     var firstAttackRow = $(".attack-first-row:last").clone(true);
     var secondAttackRow = $(".attack-second-row:last").clone(true);
@@ -157,8 +253,12 @@ var CharacterForm = (function() {
     $("#addAttackButton").click(addAttack);
     $("[data-remove-attack]").click(function() { removeAttack($(this).attr("data-remove-attack")) });
     $("[data-remove-talent]").click(function() { removeTalent($(this).attr("data-remove-talent")) });
+    $("[data-remove-force-power]").click(function() { removeForcePower($(this).attr("data-remove-force-power")) });
+    $("[data-remove-force-power-upgrade]").click(function() { removeForcePowerUpgrade($(this).attr("data-parent-force-power"), $(this).attr("data-remove-force-power-upgrade")) });
     $("#addOneTalentButton").click(addTalent);
     $("#addFiveTalentsButton").click(function() { for(var i = 0; i < 5; i++) { addTalent() } });
+    $("#addForcePowerButton").click(addForcePower);
+    $("[data-force-power-add-upgrade]").click(function() { addForcePowerUpgrade($(this).attr("data-force-power-add-upgrade")) });
     $("#systemButton").click(function() { $("#systemDropdown").dropdown('toggle'); return false; });
     $(".select-button a").click(function() { setSystem($(this).attr('data-value')); });
   }
@@ -174,6 +274,8 @@ var CharacterForm = (function() {
       refreshAllDice();
       enableDisableRemoveAttackButtons();
       enableDisableRemoveTalentButtons();
+      enableDisableRemoveForcePowerButtons();
+      enableDisableRemoveAllForcePowerUpgradeButtons();
       setSystemOrDefault();
     }
   };
