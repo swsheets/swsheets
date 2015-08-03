@@ -6,14 +6,13 @@ defmodule EdgeBuilder.Models.BaseSkill do
     field :characteristic, :string
     field :display_order, :integer
     field :skill_group, :string
-    field :is_default_in_group, :boolean, default: true
     field :is_attack_skill, :boolean, default: false
     field :system, Ecto.Types.Enumeration
   end
 
   def changeset(base_skill \\ %EdgeBuilder.Models.BaseSkill{}, params) do
     base_skill
-    |> cast(params, [], ~w(name characteristic display_order is_attack_skill system is_default_in_group skill_group))
+    |> cast(params, [], ~w(name characteristic display_order is_attack_skill system skill_group))
     |> default_skill_group
   end
 

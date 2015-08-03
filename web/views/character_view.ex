@@ -30,4 +30,24 @@ defmodule EdgeBuilder.CharacterView do
     end)
   end
 
+  def by_skill_group(skills) do
+    skills
+    |> Enum.group_by(&(&1.skill_group))
+    |> Enum.map(fn {group, skills} -> {group, Enum.sort_by(skills, &(&1.display_order))} end)
+    |> Enum.sort_by(fn {_, skills} -> Enum.min_by(skills, &(&1.display_order)) end)
+  end
+
+  def is_skill_displayed?(skill, skills)
+  def is_skill_displayed?(skill, [skill]), do: true                   # Always display the only member of a skill group
+  def is_skill_displayed?(%{is_selected_in_group: true}, _), do: true # Always display a skill that is selected
+  def is_skill_displayed?(skill, skills) do                         # Otherwise, only display a skill if it is the first in its group
+    if Enum.any?(skills, &(&1.is_selected_in_group)) do
+      false
+    else
+      skill == Enum.at(skills, 0)
+    end
+  end
+
+  def is_skill_toggle_displayed?([_]), do: false
+  def is_skill_toggle_displayed?(_), do: true
 end

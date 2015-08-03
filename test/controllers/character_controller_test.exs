@@ -51,7 +51,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       |> Enum.into(%{})
 
       skills_with_user_edit = base_skills
-      |> Map.put("Athletics", %{"base_skill_id" => BaseSkill.by_name("Athletics").id, "rank" => "3", "is_career" => "on"})
+      |> Map.put("Athletics", %{"base_skill_id" => BaseSkill.by_name("Athletics").id, "rank" => "3", "is_career" => "on", "is_selected_in_group" => "true"})
 
       conn() |> authenticate_as(UserFactory.default_user) |> post("/c", %{
         "character" => %{
@@ -143,6 +143,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert character_skill.base_skill_id == BaseSkill.by_name("Athletics").id
       assert character_skill.is_career
       assert character_skill.rank == 3
+      assert character_skill.is_selected_in_group
     end
 
     it "creates a Force & Destiny character" do
@@ -389,6 +390,15 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert String.contains?(conn.resp_body, attack.weapon_name)
       assert String.contains?(conn.resp_body, force_power.name)
       assert String.contains?(conn.resp_body, force_power_upgrade.name)
+    end
+
+    it "works on characters with no children associated to them" do
+      character = CharacterFactory.create_character(user_id: UserFactory.default_user.id)
+
+      conn = conn() |> authenticate_as(UserFactory.default_user) |> get("/c/#{character.permalink}/edit")
+
+      assert conn.status == 200
+      assert String.contains?(conn.resp_body, character.name)
     end
 
     it "requires authentication" do

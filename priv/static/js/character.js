@@ -14,7 +14,8 @@ var CharacterForm = (function() {
   }
 
   function refreshRollsBySkillName(skillName) {
-    refreshRollsFromSkill($("[data-skill='"+skillName+"']"));
+    var skillElement = $("[data-skill-group='"+skillName+"']:not([data-skill-hidden])");
+    refreshRollsFromSkill(skillElement.find("[data-skill='"+skillName+"']"));
   }
 
   function refreshRollsFromSkill(skillElement) {
@@ -29,7 +30,7 @@ var CharacterForm = (function() {
 
   function refreshRollsFromCharacteristic(characteristicElement) {
     $("[data-base-characteristic="+characteristicElement.prop("id")+"]").each(function() {
-      refreshRollsFromSkill($(this));
+      refreshRollsBySkillName($(this).attr("data-skill"));
     });
   }
 
@@ -233,7 +234,7 @@ var CharacterForm = (function() {
     $("#systemValue").val(system);
 
     $("[data-system]").each(function() {
-      if( $(this).attr("data-system") == system) {
+      if( $(this).attr("data-system") == system && $(this).attr("data-skill-hidden") === undefined) {
         $(this).show();
       } else {
         $(this).hide();
@@ -244,6 +245,45 @@ var CharacterForm = (function() {
   function setSystemOrDefault() {
     var system = $("#systemValue").val() || "eote";
     setSystem(system);
+  }
+
+  function advanceSkill(skillGroup, increment) {
+    var skills = $("[data-skill-group='"+skillGroup+"']");
+    var skillSize = skills.size();
+    var selectedIndex = 0;
+
+    skills.find("[data-is-selected-in-group]").each(function(i) {
+      if($(this).val() == "true") {
+        selectedIndex = i;
+      }
+    });
+
+    var priorSkill = skills.eq(selectedIndex);
+    var rank = priorSkill.find("[data-rank]").val();
+    var isCareer = priorSkill.find("[data-is-career]").prop("checked");
+
+    selectedIndex += increment;
+
+    if(selectedIndex >= skillSize) {
+      selectedIndex -= skillSize;
+    }
+
+    var selectedSkill = skills.eq(selectedIndex);
+
+    skills.hide();
+    skills.attr("data-skill-hidden", "");
+    skills.find("[data-is-selected-in-group]").val("false");
+    skills.find("[data-rank]").val("");
+    skills.find("[type=checkbox]").prop("checked", false);
+
+
+    selectedSkill.show();
+    selectedSkill.removeAttr("data-skill-hidden");
+    selectedSkill.find("[data-is-selected-in-group]").val("true");
+    selectedSkill.find("[data-rank]").val(rank);
+    selectedSkill.find("[data-is-career]").prop("checked", isCareer);
+
+    refreshRollsBySkillName(skillGroup);
   }
 
   function initializeHandlers() {
@@ -261,11 +301,17 @@ var CharacterForm = (function() {
     $("[data-force-power-add-upgrade]").click(function() { addForcePowerUpgrade($(this).attr("data-force-power-add-upgrade")) });
     $("#systemButton").click(function() { $("#systemDropdown").dropdown('toggle'); return false; });
     $(".select-button a").click(function() { setSystem($(this).attr('data-value')); });
+    $("[data-skill-previous]").click(function(e) { e.preventDefault(); advanceSkill($(this).attr('data-skill-previous'), -1); });
+    $("[data-skill-next]").click(function(e) { e.preventDefault(); advanceSkill($(this).attr('data-skill-next'), 1); });
   }
 
   function refreshAllDice() {
     $("[data-attack-skill]").change();
     $("[data-characteristic]").change();
+  }
+
+  function hideHiddenSkills() {
+    $("[data-skill-hidden]").hide();
   }
 
   return {
@@ -276,6 +322,7 @@ var CharacterForm = (function() {
       enableDisableRemoveTalentButtons();
       enableDisableRemoveForcePowerButtons();
       enableDisableRemoveAllForcePowerUpgradeButtons();
+      hideHiddenSkills();
       setSystemOrDefault();
     }
   };

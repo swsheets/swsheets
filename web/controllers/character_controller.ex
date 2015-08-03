@@ -15,6 +15,8 @@ defmodule EdgeBuilder.CharacterController do
 
   plug Plug.Authentication, except: [:show, :index]
 
+  @empty_force_power %ForcePower{force_power_upgrades: [%ForcePowerUpgrade{}]}
+
   def new(conn, _params) do
     render_new conn
   end
@@ -79,7 +81,7 @@ defmodule EdgeBuilder.CharacterController do
         talents: (if Enum.empty?(character.talents), do: [%Talent{}], else: character.talents) |> Enum.map(&Talent.changeset/1),
         attacks: (if Enum.empty?(character.attacks), do: [%Attack{}], else: character.attacks) |> Enum.map(&Attack.changeset/1),
         character_skills: character.character_skills |> CharacterSkill.add_missing_defaults,
-        force_powers: (if Enum.empty?(character.force_powers), do: [%ForcePower{}], else: character.force_powers) |> Enum.map(&to_force_power_changeset/1)
+        force_powers: (if Enum.empty?(character.force_powers), do: [@empty_force_power], else: character.force_powers) |> Enum.map(&to_force_power_changeset/1)
     end
   end
 
@@ -124,8 +126,6 @@ defmodule EdgeBuilder.CharacterController do
       redirect conn, to: character_path(conn, :index)
     end
   end
-
-  @empty_force_power %ForcePower{force_power_upgrades: [%ForcePowerUpgrade{}]}
 
   defp render_new(conn, assignments \\ []) do
     assignments = Keyword.merge(assignments, [

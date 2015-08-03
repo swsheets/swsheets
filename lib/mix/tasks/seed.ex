@@ -124,7 +124,6 @@ defmodule Mix.Tasks.Seed do
         characteristic: "Agility",
         is_attack_skill: true,
         skill_group: "Lightsaber",
-        is_default_in_group: false,
         system: :fad
       },
       %{
@@ -132,7 +131,6 @@ defmodule Mix.Tasks.Seed do
         characteristic: "Intellect",
         is_attack_skill: true,
         skill_group: "Lightsaber",
-        is_default_in_group: false,
         system: :fad
       },
       %{
@@ -140,7 +138,6 @@ defmodule Mix.Tasks.Seed do
         characteristic: "Cunning",
         is_attack_skill: true,
         skill_group: "Lightsaber",
-        is_default_in_group: false,
         system: :fad
       },
       %{
@@ -148,7 +145,6 @@ defmodule Mix.Tasks.Seed do
         characteristic: "Willpower",
         is_attack_skill: true,
         skill_group: "Lightsaber",
-        is_default_in_group: false,
         system: :fad
       },
       %{
@@ -156,7 +152,6 @@ defmodule Mix.Tasks.Seed do
         characteristic: "Presence",
         is_attack_skill: true,
         skill_group: "Lightsaber",
-        is_default_in_group: false,
         system: :fad
       },
       %{

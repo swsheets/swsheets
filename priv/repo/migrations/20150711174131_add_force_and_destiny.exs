@@ -29,7 +29,10 @@ defmodule EdgeBuilder.Repo.Migrations.AddForceAndDestiny do
 
     alter table(:base_skills) do
       add :skill_group, :string
-      add :is_default_in_group, :boolean
+    end
+
+    alter table(:character_skills) do
+      add :is_selected_in_group, :boolean
     end
   end
 end

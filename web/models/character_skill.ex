@@ -6,6 +6,7 @@ defmodule EdgeBuilder.Models.CharacterSkill do
 
   schema "character_skills" do
     field :is_career, :boolean, default: false
+    field :is_selected_in_group, :boolean, default: false
     field :rank, :integer, default: 0
 
     belongs_to :character, Character
@@ -14,7 +15,7 @@ defmodule EdgeBuilder.Models.CharacterSkill do
 
   def changeset(character_skill, params \\ %{}) do
     character_skill
-    |> cast(params, ~w(base_skill_id), ~w(character_id is_career rank))
+    |> cast(params, ~w(base_skill_id), ~w(character_id is_career rank is_selected_in_group))
   end
 
   def for_character(id) do
@@ -27,7 +28,7 @@ defmodule EdgeBuilder.Models.CharacterSkill do
   def is_default_changeset?(changeset) do
     default = struct(__MODULE__)
 
-    Enum.all?([:rank, :is_career], fn field ->
+    Enum.all?([:rank, :is_career, :is_selected_in_group], fn field ->
       value = Ecto.Changeset.get_field(changeset, field)
       is_nil(value) || value == Map.fetch!(default, field)
     end)
@@ -44,11 +45,13 @@ defmodule EdgeBuilder.Models.CharacterSkill do
       characteristic: base_skill.characteristic,
       base_skill_id: base_skill.id,
       is_attack_skill: base_skill.is_attack_skill,
+      display_order: base_skill.display_order,
+      skill_group: base_skill.skill_group,
       system: base_skill.system
     }
 
     character_skill_or_changeset = Enum.find(character_skills_or_changesets, %EdgeBuilder.Models.CharacterSkill{}, &(Extensions.Changeset.get_field(&1, :base_skill_id) == base_skill.id))
 
-    Map.merge(skill_template, Extensions.Changeset.take(character_skill_or_changeset, [:rank, :is_career, :id]))
+    Map.merge(skill_template, Extensions.Changeset.take(character_skill_or_changeset, [:rank, :is_career, :id, :is_selected_in_group]))
   end
 end
