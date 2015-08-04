@@ -9,11 +9,12 @@
     <th class="col-md-3">Roll</th>
   </tr>
   <%= for skill <- skills_in_system(@character_skills, @system) do %>
-    <tr class="<%= if skill.is_attack_skill, do: ~s(active) %>">
+    <tr class="<%= if skill.is_attack_skill, do: ~s(active) %>" data-skill="<%= skill.name %>">
       <td><%= skill_display_name(skill) %></td>
       <td class="career-check"><%= if skill.is_career, do: "X" %></td>
       <td class="value">
-        <input type="hidden" data-skill="<%= skill.name %>" data-base-characteristic="<%= skill.characteristic %>" value="<%= skill.rank %>" />
+        <input type="hidden" data-selected-characteristic value="<%= selected_characteristic(skill) %>" />
+        <input type="hidden" data-rank class="form-control input-sm" value="<%= skill.rank %>" />
         <%= skill.rank %>
       </td>
       <td>
