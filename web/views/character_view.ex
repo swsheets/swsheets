@@ -14,9 +14,12 @@ defmodule EdgeBuilder.CharacterView do
     Repo.get(BaseSkill, skill_id).name
   end
 
-  def base_skill_options(skill_id) do
+  def options_for_attack_skills(selected_skill_id) do
     Enum.map(BaseSkill.attack_skills, fn s ->
-      "<option value='#{s.id}'#{if s.id == skill_id, do: " selected"}>#{s.name}</option>"
+      selection = if s.id == selected_skill_id, do: "selected"
+      system = unless is_nil(s.system), do: "data-system=#{s.system}"
+
+      "<option value='#{s.id}' #{selection} #{system}>#{s.name}</option>"
     end) |> raw
   end
 

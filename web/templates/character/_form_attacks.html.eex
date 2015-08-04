@@ -27,7 +27,7 @@
             <label for="attacks[<%= i %>][base_skill_id]">Skill</label>
             <select class="form-control" name="attacks[<%= i %>][base_skill_id]" data-attack-skill data-attack-index=<%= i %>>
               <option></option>
-              <%= base_skill_options(get_field(attack, :base_skill_id)) %>
+              <%= options_for_attack_skills(get_field(attack, :base_skill_id)) %>
             </select>
           </div>
         </td>
