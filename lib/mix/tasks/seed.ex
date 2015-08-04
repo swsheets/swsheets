@@ -16,187 +16,151 @@ defmodule Mix.Tasks.Seed do
     base_skills = [
       %{
         name: "Astrogation",
-        characteristic: "Intellect"
+        characteristics: ["Intellect"]
       },
       %{
         name: "Athletics",
-        characteristic: "Brawn"
+        characteristics: ["Brawn"]
       },
       %{
         name: "Charm",
-        characteristic: "Presence"
+        characteristics: ["Presence"]
       },
       %{
         name: "Coercion",
-        characteristic: "Willpower"
+        characteristics: ["Willpower"]
       },
       %{
         name: "Computers",
-        characteristic: "Intellect"
+        characteristics: ["Intellect"]
       },
       %{
         name: "Cool",
-        characteristic: "Presence"
+        characteristics: ["Presence"]
       },
       %{
         name: "Coordination",
-        characteristic: "Agility"
+        characteristics: ["Agility"]
       },
       %{
         name: "Deception",
-        characteristic: "Cunning"
+        characteristics: ["Cunning"]
       },
       %{
         name: "Discipline",
-        characteristic: "Willpower"
+        characteristics: ["Willpower"]
       },
       %{
         name: "Leadership",
-        characteristic: "Presence"
+        characteristics: ["Presence"]
       },
       %{
         name: "Mechanics",
-        characteristic: "Intellect"
+        characteristics: ["Intellect"]
       },
       %{
         name: "Medicine",
-        characteristic: "Intellect"
+        characteristics: ["Intellect"]
       },
       %{
         name: "Negotiation",
-        characteristic: "Presence"
+        characteristics: ["Presence"]
       },
       %{
         name: "Perception",
-        characteristic: "Cunning"
+        characteristics: ["Cunning"]
       },
       %{
         name: "Piloting: Planetary",
-        characteristic: "Agility"
+        characteristics: ["Agility"]
       },
       %{
         name: "Piloting: Space",
-        characteristic: "Agility"
+        characteristics: ["Agility"]
       },
       %{
         name: "Resilience",
-        characteristic: "Brawn"
+        characteristics: ["Brawn"]
       },
       %{
         name: "Skulduggery",
-        characteristic: "Cunning"
+        characteristics: ["Cunning"]
       },
       %{
         name: "Stealth",
-        characteristic: "Agility"
+        characteristics: ["Agility"]
       },
       %{
         name: "Streetwise",
-        characteristic: "Cunning"
+        characteristics: ["Cunning"]
       },
       %{
         name: "Survival",
-        characteristic: "Cunning"
+        characteristics: ["Cunning"]
       },
       %{
         name: "Vigilance",
-        characteristic: "Willpower"
+        characteristics: ["Willpower"]
       },
       %{
         name: "Brawl",
-        characteristic: "Brawn",
+        characteristics: ["Brawn"],
         is_attack_skill: true,
       },
       %{
         name: "Gunnery",
-        characteristic: "Agility",
+        characteristics: ["Agility"],
         is_attack_skill: true,
       },
       %{
         name: "Lightsaber",
-        characteristic: "Brawn",
+        characteristics: ["Brawn", "Agility", "Intellect", "Cunning", "Willpower", "Presence"],
         is_attack_skill: true,
-        skill_group: "Lightsaber",
-        system: :fad
-      },
-      %{
-        name: "Lightsaber",
-        characteristic: "Agility",
-        is_attack_skill: true,
-        skill_group: "Lightsaber",
-        system: :fad
-      },
-      %{
-        name: "Lightsaber",
-        characteristic: "Intellect",
-        is_attack_skill: true,
-        skill_group: "Lightsaber",
-        system: :fad
-      },
-      %{
-        name: "Lightsaber",
-        characteristic: "Cunning",
-        is_attack_skill: true,
-        skill_group: "Lightsaber",
-        system: :fad
-      },
-      %{
-        name: "Lightsaber",
-        characteristic: "Willpower",
-        is_attack_skill: true,
-        skill_group: "Lightsaber",
-        system: :fad
-      },
-      %{
-        name: "Lightsaber",
-        characteristic: "Presence",
-        is_attack_skill: true,
-        skill_group: "Lightsaber",
         system: :fad
       },
       %{
         name: "Melee",
-        characteristic: "Brawn",
+        characteristics: ["Brawn"],
         is_attack_skill: true,
       },
       %{
         name: "Ranged: Light",
-        characteristic: "Agility",
+        characteristics: ["Agility"],
         is_attack_skill: true,
       },
       %{
         name: "Ranged: Heavy",
-        characteristic: "Agility",
+        characteristics: ["Agility"],
         is_attack_skill: true,
       },
       %{
         name: "Knowledge: Core Worlds",
-        characteristic: "Intellect"
+        characteristics: ["Intellect"]
       },
       %{
         name: "Knowledge: Education",
-        characteristic: "Intellect"
+        characteristics: ["Intellect"]
       },
       %{
         name: "Knowledge: Lore",
-        characteristic: "Intellect"
+        characteristics: ["Intellect"]
       },
       %{
         name: "Knowledge: Outer Rim",
-        characteristic: "Intellect"
+        characteristics: ["Intellect"]
       },
       %{
         name: "Knowledge: Underworld",
-        characteristic: "Intellect"
+        characteristics: ["Intellect"]
       },
       %{
         name: "Knowledge: Warfare",
-        characteristic: "Intellect",
+        characteristics: ["Intellect"],
         system: :aor
       },
       %{
         name: "Knowledge: Xenology",
-        characteristic: "Intellect"
+        characteristics: ["Intellect"]
       },
     ]
 
@@ -208,8 +172,8 @@ defmodule Mix.Tasks.Seed do
     end)
   end
 
-  defp insert_or_update_skill(base_skill = %{name: name, characteristic: characteristic}) do
-    case BaseSkill.by_name_and_characteristic(name, characteristic) do
+  defp insert_or_update_skill(base_skill = %{name: name}) do
+    case BaseSkill.by_name(name) do
       nil -> BaseSkill.changeset(base_skill) |> Repo.insert!
       current_skill -> BaseSkill.changeset(current_skill, base_skill) |> Repo.update!
     end

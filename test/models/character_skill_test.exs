@@ -95,11 +95,33 @@ defmodule EdgeBuilder.Models.CharacterSkillTest do
       refute CharacterSkill.is_default_changeset?(changeset)
     end
 
+    it "returns false when the changeset has a characteristic that is not equal to the base skill's default characteristic" do
+      base_skill = BaseSkill.by_name("Lightsaber")
+
+      changeset = %CharacterSkill{
+        base_skill_id: base_skill.id,
+        characteristic: "Agility"
+      } |> CharacterSkill.changeset
+
+      refute CharacterSkill.is_default_changeset?(changeset)
+    end
+
     it "returns true when a changeset has default non-assocation values and has not yet been persisted" do
       changeset = %CharacterSkill{
         character_id: 1,
         base_skill_id: 1,
         rank: 0
+      } |> CharacterSkill.changeset
+
+      assert CharacterSkill.is_default_changeset?(changeset)
+    end
+
+    it "returns true when the changeset has a characteristic that is equal to the base skill's default characteristic" do
+      base_skill = BaseSkill.by_name("Lightsaber")
+
+      changeset = %CharacterSkill{
+        base_skill_id: base_skill.id,
+        characteristic: "Brawn"
       } |> CharacterSkill.changeset
 
       assert CharacterSkill.is_default_changeset?(changeset)

@@ -51,7 +51,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       |> Enum.into(%{})
 
       skills_with_user_edit = base_skills
-      |> Map.put("Athletics", %{"base_skill_id" => BaseSkill.by_name("Athletics").id, "rank" => "3", "is_career" => "on", "is_selected_in_group" => "true"})
+      |> Map.put("Athletics", %{"base_skill_id" => BaseSkill.by_name("Athletics").id, "rank" => "3", "is_career" => "on", "characteristic" => "Brawn"})
 
       conn() |> authenticate_as(UserFactory.default_user) |> post("/c", %{
         "character" => %{
@@ -143,7 +143,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert character_skill.base_skill_id == BaseSkill.by_name("Athletics").id
       assert character_skill.is_career
       assert character_skill.rank == 3
-      assert character_skill.is_selected_in_group
+      assert character_skill.characteristic == "Brawn"
     end
 
     it "creates a Force & Destiny character" do
@@ -219,7 +219,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       })
 
       assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text == "Name can't be blank"
-      assert FlokiExt.element(conn, "[data-skill=Athletics]") |> FlokiExt.attribute("value") == "3"
+      assert FlokiExt.element(conn, "[data-skill=Athletics]") |> FlokiExt.find("[data-rank=true]") |> FlokiExt.attribute("value") == "3"
       assert !is_nil(FlokiExt.element(conn, ".attack-first-row"))
       assert !is_nil(FlokiExt.element(conn, ".talent-row"))
 
@@ -644,7 +644,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       })
 
       assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text == "Name can't be blank"
-      assert FlokiExt.element(conn, "[data-skill=Athletics]") |> FlokiExt.attribute("value") == "3"
+      assert FlokiExt.element(conn, "[data-skill=Athletics]") |> FlokiExt.find("[data-rank=true]") |> FlokiExt.attribute("value") == "3"
       assert !is_nil(FlokiExt.element(conn, ".attack-first-row"))
       assert !is_nil(FlokiExt.element(conn, ".talent-row"))
     end

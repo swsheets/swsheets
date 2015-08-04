@@ -5,15 +5,18 @@ defmodule EdgeBuilder.Models.BaseSkill do
     field :name, :string
     field :characteristic, :string
     field :display_order, :integer
-    field :skill_group, :string
     field :is_attack_skill, :boolean, default: false
     field :system, Ecto.Types.Enumeration
+    field :characteristics, {:array, :string}
   end
 
   def changeset(base_skill \\ %EdgeBuilder.Models.BaseSkill{}, params) do
     base_skill
-    |> cast(params, [], ~w(name characteristic display_order is_attack_skill system skill_group))
-    |> default_skill_group
+    |> cast(params, [], ~w(name characteristics display_order is_attack_skill system))
+  end
+
+  def default_characteristic(base_skill) do
+    Enum.at(base_skill.characteristics, 0)
   end
 
   def all do
@@ -30,28 +33,11 @@ defmodule EdgeBuilder.Models.BaseSkill do
     )
   end
 
-  def by_name_and_characteristic(name, characteristic) do
-    Repo.one(
-      from bs in __MODULE__,
-        where: bs.name == ^name,
-        where: bs.characteristic == ^characteristic
-    )
-  end
-
-  def attack_skills(system \\ :eote) do
+  def attack_skills do
     Repo.all(
       from bs in __MODULE__,
         where: bs.is_attack_skill == true,
-        where: bs.system == ^system or is_nil(bs.system),
         order_by: :display_order
     )
-  end
-
-  defp default_skill_group(changeset) do
-    case {_skill_group, name} = {Ecto.Changeset.get_change(changeset, :skill_group), Ecto.Changeset.get_change(changeset, :name)} do
-      {nil, nil} -> changeset
-      {nil, _} -> Ecto.Changeset.put_change(changeset, :skill_group, name)
-      _ -> changeset
-    end
   end
 end

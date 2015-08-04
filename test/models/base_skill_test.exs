@@ -18,20 +18,21 @@ defmodule EdgeBuilder.Models.BaseSkillTest do
       skill = BaseSkill.by_name("Athletics")
 
       assert skill.name == "Athletics"
-      assert skill.characteristic == "Brawn"
+      assert skill.characteristics == ["Brawn"]
     end
   end
 
   describe "attack skills" do
     it "retrieves attack skills in display order" do
-      skills = BaseSkill.attack_skills(:eote) |> Enum.map(&(Map.take(&1, [:name, :characteristic])))
+      skills = BaseSkill.attack_skills |> Enum.map(&(Map.take(&1, [:name, :characteristics])))
 
       assert skills == [
-        %{name: "Brawl", characteristic: "Brawn"},
-        %{name: "Gunnery", characteristic: "Agility"},
-        %{name: "Melee", characteristic: "Brawn"},
-        %{name: "Ranged: Light", characteristic: "Agility"},
-        %{name: "Ranged: Heavy", characteristic: "Agility"},
+        %{name: "Brawl", characteristics: ["Brawn"]},
+        %{name: "Gunnery", characteristics: ["Agility"]},
+        %{name: "Lightsaber", characteristics: ["Brawn", "Agility", "Intellect", "Cunning", "Willpower", "Presence"]},
+        %{name: "Melee", characteristics: ["Brawn"]},
+        %{name: "Ranged: Light", characteristics: ["Agility"]},
+        %{name: "Ranged: Heavy", characteristics: ["Agility"]},
       ]
     end
   end

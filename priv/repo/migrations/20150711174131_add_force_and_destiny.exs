@@ -28,11 +28,13 @@ defmodule EdgeBuilder.Repo.Migrations.AddForceAndDestiny do
     end
 
     alter table(:base_skills) do
-      add :skill_group, :string
+      add :characteristics, {:array, :string}
     end
+    
+    execute "alter table base_skills alter column characteristic drop not null"
 
     alter table(:character_skills) do
-      add :is_selected_in_group, :boolean
+      add :characteristic, :string
     end
   end
 end

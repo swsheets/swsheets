@@ -8,29 +8,32 @@
     <th class="col-md-1">Rank</th>
     <th class="col-md-3">Roll</th>
   </tr>
-  <%= for {skill_group, skills} <- by_skill_group(@character_skills) do %>
-    <%= for skill <- skills do %>
-      <tr class="<%= if skill.is_attack_skill, do: ~s(active) %>" <%= unless is_nil(skill.system), do: "data-system=#{skill.system}" %> data-skill-group="<%= skill_group %>" <%= unless is_skill_displayed?(skill, skills), do: ~s(data-skill-hidden) %>>
-        <td>
-          <%= if is_skill_toggle_displayed?(skills) do %>
-            <a href="#" data-skill-previous='<%= skill_group %>'><span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span></a>
-          <% end %>
-          <%= skill_display_name(skill) %>
-          <%= if is_skill_toggle_displayed?(skills) do %>
-            <a href="#" class='pull-right' data-skill-next='<%= skill_group %>'><span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></a>
-          <% end %>
-        </td>
-        <td><input type="checkbox" data-is-career name="skills[<%= skill.base_skill_id %>][is_career]" <%= if skill.is_career, do: "checked" %>></input></td>
-        <td>
-          <input type="hidden" data-base-skill-id name="skills[<%= skill.base_skill_id %>][base_skill_id]" value="<%= skill.base_skill_id %>" />
-          <input type="hidden" data-id name="skills[<%= skill.base_skill_id %>][id]" value="<%= skill.id %>" />
-          <input type="hidden" data-is-selected-in-group name="skills[<%= skill.base_skill_id %>][is_selected_in_group]" value="<%= skill.is_selected_in_group %>" />
-          <input type="text" data-rank class="form-control input-sm" data-skill="<%= skill.name %>" data-base-characteristic="<%= skill.characteristic %>" name="skills[<%= skill.base_skill_id %>][rank]" value="<%= skill.rank %>" />
-        </td>
-        <td>
-          <span data-skill-roll="<%= skill.name %>"></span>
-        </td>
-      </tr>
-    <% end %>
+  <%= for {skill, i} <- Enum.with_index(@character_skills) do %>
+    <tr class="<%= if skill.is_attack_skill, do: ~s(active) %>" <%= unless is_nil(skill.system), do: "data-system=#{skill.system}" %> data-skill="<%= skill.name %>">
+      <td>
+        <%= if is_characteristic_toggle_displayed?(skill.characteristics) do %>
+          <a href="#" data-skill-previous='<%= skill.name %>'><span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span></a>
+        <% end %>
+        <span data-skill-full-name><%= skill_display_name(skill) %></span>
+        <%= if is_characteristic_toggle_displayed?(skill.characteristics) do %>
+          <a href="#" class='pull-right' data-skill-next='<%= skill.name %>'><span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></a>
+        <% end %>
+      </td>
+      <td><input type="checkbox" name="skills[<%= i %>][is_career]" <%= if skill.is_career, do: "checked" %>></input></td>
+      <td>
+        <input type="hidden" name="skills[<%= i %>][base_skill_id]" value="<%= skill.base_skill_id %>" />
+        <input type="hidden" name="skills[<%= i %>][id]" value="<%= skill.id %>" />
+        <input type="hidden" data-selected-characteristic name="skills[<%= i %>][characteristic]" value="<%= selected_characteristic(skill) %>" />
+
+        <%= for characteristic <- skill.characteristics do %>
+          <input type="hidden" data-shorthand="<%= Characteristic.shorthand_for(characteristic) %>" data-available-characteristic value="<%= characteristic %>" />
+        <% end %>
+
+        <input type="text" data-rank class="form-control input-sm" name="skills[<%= i %>][rank]" value="<%= skill.rank %>" />
+      </td>
+      <td>
+        <span data-skill-roll="<%= skill.name %>"></span>
+      </td>
+    </tr>
   <% end %>
 </table>

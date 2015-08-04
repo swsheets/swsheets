@@ -14,13 +14,14 @@ var CharacterForm = (function() {
   }
 
   function refreshRollsBySkillName(skillName) {
-    var skillElement = $("[data-skill-group='"+skillName+"']:not([data-skill-hidden])");
-    refreshRollsFromSkill(skillElement.find("[data-skill='"+skillName+"']"));
+    var skillElement = $("[data-skill='"+skillName+"']");
+    refreshRollsFromSkill(skillElement.find("[data-rank]"));
   }
 
-  function refreshRollsFromSkill(skillElement) {
-    var skillRank = skillElement.val();
-    var characteristicRank = $("#"+skillElement.attr("data-base-characteristic")).val();
+  function refreshRollsFromSkill(skillRankElement) {
+    var skillRank = skillRankElement.val();
+    var skillElement = skillRankElement.closest("[data-skill]");
+    var characteristicRank = $("#"+skillElement.find("[data-selected-characteristic]").val()).val();
 
     var abilities = Math.min(skillRank, characteristicRank);
     var proficiencies = Math.max(skillRank, characteristicRank) - abilities;
@@ -29,8 +30,9 @@ var CharacterForm = (function() {
   }
 
   function refreshRollsFromCharacteristic(characteristicElement) {
-    $("[data-base-characteristic="+characteristicElement.prop("id")+"]").each(function() {
-      refreshRollsBySkillName($(this).attr("data-skill"));
+    $("[data-selected-characteristic][value="+characteristicElement.prop("id")+"]").each(function() {
+      var skillElement = $(this).closest("[data-skill]");
+      refreshRollsBySkillName(skillElement.attr("data-skill"));
     });
   }
 
@@ -247,47 +249,37 @@ var CharacterForm = (function() {
     setSystem(system);
   }
 
-  function advanceSkill(skillGroup, increment) {
-    var skills = $("[data-skill-group='"+skillGroup+"']");
-    var skillSize = skills.size();
+  function advanceSkill(skillName, increment) {
+    var skill = $("[data-skill='"+skillName+"']");
+    var currentCharacteristic = skill.find("[data-selected-characteristic]").val();
+    var availableCharacteristics = skill.find("[data-available-characteristic]");
+    var characteristicCount = availableCharacteristics.size();
     var selectedIndex = 0;
 
-    skills.find("[data-is-selected-in-group]").each(function(i) {
-      if($(this).val() == "true") {
+    availableCharacteristics.each(function(i) {
+      if($(this).val() == currentCharacteristic) {
         selectedIndex = i;
       }
     });
 
-    var priorSkill = skills.eq(selectedIndex);
-    var rank = priorSkill.find("[data-rank]").val();
-    var isCareer = priorSkill.find("[data-is-career]").prop("checked");
+    var currentCharacteristicElement = availableCharacteristics.eq(selectedIndex);
 
     selectedIndex += increment;
 
-    if(selectedIndex >= skillSize) {
-      selectedIndex -= skillSize;
+    if(selectedIndex >= characteristicCount) {
+      selectedIndex -= characteristicCount;
     }
 
-    var selectedSkill = skills.eq(selectedIndex);
+    var selectedCharacteristic = availableCharacteristics.eq(selectedIndex);
 
-    skills.hide();
-    skills.attr("data-skill-hidden", "");
-    skills.find("[data-is-selected-in-group]").val("false");
-    skills.find("[data-rank]").val("");
-    skills.find("[type=checkbox]").prop("checked", false);
+    skill.find("[data-selected-characteristic]").val(selectedCharacteristic.val());
+    skill.find("[data-skill-full-name]").text(skillName + " (" + selectedCharacteristic.attr("data-shorthand") + ")");
 
-
-    selectedSkill.show();
-    selectedSkill.removeAttr("data-skill-hidden");
-    selectedSkill.find("[data-is-selected-in-group]").val("true");
-    selectedSkill.find("[data-rank]").val(rank);
-    selectedSkill.find("[data-is-career]").prop("checked", isCareer);
-
-    refreshRollsBySkillName(skillGroup);
+    refreshRollsBySkillName(skillName);
   }
 
   function initializeHandlers() {
-    $("[data-skill]").change(function() { refreshRollsFromSkill($(this)) });
+    $("[data-rank]").change(function() { refreshRollsFromSkill($(this)) });
     $("[data-characteristic]").change(function() { refreshRollsFromCharacteristic($(this)) });
     $("[data-attack-skill]").change(function() { switchAttackRollFromSelection($(this)) });
     $("#addAttackButton").click(addAttack);
