@@ -36,5 +36,7 @@ defmodule EdgeBuilder.Repo.Migrations.AddForceAndDestiny do
     alter table(:character_skills) do
       add :characteristic, :string
     end
+
+    execute "update character_skills set characteristic = (select characteristic from base_skills bs where bs.id = base_skill_id)"
   end
 end
