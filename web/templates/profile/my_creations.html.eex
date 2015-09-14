@@ -16,6 +16,8 @@
               <p class='system-container'><img src='/images/eote.png' class='img-thumbnail system-logo system-eote' /> Edge of the Empire</p>
             <%= :aor -> %>
               <p class='system-container'><img src='/images/aor.png' class='img-thumbnail system-logo system-aor' /> Age of Rebellion</p>
+            <%= :fad -> %>
+              <p class='system-container'><img src='/images/fad.png' class='img-thumbnail system-logo system-fad' /> Age of Rebellion</p>
           <% end %>
         </div>
         <div class="col-sm-6 pull-right">
