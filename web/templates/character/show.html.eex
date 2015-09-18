@@ -28,7 +28,7 @@
             <%= :aor -> %>
               <img src='/images/aor.png' class='img-thumbnail system-logo system-aor' />Age of Rebellion
             <%= :fad -> %>
-              <img src='/images/fad.png' class='img-thumbnail system-logo system-fad' />Force &amp; Destiny
+              <img src='/images/fad.png' class='img-thumbnail system-logo system-fad' />Force and Destiny
           <% end %>
         </div>
       </div>
