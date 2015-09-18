@@ -143,8 +143,8 @@ var CharacterForm = (function() {
     newRow.find("textarea").val("");
     newRow.find("[name]").attr("name", function(i, currentName) { return currentName.replace("[force_power_upgrades]["+previousIndex+"]", "[force_power_upgrades]["+index+"]") });
     newRow.find("[for]").attr("for", function(i, currentFor) { return currentFor.replace("[force_power_upgrades]["+previousIndex+"]", "[force_power_upgrades]["+index+"]") });
-    newRow.find("[name='[force_power_upgrades]["+index+"][id]']").remove();
-    newRow.find("[name='[force_power_upgrades]["+index+"][display_order]']").val(index);
+    newRow.find("[name='force_powers["+forcePowerIndex+"][force_power_upgrades]["+index+"][id]']").remove();
+    newRow.find("[name='force_powers["+forcePowerIndex+"][force_power_upgrades]["+index+"][display_order]']").val(index);
     newRow.find("[data-remove-force-power-upgrade]").attr("data-remove-force-power-upgrade", index);
 
     enableDisableRemoveForcePowerUpgradeButtons(forcePowerIndex);
