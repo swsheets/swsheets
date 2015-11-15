@@ -219,7 +219,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       })
 
       assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text == "Name can't be blank"
-      assert FlokiExt.element(conn, "[data-skill=Athletics]") |> FlokiExt.find("[data-rank=true]") |> FlokiExt.attribute("value") == "3"
+      assert FlokiExt.element(conn, "[data-skill=Athletics]") |> FlokiExt.find("input[type=text]") |> FlokiExt.attribute("value") == "3"
       assert !is_nil(FlokiExt.element(conn, ".attack-first-row"))
       assert !is_nil(FlokiExt.element(conn, ".talent-row"))
 
@@ -644,7 +644,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       })
 
       assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text == "Name can't be blank"
-      assert FlokiExt.element(conn, "[data-skill=Athletics]") |> FlokiExt.find("[data-rank=true]") |> FlokiExt.attribute("value") == "3"
+      assert FlokiExt.element(conn, "[data-skill=Athletics]") |> FlokiExt.find("input[type=text]") |> FlokiExt.attribute("value") == "3"
       assert !is_nil(FlokiExt.element(conn, ".attack-first-row"))
       assert !is_nil(FlokiExt.element(conn, ".talent-row"))
     end
