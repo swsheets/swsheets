@@ -34,6 +34,7 @@ defmodule Helpers.FlokiExt do
   def text(str) when is_binary(str), do: str
 
   def attribute([node], attribute_name), do: attribute(node, attribute_name)
+  def attribute([], _attribute_name), do: nil
   def attribute({_, attributes, _}, attribute_name) do
     {_, value} = List.keyfind(attributes, attribute_name, 0) || {nil, nil}
     value
