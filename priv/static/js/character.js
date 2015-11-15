@@ -308,23 +308,41 @@ var CharacterForm = (function() {
 
   function initializeIncrementers() {
     $("#increment-wounds").click(function() {
-      incrementElement($("#current-wounds"), 1);
+      incrementWounds(1);
     });
     $("#decrement-wounds").click(function() {
-      incrementElement($("#current-wounds"), -1);
+      incrementWounds(-1);
     });
     $("#increment-strain").click(function() {
-      incrementElement($("#current-strain"), 1);
+      incrementStrain(1);
     });
     $("#decrement-strain").click(function() {
-      incrementElement($("#current-strain"), -1);
+      incrementStrain(-1);
     });
   }
 
-  function incrementElement($el, num) {
+  function incrementWounds(num) {
+    incrementValue("wounds_current", $("#current-wounds"), num);
+  }
+
+  function incrementStrain(num) {
+    incrementValue("strain_current", $("#current-strain"), num);
+  }
+
+  function incrementValue(key, $el, num) {
     var current = parseInt($el.text(), 10),
-        updated = current + num;
+        updated = current + num,
+        characterId = window.location.pathname.match(/^\/c\/(.+)$/)[1],
+        data = {character: {}};
+    data.character[key] = updated;
     $el.text("" + updated);
+    $.ajax({
+      method: "PUT",
+      url: "/api/characters/" + characterId,
+      data: JSON.stringify(data),
+      dataType: "json",
+      contentType: "application/json"
+    });
   }
 
   return {
