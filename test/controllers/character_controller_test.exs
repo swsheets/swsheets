@@ -14,6 +14,9 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
   alias Helpers.FlokiExt
   import Ecto.Query, only: [from: 2]
 
+  use Hound.Helpers
+  hound_session
+
   describe "new" do
     it "renders the character edit form for a new character" do
       conn = conn() |> authenticate_as(UserFactory.default_user) |> get("/c/new")
@@ -851,5 +854,14 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
       assert is_redirect_to?(conn, "/")
     end
+  end
+  
+  it "updates current wounds" do
+    character = CharacterFactory.create_character(user_id: UserFactory.default_user.id)
+
+    conn = conn() |> authenticate_as(UserFactory.default_user) |> get("/c/#{character.permalink}")
+
+    assert String.contains?(conn.resp_body, "Edit")
+    assert String.contains?(conn.resp_body, "Delete")
   end
 end

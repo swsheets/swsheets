@@ -307,26 +307,26 @@ var CharacterForm = (function() {
   }
 
   function initializeIncrementers() {
-    $("#increment-wounds").click(function() {
+    $("#incrementWounds").click(function() {
       incrementWounds(1);
     });
-    $("#decrement-wounds").click(function() {
+    $("#decrementWounds").click(function() {
       incrementWounds(-1);
     });
-    $("#increment-strain").click(function() {
+    $("#incrementStrain").click(function() {
       incrementStrain(1);
     });
-    $("#decrement-strain").click(function() {
+    $("#decrementStrain").click(function() {
       incrementStrain(-1);
     });
   }
 
   function incrementWounds(num) {
-    incrementValue("wounds_current", $("#current-wounds"), num);
+    incrementValue("wounds_current", $("#currentWounds"), num);
   }
 
   function incrementStrain(num) {
-    incrementValue("strain_current", $("#current-strain"), num);
+    incrementValue("strain_current", $("#currentStrain"), num);
   }
 
   function incrementValue(key, $el, num) {
