@@ -14,9 +14,6 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
   alias Helpers.FlokiExt
   import Ecto.Query, only: [from: 2]
 
-  use Hound.Helpers
-  hound_session
-
   describe "new" do
     it "renders the character edit form for a new character" do
       conn = conn() |> authenticate_as(UserFactory.default_user) |> get("/c/new")
