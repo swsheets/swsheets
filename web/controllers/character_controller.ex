@@ -61,6 +61,7 @@ defmodule EdgeBuilder.CharacterController do
 
     render conn, :show,
       title: character.name,
+      description: description_for_character(character, user),
       character: character |> Character.changeset(current_user_id(conn)),
       talents: character.talents |> Enum.map(&Talent.changeset/1),
       attacks: character.attacks |> Enum.map(&Attack.changeset/1),
@@ -211,5 +212,19 @@ defmodule EdgeBuilder.CharacterController do
     force_power
     |> Map.put(:force_power_upgrades, Enum.map(force_power.force_power_upgrades, &ForcePowerUpgrade.changeset/1))
     |> ForcePower.changeset
+  end
+
+  defp description_for_character(character, user) do
+    %{username: username} = user
+    %{name: name, species: species, specializations: specializations, career: career} = character
+    "#{name} is #{a_or_an(species)} #{species} #{career} created by #{username} specializing in #{specializations}."
+  end
+
+  defp a_or_an(word) do
+    if Regex.match? ~r/^[aeiou]/, String.downcase(word) do
+      "an"
+    else
+      "a"
+    end
   end
 end

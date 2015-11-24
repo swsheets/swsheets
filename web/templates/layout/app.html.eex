@@ -24,6 +24,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><%= title_or_default(assigns[:title]) %></title>
+    <%= if assigns[:description] do %>
+    <meta name="description" content="<%= assigns[:description] %>">
+    <% end %>
 
     <!-- Bootstrap -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
