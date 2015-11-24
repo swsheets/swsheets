@@ -62,6 +62,7 @@ defmodule EdgeBuilder.CharacterController do
     render conn, :show,
       title: character.name,
       description: description_for_character(character, user),
+      og_image_url: character.portrait_url,
       character: character |> Character.changeset(current_user_id(conn)),
       talents: character.talents |> Enum.map(&Talent.changeset/1),
       attacks: character.attacks |> Enum.map(&Attack.changeset/1),

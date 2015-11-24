@@ -24,8 +24,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><%= title_or_default(assigns[:title]) %></title>
-    <%= if assigns[:description] do %>
-    <meta name="description" content="<%= assigns[:description] %>">
+    <%= if description = assigns[:description] do %>
+    <meta name="description" content="<%= description %>">
+    <% end %>
+    <%= if og_image_url = assigns[:og_image_url] do %>
+    <meta property="og:image" content="<%= og_image_url %>" />
     <% end %>
 
     <!-- Bootstrap -->
