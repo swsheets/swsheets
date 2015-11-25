@@ -39,6 +39,7 @@ defmodule EdgeBuilder.Mixfile do
      {:inflex, "~> 1.0.0" },
      {:mock, "~> 0.1", only: :test},
      {:floki, "~> 0.1", only: :test},
-     {:ex_spec, "~> 0.3", only: :test}]
+     {:ex_spec, "~> 0.3", only: :test}
+   ]
   end
 end

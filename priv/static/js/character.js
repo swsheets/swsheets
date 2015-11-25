@@ -306,6 +306,45 @@ var CharacterForm = (function() {
     $("[data-skill-hidden]").hide();
   }
 
+  function initializeIncrementers() {
+    $("#incrementWounds").click(function() {
+      incrementWounds(1);
+    });
+    $("#decrementWounds").click(function() {
+      incrementWounds(-1);
+    });
+    $("#incrementStrain").click(function() {
+      incrementStrain(1);
+    });
+    $("#decrementStrain").click(function() {
+      incrementStrain(-1);
+    });
+  }
+
+  function incrementWounds(num) {
+    incrementValue("wounds_current", $("#currentWounds"), num);
+  }
+
+  function incrementStrain(num) {
+    incrementValue("strain_current", $("#currentStrain"), num);
+  }
+
+  function incrementValue(key, $el, num) {
+    var current = parseInt($el.text(), 10),
+        updated = current + num,
+        characterId = window.location.pathname.match(/^\/c\/(.+)$/)[1],
+        data = {character: {}};
+    data.character[key] = updated;
+    $el.text("" + updated);
+    $.ajax({
+      method: "PUT",
+      url: "/api/characters/" + characterId,
+      data: JSON.stringify(data),
+      dataType: "json",
+      contentType: "application/json"
+    });
+  }
+
   return {
     init: function() {
       initializeHandlers();
@@ -316,6 +355,7 @@ var CharacterForm = (function() {
       enableDisableRemoveAllForcePowerUpgradeButtons();
       hideHiddenSkills();
       setSystemOrDefault();
+      initializeIncrementers();
     }
   };
 })();

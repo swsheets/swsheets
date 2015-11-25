@@ -852,4 +852,13 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert is_redirect_to?(conn, "/")
     end
   end
+  
+  it "updates current wounds" do
+    character = CharacterFactory.create_character(user_id: UserFactory.default_user.id)
+
+    conn = conn() |> authenticate_as(UserFactory.default_user) |> get("/c/#{character.permalink}")
+
+    assert String.contains?(conn.resp_body, "Edit")
+    assert String.contains?(conn.resp_body, "Delete")
+  end
 end
