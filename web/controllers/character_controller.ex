@@ -217,8 +217,10 @@ defmodule EdgeBuilder.CharacterController do
 
   defp description_for_character(character, user) do
     %{username: username} = user
-    %{name: name, species: species, specializations: specializations, career: career} = character
-    "#{name} is #{a_or_an(species)} #{species} #{career} created by #{username} specializing in #{specializations}."
+    %{name: name, species: species, specializations: specializations, career: career, background: bg} = character
+    "#{name} is #{a_or_an(species)} #{species} #{career} created by #{username} specializing in #{specializations}. #{bg}"
+    |> String.strip()
+    |> String.replace ~r/[\s\n\r]+/, " "
   end
 
   defp a_or_an(word) do
