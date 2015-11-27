@@ -16,4 +16,5 @@ defmodule EdgeBuilder.LayoutView do
   def username(conn) do
     Plug.Conn.get_session(conn, :current_user_username)
   end
+
 end
