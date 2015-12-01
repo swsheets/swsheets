@@ -26,7 +26,7 @@
         <input type="hidden" data-selected-characteristic name="skills[<%= i %>][characteristic]" value="<%= selected_characteristic(skill) %>" />
 
         <%= for characteristic <- skill.characteristics do %>
-          <input type="hidden" data-shorthand="<%= Characteristic.shorthand_for(characteristic) %>" data-available-characteristic value="<%= characteristic %>" />
+          <input type="hidden" data-shorthand="<%= shorthand_for_characteristic(characteristic) %>" data-available-characteristic value="<%= characteristic %>" />
         <% end %>
 
         <input type="text" data-rank class="form-control input-sm" name="skills[<%= i %>][rank]" value="<%= skill.rank %>" />
