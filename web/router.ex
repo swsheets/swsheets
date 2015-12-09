@@ -36,7 +36,8 @@ defmodule EdgeBuilder.Router do
     post "/logout", SignupController, :logout
     post "/signup", SignupController, :signup
     resources "/user", SettingsController, only: [:edit, :update], singleton: true
-
+    post "/user/favorite_lists/add_character", FavoriteListController, :add_character
+    post "/user/favorite_lists/add_vehicle", FavoriteListController, :add_vehicle
     post "/test-support/fake-login/:id", TestSupportController, :fake_login
   end
 

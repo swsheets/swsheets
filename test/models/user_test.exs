@@ -2,7 +2,9 @@ defmodule EdgeBuilder.Models.UserTest do
   use EdgeBuilder.TestCase
 
   alias Factories.UserFactory
+  alias EdgeBuilder.Repo
   alias EdgeBuilder.Models.User
+  alias EdgeBuilder.Models.FavoriteList
 
   describe "authenticate" do
     it "returns the user when the name and password match" do
@@ -68,6 +70,18 @@ defmodule EdgeBuilder.Models.UserTest do
 
       changeset = User.changeset(%User{}, :create, %{"username" => "123456789012345678901234567890"})
       assert !has_error?(changeset, :username, "must contain no more than 30 characters")
+    end
+  end
+
+  describe "add_favorite_list" do
+    it "adds the given favorite list to the user" do
+      user = UserFactory.default_user
+      assert Repo.count(FavoriteList) == 0
+      assert length(user.favorite_lists) == 0
+      list = %FavoriteList{name: "MyList"}
+      {user, _list} = User.add_favorite_list(user, list)
+      assert Repo.count(FavoriteList) == 1
+      assert length(user.favorite_lists) == 1
     end
   end
 end

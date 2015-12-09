@@ -10,7 +10,8 @@ defmodule Factories.UserFactory do
   @defaults %{
     username: "bobafett",
     email: "fett@example.com",
-    crypted_password: User.crypt_password(@default_password)
+    crypted_password: User.crypt_password(@default_password),
+    favorite_lists: []
   }
 
   def create_user(overrides \\ []) do
@@ -36,7 +37,7 @@ defmodule Factories.UserFactory do
 
   @default_username "phil"
   def default_user do
-    case Repo.one(from u in User, where: u.username == ^@default_username) do
+    case Repo.one(from u in User, where: u.username == ^@default_username, preload: [:favorite_lists]) do
       nil -> create_user(username: @default_username)
       u -> u
     end
