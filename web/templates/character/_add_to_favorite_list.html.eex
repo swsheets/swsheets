@@ -1,0 +1,21 @@
+<%= if logged_in?(@conn) do %>
+  <link href="/css/selectize.css" rel="stylesheet" />
+  <form method="POST" action="/user/favorite_lists/add_character" id="addToFavoriteList" class="panel panel-default">
+    <input type="hidden" name="_csrf_token" value="<%= get_csrf_token() %>" />
+    <input type="hidden" name="character_id" value="<%= get_field(@character, :id) %>" />
+    <div class="row">
+      <div class="col-sm-8">
+        <select name="name" id="addToFavoriteListSelect" placeholder="Type or Choose a List Name">
+          <option value=""></option>
+          <%= for list <- user_favorite_lists(@conn) do %>
+            <option value="<%= list.name %>"><%= list.name %></option>
+          <% end %>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <button type="submit" class="btn btn-primary">Add to List</button>
+      </div>
+    </div>
+  </form>
+<% end %>
+

@@ -85,3 +85,8 @@ td.value {
 .increment-buttons {
   float: right;
 }
+
+#addToFavoriteList {
+  background: #eee;
+  padding: 10px 10px 5px 10px;
+}

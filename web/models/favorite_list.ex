@@ -5,6 +5,7 @@ defmodule EdgeBuilder.Models.FavoriteList do
   alias EdgeBuilder.Models.Favoriting
   alias EdgeBuilder.Models.Character
   alias EdgeBuilder.Models.Vehicle
+  import Ecto.Query, only: [from: 2]
 
   schema "favorite_lists" do
     field :name, :string
@@ -27,5 +28,9 @@ defmodule EdgeBuilder.Models.FavoriteList do
     favoriting = Ecto.Model.build(list, :vehicle_favoritings, vehicle_id: vehicle.id)
     Repo.insert! favoriting
     %__MODULE__{list | vehicles: [vehicle | list.vehicles]}
+  end
+
+  def all_by_user_id(user_id) do
+    Repo.all(from f in __MODULE__, where: f.user_id == ^user_id)
   end
 end
