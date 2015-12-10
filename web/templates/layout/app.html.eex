@@ -70,6 +70,7 @@
             <li><a href="<%= character_path(@conn, :index) %>">Characters</a></li>
             <li><a href="<%= vehicle_path(@conn, :index) %>">Vehicles</a></li>
             <li><a href="<%= profile_path(@conn, :my_creations) %>">My Creations</a></li>
+            <li><a href="<%= profile_path(@conn, :my_favorite_lists) %>">My Lists</a></li>
           </ul>
           <%= render "_user_dropdown.html", conn: @conn %>
         </div><!-- /.navbar-collapse -->
