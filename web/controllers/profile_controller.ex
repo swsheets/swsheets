@@ -34,7 +34,7 @@ defmodule EdgeBuilder.ProfileController do
 
   def my_favorite_lists(conn, _params) do
     user = Repo.get(User, current_user_id(conn))
-    favorite_lists = Repo.all(from f in FavoriteList, where: f.user_id == ^user.id, order_by: [asc: f.name], preload: [:characters])
+    favorite_lists = Repo.all(from f in FavoriteList, where: f.user_id == ^user.id, order_by: [asc: f.name], preload: [:characters, :vehicles])
 
     render conn, :my_favorite_lists,
       user: user,

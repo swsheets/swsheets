@@ -3,7 +3,7 @@
 <% end %>
 
 <div class="row">
-  <%= render "_add_to_favorite_list.html", conn: @conn, character: @character %>
+  <%= render EdgeBuilder.SharedView, "_add_to_favorite_list.html", conn: @conn, type: "character", item: @character %>
 </div>
 
 <div class="row main-area">

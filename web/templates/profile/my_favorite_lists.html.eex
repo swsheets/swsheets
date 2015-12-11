@@ -7,7 +7,8 @@
         <h2>
           <%= list.name %>
         </h2>
-        <%= render EdgeBuilder.CharacterView, "list_view.html", conn: @conn, characters: list.characters %>
+        <%= if length(list.characters) > 0, do: render(EdgeBuilder.CharacterView, "list_view.html", conn: @conn, characters: list.characters) %>
+        <%= if length(list.vehicles) > 0, do: render(EdgeBuilder.VehicleView, "list_view.html", conn: @conn, vehicles: list.vehicles) %>
       </div>
     <%= if rem(index, 2) == 1 || index == length(@favorite_lists) - 1 do %>
       </div>

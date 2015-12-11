@@ -4,7 +4,6 @@ defmodule EdgeBuilder.CharacterView do
   alias EdgeBuilder.Repo
   alias EdgeBuilder.Models.BaseSkill
   alias EdgeBuilder.Models.Characteristic
-  alias EdgeBuilder.Models.FavoriteList
 
   def image_or_default(character) do
     get_field(character, :portrait_url) || "/images/250x250.gif"
@@ -44,14 +43,4 @@ defmodule EdgeBuilder.CharacterView do
 
   def is_characteristic_toggle_displayed?([_]), do: false
   def is_characteristic_toggle_displayed?(_), do: true
-
-  def user_favorite_lists(conn) do
-    if user_id = Plug.Conn.get_session(conn, :current_user_id) do
-      FavoriteList.all_by_user_id(user_id)
-    end
-  end
-
-  def logged_in?(conn) do
-    !is_nil(Plug.Conn.get_session(conn, :current_user_id))
-  end
 end

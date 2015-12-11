@@ -10,9 +10,20 @@ var VehicleShow = (function() {
     }
   }
 
+  function initializeAddToFavoriteList() {
+    $("#addToFavoriteListSelect").selectize({
+      create: true
+    });
+  }
+
+  function init() {
+    setDefenseFromSilhouette();
+    initializeAddToFavoriteList();
+  }
+
   return {
-    setDefenseFromSilhouette: setDefenseFromSilhouette
+    init: init
   };
 })();
 
-$(VehicleShow.setDefenseFromSilhouette);
+$(VehicleShow.init);
