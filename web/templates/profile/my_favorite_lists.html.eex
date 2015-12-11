@@ -1,15 +1,15 @@
 <%= if length(@favorite_lists) > 0 do %>
   <%= for {list, index} <- Enum.with_index(@favorite_lists) do %>
-    <%= if rem(index, 3) == 0 do %>
+    <%= if rem(index, 2) == 0 do %>
       <div class="row">
     <% end %>
-      <div class="col-md-4">
+      <div class="col-md-6">
         <h2>
           <%= list.name %>
         </h2>
         <%= render EdgeBuilder.CharacterView, "list_view.html", conn: @conn, characters: list.characters %>
       </div>
-    <%= if rem(index, 3) == 2 || index == length(@favorite_lists) - 1 do %>
+    <%= if rem(index, 2) == 1 || index == length(@favorite_lists) - 1 do %>
       </div>
     <% end %>
   <% end %>

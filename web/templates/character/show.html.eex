@@ -2,16 +2,17 @@
   <%= render EdgeBuilder.SharedView, "_save_panel.html", conn: @conn, model: @character.model, helper: :character_path %>
 <% end %>
 
+<div class="row">
+  <%= render "_add_to_favorite_list.html", conn: @conn, character: @character %>
+</div>
+
 <div class="row main-area">
   <div class="<%= if get_field(@character, :portrait_url) |> is_nil, do: "col-md-12", else: "col-md-9" %>">
     <div class="row">
       <div class="row">
-        <div class="col-sm-8">
-          <h3>Character Name</h3>
+        <div class="col-sm-12">
+          <!--<h3>Character Name</h3>-->
           <h2><%= get_field(@character, :name) %> <small>by <%= profile_link(@conn, @user, 15) %></small></h2>
-        </div>
-        <div class="col-sm-4">
-          <%= render "_add_to_favorite_list.html", conn: @conn, character: @character %>
         </div>
       </div>
       <div class="row">
