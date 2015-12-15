@@ -52,6 +52,34 @@ defmodule EdgeBuilder.CharacterView do
   def is_characteristic_toggle_displayed?([_]), do: false
   def is_characteristic_toggle_displayed?(_), do: true
 
+  def species_by_system do
+    [
+      {"Edge of the Empire", [
+        "Aqualish (Aquala)", "Aqualish (Quara)", "Aqualish (Ualaq)",
+        "Arcona", "Bothan", "Chevin", "Chiss", "Drall",
+        "Droid", "Duros", "Gand", "Gank", "Human", "Human (Corellian)",
+        "Hutt", "Klatooinian", "Rodian", "Selonian", "Toydarian",
+        "Twi'lek", "Weequay", "Wookiee"
+      ]},
+      {"Age of the Republic", [
+        "Caamasi", "Chadra-Fan", "Dressellian", "Droid",
+        "Duros", "Gossam", "Gran", "Human", "Ithorian",
+        "Mon Calamari", "Neimoidian", "Sullustan", "Xexto"
+      ]},
+      {"Force and Destiny", [
+        "Cerean", "Kel Dor", "Mirialan", "Nautolan", "Togruta", "Zabrak"
+      ]}
+    ]
+  end
+
+  def careers_by_system do
+    [
+      {"Edge of the Empire", ["Bounty Hunter","Colonist","Explorer","Hired Gun","Smuggler","Technician"]},
+      {"Age of the Republic", ["Ace","Commander","Diplomat","Engineer","Soldier","Spy"]},
+      {"Force and Destiny", ["Consular","Guardian","Sentinel","Mystic", "Seeker","Warrior"]}
+    ]
+  end
+
   defp shorthand_for_characteristic(characteristic) do
     @characteristic_shorthands[characteristic]
   end
