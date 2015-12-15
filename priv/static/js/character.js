@@ -345,6 +345,12 @@ var CharacterForm = (function() {
     });
   }
 
+  function initSelects() {
+    $("#characterSpeciesSelect, #characterCareerSelect").selectize({
+      create: true
+    });
+  }
+
   return {
     init: function() {
       initializeHandlers();
@@ -356,6 +362,7 @@ var CharacterForm = (function() {
       hideHiddenSkills();
       setSystemOrDefault();
       initializeIncrementers();
+      initSelects();
     }
   };
 })();

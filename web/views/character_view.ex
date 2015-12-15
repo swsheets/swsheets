@@ -52,6 +52,10 @@ defmodule EdgeBuilder.CharacterView do
   def is_characteristic_toggle_displayed?([_]), do: false
   def is_characteristic_toggle_displayed?(_), do: true
 
+  defp shorthand_for_characteristic(characteristic) do
+    @characteristic_shorthands[characteristic]
+  end
+
   def species_by_system do
     [
       {"Edge of the Empire", [
@@ -80,7 +84,19 @@ defmodule EdgeBuilder.CharacterView do
     ]
   end
 
-  defp shorthand_for_characteristic(characteristic) do
-    @characteristic_shorthands[characteristic]
+  def custom_species?(nil), do: false
+  def custom_species?(species) do
+    species_by_system
+    |> Enum.map(fn({_system, items}) -> items end)
+    |> Enum.concat()
+    |> Enum.all?(fn(s) -> s != species end)
+  end
+
+  def custom_career?(nil), do: false
+  def custom_career?(career) do
+    careers_by_system
+    |> Enum.map(fn({_system, careers}) -> careers end)
+    |> Enum.concat()
+    |> Enum.all?(fn(c) -> c != career end)
   end
 end

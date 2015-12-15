@@ -37,11 +37,17 @@
       <div class="col-sm-3">
         <div class="form-group">
           <label for="character[species]">Species</label>
-          <select name="character[species]" class="form-control">
+          <select name="character[species]" class="form-control" id="characterSpeciesSelect">
+            <% current_species = get_field(@character, :species) %>
+            <%= if custom_species?(current_species) do %>
+              <option selected value="<%= current_species %>">
+                <%= current_species %>
+              </option>
+            <% end %>
             <%= for {system, species} <- species_by_system do %>
               <optgroup label="<%= system %>">
                 <%= for s <- species do %>
-                  <option value="<%= s %>" <%= if get_field(@character, :species) == s, do: "selected" %>><%= s %></option>
+                  <option <%= if s == current_species, do: "selected" %> value="<%= s %>"><%= s %></option>
                 <% end %>
               </optgroup>
             <% end %>
@@ -51,11 +57,17 @@
       <div class="col-sm-3">
         <div class="form-group">
           <label for="character[career]">Career</label>
-          <select name="character[career]" class="form-control">
+          <select name="character[career]" class="form-control" id="characterCareerSelect">
+            <% current_career = get_field(@character, :career) %>
+            <%= if custom_career?(current_career) do %>
+              <option selected value="<%= current_career %>">
+                <%= current_career %>
+              </option>
+            <% end %>
             <%= for {system, careers} <- careers_by_system do %>
               <optgroup label="<%= system %>">
                 <%= for c <- careers do %>
-                  <option value="<%= c %>" <%= if get_field(@character, :career) == c, do: "selected" %>><%= c %></option>
+                  <option <%= if c == current_career, do: "selected" %> value="<%= c %>"><%= c %></option>
                 <% end %>
               </optgroup>
             <% end %>
