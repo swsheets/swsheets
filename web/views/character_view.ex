@@ -3,7 +3,15 @@ defmodule EdgeBuilder.CharacterView do
 
   alias EdgeBuilder.Repo
   alias EdgeBuilder.Models.BaseSkill
-  alias EdgeBuilder.Models.Characteristic
+
+  @characteristic_shorthands %{
+    "Agility"   => "Ag",
+    "Brawn"     => "Br",
+    "Cunning"   => "Cun",
+    "Intellect" => "Int",
+    "Presence"  => "Pr",
+    "Willpower" => "Will",
+  }
 
   def image_or_default(character) do
     get_field(character, :portrait_url) || "/images/250x250.gif"
@@ -24,7 +32,7 @@ defmodule EdgeBuilder.CharacterView do
   end
 
   def skill_display_name(skill) do
-    "#{skill.name} (#{Characteristic.shorthand_for(skill.characteristic)})"
+    "#{skill.name} (#{shorthand_for_characteristic(skill.characteristic)})"
   end
 
   def skills_in_system(character_skills, system) do
@@ -43,4 +51,8 @@ defmodule EdgeBuilder.CharacterView do
 
   def is_characteristic_toggle_displayed?([_]), do: false
   def is_characteristic_toggle_displayed?(_), do: true
+
+  defp shorthand_for_characteristic(characteristic) do
+    @characteristic_shorthands[characteristic]
+  end
 end
