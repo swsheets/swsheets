@@ -67,7 +67,7 @@ defmodule EdgeBuilder.Models.Character do
 
   def changeset(character, user_id, params \\ %{}) do
     character
-    |> cast(Map.put(params, "user_id", user_id), required_fields, optional_fields)
+    |> cast(Map.put(clean_params(params), "user_id", user_id), required_fields, optional_fields)
   end
 
   def full_character(permalink) do
@@ -102,4 +102,25 @@ defmodule EdgeBuilder.Models.Character do
     |> String.slice(0, 15)
     |> String.downcase
   end
+
+  defp clean_params(params) do
+    params |> clean_portrait_url()
+  end
+
+  defp clean_portrait_url(params) do
+    if params["portrait_url"] do
+      Map.put(params, "portrait_url", fix_imgur_url(params["portrait_url"]))
+    else
+      params
+    end
+  end
+
+  defp fix_imgur_url(url) when is_bitstring(url) do
+    regex = ~r/^https?:\/\/imgur\.com\/gallery\/([^\/]+)/
+    case Regex.run(regex, url) do
+      [_full, permalink] -> "http://i.imgur.com/#{permalink}.jpg"
+      nil -> url
+    end
+  end
+  defp fix_imgur_url(non_string_value), do: non_string_value
 end

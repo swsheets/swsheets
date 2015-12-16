@@ -49,4 +49,11 @@ defmodule EdgeBuilder.Models.CharacterTest do
       assert character.id == found_character.id
     end
   end
+
+  describe "portrait_url" do
+    it "changes imgur page url to image url" do
+      character = CharacterFactory.create_character(portrait_url: "http://imgur.com/gallery/OjCH1Th")
+      assert character.portrait_url == "http://i.imgur.com/OjCH1Th.jpg"
+    end
+  end
 end
