@@ -35,7 +35,7 @@ defmodule EdgeBuilder.Mixfile do
      {:ecto, "~> 0.11"},
      {:scrivener, "~> 0.6"},
      {:comeonin, "~> 0.8"},
-     {:httpoison, "~> 0.6"},
+     {:httpoison, "~> 0.8"},
      {:inflex, "~> 1.0.0" },
      {:mock, "~> 0.1", only: :test},
      {:floki, "~> 0.1", only: :test},

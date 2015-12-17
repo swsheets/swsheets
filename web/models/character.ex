@@ -1,6 +1,7 @@
 defmodule EdgeBuilder.Models.Character do
   use EdgeBuilder.Web, :model
 
+  alias EdgeBuilder.Imgur
   alias EdgeBuilder.Models.Talent
   alias EdgeBuilder.Models.Talent
   alias EdgeBuilder.Models.Attack
@@ -109,18 +110,9 @@ defmodule EdgeBuilder.Models.Character do
 
   defp clean_portrait_url(params) do
     if params["portrait_url"] do
-      Map.put(params, "portrait_url", fix_imgur_url(params["portrait_url"]))
+      Map.put(params, "portrait_url", Imgur.get_image_url_from_page_url(params["portrait_url"]))
     else
       params
     end
   end
-
-  defp fix_imgur_url(url) when is_bitstring(url) do
-    regex = ~r/^https?:\/\/imgur\.com\/gallery\/([^\/]+)/
-    case Regex.run(regex, url) do
-      [_full, permalink] -> "http://i.imgur.com/#{permalink}.jpg"
-      nil -> url
-    end
-  end
-  defp fix_imgur_url(non_string_value), do: non_string_value
 end
