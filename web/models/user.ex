@@ -1,6 +1,8 @@
 defmodule EdgeBuilder.Models.User do
   use EdgeBuilder.Web, :model
 
+  alias EdgeBuilder.Models.FavoriteList
+
   @derive {Phoenix.Param, key: :username}
   schema "users" do
     field :username, :string
@@ -12,6 +14,7 @@ defmodule EdgeBuilder.Models.User do
     field :bug_reported_at, Ecto.DateTime
     field :pull_requested_at, Ecto.DateTime
 
+    has_many :favorite_lists, FavoriteList
     timestamps
   end
 
@@ -119,5 +122,26 @@ defmodule EdgeBuilder.Models.User do
 
   def crypt_password(pw) do
     Comeonin.Bcrypt.hashpwsalt(pw)
+  end
+
+  def add_favorite_list(user, list) do
+    list = %FavoriteList{list | user_id: user.id}
+    new_list = Repo.insert! list
+    new_user = %__MODULE__{user | favorite_lists: [list | user.favorite_lists]}
+    {new_user, new_list}
+  end
+
+  def find_or_create_favorite_list_by_name(user, name) do
+    case Enum.find user.favorite_lists, (fn (l) -> l.name == name end) do
+      nil ->
+        list = %FavoriteList{name: name}
+        {_new_user, new_list} = add_favorite_list(user, list)
+        new_list
+      list -> list
+    end
+  end
+
+  def find_by_id(id) do
+    Repo.get(__MODULE__, id) |> Repo.preload :favorite_lists
   end
 end

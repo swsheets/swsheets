@@ -2,6 +2,7 @@ defmodule EdgeBuilder.ProfileController do
   use EdgeBuilder.Web, :controller
 
   alias EdgeBuilder.Models.Character
+  alias EdgeBuilder.Models.FavoriteList
   alias EdgeBuilder.Models.User
   alias EdgeBuilder.Models.Vehicle
   alias EdgeBuilder.Repo
@@ -29,5 +30,14 @@ defmodule EdgeBuilder.ProfileController do
       user: user,
       characters: characters,
       vehicles: vehicles
+  end
+
+  def my_favorite_lists(conn, _params) do
+    user = Repo.get(User, current_user_id(conn))
+    favorite_lists = Repo.all(from f in FavoriteList, where: f.user_id == ^user.id, order_by: [asc: f.name], preload: [:characters, :vehicles])
+
+    render conn, :my_favorite_lists,
+      user: user,
+      favorite_lists: favorite_lists
   end
 end

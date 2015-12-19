@@ -345,6 +345,12 @@ var CharacterForm = (function() {
     });
   }
 
+  function initializeAddToFavoriteList() {
+    $("#addToFavoriteListSelect").selectize({
+      create: true
+    });
+  }
+
   return {
     init: function() {
       initializeHandlers();
@@ -356,6 +362,7 @@ var CharacterForm = (function() {
       hideHiddenSkills();
       setSystemOrDefault();
       initializeIncrementers();
+      initializeAddToFavoriteList();
     }
   };
 })();

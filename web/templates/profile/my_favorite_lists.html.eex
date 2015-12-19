@@ -1,0 +1,31 @@
+<%= if length(@favorite_lists) > 0 do %>
+  <%= for {list, index} <- Enum.with_index(@favorite_lists) do %>
+    <%= if rem(index, 2) == 0 do %>
+      <div class="row">
+    <% end %>
+      <div class="col-md-6">
+        <h2>
+          <%= list.name %>
+        </h2>
+        <%= if length(list.characters) > 0, do: render(EdgeBuilder.CharacterView, "list_view.html", conn: @conn, characters: list.characters) %>
+        <%= if length(list.vehicles) > 0, do: render(EdgeBuilder.VehicleView, "list_view.html", conn: @conn, vehicles: list.vehicles) %>
+      </div>
+    <%= if rem(index, 2) == 1 || index == length(@favorite_lists) - 1 do %>
+      </div>
+    <% end %>
+  <% end %>
+
+<%= else %>
+  <div class="row">
+    <div class="col-md-5 col-md-offset-1">
+      <h2>Getting Started with Lists</h2>
+      <p>
+        You can create a new list of characters on any character page.
+        When you see the component pictured below on a page,
+        start by typing a list name into the text box and click
+        "Add to List".
+      </p>
+      <img src="/images/add-to-list-screenshot.png" width="380" height="69" />
+    </div>
+  </div>
+<% end %>
