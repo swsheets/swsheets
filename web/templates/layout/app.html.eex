@@ -89,7 +89,7 @@
         <p><%= application_name %></p>
         <ul>
           <li><a href="<%= page_path(@conn, :about) %>">About</a></li>
-          <li><a href="http://github.com/citizenparker/swsheets">Source Code</a></li>
+          <li><a href="http://github.com/swsheets/swsheets">Source Code</a></li>
         </ul>
       </div>
     </footer>

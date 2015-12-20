@@ -4,7 +4,7 @@ SWSheets is a simple application for creating, storing, sharing, and printing Ed
 
 ## Planned Features & Suggestions
 
-Please use the [issues page](https://github.com/citizenparker/swsheets/issues)
+Please use the [issues page](https://github.com/swsheets/swsheets/issues)
 
 ## Setup
 
@@ -29,7 +29,7 @@ Now you can visit `localhost:4000` from your browser.
 
 ## Deploying
 
-I use [ansible-swsheets](https://github.com/citizenparker/ansible-swsheets). You could probably use Heroku too though.
+I use [ansible-swsheets](https://github.com/swsheets/ansible-swsheets). You could probably use Heroku too though.
 
 ## Testing
 If you have run `script/dbdo` then you're ready to test with

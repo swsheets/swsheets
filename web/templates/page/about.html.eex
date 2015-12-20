@@ -10,19 +10,17 @@
 
     <a id="open-source"></a>
 
-    <p>Scott Parker is the founder and leader of this ragtag group of scoundrels, rebels, and mystics. He has a Star Wars: Edge of the Empire blog if you're curious or want to get in touch, <a href="http://rollcasual.com">rollcasual.com</a>.</p>
-
-    <p>However, this site is the work of many volunteers who help in many ways. <a href='/thanks'>See the full list of contributors</a> for more info.</p>
+    <p>SWSheets is run by a few folks - you can see the details on the <a href="https://github.com/swsheets">Github SWSheets team page</a>. This site is also the work of many volunteers who help in many ways. <a href='/thanks'>See the full list of contributors</a> for more info.</p>
 
     <p><strong>Is this really free? What is this open-source thing you mention?</strong></p>
 
-    <p>Yes, this is totally free and will remain that way. All content on this website is licensed under a <a href="https://creativecommons.org/licenses/by-nc/3.0/us/">CC BY-NC 3.0 US</a> license which means I couldn't make money off it even if I wanted to. No ads, no charges, nothing.</p>
+    <p>Yes, this is totally free and will remain that way. All content on this website is licensed under a <a href="https://creativecommons.org/licenses/by-nc/3.0/us/">CC BY-NC 3.0 US</a> license which means we couldn't make money off it even if we wanted to. No ads, no charges, nothing.</p>
 
-    <p>As for "open-source," it just means that all the code that powers this website <a href="https://github.com/citizenparker/swsheets">is available online</a> and is open to contributions from others. I'd love your help in making this site awesome, but ultimately you're free to do anything you like with that code as long as you provide attribution and don't make money off it.</p>
+    <p>As for "open-source," it just means that all the code that powers this website <a href="https://github.com/swsheets/swsheets">is available online</a> and is open to contributions from others. I'd love your help in making this site awesome, but ultimately you're free to do anything you like with that code as long as you provide attribution and don't make money off it.</p>
 
     <p><strong>What about custom skills?</strong></p>
 
-    <p>Probably not. Generally speaking, I don't find custom skills to be worthwhile.</p>
+    <p>Probably not. Generally speaking, we don't find custom skills to be worthwhile.</p>
 
     <p><strong>You should add a bunch of logic to enforce the rules of character creation.</strong></p>
 
@@ -30,15 +28,15 @@
 
     <p><strong>Why does this exist when <a href="https://community.fantasyflightgames.com/index.php?/topic/89135-another-character-generator/">OggDude's Character Generator</a> exists?</strong></p>
 
-    <p>OggDude's tool is great! I wanted a tool to manage my characters online and share them with my group, though. Also, I don't have a Windows computer. :(</p>
+    <p>OggDude's tool is great! We wanted a tool to manage my characters online and share them with my group, though. Also, that tool is Windows-only. :(</p>
 
     <p><strong>I found a bug!</strong></p>
 
-    <p>Sorry about that! If you could report it on the <a href="https://github.com/citizenparker/swsheets/issues/">issues page</a>, I'll take a look.</p>
+    <p>Sorry about that! If you could report it on the <a href="https://github.com/swsheets/swsheets/issues/">issues page</a>, we'll take a look.</p>
 
     <p><strong>I have an idea for a neat feature!</strong></p>
 
-    <p>Awesome! I keep a list of good suggestions and features I plan to add on <a href="https://github.com/citizenparker/swsheets/issues">SWSheets Github Issues page</a>. I'd love for you to chime in there.</p>
+    <p>Awesome! The team keeps a list of good suggestions and features we plan to adding on <a href="https://github.com/swsheets/swsheets/issues">SWSheets Github Issues page</a>. We'd love for you to chime in there.</p>
 
     <p><strong>I think you're claiming ownership of this intellectual property!</strong></p>
 
