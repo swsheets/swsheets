@@ -55,4 +55,56 @@ defmodule EdgeBuilder.CharacterView do
   defp shorthand_for_characteristic(characteristic) do
     @characteristic_shorthands[characteristic]
   end
+
+  def all_species do
+    species_by_system
+    |> Enum.map(fn({_system, items}) -> items end)
+    |> Enum.concat()
+    |> Enum.uniq()
+    |> Enum.sort()
+  end
+
+  def species_by_system do
+    [
+      {"Edge of the Empire", [
+        "Aqualish (Aquala)", "Aqualish (Quara)", "Aqualish (Ualaq)",
+        "Arcona", "Bothan", "Chevin", "Chiss", "Drall",
+        "Droid", "Duros", "Gand", "Gank", "Human", "Human (Corellian)",
+        "Hutt", "Klatooinian", "Rodian", "Selonian", "Toydarian",
+        "Twi'lek", "Weequay", "Wookiee"
+      ]},
+      {"Age of the Rebellion", [
+        "Caamasi", "Chadra-Fan", "Dressellian", "Droid",
+        "Duros", "Gossam", "Gran", "Human", "Ithorian",
+        "Mon Calamari", "Neimoidian", "Sullustan", "Xexto"
+      ]},
+      {"Force and Destiny", [
+        "Cerean", "Kel Dor", "Mirialan", "Nautolan", "Togruta", "Zabrak"
+      ]}
+    ]
+  end
+
+  def careers_by_system do
+    [
+      {"Edge of the Empire", ["Bounty Hunter","Colonist","Explorer","Hired Gun","Smuggler","Technician"]},
+      {"Age of the Rebellion", ["Ace","Commander","Diplomat","Engineer","Soldier","Spy"]},
+      {"Force and Destiny", ["Consular","Guardian","Sentinel","Mystic", "Seeker","Warrior"]}
+    ]
+  end
+
+  def custom_species?(nil), do: false
+  def custom_species?(species) do
+    species_by_system
+    |> Enum.map(fn({_system, items}) -> items end)
+    |> Enum.concat()
+    |> Enum.all?(fn(s) -> s != species end)
+  end
+
+  def custom_career?(nil), do: false
+  def custom_career?(career) do
+    careers_by_system
+    |> Enum.map(fn({_system, careers}) -> careers end)
+    |> Enum.concat()
+    |> Enum.all?(fn(c) -> c != career end)
+  end
 end

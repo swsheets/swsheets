@@ -233,7 +233,7 @@ var CharacterForm = (function() {
   function setSystem(system) {
     $("#systemButton").empty();
     $("[data-value="+system+"]").contents().clone().appendTo("#systemButton");
-    $("#systemValue").val(system);
+    $("#systemValue").val(system).change();
 
     $("[data-system]").each(function() {
       if( $(this).attr("data-system") == system && $(this).attr("data-skill-hidden") === undefined) {
@@ -345,6 +345,12 @@ var CharacterForm = (function() {
     });
   }
 
+  function initSelects() {
+    $("#characterSpeciesSelect, #characterCareerSelect").selectize({
+      create: true
+    });
+  }
+
   return {
     init: function() {
       initializeHandlers();
@@ -356,6 +362,7 @@ var CharacterForm = (function() {
       hideHiddenSkills();
       setSystemOrDefault();
       initializeIncrementers();
+      initSelects();
     }
   };
 })();

@@ -37,13 +37,37 @@
       <div class="col-sm-3">
         <div class="form-group">
           <label for="character[species]">Species</label>
-          <input type="text" class="form-control" name="character[species]" value="<%= get_field(@character, :species) %>" />
+          <select name="character[species]" class="form-control" id="characterSpeciesSelect">
+            <% current_species = get_field(@character, :species) %>
+            <%= if custom_species?(current_species) do %>
+              <option selected value="<%= current_species %>">
+                <%= current_species %>
+              </option>
+            <% end %>
+            <%= for s <- all_species do %>
+              <option <%= if s == current_species, do: "selected" %> value="<%= s %>"><%= s %></option>
+            <% end %>
+          </select>
         </div>
       </div>
       <div class="col-sm-3">
         <div class="form-group">
           <label for="character[career]">Career</label>
-          <input type="text" class="form-control" name="character[career]" value="<%= get_field(@character, :career) %>" />
+          <select name="character[career]" class="form-control" id="characterCareerSelect">
+            <% current_career = get_field(@character, :career) %>
+            <%= if custom_career?(current_career) do %>
+              <option selected value="<%= current_career %>">
+                <%= current_career %>
+              </option>
+            <% end %>
+            <%= for {system, careers} <- careers_by_system do %>
+              <optgroup label="<%= system %>">
+                <%= for c <- careers do %>
+                  <option <%= if c == current_career, do: "selected" %> value="<%= c %>"><%= c %></option>
+                <% end %>
+              </optgroup>
+            <% end %>
+          </select>
         </div>
       </div>
       <div class="col-sm-6">
