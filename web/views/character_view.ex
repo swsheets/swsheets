@@ -73,7 +73,7 @@ defmodule EdgeBuilder.CharacterView do
         "Hutt", "Klatooinian", "Rodian", "Selonian", "Toydarian",
         "Twi'lek", "Weequay", "Wookiee"
       ]},
-      {"Age of the Rebellion", [
+      {"Age of Rebellion", [
         "Caamasi", "Chadra-Fan", "Dressellian", "Droid",
         "Duros", "Gossam", "Gran", "Human", "Ithorian",
         "Mon Calamari", "Neimoidian", "Sullustan", "Xexto"
@@ -87,7 +87,7 @@ defmodule EdgeBuilder.CharacterView do
   def careers_by_system do
     [
       {"Edge of the Empire", ["Bounty Hunter","Colonist","Explorer","Hired Gun","Smuggler","Technician"]},
-      {"Age of the Rebellion", ["Ace","Commander","Diplomat","Engineer","Soldier","Spy"]},
+      {"Age of Rebellion", ["Ace","Commander","Diplomat","Engineer","Soldier","Spy"]},
       {"Force and Destiny", ["Consular","Guardian","Sentinel","Mystic", "Seeker","Warrior"]}
     ]
   end
