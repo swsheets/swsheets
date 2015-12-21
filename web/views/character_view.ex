@@ -56,6 +56,14 @@ defmodule EdgeBuilder.CharacterView do
     @characteristic_shorthands[characteristic]
   end
 
+  def all_species do
+    species_by_system
+    |> Enum.map(fn({_system, items}) -> items end)
+    |> Enum.concat()
+    |> Enum.uniq()
+    |> Enum.sort()
+  end
+
   def species_by_system do
     [
       {"Edge of the Empire", [
@@ -65,7 +73,7 @@ defmodule EdgeBuilder.CharacterView do
         "Hutt", "Klatooinian", "Rodian", "Selonian", "Toydarian",
         "Twi'lek", "Weequay", "Wookiee"
       ]},
-      {"Age of the Republic", [
+      {"Age of the Rebellion", [
         "Caamasi", "Chadra-Fan", "Dressellian", "Droid",
         "Duros", "Gossam", "Gran", "Human", "Ithorian",
         "Mon Calamari", "Neimoidian", "Sullustan", "Xexto"
@@ -79,7 +87,7 @@ defmodule EdgeBuilder.CharacterView do
   def careers_by_system do
     [
       {"Edge of the Empire", ["Bounty Hunter","Colonist","Explorer","Hired Gun","Smuggler","Technician"]},
-      {"Age of the Republic", ["Ace","Commander","Diplomat","Engineer","Soldier","Spy"]},
+      {"Age of the Rebellion", ["Ace","Commander","Diplomat","Engineer","Soldier","Spy"]},
       {"Force and Destiny", ["Consular","Guardian","Sentinel","Mystic", "Seeker","Warrior"]}
     ]
   end

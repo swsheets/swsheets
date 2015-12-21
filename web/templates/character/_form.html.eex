@@ -44,12 +44,8 @@
                 <%= current_species %>
               </option>
             <% end %>
-            <%= for {system, species} <- species_by_system do %>
-              <optgroup label="<%= system %>">
-                <%= for s <- species do %>
-                  <option <%= if s == current_species, do: "selected" %> value="<%= s %>"><%= s %></option>
-                <% end %>
-              </optgroup>
+            <%= for s <- all_species do %>
+              <option <%= if s == current_species, do: "selected" %> value="<%= s %>"><%= s %></option>
             <% end %>
           </select>
         </div>
