@@ -41,16 +41,6 @@
       <div class='col-sm-3 col-xs-6'>
         <div class="panel panel-default">
           <div class="panel-body panel-value">
-            <%= get_field(@vehicle, :armor) %>
-          </div>
-          <div class="panel-footer text-center">
-            Armor
-          </div>
-        </div>
-      </div>
-      <div class='col-sm-3 col-xs-6'>
-        <div class="panel panel-default">
-          <div class="panel-body panel-value">
             <%= get_field(@vehicle, :speed) %>
           </div>
           <div class="panel-footer text-center">
@@ -68,6 +58,16 @@
           </div>
         </div>
       </div>
+      <div class='col-sm-3 col-xs-6'>
+        <div class="panel panel-default">
+          <div class="panel-body panel-value">
+            <%= get_field(@vehicle, :handling) %>
+          </div>
+          <div class="panel-footer text-center">
+            Handling
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <%= unless is_nil(get_field(@vehicle, :portrait_url)) do %>
@@ -82,6 +82,16 @@
 <div class='row'>
   <div class='col-lg-2'>
     <div class='row'>
+      <div class='col-lg-12 col-xs-6'>
+        <div class="panel panel-default">
+          <div class="panel-body panel-value">
+            <%= get_field(@vehicle, :armor) %>
+          </div>
+          <div class="panel-footer text-center">
+            Armor
+          </div>
+        </div>
+      </div>
       <div class='col-lg-12 col-xs-6'>
         <div class="panel panel-default">
           <div class='panel-body'>

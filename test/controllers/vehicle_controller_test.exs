@@ -45,6 +45,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
           "defense_starboard_current" => "0",
           "encumbrance" => "100",
           "faction" => "Thunderbirds",
+          "handling" => "2",
           "hard_points" => "4",
           "hull_current" => "4",
           "hull_threshold" => "15",
@@ -91,6 +92,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
       assert vehicle.defense_starboard_current == 0
       assert vehicle.encumbrance == "100"
       assert vehicle.faction == "Thunderbirds"
+      assert vehicle.handling == 2
       assert vehicle.hard_points == 4
       assert vehicle.hull_current == 4
       assert vehicle.hull_threshold == 15
