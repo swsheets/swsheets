@@ -43,16 +43,6 @@
       <div class='col-sm-3 form-group'>
         <div class="panel panel-default">
           <div class="panel-body">
-            <input type="number" min=0 max=10 step=1 class="form-control" name="vehicle[armor]" value="<%= get_field(@vehicle, :armor) %>" />
-          </div>
-          <div class="panel-footer text-center">
-            <label for="vehicle[armor]">Armor</label>
-          </div>
-        </div>
-      </div>
-      <div class='col-sm-3 form-group'>
-        <div class="panel panel-default">
-          <div class="panel-body">
             <input type="number" min=0 max=10 step=1 class="form-control" name="vehicle[speed]" value="<%= get_field(@vehicle, :speed) %>" />
           </div>
           <div class="panel-footer text-center">
@@ -67,6 +57,16 @@
           </div>
           <div class="panel-footer text-center">
             <label for="vehicle[current_speed]">Cur. Speed</label>
+          </div>
+        </div>
+      </div>
+      <div class='col-sm-3 form-group'>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <input type="number" min=0 max=10 step=1 class="form-control" name="vehicle[handling]" value="<%= get_field(@vehicle, :handling) %>" />
+          </div>
+          <div class="panel-footer text-center">
+            <label for="vehicle[handling]">Handling</label>
           </div>
         </div>
       </div>
@@ -86,6 +86,16 @@
 <div class='row'>
   <div class='col-lg-2'>
     <div class='row'>
+      <div class='col-lg-12 col-xs-6'>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <input type="number" min=0 max=10 step=1 class="form-control" name="vehicle[armor]" value="<%= get_field(@vehicle, :armor) %>" />
+          </div>
+          <div class="panel-footer text-center">
+            <label for="vehicle[armor]">Armor</label>
+          </div>
+        </div>
+      </div>
       <div class='col-lg-12 col-xs-6'>
         <div class="panel panel-default">
           <div class="panel-body">
