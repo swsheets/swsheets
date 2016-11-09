@@ -63,7 +63,7 @@
       <div class='col-sm-3 form-group'>
         <div class="panel panel-default">
           <div class="panel-body">
-            <input type="number" min=0 max=10 step=1 class="form-control" name="vehicle[handling]" value="<%= get_field(@vehicle, :handling) %>" />
+            <input type="number" min=-10 max=10 step=1 class="form-control" name="vehicle[handling]" value="<%= get_field(@vehicle, :handling) %>" />
           </div>
           <div class="panel-footer text-center">
             <label for="vehicle[handling]">Handling</label>
