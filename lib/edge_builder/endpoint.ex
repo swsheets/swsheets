@@ -57,5 +57,5 @@ defmodule EdgeBuilder.Endpoint do
     encryption_salt: "UH3U4ow6",
     max_age: @expiry_in_ten_years
 
-  plug :router, EdgeBuilder.Router
+  plug EdgeBuilder.Router
 end

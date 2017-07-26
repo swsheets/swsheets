@@ -23,7 +23,6 @@ defmodule EdgeBuilder.ConnCase do
 
       # Alias the data repository and import query/model functions
       alias EdgeBuilder.Repo
-      import Ecto.Model
       import Ecto.Query, only: [from: 2]
 
       # Import URL helpers from the router
@@ -45,8 +44,10 @@ defmodule EdgeBuilder.ConnCase do
       end
 
       def json_put(conn, path, params \\ nil) do
-        if !is_nil(params) do
-          params = Poison.encode!(params)
+        params = if is_nil(params) do
+          params
+        else
+          Poison.encode!(params)
         end
 
         conn
@@ -61,10 +62,12 @@ defmodule EdgeBuilder.ConnCase do
   end
 
   setup tags do
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(EdgeBuilder.Repo)
+
     unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(EdgeBuilder.Repo, [])
+      Ecto.Adapters.SQL.Sandbox.mode(EdgeBuilder.Repo, {:shared, self()})
     end
 
-    :ok
+    {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end

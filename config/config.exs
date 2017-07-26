@@ -5,12 +5,17 @@
 # is restricted to this project.
 use Mix.Config
 
+# General application configuration
+config :edge_builder,
+  ecto_repos: [EdgeBuilder.Repo]
+
 # Configures the endpoint
 config :edge_builder, EdgeBuilder.Endpoint,
-  root: Path.expand("..", __DIR__),
   url: [host: "localhost"],
   secret_key_base: "9gHweeZJaqUL1PGBXTxahiuf9fQuc5FJvN5AfL3XJpG5UkKkH8g/ApPrixTs67nE",
   debug_errors: false,
+  render_errors: [view: EdgeBuilder.ErrorView, accepts: ~w(html json)],
+  code_reloader: false,
   pubsub: [name: EdgeBuilder.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
@@ -23,7 +28,8 @@ config :edge_builder, EdgeBuilder.Repo,
   adapter: Ecto.Adapters.Postgres,
   database: "edgebuilder_development",
   username: "pair",
-  hostname: "localhost"
+  hostname: "localhost",
+  pool_size: 10
 
 config :edge_builder,
   application_name: "SWSheets"

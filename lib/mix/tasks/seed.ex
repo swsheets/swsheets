@@ -9,7 +9,7 @@ defmodule Mix.Tasks.Seed do
   @moduledoc @shortdoc
   def run(_) do
     EdgeBuilder.Repo.start_link
-    seed_skills
+    seed_skills()
   end
 
   defp seed_skills do

@@ -7,7 +7,10 @@ defmodule EdgeBuilder.ViewHelpers do
 
       def format_date(nil), do: nil
       def format_date(date) do
-        date |> Ecto.DateTime.to_date |> Ecto.Date.to_string
+        NaiveDateTime.to_erl(date)
+        |> Ecto.DateTime.from_erl
+        |> Ecto.DateTime.to_date
+        |> Ecto.Date.to_string
       end
 
       def profile_links(_, [], _), do: []

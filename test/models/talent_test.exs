@@ -1,5 +1,5 @@
 defmodule EdgeBuilder.Models.TalentTest do
-  use EdgeBuilder.TestCase
+  use EdgeBuilder.ModelCase
 
   alias EdgeBuilder.Models.Character
   alias EdgeBuilder.Models.Talent

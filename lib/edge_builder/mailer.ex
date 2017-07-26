@@ -12,9 +12,9 @@ defmodule EdgeBuilder.Mailer do
   end
 
   def send_email(opts) do
-    case domain do
+    case domain() do
       nil -> load_text(opts)
-      _ -> HTTPoison.post! "https://api:#{api_key}@api.mailgun.net/v3/#{domain}/messages", {:form, [from: from, to: Keyword.get(opts, :to), subject: load_subject(opts), text: load_text(opts)]}
+      _ -> HTTPoison.post! "https://api:#{api_key()}@api.mailgun.net/v3/#{domain()}/messages", {:form, [from: from(), to: Keyword.get(opts, :to), subject: load_subject(opts), text: load_text(opts)]}
     end
   end
 end

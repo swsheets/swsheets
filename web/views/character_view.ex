@@ -57,7 +57,7 @@ defmodule EdgeBuilder.CharacterView do
   end
 
   def all_species do
-    species_by_system
+    species_by_system()
     |> Enum.map(fn({_system, items}) -> items end)
     |> Enum.concat()
     |> Enum.uniq()
@@ -94,7 +94,7 @@ defmodule EdgeBuilder.CharacterView do
 
   def custom_species?(nil), do: false
   def custom_species?(species) do
-    species_by_system
+    species_by_system()
     |> Enum.map(fn({_system, items}) -> items end)
     |> Enum.concat()
     |> Enum.all?(fn(s) -> s != species end)
@@ -102,7 +102,7 @@ defmodule EdgeBuilder.CharacterView do
 
   def custom_career?(nil), do: false
   def custom_career?(career) do
-    careers_by_system
+    careers_by_system()
     |> Enum.map(fn({_system, careers}) -> careers end)
     |> Enum.concat()
     |> Enum.all?(fn(c) -> c != career end)

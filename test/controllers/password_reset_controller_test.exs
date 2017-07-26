@@ -9,7 +9,7 @@ defmodule EdgeBuilder.Controllers.PasswordResetControllerTest do
 
   describe "request" do
     it "renders a email address form" do
-      conn = conn() |> get("/forgot-password")
+      conn = build_conn() |> get("/forgot-password")
 
       assert conn.status == 200
       assert String.contains?(conn.resp_body, "password_reset[email]")
@@ -21,7 +21,7 @@ defmodule EdgeBuilder.Controllers.PasswordResetControllerTest do
       user = UserFactory.default_user
 
       with_mock EdgeBuilder.Mailer, [send_email: fn(_) -> nil end] do
-        conn() |> post("/forgot-password", %{"password_reset" => %{"email" => user.email}})
+        build_conn() |> post("/forgot-password", %{"password_reset" => %{"email" => user.email}})
 
         user = Repo.get(User, user.id)
 
@@ -36,21 +36,21 @@ defmodule EdgeBuilder.Controllers.PasswordResetControllerTest do
     end
 
     it "shows a success message" do
-      conn = conn() |> post("/forgot-password", %{"password_reset" => %{"email" => UserFactory.default_user.email}})
+      conn = build_conn() |> post("/forgot-password", %{"password_reset" => %{"email" => UserFactory.default_user.email}})
       assert String.contains?(conn.resp_body, "Instructions have been sent to that email address. If you do not see an email within a few minutes, double-check that you entered the correct email address.")
     end
 
     it "shows a success message even when the email address doesn't exist" do
-      conn = conn() |> post("/forgot-password", %{"password_reset" => %{"email" => "TOTALLY MADE UP EMAIL"}})
+      conn = build_conn() |> post("/forgot-password", %{"password_reset" => %{"email" => "TOTALLY MADE UP EMAIL"}})
       assert String.contains?(conn.resp_body, "Instructions have been sent to that email address. If you do not see an email within a few minutes, double-check that you entered the correct email address.")
     end
   end
 
   describe "reset" do
     it "loads the form on a recognized token" do
-      user = UserFactory.create_user |> UserFactory.add_password_reset_token
+      user = UserFactory.create_user! |> UserFactory.add_password_reset_token
 
-      conn = conn() |> get("/password-reset?token=#{user.password_reset_token}")
+      conn = build_conn() |> get("/password-reset?token=#{user.password_reset_token}")
 
       assert conn.status == 200
       assert String.contains?(conn.resp_body, "password_reset[password]")
@@ -59,7 +59,7 @@ defmodule EdgeBuilder.Controllers.PasswordResetControllerTest do
     end
 
     it "rejects an unrecognized token" do
-      conn = conn() |> get("/password-reset?token=a_made_up_token")
+      conn = build_conn() |> get("/password-reset?token=a_made_up_token")
 
       assert conn.status == 404
     end
@@ -67,9 +67,9 @@ defmodule EdgeBuilder.Controllers.PasswordResetControllerTest do
 
   describe "submit_reset" do
     it "resets the password and logs in" do
-      user = UserFactory.create_user |> UserFactory.add_password_reset_token
+      user = UserFactory.create_user! |> UserFactory.add_password_reset_token
 
-      conn = conn() |> post("/password-reset", %{"password_reset" => %{"password" => "asdasdasdasd", "password_confirmation" => "asdasdasdasd", "token" => user.password_reset_token}})
+      conn = build_conn() |> post("/password-reset", %{"password_reset" => %{"password" => "asdasdasdasd", "password_confirmation" => "asdasdasdasd", "token" => user.password_reset_token}})
 
       assert {:ok, _} = User.authenticate(user.username, "asdasdasdasd")
       user = Repo.get(User, user.id)
@@ -80,24 +80,24 @@ defmodule EdgeBuilder.Controllers.PasswordResetControllerTest do
     end
 
     it "redirects to the welcome page with a notice about resetting the password" do
-      user = UserFactory.create_user |> UserFactory.add_password_reset_token
+      user = UserFactory.create_user! |> UserFactory.add_password_reset_token
 
-      conn = conn() |> post("/password-reset", %{"password_reset" => %{"password" => "asdasdasdasd", "password_confirmation" => "asdasdasdasd", "token" => user.password_reset_token}})
+      conn = build_conn() |> post("/password-reset", %{"password_reset" => %{"password" => "asdasdasdasd", "password_confirmation" => "asdasdasdasd", "token" => user.password_reset_token}})
 
       assert is_redirect_to?(conn, "/")
       assert Phoenix.Controller.get_flash(conn, :has_reset_password)
     end
 
     it "renders a 404 if the token is not found" do
-      conn = conn() |> post("/password-reset", %{"password_reset" => %{"password" => "asdasdasdasd", "password_confirmation" => "asdasdasdasd", "token" => "NOT A REAL TOKEN"}})
+      conn = build_conn() |> post("/password-reset", %{"password_reset" => %{"password" => "asdasdasdasd", "password_confirmation" => "asdasdasdasd", "token" => "NOT A REAL TOKEN"}})
 
       assert conn.status == 404
     end
 
     it "renders an error message if the password does not match the confirmation" do
-      user = UserFactory.create_user |> UserFactory.add_password_reset_token
+      user = UserFactory.create_user! |> UserFactory.add_password_reset_token
 
-      conn = conn() |> post("/password-reset", %{"password_reset" => %{"password" => "asdasdasdasd", "password_confirmation" => "foo", "token" => user.password_reset_token}})
+      conn = build_conn() |> post("/password-reset", %{"password_reset" => %{"password" => "asdasdasdasd", "password_confirmation" => "foo", "token" => user.password_reset_token}})
 
       assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text |> String.contains?("Password does not match the confirmation")
       assert String.contains?(conn.resp_body, user.password_reset_token)

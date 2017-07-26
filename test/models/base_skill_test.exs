@@ -1,5 +1,5 @@
 defmodule EdgeBuilder.Models.BaseSkillTest do
-  use EdgeBuilder.TestCase
+  use EdgeBuilder.ModelCase
 
   alias EdgeBuilder.Models.BaseSkill
 

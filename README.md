@@ -8,7 +8,7 @@ Please use the [issues page](https://github.com/swsheets/swsheets/issues)
 
 ## Setup
 
-SWSheets was built against Elixir 1.0.2, Erlang 17.3, and PostgreSQL 9.3. Once you have all three installed, do the following to set up the app:
+SWSheets was built against Elixir 1.4, Erlang 19, and PostgreSQL 9.3. Once you have all three installed, do the following to set up the app:
 
 ```
 > mix deps.get

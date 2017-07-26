@@ -1,19 +1,19 @@
 defmodule EdgeBuilder.Models.UserTest do
-  use EdgeBuilder.TestCase
+  use EdgeBuilder.ModelCase
 
   alias Factories.UserFactory
   alias EdgeBuilder.Models.User
 
   describe "authenticate" do
     it "returns the user when the name and password match" do
-      user = UserFactory.create_user(password: "rockabilly", password_confirmation: "rockabilly")
+      user = UserFactory.create_user!(password: "rockabilly", password_confirmation: "rockabilly")
 
       {:ok, found_user} = User.authenticate(user.username, "rockabilly")
       assert user.id == found_user.id
     end
 
     it "returns false when the password does not match" do
-      user = UserFactory.create_user(password: "rockabilly", password_confirmation: "rockabilly")
+      user = UserFactory.create_user!(password: "rockabilly", password_confirmation: "rockabilly")
 
       assert {:error, ["No user with that password could be found"]} == User.authenticate(user.username, "classical")
     end
@@ -21,13 +21,12 @@ defmodule EdgeBuilder.Models.UserTest do
 
   describe "changeset" do
     it "generates an error when the username is taken" do
-      UserFactory.create_user(username: "bobafett")
+      UserFactory.create_user!(username: "bobafett")
 
-      changeset = User.changeset(%User{}, :create, %{"username" => "bobafett"})
+      {:error, changeset} = UserFactory.create_user(username: "bobafett")
       assert has_error?(changeset, :username, "has already been taken")
 
-      changeset = User.changeset(%User{}, :create, %{"username" => "gonzothegreat"})
-      assert !has_error?(changeset, :username, "has already been taken")
+      {:ok, _} = UserFactory.create_user(username: "gonzothegreat")
     end
 
     it "generates an error when the password and confirmation do not match" do

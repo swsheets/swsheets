@@ -43,24 +43,21 @@ defmodule EdgeBuilder.Models.Vehicle do
     field :portrait_url, :string
     field :type, :string
 
-    timestamps
+    timestamps()
     belongs_to :user, User
 
     has_many :vehicle_attacks, VehicleAttack
     has_many :vehicle_attachments, VehicleAttachment
   end
 
-  before_insert Ecto.Changeset, :delete_change, [:url_slug]
-  before_update Ecto.Changeset, :delete_change, [:url_slug]
-  after_insert __MODULE__, :_set_permalink_for_changeset
-  after_load __MODULE__, :_set_permalink
-
   defp required_fields, do: [:name]
-  defp optional_fields, do: __schema__(:fields) -- ([:id, :url_slug] ++ required_fields)
+  defp allowed_fields, do: __schema__(:fields) -- [:id, :url_slug]
 
   def changeset(vehicle, user_id, params \\ %{}) do
     vehicle
-    |> cast(Map.put(params, "user_id", user_id), required_fields, optional_fields)
+    |> cast(Map.put(params, "user_id", user_id), allowed_fields())
+    |> validate_required(required_fields())
+    |> Ecto.Changeset.delete_change(:url_slug)
   end
 
   def full_vehicle(permalink) do
@@ -70,7 +67,7 @@ defmodule EdgeBuilder.Models.Vehicle do
       from v in __MODULE__,
         where: v.url_slug == ^url_slug,
         preload: [:vehicle_attacks, :vehicle_attachments]
-    )
+    ) |> set_permalink()
   end
 
   def delete(vehicle) do
@@ -81,11 +78,7 @@ defmodule EdgeBuilder.Models.Vehicle do
     Repo.delete!(vehicle)
   end
 
-  def _set_permalink_for_changeset(changeset) do
-    update_in(changeset.model, &_set_permalink/1)
-  end
-
-  def _set_permalink(vehicle) do
+  def set_permalink(vehicle) do
     Map.put(vehicle, :permalink, "#{vehicle.url_slug}-#{urlify(vehicle.name)}")
   end
 

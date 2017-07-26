@@ -9,7 +9,7 @@ defmodule EdgeBuilder.Controllers.SignupControllerTest do
 
   describe "welcome" do
     it "renders a login form" do
-      conn = conn() |> get("/welcome")
+      conn = build_conn() |> get("/welcome")
 
       assert conn.status == 200
       assert String.contains?(conn.resp_body, "login[username]")
@@ -17,7 +17,7 @@ defmodule EdgeBuilder.Controllers.SignupControllerTest do
     end
 
     it "renders the new user form" do
-      conn = conn() |> get("/welcome")
+      conn = build_conn() |> get("/welcome")
 
       assert conn.status == 200
       assert String.contains?(conn.resp_body, "signup[username]")
@@ -29,7 +29,7 @@ defmodule EdgeBuilder.Controllers.SignupControllerTest do
 
   describe "signup" do
     it "creates a new user" do
-      conn = conn() |> post("/signup", %{
+      conn = build_conn() |> post("/signup", %{
         "signup" => %{
           "email" => "test@example.com",
           "username" => "test",
@@ -50,9 +50,9 @@ defmodule EdgeBuilder.Controllers.SignupControllerTest do
     end
 
     it "renders an error if the username is already taken" do
-      UserFactory.create_user(username: "bobafett")
+      UserFactory.create_user!(username: "bobafett")
 
-      conn = conn() |> post("/signup", %{
+      conn = build_conn() |> post("/signup", %{
         "signup" => %{
           "email" => "test@example.com",
           "username" => "bobafett",
@@ -69,9 +69,9 @@ defmodule EdgeBuilder.Controllers.SignupControllerTest do
 
   describe "login" do
     it "logs the user in when they supply the correct password" do
-      user = UserFactory.create_user(password: "floopowder", password_confirmation: "floopowder")
+      user = UserFactory.create_user!(password: "floopowder", password_confirmation: "floopowder")
 
-      conn = conn() |> post("/login", %{
+      conn = build_conn() |> post("/login", %{
         "login" => %{
           "username" => user.username,
           "password" => "floopowder"
@@ -84,9 +84,9 @@ defmodule EdgeBuilder.Controllers.SignupControllerTest do
     end
 
     it "displays an error message when the login's password doesn't match" do
-      user = UserFactory.create_user(password: "floopowder", password_confirmation: "floopowder")
+      user = UserFactory.create_user!(password: "floopowder", password_confirmation: "floopowder")
 
-      conn = conn() |> post("/login", %{
+      conn = build_conn() |> post("/login", %{
         "login" => %{
           "username" => user.username,
           "password" => "diagonally"
@@ -97,7 +97,7 @@ defmodule EdgeBuilder.Controllers.SignupControllerTest do
     end
 
     it "displays an error message when the login's username doesn't exist" do
-      conn = conn() |> post("/login", %{
+      conn = build_conn() |> post("/login", %{
         "login" => %{
           "username" => "harry potter",
           "password" => "diagonally"
@@ -110,7 +110,7 @@ defmodule EdgeBuilder.Controllers.SignupControllerTest do
 
   describe "logout" do
     it "logs out the user" do
-      conn = conn() |> authenticate_as(UserFactory.default_user) |> post("/logout")
+      conn = build_conn() |> authenticate_as(UserFactory.default_user) |> post("/logout")
 
       assert is_redirect_to?(conn, "/")
       assert is_nil(Plug.Conn.get_session(conn, :current_user_id))

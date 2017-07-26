@@ -34,7 +34,7 @@ defmodule EdgeBuilder.PasswordResetController do
           conn
           |> set_current_user(user)
           |> put_flash(:has_reset_password, true)
-          |> redirect to: "/"
+          |> redirect(to: "/")
         else
           render conn, :reset, token: params["token"], errors: user.errors
         end

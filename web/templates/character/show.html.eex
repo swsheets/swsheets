@@ -1,5 +1,5 @@
 <%= if @viewed_by_owner do %>
-  <%= render EdgeBuilder.SharedView, "_save_panel.html", conn: @conn, model: @character.model, helper: :character_path %>
+  <%= render EdgeBuilder.SharedView, "_save_panel.html", conn: @conn, model: @character.data, helper: :character_path %>
 <% end %>
 
 <div class="row main-area">

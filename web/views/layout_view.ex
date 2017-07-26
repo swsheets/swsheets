@@ -4,8 +4,8 @@ defmodule EdgeBuilder.LayoutView do
   def title_or_default(title) when is_nil(title), do: title_or_default("")
   def title_or_default(title) do
     case String.length(title) do
-      0 -> application_name
-      _ -> "#{title} | #{application_name}"
+      0 -> application_name()
+      _ -> "#{title} | #{application_name()}"
     end
   end
 
@@ -16,5 +16,4 @@ defmodule EdgeBuilder.LayoutView do
   def username(conn) do
     Plug.Conn.get_session(conn, :current_user_username)
   end
-
 end

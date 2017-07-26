@@ -8,6 +8,7 @@ defmodule EdgeBuilder.Router do
     plug :protect_from_forgery
     plug Plug.DiagnosticCookies
     plug Plug.ScrubEmptyParams
+    plug :put_secure_browser_headers
   end
 
   pipeline :api do

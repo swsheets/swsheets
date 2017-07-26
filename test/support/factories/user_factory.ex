@@ -5,23 +5,32 @@ defmodule Factories.UserFactory do
   alias EdgeBuilder.Repo
   import Ecto.Query, only: [from: 2]
 
-  @default_password "jediknight"
-
   @defaults %{
     username: "bobafett",
     email: "fett@example.com",
-    crypted_password: User.crypt_password(@default_password)
+    password: "jediknight",
+    password_confirmation: "jediknight"
   }
 
   def create_user(overrides \\ []) do
-    if is_nil(overrides[:username]) do
-      overrides = Keyword.put(overrides, :username, @defaults[:username] <> Integer.to_string(next_counter))
+    overrides = if is_nil(overrides[:username]) do
+      Keyword.put(overrides, :username, @defaults[:username] <> Integer.to_string(next_counter()))
+    else
+      overrides
     end
-    if !is_nil(overrides[:password]) do
-      overrides = Keyword.put(overrides, :crypted_password, User.crypt_password(overrides[:password]))
+
+    overrides = if !is_nil(overrides[:password]) do
+      Keyword.put(overrides, :crypted_password, User.crypt_password(overrides[:password]))
+    else
+      overrides
     end
     params = Enum.into(overrides, @defaults)
-    %User{} |> Map.merge(params) |> Repo.insert!
+    User.changeset(%User{}, :create, params) |> Repo.insert
+  end
+
+  def create_user!(overrides \\ []) do
+    {:ok, user} = create_user(overrides)
+    user
   end
 
   @token Ecto.UUID.generate
@@ -37,7 +46,7 @@ defmodule Factories.UserFactory do
   @default_username "phil"
   def default_user do
     case Repo.one(from u in User, where: u.username == ^@default_username) do
-      nil -> create_user(username: @default_username)
+      nil -> create_user!(username: @default_username)
       u -> u
     end
   end

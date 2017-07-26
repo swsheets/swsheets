@@ -9,14 +9,14 @@ defmodule EdgeBuilder.Controllers.SettingsControllerTest do
     it "displays your user information" do
       user = UserFactory.default_user
 
-      conn = conn() |> authenticate_as(user) |> get("/user/edit")
+      conn = build_conn() |> authenticate_as(user) |> get("/user/edit")
 
       assert FlokiExt.find(conn.resp_body, "#email") |> FlokiExt.attribute("value") == user.email
       assert String.contains?(conn.resp_body, user.username)
     end
 
     it "requires authentication" do
-      conn = conn() |> get("/user/edit")
+      conn = build_conn() |> get("/user/edit")
 
       assert is_redirect_to?(conn, "/welcome")
     end
@@ -24,9 +24,9 @@ defmodule EdgeBuilder.Controllers.SettingsControllerTest do
 
   describe "update" do
     it "updates your email address" do
-      user = UserFactory.create_user(email: "tom@example.com")
+      user = UserFactory.create_user!(email: "tom@example.com")
 
-      conn = conn() |> authenticate_as(user) |> put("/user", %{"user" => %{"email" => "bruce@example.com"}})
+      conn = build_conn() |> authenticate_as(user) |> put("/user", %{"user" => %{"email" => "bruce@example.com"}})
 
       user = EdgeBuilder.Repo.get(User, user.id)
 
@@ -35,9 +35,9 @@ defmodule EdgeBuilder.Controllers.SettingsControllerTest do
     end
 
     it "updates your password" do
-      user = UserFactory.create_user(password: "thisismypassword", password_confirmation: "thisismypassword")
+      user = UserFactory.create_user!(password: "thisismypassword", password_confirmation: "thisismypassword")
 
-      conn()
+      build_conn()
       |> authenticate_as(user)
       |> put("/user", %{"user" =>
         %{"password" => "asdasdasdasd",
@@ -48,7 +48,7 @@ defmodule EdgeBuilder.Controllers.SettingsControllerTest do
     end
 
     it "re-renders the page with errors if there are errors" do
-      conn = conn()
+      conn = build_conn()
       |> authenticate_as(UserFactory.default_user)
       |> put("/user", %{"user" =>
         %{"email" => "bruceatexample.com",

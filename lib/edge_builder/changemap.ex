@@ -18,12 +18,12 @@ defmodule EdgeBuilder.Changemap do
       association = root_model.__schema__(:association, field)
 
       missing_children_ids = EdgeBuilder.Repo.all(
-        from a in association.assoc,
-        where: field(a, ^association.assoc_key) == ^root.id,
+        from a in association.related,
+        where: field(a, ^association.related_key) == ^root.id,
         where: not a.id in ^Enum.map(models, &get_id/1)
       ) |> Enum.map(&get_id/1)
 
-      delete_with_children(association.assoc, missing_children_ids)
+      delete_with_children(association.related, missing_children_ids)
 
       Enum.each(models, &delete_missing/1)
     end)
@@ -44,11 +44,11 @@ defmodule EdgeBuilder.Changemap do
     end)
     |> Enum.each( fn(association) -> 
       missing_children_ids = EdgeBuilder.Repo.all(
-        from a in association.assoc,
-        where: field(a, ^association.assoc_key) in ^ids_to_delete
+        from a in association.related,
+        where: field(a, ^association.related_key) in ^ids_to_delete
       ) |> Enum.map(&get_id/1)
 
-      delete_with_children(association.assoc, missing_children_ids)
+      delete_with_children(association.related, missing_children_ids)
     end)
 
     EdgeBuilder.Repo.delete_all(
@@ -72,16 +72,12 @@ defmodule EdgeBuilder.Changemap do
   def apply_changes(changeset, association_field, parent) do
     changeset = add_relation(changeset, association_field, parent)
 
-    if is_nil(Ecto.Changeset.get_field(changeset, :id)) do
-      EdgeBuilder.Repo.insert!(changeset)
-    else
-      EdgeBuilder.Repo.update!(changeset)
-    end
+    EdgeBuilder.RepoService.upsert(changeset)
   end
 
   defp add_relation(changeset, nil, nil), do: changeset
   defp add_relation(changeset, association_field, parent_model) do
     changeset
-    |> Ecto.Changeset.put_change(parent_model.__struct__.__schema__(:association, association_field).assoc_key, parent_model.id)
+    |> Ecto.Changeset.put_change(parent_model.__struct__.__schema__(:association, association_field).related_key, parent_model.id)
   end
 end

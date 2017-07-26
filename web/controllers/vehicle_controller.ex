@@ -7,7 +7,6 @@ defmodule EdgeBuilder.VehicleController do
   alias EdgeBuilder.Models.VehicleAttack
   alias EdgeBuilder.Models.VehicleAttachment
   import Ecto.Changeset, only: [get_field: 2]
-  import Ecto.Query, only: [from: 2]
 
   plug Plug.Authentication, except: [:show, :index]
 
@@ -39,7 +38,7 @@ defmodule EdgeBuilder.VehicleController do
   end
 
   def index(conn, params) do
-    page = Repo.paginate((from v in Vehicle, order_by: [desc: v.inserted_at]), page: params["page"])
+    page = EdgeBuilder.RepoService.all_paginated(Vehicle, params["page"])
 
     render conn, :index,
       title: "Vehicles",
@@ -90,7 +89,7 @@ defmodule EdgeBuilder.VehicleController do
         Changemap.apply_changes(changemap)
         |> Changemap.delete_missing
 
-        redirect conn, to: vehicle_path(conn, :show, changemap.root.model)
+        redirect conn, to: vehicle_path(conn, :show, changemap.root.data)
       else
         render_vehicle conn, :edit,
           vehicle: changemap.root,

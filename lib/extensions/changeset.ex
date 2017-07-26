@@ -1,7 +1,7 @@
 defmodule Extensions.Changeset do
   def take(changeset_or_model, keys) do
     Enum.map(keys, fn(k) -> {k, get_field(changeset_or_model, k)} end)
-    |> Enum.into %{}
+    |> Enum.into(%{})
   end
 
   def get_field(changemap = %{root: model}, key) do

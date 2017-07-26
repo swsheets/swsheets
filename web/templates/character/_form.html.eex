@@ -44,7 +44,7 @@
                 <%= current_species %>
               </option>
             <% end %>
-            <%= for s <- all_species do %>
+            <%= for s <- all_species() do %>
               <option <%= if s == current_species, do: "selected" %> value="<%= s %>"><%= s %></option>
             <% end %>
           </select>
@@ -60,7 +60,7 @@
                 <%= current_career %>
               </option>
             <% end %>
-            <%= for {system, careers} <- careers_by_system do %>
+            <%= for {system, careers} <- careers_by_system() do %>
               <optgroup label="<%= system %>">
                 <%= for c <- careers do %>
                   <option <%= if c == current_career, do: "selected" %> value="<%= c %>"><%= c %></option>

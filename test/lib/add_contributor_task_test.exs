@@ -1,5 +1,5 @@
 defmodule EdgeBuilder.Lib.AddContributorTaskTest do
-  use EdgeBuilder.TestCase
+  use EdgeBuilder.ModelCase
 
   alias Factories.UserFactory
   alias EdgeBuilder.Models.User

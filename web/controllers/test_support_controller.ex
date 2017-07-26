@@ -10,7 +10,7 @@ defmodule EdgeBuilder.TestSupportController do
   def fake_login(conn, %{"id" => id}) do
     if Mix.env == :test do
       set_current_user(conn, Repo.get(User, id))
-      |> redirect to: "/"
+      |> redirect(to: "/")
     else
       render_404(conn)
     end

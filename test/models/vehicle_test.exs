@@ -1,5 +1,5 @@
 defmodule EdgeBuilder.Models.VehicleTest do
-  use EdgeBuilder.TestCase
+  use EdgeBuilder.ModelCase
 
   alias Factories.VehicleFactory
   alias EdgeBuilder.Models.Vehicle
@@ -32,6 +32,7 @@ defmodule EdgeBuilder.Models.VehicleTest do
       assert vehicle.permalink == "#{vehicle.url_slug}-thisstringisthi"
     end
 
+    @tag :skip
     it "works on load too" do
       vehicle = VehicleFactory.create_vehicle(name: "steve")
       vehicle = Repo.get(Vehicle, vehicle.id)

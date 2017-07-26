@@ -1,5 +1,5 @@
 defmodule EdgeBuilder.Models.CharacterSkillTest do
-  use EdgeBuilder.TestCase
+  use EdgeBuilder.ModelCase
 
   alias EdgeBuilder.Models.Character
   alias EdgeBuilder.Models.CharacterSkill

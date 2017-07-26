@@ -12,34 +12,35 @@ defmodule EdgeBuilder.Models.User do
     field :bug_reported_at, Ecto.DateTime
     field :pull_requested_at, Ecto.DateTime
 
-    timestamps
+    timestamps()
   end
 
   def changeset(user, context, params \\ %{})
   def changeset(user, :create, params) do
     user
-    |> cast(params, ~w(username email password), ~w(password_confirmation))
+    |> cast(params, ~w(username email password password_confirmation))
     |> shared_validations
-    |> validate_unique(:username, on: EdgeBuilder.Repo, downcase: true)
+    |> validate_required([:username, :email, :password])
+    |> unique_constraint(:username, name: :users_upper_username_index)
     |> validate_format(:username, ~r/^[a-zA-Z0-9]*$/, message: "must contain only letters and numbers")
     |> validate_format(:username, ~r/^.{1,30}$/, message: "must contain no more than 30 characters")
   end
 
   def changeset(user, :update, params) do
     user
-    |> cast(params, [], ~w(email password password_confirmation))
+    |> cast(params, ~w(email password password_confirmation))
     |> shared_validations
   end
 
   def changeset(user, :password_reset, params) do
     user
-    |> cast(params, [], ~w(password password_confirmation password_reset_token))
+    |> cast(params, ~w(password password_confirmation password_reset_token))
     |> shared_validations
   end
 
   def changeset(user, :contributions, params) do
     user
-    |> cast(params, [], ~w(bug_reported_at pull_requested_at))
+    |> cast(params, ~w(bug_reported_at pull_requested_at))
     |> shared_validations
   end
 

@@ -12,7 +12,7 @@ defmodule EdgeBuilder.Models.BaseSkill do
 
   def changeset(base_skill \\ %EdgeBuilder.Models.BaseSkill{}, params) do
     base_skill
-    |> cast(params, [], ~w(name characteristics display_order is_attack_skill system))
+    |> cast(params, ~w(name characteristics display_order is_attack_skill system))
   end
 
   def default_characteristic(base_skill) do

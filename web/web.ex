@@ -23,7 +23,7 @@ defmodule EdgeBuilder.Web do
       use Phoenix.HTML
       use EdgeBuilder.ViewHelpers
       import Inflex, only: [inflect: 2]
-      import Phoenix.Controller, only: [get_csrf_token: 0, get_flash: 2, view_module: 1, controller_template: 1]
+      import Phoenix.Controller, only: [get_csrf_token: 0, get_flash: 2, view_module: 1, view_template: 1]
     end
   end
 
@@ -57,9 +57,12 @@ defmodule EdgeBuilder.Web do
 
   def model do
     quote do
-      use Ecto.Model
+      use Ecto.Schema
       alias EdgeBuilder.Repo
-      import Ecto.Query, only: [from: 2]
+
+      import Ecto
+      import Ecto.Changeset
+      import Ecto.Query
     end
   end
 

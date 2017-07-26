@@ -13,7 +13,7 @@ defmodule EdgeBuilder.Models.ForcePowerUpgrade do
 
   def changeset(force_power_upgrade, params \\ %{}) do
     force_power_upgrade
-    |> cast(params, [], ~w(force_power_id name description display_order))
+    |> cast(params, ~w(force_power_id name description display_order))
   end
 
   def is_default_changeset?(changeset) do

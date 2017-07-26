@@ -1,5 +1,5 @@
 defmodule EdgeBuilder.Models.CharacterTest do
-  use EdgeBuilder.TestCase
+  use EdgeBuilder.ModelCase
 
   alias Factories.CharacterFactory
   alias EdgeBuilder.Models.Character
@@ -32,6 +32,7 @@ defmodule EdgeBuilder.Models.CharacterTest do
       assert character.permalink == "#{character.url_slug}-thisstringisthi"
     end
 
+    @tag :skip
     it "works on load too" do
       character = CharacterFactory.create_character(name: "steve")
       character = Repo.get(Character, character.id)

@@ -13,8 +13,6 @@ config :logger, level: :warn
 config :edge_builder, EdgeBuilder.Repo,
   adapter: Ecto.Adapters.Postgres,
   database: "edgebuilder_test",
-  size: 1,
-  max_overflow: false,
   pool: Ecto.Adapters.SQL.Sandbox
 
 config :comeonin,

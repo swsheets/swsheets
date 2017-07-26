@@ -13,20 +13,19 @@ defmodule EdgeBuilder.API.CharacterController do
     else
       changes = Character.changeset(character, current_user_id(conn), character_params)
 
-      if changes.valid? do
-        Repo.update!(changes)
-
-        put_status(conn, 200)
-        |> json  %{ok: true}
-      else
-        put_status(conn, 400)
-        |> json %{errors: map_errors(changes.errors)}
+      case EdgeBuilder.Repo.update(changes) do
+        {:ok, _} ->
+          put_status(conn, 200)
+          |> json(%{ok: true})
+        {:error, changeset} ->
+          put_status(conn, 400)
+          |> json(%{errors: map_errors(changeset.errors)})
       end
     end
   end
 
   defp map_errors(errors) do
-    Enum.reduce(errors, %{}, fn({field, message}, acc) ->
+    Enum.reduce(errors, %{}, fn({field, {message, _}}, acc) ->
       Map.put(acc, field, message)
     end)
   end

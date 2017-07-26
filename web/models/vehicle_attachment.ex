@@ -14,7 +14,7 @@ defmodule EdgeBuilder.Models.VehicleAttachment do
 
   def changeset(vehicle_attachments, params \\ %{}) do
     vehicle_attachments
-    |> cast(params, [], ~w(vehicle_id name hard_points_required base_modifiers modifications display_order))
+    |> cast(params, ~w(vehicle_id name hard_points_required base_modifiers modifications display_order))
   end
 
   def is_default_changeset?(changeset) do

@@ -48,7 +48,7 @@ defmodule EdgeBuilder.Models.Character do
 
     field :system, Ecto.Types.Enumeration
 
-    timestamps
+    timestamps()
     belongs_to :user, User
 
     has_many :talents, Talent
@@ -57,17 +57,14 @@ defmodule EdgeBuilder.Models.Character do
     has_many :force_powers, ForcePower
   end
 
-  before_insert Ecto.Changeset, :delete_change, [:url_slug]
-  before_update Ecto.Changeset, :delete_change, [:url_slug]
-  after_insert __MODULE__, :_set_permalink_for_changeset
-  after_load __MODULE__, :_set_permalink
-
   defp required_fields, do: [:name, :species, :career, :user_id, :system]
-  defp optional_fields, do: __schema__(:fields) -- ([:id, :url_slug] ++ required_fields)
+  defp allowed_fields, do: __schema__(:fields) -- [:id, :url_slug]
 
   def changeset(character, user_id, params \\ %{}) do
     character
-    |> cast(Map.put(clean_params(params), "user_id", user_id), required_fields, optional_fields)
+    |> cast(Map.put(clean_params(params), "user_id", user_id), allowed_fields())
+    |> validate_required(required_fields())
+    |> Ecto.Changeset.delete_change(:url_slug)
   end
 
   def full_character(permalink) do
@@ -78,7 +75,7 @@ defmodule EdgeBuilder.Models.Character do
         where: c.url_slug == ^url_slug,
         preload: [:talents, :attacks, :character_skills],
         preload: [force_powers: :force_power_upgrades]
-    )
+    ) |> set_permalink()
   end
 
   def delete(character) do
@@ -89,11 +86,7 @@ defmodule EdgeBuilder.Models.Character do
     Repo.delete!(character)
   end
 
-  def _set_permalink_for_changeset(changeset) do
-    update_in(changeset.model, &_set_permalink/1)
-  end
-
-  def _set_permalink(character) do
+  def set_permalink(character) do
     Map.put(character, :permalink, "#{character.url_slug}-#{urlify(character.name)}")
   end
 

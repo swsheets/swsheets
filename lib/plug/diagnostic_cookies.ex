@@ -14,13 +14,12 @@ defmodule Plug.DiagnosticCookies do
   defp generate_cookie(conn, name, opts \\ []) do
     if is_nil(conn.cookies) || is_nil(conn.cookies[:name]) do
       value = Ecto.UUID.generate
+      Logger.metadata([{String.to_atom(name <> "_cookie"), value}])
       Plug.Conn.put_resp_cookie(conn, name, value, opts)
     else
       value = conn.cookies[:name]
+      Logger.metadata([{String.to_atom(name <> "_cookie"), value}])
+      conn
     end
-
-    Logger.metadata([{String.to_atom(name <> "_cookie"), value}])
-
-    conn
   end
 end
