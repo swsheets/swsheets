@@ -11,11 +11,27 @@ defmodule EdgeBuilder.Repositories.CharacterRepo do
     |> callbacks_paginated()
   end
 
+  def all_for_user(user_id) do
+    Repo.all(
+      from c in Character,
+      where: c.user_id == ^user_id,
+      order_by: [desc: c.inserted_at])
+    |> Enum.map(&callbacks/1)
+  end
+
+  def recent do
+    Repo.all(
+      from c in Character,
+      order_by: [desc: c.updated_at],
+      limit: 5)
+    |> Enum.map(&callbacks/1)
+  end
+
   defp callbacks(character) do
     EdgeBuilder.Models.Character.set_permalink(character)
   end
 
   defp callbacks_paginated(paged_characters) do
-    Map.put(paged_characters, :entries, Enum.map(paged_characters.entries, &(callbacks(&1))))
+    Map.put(paged_characters, :entries, Enum.map(paged_characters.entries, &callbacks/1))
   end
 end

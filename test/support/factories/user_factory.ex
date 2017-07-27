@@ -12,6 +12,10 @@ defmodule Factories.UserFactory do
     password_confirmation: "jediknight"
   }
 
+  # this method should not return a pair, it should simply fail if it can't create the user.
+  # that would also mean removing its sibling, create_user!/1 below.
+  # however, there is one annoying test that requires this version to test user errors.
+  # so until then, it remains.
   def create_user(overrides \\ []) do
     overrides = if is_nil(overrides[:username]) do
       Keyword.put(overrides, :username, @defaults[:username] <> Integer.to_string(next_counter()))
