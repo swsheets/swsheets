@@ -45,7 +45,7 @@ defmodule EdgeBuilder.CharacterController do
   end
 
   def index(conn, params) do
-    page = EdgeBuilder.RepoService.all_paginated(Character, params["page"])
+    page = EdgeBuilder.Repositories.CharacterRepo.all(params["page"])
 
     render conn, :index,
       title: "Characters",
