@@ -2,11 +2,12 @@ defmodule EdgeBuilder.API.CharacterController do
   use EdgeBuilder.Web, :controller
 
   alias EdgeBuilder.Models.Character
+  alias EdgeBuilder.Repositories.CharacterRepo
 
   plug Plug.Authentication
 
   def update(conn, %{"id" => id, "character" => character_params}) do
-    character = Character.full_character(id)
+    character = CharacterRepo.full_character(id)
 
     if !is_owner?(conn, character) do
       put_status(conn, 403)

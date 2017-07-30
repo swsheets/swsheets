@@ -67,17 +67,6 @@ defmodule EdgeBuilder.Models.Character do
     |> Ecto.Changeset.delete_change(:url_slug)
   end
 
-  def full_character(permalink) do
-    url_slug = String.replace(permalink, ~r/-.*/, "")
-
-    Repo.one!(
-      from c in __MODULE__,
-        where: c.url_slug == ^url_slug,
-        preload: [:talents, :attacks, :character_skills],
-        preload: [force_powers: :force_power_upgrades]
-    ) |> set_permalink()
-  end
-
   def delete(character) do
     Enum.each [Talent, Attack, CharacterSkill], fn(child_module) ->
       Repo.delete_all(from c in child_module, where: c.character_id == ^character.id)

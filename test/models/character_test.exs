@@ -41,16 +41,6 @@ defmodule EdgeBuilder.Models.CharacterTest do
     end
   end
 
-  describe "full_character" do
-    it "finds a character by url slug" do
-      character = CharacterFactory.create_character
-
-      found_character = Character.full_character("#{character.url_slug}-does-not-matter")
-
-      assert character.id == found_character.id
-    end
-  end
-
   describe "portrait_url" do
     it "changes imgur page url to image url" do
       character = CharacterFactory.create_character(portrait_url: "http://imgur.com/gallery/OjCH1Th")

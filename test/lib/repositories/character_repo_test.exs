@@ -67,4 +67,39 @@ defmodule EdgeBuilder.Repositories.CharacterRepoTest do
       assert Enum.all?(characters, &(&1.user_id == user1.id))
     end
   end
+
+  describe "full_character" do
+    it "finds a character by url slug" do
+      character = CharacterFactory.create_character
+
+      found_character = CharacterRepo.full_character("#{character.url_slug}-does-not-matter")
+
+      assert character.id == found_character.id
+    end
+
+    it "preloads all child records" do
+      %{id: character_id, url_slug: url_slug} = CharacterFactory.create_character
+      Repo.insert!(%EdgeBuilder.Models.Attack{character_id: character_id, weapon_name: "Claws"})
+      Repo.insert!(%EdgeBuilder.Models.Talent{character_id: character_id, name: "Be Awesome"})
+      Repo.insert!(%EdgeBuilder.Models.CharacterSkill{
+        base_skill_id: EdgeBuilder.Models.BaseSkill.by_name("Athletics").id,
+        character_id: character_id
+      })
+      force_power = Repo.insert!(%EdgeBuilder.Models.ForcePower{character_id: character_id, name: "Force Push"})
+      Repo.insert!(%EdgeBuilder.Models.ForcePowerUpgrade{force_power_id: force_power.id, name: "Buffout"})
+
+      found_character = CharacterRepo.full_character("#{url_slug}-does-not-matter")
+
+      assert match?(
+        %{
+          id: character_id,
+          talents: [%EdgeBuilder.Models.Talent{}],
+          attacks: [%EdgeBuilder.Models.Attack{}],
+          character_skills: [%EdgeBuilder.Models.CharacterSkill{}],
+          force_powers: [%EdgeBuilder.Models.ForcePower{
+              force_power_upgrades: [%EdgeBuilder.Models.ForcePowerUpgrade{}]}
+          ]
+        }, found_character)
+    end
+  end
 end

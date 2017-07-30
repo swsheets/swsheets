@@ -10,6 +10,7 @@ defmodule EdgeBuilder.CharacterController do
   alias EdgeBuilder.Models.ForcePower
   alias EdgeBuilder.Models.ForcePowerUpgrade
   alias EdgeBuilder.Repo
+  alias EdgeBuilder.Repositories.CharacterRepo
   alias EdgeBuilder.Changemap
 
   plug Plug.Authentication, except: [:show, :index]
@@ -55,7 +56,7 @@ defmodule EdgeBuilder.CharacterController do
   end
 
   def show(conn, %{"id" => id}) do
-    character = Character.full_character(id)
+    character = CharacterRepo.full_character(id)
     user = Repo.get!(User, character.user_id)
 
     render conn, :show,
@@ -72,7 +73,7 @@ defmodule EdgeBuilder.CharacterController do
   end
 
   def edit(conn, %{"id" => id}) do
-    character = Character.full_character(id)
+    character = CharacterRepo.full_character(id)
 
     if !is_owner?(conn, character) do
       redirect conn, to: "/"
@@ -87,7 +88,7 @@ defmodule EdgeBuilder.CharacterController do
   end
 
   def update(conn, params = %{"id" => id, "character" => character_params}) do
-    character = Character.full_character(id)
+    character = CharacterRepo.full_character(id)
 
     if !is_owner?(conn, character) do
       redirect conn, to: "/"
@@ -118,7 +119,7 @@ defmodule EdgeBuilder.CharacterController do
   end
 
   def delete(conn, %{"id" => id}) do
-    character = Character.full_character(id)
+    character = CharacterRepo.full_character(id)
 
     if !is_owner?(conn, character) do
       redirect conn, to: "/"

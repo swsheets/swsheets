@@ -27,8 +27,19 @@ defmodule EdgeBuilder.Repositories.CharacterRepo do
     |> Enum.map(&callbacks/1)
   end
 
+  def full_character(permalink) do
+    url_slug = String.replace(permalink, ~r/-.*/, "")
+
+    Repo.one!(
+      from c in Character,
+        where: c.url_slug == ^url_slug,
+        preload: [:talents, :attacks, :character_skills],
+        preload: [force_powers: :force_power_upgrades]
+    ) |> callbacks()
+  end
+
   defp callbacks(character) do
-    EdgeBuilder.Models.Character.set_permalink(character)
+    Character.set_permalink(character)
   end
 
   defp callbacks_paginated(paged_characters) do
