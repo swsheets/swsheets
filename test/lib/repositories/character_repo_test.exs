@@ -92,7 +92,7 @@ defmodule EdgeBuilder.Repositories.CharacterRepoTest do
 
       assert match?(
         %{
-          id: character_id,
+          id: ^character_id,
           talents: [%EdgeBuilder.Models.Talent{}],
           attacks: [%EdgeBuilder.Models.Attack{}],
           character_skills: [%EdgeBuilder.Models.CharacterSkill{}],
