@@ -33,7 +33,6 @@
 
     <!-- Bootstrap -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/selectize.css" rel="stylesheet">
 
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
@@ -99,7 +98,6 @@
     <script src="/js/jquery.1.11.2.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/selectize.js"></script>
 
     <script src="/js/site.js"></script>
     <%= render_existing view_module(@conn), "_footer." <> view_template(@conn), assigns %>
