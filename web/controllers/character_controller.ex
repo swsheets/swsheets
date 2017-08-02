@@ -220,7 +220,7 @@ defmodule EdgeBuilder.CharacterController do
     %{username: username} = user
     %{name: name, species: species, specializations: specializations, career: career, background: bg} = character
     "#{name} is #{a_or_an(species)} #{species} #{career} created by #{username} specializing in #{specializations}. #{bg}"
-    |> String.strip()
+    |> String.trim()
     |> String.replace(~r/[\s\n\r]+/, " ")
   end
 

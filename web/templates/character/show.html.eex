@@ -23,11 +23,11 @@
         <div class="col-sm-4">
           <h5>System</h5>
           <%= case get_field(@character, :system) do %>
-            <%= :eote -> %>
+            <% :eote -> %>
               <img src='/images/eote.png' class='img-thumbnail system-logo system-eote' />Edge of the Empire
-            <%= :aor -> %>
+            <% :aor -> %>
               <img src='/images/aor.png' class='img-thumbnail system-logo system-aor' />Age of Rebellion
-            <%= :fad -> %>
+            <% :fad -> %>
               <img src='/images/fad.png' class='img-thumbnail system-logo system-fad' />Force and Destiny
           <% end %>
         </div>
@@ -307,13 +307,13 @@
   </div>
   <div class="col-md-6">
     <%= case get_field(@character, :system) do %>
-      <%= :eote -> %>
+      <% :eote -> %>
         <h4>Obligations</h4>
         <div class="long-text"><%= render_text(@character, :obligation) %></div>
-      <%= :aor -> %> 
+      <% :aor -> %> 
         <h4>Duties</h4>
         <div class="long-text"><%= render_text(@character, :duty) %></div>
-      <%= :fad -> %> 
+      <% :fad -> %> 
         <h4>Morality</h4>
         <div class="long-text"><%= render_text(@character, :morality) %></div>
     <% end %>

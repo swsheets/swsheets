@@ -12,11 +12,11 @@
       <div class="row">
         <div class="col-sm-6">
           <%= case character.system do %>
-            <%= :eote -> %>
+            <% :eote -> %>
               <p class='system-container'><img src='/images/eote.png' class='img-thumbnail system-logo system-eote' /> Edge of the Empire</p>
-            <%= :aor -> %>
+            <% :aor -> %>
               <p class='system-container'><img src='/images/aor.png' class='img-thumbnail system-logo system-aor' /> Age of Rebellion</p>
-            <%= :fad -> %>
+            <% :fad -> %>
               <p class='system-container'><img src='/images/fad.png' class='img-thumbnail system-logo system-fad' /> Force and Destiny</p>
           <% end %>
         </div>

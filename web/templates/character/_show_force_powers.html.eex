@@ -10,7 +10,7 @@
     <div class='col-sm-9'>
       <%= if Enum.empty?(get_field(force_power, :force_power_upgrades)) do %>
         <em>No Upgrades</em>
-      <%= else %>
+      <% else %>
         <table class='table table-condensed upgrades-table'>
           <tr>
             <th class='col-xs-3'>Upgrade</th>
