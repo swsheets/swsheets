@@ -35,6 +35,24 @@ defmodule EdgeBuilder.Controllers.PasswordResetControllerTest do
       end
     end
 
+    it "emails a password reset link to the original email address even when the capitalization of the form is different" do
+      user = UserFactory.default_user
+
+      with_mock EdgeBuilder.Mailer, [send_email: fn(_) -> nil end] do
+        build_conn() |> post("/forgot-password", %{"password_reset" => %{"email" => String.upcase(user.email)}})
+
+        user = Repo.get(User, user.id)
+
+        assert !is_nil(user.password_reset_token)
+        assert called EdgeBuilder.Mailer.send_email(
+          to: user.email,
+          template: :password_reset,
+          username: user.username,
+          password_reset_link: "http://localhost:4001/password-reset?token=#{user.password_reset_token}"
+        )
+      end
+    end
+
     it "shows a success message" do
       conn = build_conn() |> post("/forgot-password", %{"password_reset" => %{"email" => UserFactory.default_user.email}})
       assert String.contains?(conn.resp_body, "Instructions have been sent to that email address. If you do not see an email within a few minutes, double-check that you entered the correct email address.")

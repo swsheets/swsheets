@@ -10,7 +10,7 @@ defmodule EdgeBuilder.PasswordResetController do
   end
 
   def submit_request(conn, %{"password_reset" => params}) do
-    user = Repo.one(from u in User, where: u.email == ^params["email"])
+    user = Repo.one(from u in User, where: fragment("upper(email)") == ^String.upcase(params["email"]))
 
     if user, do: EdgeBuilder.PasswordResetService.start_reset(conn, user)
 
