@@ -21,7 +21,6 @@ defmodule EdgeBuilder.Models.User do
     |> cast(params, ~w(username email password password_confirmation))
     |> shared_validations
     |> validate_required([:username, :email, :password])
-    |> unique_constraint(:username, name: :users_upper_username_index)
     |> validate_format(:username, ~r/^[a-zA-Z0-9]*$/, message: "must contain only letters and numbers")
     |> validate_format(:username, ~r/^.{1,30}$/, message: "must contain no more than 30 characters")
   end
@@ -46,6 +45,8 @@ defmodule EdgeBuilder.Models.User do
 
   defp shared_validations(changeset) do
     changeset
+    |> unique_constraint(:username, name: :users_upper_username_index)
+    |> unique_constraint(:email, name: :users_upper_email_index)
     |> validate_password_match
     |> validate_format(:password, ~r/^.{10,}$/, message: "must be at least 10 characters")
     |> validate_format(:email, ~r/@/, message: "must be a valid email address")

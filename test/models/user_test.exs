@@ -29,6 +29,15 @@ defmodule EdgeBuilder.Models.UserTest do
       {:ok, _} = UserFactory.create_user(username: "gonzothegreat")
     end
 
+    it "generates an error when the email is taken" do
+      UserFactory.create_user!(email: "boba@fett.com")
+
+      {:error, changeset} = UserFactory.create_user(email: "boba@fett.com")
+      assert has_error?(changeset, :email, "has already been taken")
+
+      {:ok, _} = UserFactory.create_user(email: "gonzo@thegreat.net")
+    end
+
     it "generates an error when the password and confirmation do not match" do
       changeset = User.changeset(%User{}, :create, %{"password" => "hot dogs", "password_confirmation" => "cream cheese"})
       assert has_error?(changeset, :password, "does not match the confirmation")

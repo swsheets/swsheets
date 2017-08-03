@@ -23,6 +23,12 @@ defmodule Factories.UserFactory do
       overrides
     end
 
+    overrides = if is_nil(overrides[:email]) do
+      Keyword.put(overrides, :email, @defaults[:email] <> Integer.to_string(next_counter()))
+    else
+      overrides
+    end
+
     overrides = if !is_nil(overrides[:password]) do
       Keyword.put(overrides, :crypted_password, User.crypt_password(overrides[:password]))
     else
