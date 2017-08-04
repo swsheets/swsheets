@@ -22,7 +22,7 @@ defmodule EdgeBuilder.Repositories.CharacterRepo do
   def recent do
     Repo.all(
       from c in Character,
-      order_by: [desc: c.updated_at],
+      order_by: [desc: c.inserted_at],
       limit: 5)
     |> Enum.map(&callbacks/1)
   end
