@@ -57,7 +57,7 @@ defmodule EdgeBuilder.Models.User do
   def by_username(username) do
     Repo.one(
       from u in __MODULE__,
-        where: u.username == ^username
+        where: fragment("upper(username)") == ^String.upcase(username)
     )
   end
 

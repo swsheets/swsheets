@@ -14,6 +14,14 @@ defmodule EdgeBuilder.Controllers.ProfileControllerTest do
       assert String.contains?(conn.resp_body, user.username)
     end
 
+    it "is case insensitive" do
+      user = UserFactory.default_user
+
+      conn = build_conn() |> get("/u/#{String.upcase(user.username)}")
+
+      assert String.contains?(conn.resp_body, user.username)
+    end
+
     test "shows a number of creations" do
       for {count, text} <- [{0, "0 Creations"}, {1, "1 Creation"}, {2, "2 Creations"}] do
         user = UserFactory.create_user!
