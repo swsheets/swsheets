@@ -99,6 +99,7 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/js/bootstrap.min.js"></script>
 
+    <script src="/js/phoenix_html.js"></script>
     <script src="/js/site.js"></script>
     <%= render_existing view_module(@conn), "_footer." <> view_template(@conn), assigns %>
   </body>
