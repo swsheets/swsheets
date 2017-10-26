@@ -15,7 +15,7 @@ defmodule Mix.Tasks.AddContributor do
   end
 
   defp set_contribution(username, changes) do
-    EdgeBuilder.Repo.start_link
+    Mix.Task.run "app.start"
     User.by_username(username)
     |> User.changeset(:contributions, changes)
     |> EdgeBuilder.Repo.update!
