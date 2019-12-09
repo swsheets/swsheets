@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Bootstrap -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href="/css/site.css" rel="stylesheet">
+
+    <style type="text/css">
+      .error-template {padding:40px 15px;text-align: center;}
+      .error-actions {margin-top:30px;margin-bottom:15px;}
+      .error-actions .btn {margin-right:10px;}
+    </style>
+
+    <title>SWSheets</title>
+</head>
+<body>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="error-template">
+        <img src="/images/logo.png" alt="SWSheets" />
+        <h1>500 - Error</h1>
+        <h3>It's not my fault.</h3>
+        <div class="error-actions">
+          <a href="/" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
+            Take Me Home
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
