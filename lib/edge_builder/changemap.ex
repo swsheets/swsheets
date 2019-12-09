@@ -20,7 +20,7 @@ defmodule EdgeBuilder.Changemap do
       missing_children_ids = EdgeBuilder.Repo.all(
         from a in association.related,
         where: field(a, ^association.related_key) == ^root.id,
-        where: not a.id in ^Enum.map(models, &get_id/1)
+        where: a.id not in ^Enum.map(models, &get_id/1)
       ) |> Enum.map(&get_id/1)
 
       delete_with_children(association.related, missing_children_ids)
