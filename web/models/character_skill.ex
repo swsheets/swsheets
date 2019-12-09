@@ -15,7 +15,7 @@ defmodule EdgeBuilder.Models.CharacterSkill do
 
   def changeset(character_skill, params \\ %{}) do
     character_skill
-    |> cast(params, ~w(base_skill_id character_id is_career rank characteristic))
+    |> cast(params, ~w(base_skill_id character_id is_career rank characteristic)a)
     |> validate_required(:base_skill_id)
   end
 

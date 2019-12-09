@@ -3,8 +3,8 @@ defmodule EdgeBuilder.Mixfile do
 
   def project do
     [app: :edge_builder,
-     version: "0.0.1",
-     elixir: "~> 1.5",
+     version: "0.0.2",
+     elixir: "~> 1.8",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
@@ -27,21 +27,23 @@ defmodule EdgeBuilder.Mixfile do
   #
   # Type `mix help deps` for examples and options
   defp deps do
-    [{:phoenix, "~> 1.2.1"},
-     {:phoenix_pubsub, "~> 1.0"},
-     {:phoenix_ecto, "~> 3.0"},
-     {:plug, "~>1.3.5", override: true},
-     {:postgrex, ">= 0.0.0"},
-     {:phoenix_html, "~> 2.6"},
-     {:gettext, "~> 0.11"},
-     {:ex_spec, "~> 2.0", only: :test},
-     {:cowboy, ">= 0.0.0"},
-     {:scrivener_ecto, "~> 1.0"},
-     {:comeonin, "~> 3.2"},
-     {:httpoison, "~> 0.12"},
-     {:inflex, "~> 1.8" },
-     {:mock, "~> 0.2", only: :test},
-     {:floki, "~> 0.17", only: :test}]
+    [{:phoenix, "~> 1.4.11"},
+    {:phoenix_pubsub, "~> 1.1"},
+    {:phoenix_ecto, "~> 4.0"},
+    {:ecto_sql, "~> 3.0"},
+    {:plug, "~> 1.7", override: true},
+    {:postgrex, "~> 0.15.2"},
+    {:phoenix_html, "~> 2.13"},
+    {:gettext, "~> 0.17.1"},
+    {:ex_spec, "~> 2.0", only: :test},
+    {:plug_cowboy, "~> 2.0"},
+    {:scrivener_ecto, "~> 2.2"},
+    {:comeonin, "~> 3.2"},
+    {:httpoison, "~> 1.6"},
+    {:poison, "~> 3.1"},
+    {:inflex, "~> 2.0"},
+    {:mock, "~> 0.3.4", only: :test},
+    {:floki, "~> 0.23.1"}]
   end
 
   defp aliases do
