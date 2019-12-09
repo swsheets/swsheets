@@ -7,10 +7,10 @@ defmodule EdgeBuilder.ViewHelpers do
 
       def format_date(nil), do: nil
       def format_date(date) do
-        NaiveDateTime.to_erl(date)
-        |> Ecto.DateTime.from_erl
-        |> Ecto.DateTime.to_date
-        |> Ecto.Date.to_string
+        [date.year, date.month, date.day]
+        |> Enum.map(&to_string/1)
+        |> Enum.map(&String.pad_leading(&1, 2, "0"))
+        |> Enum.join("-")
       end
 
       def profile_links(_, [], _), do: []
