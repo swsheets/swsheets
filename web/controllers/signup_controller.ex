@@ -7,6 +7,11 @@ defmodule EdgeBuilder.SignupController do
     render conn, "welcome.html"
   end
 
+  def login(conn, %{"login" => %{"username" => username, "password" => password}})
+    when is_nil(username) or is_nil(password) do
+      conn 
+      |> render("welcome.html", login_empty: true)
+  end
   def login(conn, %{"login" => %{"username" => username, "password" => password}}) do
     case User.authenticate(username, password) do
       {:ok, user} -> 
