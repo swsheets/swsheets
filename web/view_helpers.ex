@@ -32,7 +32,7 @@ defmodule EdgeBuilder.ViewHelpers do
       def render_text(changeset, field) do
         {:safe, escaped_value} = Ecto.Changeset.get_field(changeset, field) |> Phoenix.HTML.html_escape
 
-        {:safe, String.replace(escaped_value, "\n", "<br>")}
+        {:safe, String.replace(IO.iodata_to_binary(escaped_value), "\n", "<br>")}
       end
 
       def in_display_order(coll) do
