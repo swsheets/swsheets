@@ -6,7 +6,8 @@
     <th>Skill</th>
     <th>Career?</th>
     <th class="col-md-1">Rank</th>
-    <th class="col-md-3">Roll</th>
+    <th class="col-md-2">Roll</th>
+    <th>Adj.</th>
   </tr>
   <%= for {skill, i} <- Enum.with_index(@character_skills) do %>
     <tr class="<%= if skill.is_attack_skill, do: ~s(active) %>" <%= unless is_nil(skill.system), do: "data-system=#{skill.system}" %> data-skill="<%= skill.name %>">
@@ -33,6 +34,9 @@
       </td>
       <td>
         <span data-skill-roll="<%= skill.name %>"></span>
+      </td>
+      <td>
+        <input type="text" data-adjustments class="form-control input-sm" name="skills[<%= i %>][adjustments]" value="<%= skill.adjustments %>" />
       </td>
     </tr>
   <% end %>
