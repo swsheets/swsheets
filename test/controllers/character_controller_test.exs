@@ -51,7 +51,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       |> Enum.into(%{})
 
       skills_with_user_edit = base_skills
-      |> Map.put("Athletics", %{"base_skill_id" => BaseSkill.by_name("Athletics").id, "rank" => "3", "is_career" => "on", "characteristic" => "Brawn"})
+      |> Map.put("Athletics", %{"base_skill_id" => BaseSkill.by_name("Athletics").id, "rank" => "3", "is_career" => "on", "characteristic" => "Brawn", "adjustments" => "1b, 1s"})
 
       build_conn() |> authenticate_as(UserFactory.default_user) |> post("/c", %{
         "character" => %{
@@ -144,6 +144,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert character_skill.is_career
       assert character_skill.rank == 3
       assert character_skill.characteristic == "Brawn"
+      assert character_skill.adjustments == "1b, 1s"
     end
 
     it "creates a Force & Destiny character" do
