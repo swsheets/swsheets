@@ -1,4 +1,4 @@
-<div class="col-md-6">
+<div class="col-md-5 col-md-offset-1">
   <h2>My Characters</h2>
   <h2><small><a href="<%= character_path(@conn, :new) %>">New Character</a></small></h2>
   <%= for character <- @characters do %>
@@ -31,7 +31,7 @@
   <% end %>
 </div>
 
-<div class="col-md-6">
+<div class="col-md-5">
   <h2>My Vehicles</h2>
   <h2><small><a href="<%= vehicle_path(@conn, :new) %>">New Vehicle</a></small></h2>
   <%= for vehicle <- @vehicles do %>
