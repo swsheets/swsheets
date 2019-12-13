@@ -48,6 +48,10 @@
 #systemButton {
   margin-right: -30px;
   padding-left: 20px;
+  color:#2c3e50;
+  background-color:#ffffff;
+  border: 1px solid #dce4ec;
+  height: 45px;
 }
 
 #systemButton, .select-button .dropdown-menu {
@@ -62,6 +66,11 @@
 
 #systemButton, .select-button a {
   padding: 2px !important;
+}
+
+#systemDropdown {
+  color:#2c3e50;
+  background-color:#ffffff;
 }
 
 .system-logo {

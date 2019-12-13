@@ -1,4 +1,4 @@
-<div class="col-md-5 col-md-offset-1">
+<div class="col-md-6">
   <h2>My Characters</h2>
   <h2><small><a href="<%= character_path(@conn, :new) %>">New Character</a></small></h2>
   <%= for character <- @characters do %>
@@ -21,9 +21,9 @@
           <% end %>
         </div>
         <div class="col-sm-6 pull-right">
-          <a class="btn btn-success" href="<%= character_path(@conn, :show, character) %>">View</a>
-          <a class="btn btn-primary" href="<%= character_path(@conn, :edit, character) %>">Edit</a>
-          <%= render EdgeBuilder.SharedView, "_delete_button.html", conn: @conn, model: character %>
+          <a class="btn btn-sm btn-success" href="<%= character_path(@conn, :show, character) %>">View</a>
+          <a class="btn btn-sm btn-primary" href="<%= character_path(@conn, :edit, character) %>">Edit</a>
+          <%= render EdgeBuilder.SharedView, "_delete_button.html", conn: @conn, model: character, extra_classes: "btn-sm" %>
           <%= render EdgeBuilder.SharedView, "_delete_modal.html", conn: @conn, model: character, helper: :character_path %>
         </div>
       </div>
@@ -31,7 +31,7 @@
   <% end %>
 </div>
 
-<div class="col-md-5">
+<div class="col-md-6">
   <h2>My Vehicles</h2>
   <h2><small><a href="<%= vehicle_path(@conn, :new) %>">New Vehicle</a></small></h2>
   <%= for vehicle <- @vehicles do %>
@@ -44,9 +44,9 @@
       </div>
       <div class="row">
         <div class="col-sm-6 pull-right">
-          <a class="btn btn-success" href="<%= vehicle_path(@conn, :show, vehicle) %>">View</a>
-          <a class="btn btn-primary" href="<%= vehicle_path(@conn, :edit, vehicle) %>">Edit</a>
-          <%= render EdgeBuilder.SharedView, "_delete_button.html", conn: @conn, model: vehicle %>
+          <a class="btn btn-sm btn-success" href="<%= vehicle_path(@conn, :show, vehicle) %>">View</a>
+          <a class="btn btn-sm btn-primary" href="<%= vehicle_path(@conn, :edit, vehicle) %>">Edit</a>
+          <%= render EdgeBuilder.SharedView, "_delete_button.html", conn: @conn, model: vehicle, extra_classes: "btn-sm" %>
           <%= render EdgeBuilder.SharedView, "_delete_modal.html", conn: @conn, model: vehicle, helper: :vehicle_path %>
         </div>
       </div>

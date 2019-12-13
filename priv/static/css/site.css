@@ -27,8 +27,8 @@ h4 {
 }
 
 .navbar-brand p {
-  padding: 15px;
-  margin-left: 50px;
+  padding: 18px 15px 15px 15px;
+  margin-left: 60px;
   display: inline-block;
   color: #fefefe;
   font-weight: bold;
@@ -38,8 +38,8 @@ h4 {
 .toplogo {
   background-color: #ffca07;
   background-image: url(/images/logo.png);
-  height: 51px;
-  width: 53px;
+  height: 60px;
+  width: 60px;
   position: absolute;
   top: 0px;
   left: 0px;
@@ -86,7 +86,7 @@ h4 {
 }
 
 .jedi-council {
-  margin-top: 50px;
+  margin-top: 60px;
   background-color: #eee;
   text-align: center;
 }
@@ -164,7 +164,7 @@ h4 {
 
 .creation-list-group-item h3 {
   margin-bottom: 10px;
-  color: #337ab7 !important;
+  color: #18bc9c !important;
 }
 
 .creation-list-group-item p {
