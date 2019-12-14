@@ -63,8 +63,7 @@ defmodule EdgeBuilder.Models.CharacterSkill do
       characteristics: base_skill.characteristics,
       base_skill_id: base_skill.id,
       is_attack_skill: base_skill.is_attack_skill,
-      display_order: base_skill.display_order,
-      system: base_skill.system
+      display_order: base_skill.display_order
     }
 
     character_skill_or_changeset = Enum.find(character_skills_or_changesets, %EdgeBuilder.Models.CharacterSkill{}, &(Extensions.Changeset.get_field(&1, :base_skill_id) == base_skill.id))
