@@ -66,6 +66,7 @@
 
 #systemButton, .select-button a {
   padding: 2px !important;
+  border: 1px solid #dce4ec;
 }
 
 #systemDropdown {
