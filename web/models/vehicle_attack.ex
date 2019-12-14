@@ -1,6 +1,8 @@
 defmodule EdgeBuilder.Models.VehicleAttack do
   use EdgeBuilder.Web, :model
 
+  alias EdgeBuilder.Models.Vehicle
+
   schema "vehicle_attacks" do
     field :weapon_name, :string
     field :firing_arc, :string

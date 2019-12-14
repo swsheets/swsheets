@@ -6,6 +6,7 @@ defmodule EdgeBuilder.Models.Character do
   alias EdgeBuilder.Models.Attack
   alias EdgeBuilder.Models.CharacterSkill
   alias EdgeBuilder.Models.ForcePower
+  alias EdgeBuilder.Models.User
 
   @derive {Phoenix.Param, key: :permalink}
   schema "characters" do
