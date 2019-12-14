@@ -4,6 +4,10 @@
   <div class="alert alert-danger"><p>No matching username and password could be found</p></div>
 <% end %>
 
+<%= unless is_nil(assigns[:login_empty]) do %>
+  <div class="alert alert-danger"><p>Username or password cannot be empty</p></div>
+<% end %>
+
 <style>
   .row {
     height: 450px;
