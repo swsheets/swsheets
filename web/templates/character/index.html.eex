@@ -12,7 +12,7 @@
 
 <div class='row'>
   <div class='col-md-1'></div>
-  <%= for character_group <- Enum.chunk(@characters, 5, 5, [nil]) do %>
+  <%= for character_group <- Enum.chunk_every(@characters, 5, 5, [nil]) do %>
     <div class="col-md-5">
       <%= render EdgeBuilder.CharacterView, "list_view.html", conn: @conn, characters: Enum.reject(character_group, &is_nil/1) %>
     </div>

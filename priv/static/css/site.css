@@ -223,3 +223,13 @@ h4 {
   border: 1px solid #fff461;
   background-color: #000;
 }
+
+.save-panel {
+  position: fixed;
+  z-index: 10;
+  width: 200px;
+  left: 50%;
+  margin-left: -100px;
+  top: 48px;
+  border: 1px solid #bbb;
+}

@@ -2,11 +2,11 @@ defmodule EdgeBuilder.ErrorView do
   use EdgeBuilder.Web, :view
 
   def render("404.html", _assigns) do
-    "Page not found - 404"
+    render("404_page.html", %{})
   end
 
   def render("500.html", _assigns) do
-    "Server internal error - 500"
+    render("500_page.html", %{})
   end
 
   # In case no render clause matches or no

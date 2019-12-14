@@ -106,6 +106,28 @@ defmodule EdgeBuilder.Controllers.SignupControllerTest do
 
       assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text == "No matching username and password could be found"
     end
+
+    it "displays an error message when the username field is empty" do
+      conn = build_conn() |> post("/login", %{
+        "login" => %{
+          "username" => nil,
+          "password" => "diagonally"
+        }
+      })
+
+      assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text == "Username or password cannot be empty"
+    end
+
+    it "displays an error message when the password field is empty" do
+      conn = build_conn() |> post("/login", %{
+        "login" => %{
+          "username" => "harry potter",
+          "password" => nil
+        }
+      })
+
+      assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text == "Username or password cannot be empty"
+    end
   end
 
   describe "logout" do
