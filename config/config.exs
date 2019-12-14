@@ -9,6 +9,8 @@ use Mix.Config
 config :edge_builder,
   ecto_repos: [EdgeBuilder.Repo]
 
+config :phoenix, :json_library, Poison
+
 # Configures the endpoint
 config :edge_builder, EdgeBuilder.Endpoint,
   url: [host: "localhost"],

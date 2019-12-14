@@ -9,8 +9,8 @@ defmodule EdgeBuilder.Models.User do
     field :crypted_password, :binary
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
-    field :bug_reported_at, Ecto.DateTime
-    field :pull_requested_at, Ecto.DateTime
+    field :bug_reported_at, :utc_datetime
+    field :pull_requested_at, :utc_datetime
 
     timestamps()
   end
@@ -18,7 +18,7 @@ defmodule EdgeBuilder.Models.User do
   def changeset(user, context, params \\ %{})
   def changeset(user, :create, params) do
     user
-    |> cast(params, ~w(username email password password_confirmation))
+    |> cast(params, ~w(username email password password_confirmation)a)
     |> shared_validations
     |> validate_required([:username, :email, :password])
     |> validate_format(:username, ~r/^[a-zA-Z0-9]*$/, message: "must contain only letters and numbers")
@@ -27,19 +27,19 @@ defmodule EdgeBuilder.Models.User do
 
   def changeset(user, :update, params) do
     user
-    |> cast(params, ~w(email password password_confirmation))
+    |> cast(params, ~w(email password password_confirmation)a)
     |> shared_validations
   end
 
   def changeset(user, :password_reset, params) do
     user
-    |> cast(params, ~w(password password_confirmation password_reset_token))
+    |> cast(params, ~w(password password_confirmation password_reset_token)a)
     |> shared_validations
   end
 
   def changeset(user, :contributions, params) do
     user
-    |> cast(params, ~w(bug_reported_at pull_requested_at))
+    |> cast(params, ~w(bug_reported_at pull_requested_at)a)
     |> shared_validations
   end
 

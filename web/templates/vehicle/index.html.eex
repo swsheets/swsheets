@@ -12,7 +12,7 @@
 
 <div class='row'>
   <div class='col-md-1'></div>
-  <%= for vehicle_group <- Enum.chunk(@vehicles, 5, 5, [nil]) do %>
+  <%= for vehicle_group <- Enum.chunk_every(@vehicles, 5, 5, [nil]) do %>
     <div class="col-md-5">
       <%= render EdgeBuilder.VehicleView, "list_view.html", conn: @conn, vehicles: Enum.reject(vehicle_group, &is_nil/1) %>
     </div>
