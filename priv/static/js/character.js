@@ -234,14 +234,6 @@ var CharacterForm = (function() {
     $("#systemButton").empty();
     $("[data-value="+system+"]").contents().clone().appendTo("#systemButton");
     $("#systemValue").val(system);
-
-    $("[data-system]").each(function() {
-      if( $(this).attr("data-system") == system && $(this).attr("data-skill-hidden") === undefined) {
-        $(this).show();
-      } else {
-        $(this).hide();
-      }
-    });
   }
 
   function setSystemOrDefault() {
