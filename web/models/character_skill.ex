@@ -8,6 +8,7 @@ defmodule EdgeBuilder.Models.CharacterSkill do
     field :is_career, :boolean, default: false
     field :characteristic, :string
     field :rank, :integer, default: 0
+    field :adjustments, :string
 
     belongs_to :character, Character
     belongs_to :base_skill, BaseSkill
@@ -15,7 +16,7 @@ defmodule EdgeBuilder.Models.CharacterSkill do
 
   def changeset(character_skill, params \\ %{}) do
     character_skill
-    |> cast(params, ~w(base_skill_id character_id is_career rank characteristic)a)
+    |> cast(params, ~w(base_skill_id character_id is_career rank characteristic adjustments)a)
     |> validate_required(:base_skill_id)
   end
 
@@ -33,7 +34,7 @@ defmodule EdgeBuilder.Models.CharacterSkill do
   defp has_default_values?(changeset) do
     default = struct(__MODULE__)
 
-    Enum.all?([:rank, :is_career], fn field ->
+    Enum.all?([:rank, :is_career, :adjustments], fn field ->
       value = Ecto.Changeset.get_field(changeset, field)
       is_nil(value) || value == Map.fetch!(default, field)
     end)
@@ -68,7 +69,7 @@ defmodule EdgeBuilder.Models.CharacterSkill do
 
     character_skill_or_changeset = Enum.find(character_skills_or_changesets, %EdgeBuilder.Models.CharacterSkill{}, &(Extensions.Changeset.get_field(&1, :base_skill_id) == base_skill.id))
 
-    skill_map = Map.merge(skill_template, Extensions.Changeset.take(character_skill_or_changeset, [:rank, :is_career, :id, :characteristic]))
+    skill_map = Map.merge(skill_template, Extensions.Changeset.take(character_skill_or_changeset, [:rank, :is_career, :id, :characteristic, :adjustments]))
 
     if is_nil(skill_map.characteristic) do
       Map.put(skill_map, :characteristic, BaseSkill.default_characteristic(base_skill))

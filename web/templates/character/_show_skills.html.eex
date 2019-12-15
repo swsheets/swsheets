@@ -6,7 +6,8 @@
     <th>Skill</th>
     <th>Career?</th>
     <th>Rank</th>
-    <th class="col-md-3">Roll</th>
+    <th class="col-md-2">Roll</th>
+    <th>Adj.</th>
   </tr>
   <%= for skill <- @character_skills do %>
     <tr class="<%= if skill.is_attack_skill, do: ~s(active) %>" data-skill="<%= skill.name %>">
@@ -19,6 +20,9 @@
       </td>
       <td>
         <span data-skill-roll="<%= skill.name %>"></span>
+      </td>
+      <td>
+        <%= skill.adjustments %>
       </td>
   <% end %>
 </table>
