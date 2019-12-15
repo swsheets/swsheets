@@ -1,6 +1,6 @@
 <div class="row well save-panel">
   <button type="submit" class="btn btn-success">Save</button>
-  <a class="btn btn-default pull-right" href="/">Cancel</a>
+  <a class="btn btn-default pull-right" href="<%= if is_nil(@vehicle.data.id), do: '/', else: vehicle_path(@conn, :show, get_field(@vehicle, :permalink)) %>">Cancel</a> 
 </div>
 
 <div class='row main-form'>
