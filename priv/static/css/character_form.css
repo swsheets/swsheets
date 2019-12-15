@@ -2,16 +2,6 @@
   padding-top: 50px;
 }
 
-.save-panel {
-  position: fixed;
-  z-index: 10;
-  width: 200px;
-  left: 50%;
-  margin-left: -100px;
-  top: 48px;
-  border: 1px solid #bbb;
-}
-
 .soak-panel {
    padding-top: 32px;
    padding-bottom: 32px;

@@ -44,5 +44,6 @@ defmodule EdgeBuilder.Router do
   scope "/api", EdgeBuilder.API do
     pipe_through :api
     resources "/characters", CharacterController, only: [:update]
+    resources "/vehicles", VehicleController, only: [:update]
   end
 end

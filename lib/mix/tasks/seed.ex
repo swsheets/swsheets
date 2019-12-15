@@ -115,8 +115,7 @@ defmodule Mix.Tasks.Seed do
       %{
         name: "Lightsaber",
         characteristics: ["Brawn", "Agility", "Intellect", "Cunning", "Willpower", "Presence"],
-        is_attack_skill: true,
-        system: :fad
+        is_attack_skill: true
       },
       %{
         name: "Melee",
@@ -155,8 +154,7 @@ defmodule Mix.Tasks.Seed do
       },
       %{
         name: "Knowledge: Warfare",
-        characteristics: ["Intellect"],
-        system: :aor
+        characteristics: ["Intellect"]
       },
       %{
         name: "Knowledge: Xenology",

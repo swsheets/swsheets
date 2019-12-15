@@ -33,18 +33,76 @@ defmodule EdgeBuilder.Controllers.PageControllerTest do
     end
 
     it "shows a list of users who have contributed to the project in order of most recent contribution across types" do
-      UserFactory.create_user!(username: "third") |> UserFactory.set_contributions(
-        bug_reported_at:   %Ecto.DateTime{day: 5, month: 1, year: 2015, hour: 1, min: 1, sec: 1},
-        pull_requested_at: %Ecto.DateTime{day: 5, month: 1, year: 2015, hour: 1, min: 1, sec: 1},
+      UserFactory.create_user!(username: "third")
+      |> UserFactory.set_contributions(
+        bug_reported_at: %DateTime{
+          day: 5,
+          month: 1,
+          year: 2015,
+          hour: 1,
+          minute: 1,
+          second: 1,
+          time_zone: "Etc/UTC",
+          zone_abbr: "UTC",
+          utc_offset: 0,
+          std_offset: 0
+        },
+        pull_requested_at: %DateTime{
+          day: 5,
+          month: 1,
+          year: 2015,
+          hour: 1,
+          minute: 1,
+          second: 1,
+          time_zone: "Etc/UTC",
+          zone_abbr: "UTC",
+          utc_offset: 0,
+          std_offset: 0
+        }
       )
 
-      UserFactory.create_user!(username: "second") |> UserFactory.set_contributions(
-        bug_reported_at:   %Ecto.DateTime{day: 7, month: 1, year: 2015, hour: 1, min: 1, sec: 1},
-        pull_requested_at: %Ecto.DateTime{day: 2, month: 1, year: 2015, hour: 1, min: 1, sec: 1},
+      UserFactory.create_user!(username: "second")
+      |> UserFactory.set_contributions(
+        bug_reported_at: %DateTime{
+          day: 7,
+          month: 1,
+          year: 2015,
+          hour: 1,
+          minute: 1,
+          second: 1,
+          time_zone: "Etc/UTC",
+          zone_abbr: "UTC",
+          utc_offset: 0,
+          std_offset: 0
+        },
+        pull_requested_at: %DateTime{
+          day: 2,
+          month: 1,
+          year: 2015,
+          hour: 1,
+          minute: 1,
+          second: 1,
+          time_zone: "Etc/UTC",
+          zone_abbr: "UTC",
+          utc_offset: 0,
+          std_offset: 0
+        }
       )
 
-      UserFactory.create_user!(username: "first") |> UserFactory.set_contributions(
-        pull_requested_at: %Ecto.DateTime{day: 8, month: 1, year: 2015, hour: 1, min: 1, sec: 1},
+      UserFactory.create_user!(username: "first")
+      |> UserFactory.set_contributions(
+        pull_requested_at: %DateTime{
+          day: 8,
+          month: 1,
+          year: 2015,
+          hour: 1,
+          minute: 1,
+          second: 1,
+          time_zone: "Etc/UTC",
+          zone_abbr: "UTC",
+          utc_offset: 0,
+          std_offset: 0
+        }
       )
 
       UserFactory.create_user!(username: "nocontributions")
@@ -75,16 +133,60 @@ defmodule EdgeBuilder.Controllers.PageControllerTest do
   describe "thanks" do
     it "shows a full list of contributors" do
       UserFactory.create_user!(username: "mark") |> UserFactory.set_contributions(
-        bug_reported_at:   %Ecto.DateTime{day: 5, month: 1, year: 2015, hour: 1, min: 1, sec: 1},
+        bug_reported_at: %DateTime{
+          day: 5,
+          month: 1,
+          year: 2015,
+          hour: 1,
+          minute: 1,
+          second: 1,
+          time_zone: "Etc/UTC",
+          zone_abbr: "UTC",
+          utc_offset: 0,
+          std_offset: 0
+        }
       )
 
       UserFactory.create_user!(username: "john") |> UserFactory.set_contributions(
-        bug_reported_at:   %Ecto.DateTime{day: 7, month: 1, year: 2015, hour: 1, min: 1, sec: 1},
-        pull_requested_at: %Ecto.DateTime{day: 2, month: 1, year: 2015, hour: 1, min: 1, sec: 1},
+        bug_reported_at: %DateTime{
+          day: 7,
+          month: 1,
+          year: 2015,
+          hour: 1,
+          minute: 1,
+          second: 1,
+          time_zone: "Etc/UTC",
+          zone_abbr: "UTC",
+          utc_offset: 0,
+          std_offset: 0
+        },
+        pull_requested_at: %DateTime{
+          day: 2,
+          month: 1,
+          year: 2015,
+          hour: 1,
+          minute: 1,
+          second: 1,
+          time_zone: "Etc/UTC",
+          zone_abbr: "UTC",
+          utc_offset: 0,
+          std_offset: 0
+        }
       )
 
       UserFactory.create_user!(username: "luke") |> UserFactory.set_contributions(
-        pull_requested_at: %Ecto.DateTime{day: 8, month: 1, year: 2015, hour: 1, min: 1, sec: 1},
+        pull_requested_at: %DateTime{
+          day: 8,
+          month: 1,
+          year: 2015,
+          hour: 1,
+          minute: 1,
+          second: 1,
+          time_zone: "Etc/UTC",
+          zone_abbr: "UTC",
+          utc_offset: 0,
+          std_offset: 0
+        }
       )
 
       conn = build_conn() |> get("/thanks")

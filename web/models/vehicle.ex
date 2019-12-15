@@ -3,6 +3,7 @@ defmodule EdgeBuilder.Models.Vehicle do
 
   alias EdgeBuilder.Models.VehicleAttack
   alias EdgeBuilder.Models.VehicleAttachment
+  alias EdgeBuilder.Models.User
 
   @derive {Phoenix.Param, key: :permalink}
   schema "vehicles" do

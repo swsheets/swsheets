@@ -102,12 +102,19 @@
               </tr>
               <tr>
                 <td>Current</td>
-                <td class="panel-value"><%= get_field(@vehicle, :hull_current) %></td>
+                <td class="panel-value" id="currentHullTrauma"><%= get_field(@vehicle, :hull_current) %></td>
               </tr>
             </table>
           </div>
           <div class="panel-footer text-center">
             <label>Hull Trauma</label>
+            <%= if @viewed_by_owner do %>
+            <br>
+            <span class="increment-buttons">
+              <button id="decrementHullTrauma">-</button>
+              <button id="incrementHullTrauma">+</button>
+            </span>
+            <% end %>
           </div>
         </div>
       </div>
@@ -121,12 +128,19 @@
               </tr>
               <tr>
                 <td>Current</td>
-                <td class="panel-value"><%= get_field(@vehicle, :strain_current) %></td>
+                <td class="panel-value" id="currentSystemStrain"><%= get_field(@vehicle, :strain_current) %></td>
               </tr>
             </table>
           </div>
           <div class="panel-footer text-center">
             <label>System Strain</label>
+            <%= if @viewed_by_owner do %>
+            <br>
+            <span class="increment-buttons">
+              <button id="decrementSystemStrain">-</button>
+              <button id="incrementSystemStrain">+</button>
+            </span>
+            <% end %>
           </div>
         </div>
       </div>

@@ -17,6 +17,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
 
       assert conn.status == 200
       assert String.contains?(conn.resp_body, "New Vehicle")
+      assert String.contains?(conn.resp_body, "href=\"/\">Cancel</a>")
     end
 
     it "requires authentication" do
@@ -268,6 +269,8 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
       assert String.contains?(conn.resp_body, vehicle.name)
       assert String.contains?(conn.resp_body, vehicle_attack.weapon_name)
       assert String.contains?(conn.resp_body, vehicle_attachment.name)
+      assert String.contains?(conn.resp_body, "href=\"/v/#{vehicle.permalink}\">Cancel</a>")
+
     end
 
     it "requires authentication" do
