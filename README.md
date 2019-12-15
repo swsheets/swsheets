@@ -8,7 +8,7 @@ Please use the [issues page](https://github.com/swsheets/swsheets/issues)
 
 ## Setup
 
-SWSheets was built against Elixir 1.4, Erlang 19, and PostgreSQL 9.3. Once you have all three installed, do the following to set up the app:
+SWSheets was built against Elixir 1.8, Erlang 22, and PostgreSQL 9.3. Once you have all three installed, do the following to set up the app:
 
 ```
 > mix deps.get
@@ -23,7 +23,7 @@ Once Mix has fetched all dependencies, you'll need to set up the database. An ea
 
 ## Running
 
-To run SWSheets, type `mix phoenix.server`.
+To run SWSheets, type `mix phx.server`.
 
 Now you can visit `localhost:4000` from your browser.
 
