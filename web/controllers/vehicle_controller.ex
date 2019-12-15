@@ -6,6 +6,7 @@ defmodule EdgeBuilder.VehicleController do
   alias EdgeBuilder.Models.Vehicle
   alias EdgeBuilder.Models.VehicleAttack
   alias EdgeBuilder.Models.VehicleAttachment
+  alias EdgeBuilder.Repositories.VehicleRepo
   import Ecto.Changeset, only: [get_field: 2]
 
   plug Plug.Authentication, except: [:show, :index]
@@ -38,7 +39,7 @@ defmodule EdgeBuilder.VehicleController do
   end
 
   def index(conn, params) do
-    page = EdgeBuilder.RepoService.all_paginated(Vehicle, params["page"])
+    page = VehicleRepo.all(params["page"])
 
     render conn, :index,
       title: "Vehicles",
@@ -48,7 +49,7 @@ defmodule EdgeBuilder.VehicleController do
   end
 
   def show(conn, %{"id" => id}) do
-    vehicle = Vehicle.full_vehicle(id)
+    vehicle = VehicleRepo.full_vehicle(id)
     user = Repo.get!(User, vehicle.user_id)
 
     render conn, :show,
@@ -61,7 +62,7 @@ defmodule EdgeBuilder.VehicleController do
   end
 
   def edit(conn, %{"id" => id}) do
-    vehicle = Vehicle.full_vehicle(id)
+    vehicle = VehicleRepo.full_vehicle(id)
 
     if !is_owner?(conn, vehicle) do
       redirect conn, to: "/"
@@ -74,7 +75,7 @@ defmodule EdgeBuilder.VehicleController do
   end
 
   def update(conn, params = %{"id" => id, "vehicle" => vehicle_params}) do
-    vehicle = Vehicle.full_vehicle(id)
+    vehicle = VehicleRepo.full_vehicle(id)
 
     changemap = %{
       root: Vehicle.changeset(vehicle, current_user_id(conn), vehicle_params),
@@ -101,7 +102,7 @@ defmodule EdgeBuilder.VehicleController do
   end
 
   def delete(conn, %{"id" => id}) do
-    vehicle = Vehicle.full_vehicle(id)
+    vehicle = VehicleRepo.full_vehicle(id)
 
     if !is_owner?(conn, vehicle) do
       redirect conn, to: "/"
