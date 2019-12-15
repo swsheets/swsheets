@@ -34,7 +34,7 @@ defmodule EdgeBuilder.Models.CharacterSkill do
   defp has_default_values?(changeset) do
     default = struct(__MODULE__)
 
-    Enum.all?([:rank, :is_career], fn field ->
+    Enum.all?([:rank, :is_career, :adjustments], fn field ->
       value = Ecto.Changeset.get_field(changeset, field)
       is_nil(value) || value == Map.fetch!(default, field)
     end)

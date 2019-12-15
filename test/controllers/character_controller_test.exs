@@ -211,7 +211,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
           "career" => "Bounty Hunter",
           "system" => "eote"
         },
-        "skills" => %{"0" => %{"base_skill_id" => BaseSkill.by_name("Athletics").id, "rank" => "3", "is_career" => "on"}},
+        "skills" => %{"0" => %{"base_skill_id" => BaseSkill.by_name("Athletics").id, "rank" => "3", "is_career" => "on", "adjustments" => "1b"}},
         "force_powers" => %{
           "0" => %{"name" => "Motivate", "description" => "Gets people up and at em!", "display_order" => "1", "force_power_upgrades" => %{
               "0" => %{"name" => "Improved Productivity", "description" => "People work ten percent harder", "display_order" => "0"}
@@ -221,7 +221,8 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       })
 
       assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text == "Name can't be blank"
-      assert FlokiExt.element(conn, "[data-skill=Athletics]") |> FlokiExt.find("input[type=text]") |> FlokiExt.attribute("value") == "3"
+      assert FlokiExt.element(conn, "[data-skill=Athletics]") |> FlokiExt.find("input[data-rank=data-rank]") |> FlokiExt.attribute("value") == "3"
+      assert FlokiExt.element(conn, "[data-skill=Athletics]") |> FlokiExt.find("input[data-adjustments=data-adjustments]") |> FlokiExt.attribute("value") == "1b"
       assert !is_nil(FlokiExt.element(conn, ".attack-first-row"))
       assert !is_nil(FlokiExt.element(conn, ".talent-row"))
 
@@ -643,11 +644,12 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
           "species" => "Rodian",
           "career" => "Bounty Hunter"
         },
-        "skills" => %{"0" => %{"base_skill_id" => BaseSkill.by_name("Athletics").id, "rank" => "3", "is_career" => "on"}}
+        "skills" => %{"0" => %{"base_skill_id" => BaseSkill.by_name("Athletics").id, "rank" => "3", "is_career" => "on", "adjustments" => "1b"}}
       })
 
       assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text == "Name can't be blank"
-      assert FlokiExt.element(conn, "[data-skill=Athletics]") |> FlokiExt.find("input[type=text]") |> FlokiExt.attribute("value") == "3"
+      assert FlokiExt.element(conn, "[data-skill=Athletics]") |> FlokiExt.find("input[data-rank=data-rank]") |> FlokiExt.attribute("value") == "3"
+      assert FlokiExt.element(conn, "[data-skill=Athletics]") |> FlokiExt.find("input[data-adjustments=data-adjustments]") |> FlokiExt.attribute("value") == "1b"
       assert !is_nil(FlokiExt.element(conn, ".attack-first-row"))
       assert !is_nil(FlokiExt.element(conn, ".talent-row"))
     end
