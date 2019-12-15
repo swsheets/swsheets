@@ -20,6 +20,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
       assert conn.status == 200
       assert String.contains?(conn.resp_body, "New Character")
+      assert String.contains?(conn.resp_body, "href=\"/\">Cancel</a>")
     end
 
     it "requires authentication" do
@@ -391,6 +392,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert String.contains?(conn.resp_body, attack.weapon_name)
       assert String.contains?(conn.resp_body, force_power.name)
       assert String.contains?(conn.resp_body, force_power_upgrade.name)
+      assert String.contains?(conn.resp_body, "href=\"/c/#{character.permalink}\">Cancel</a>")
     end
 
     it "works on characters with no children associated to them" do
