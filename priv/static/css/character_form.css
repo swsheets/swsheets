@@ -23,6 +23,10 @@
   font-size: 12px;
 }
 
+.attack-table .form-inline .form-control {
+  width: 100%;
+}
+
 .navbar-btn {
   margin-right: 10px;
 }

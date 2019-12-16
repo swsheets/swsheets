@@ -9,12 +9,12 @@
           <input type="hidden" name="attacks[<%= i %>][id]" value="<%= get_field(attack, :id) %>" />
           <input type="hidden" name="attacks[<%= i %>][display_order]" value="<%= get_field(attack, :display_order) %>" />
           <div class="form-group form-group-sm">
-            <label class="sr-only" for="attacks[<%= i %>][weapon_name]">Weapon</label>
+            <label for="attacks[<%= i %>][weapon_name]">Weapon</label>
             <input type="text" class="form-control" name="attacks[<%= i %>][weapon_name]" placeholder="Weapon Name" value="<%= get_field(attack, :weapon_name) %>" />
           </div>
         </td>
         <td class="form-inline">
-          <div class="form-group form-group-sm pull-right">
+          <div class="form-group form-group-sm">
             <label for="attacks[<%= i %>][range]">Range</label>
             <select class="form-control" name="attacks[<%= i %>][range]">
               <option></option>
@@ -23,7 +23,7 @@
           </div>
         </td>
         <td class="form-inline">
-          <div class="form-group form-group-sm pull-right">
+          <div class="form-group form-group-sm">
             <label for="attacks[<%= i %>][base_skill_id]">Skill</label>
             <select class="form-control" name="attacks[<%= i %>][base_skill_id]" data-attack-skill data-attack-index=<%= i %>>
               <option></option>
@@ -36,20 +36,20 @@
       <tr class="attack-second-row <%= if rem(i, 2) == 0, do: "active" %>" data-attack=<%= i %>>
         <td>
           <div class="form-group form-group-sm">
-            <label for="attacks[<%= i %>][specials]" class="sr-only">Specials</label>
+            <label for="attacks[<%= i %>][specials]">Specials</label>
             <input type="text" class="form-control" name="attacks[<%= i %>][specials]" placeholder="Specials" value="<%= get_field(attack, :specials) %>" />
           </div>
         </td>
         <td class="form-inline">
-          <div class="form-group form-group-sm pull-right">
+          <div class="form-group form-group-sm">
             <label for="attacks[<%= i %>][damage]">Damage</label>
-            <input type="text" class="form-control" size=5 name="attacks[<%= i %>][damage]" value="<%= get_field(attack, :damage) %>" />
+            <input type="text" class="form-control" name="attacks[<%= i %>][damage]" value="<%= get_field(attack, :damage) %>" />
           </div>
         </td>
         <td class="form-inline">
-          <div class="form-group form-group-sm pull-right">
+          <div class="form-group form-group-sm">
             <label for="attacks[<%= i %>][critical]">Critical</label>
-            <input type="text" class="form-control" size=5 name="attacks[<%= i %>][critical]" value="<%= get_field(attack, :critical) %>" />
+            <input type="text" class="form-control" name="attacks[<%= i %>][critical]" value="<%= get_field(attack, :critical) %>" />
           </div>
         </td>
         <td>
