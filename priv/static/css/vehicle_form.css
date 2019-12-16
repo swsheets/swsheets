@@ -2,7 +2,8 @@
   padding-top: 50px;
 }
 
-.attack .form-inline .form-control {
+.attack .form-inline .form-control,
+.attachment .form-inline .form-control {
   width: 100%;
 }
 
