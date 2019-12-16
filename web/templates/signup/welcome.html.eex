@@ -9,6 +9,16 @@
 <% end %>
 
 <style>
+  .row {
+    height: 450px;
+  }
+  .col-md-offset-2 {
+    margin-top: 70px;
+  }
+  .col-md-1 {
+    height: 100%;
+  }
+
   .vertical-line {
     width: 1px;
     border-left: 1px solid #000;
@@ -20,7 +30,7 @@
 </style>
 
 <div class="row">
-  <div class="col-md-3 col-md-offset-2" style="margin-top:60px;">
+  <div class="col-md-3 col-md-offset-2">
     <h3>Welcome Back</h3>
     <%= form_tag(signup_path(@conn, :login), role: "form", method: "POST", class: "form well") %>
       <div class="form-group">
@@ -39,10 +49,10 @@
   </div>
 
   <div class="col-md-1">
-    <%# <div class="vertical-line"></div> %>
+    <div class="vertical-line"></div>
   </div>
 
-  <div class="col-md-6" style="margin-bottom:50px;">
+  <div class="col-md-6">
     <h3>Create a New Account</h3>
     <%= form_tag(signup_path(@conn, :signup), role: "form", method: "POST", class: "form") %>
       <div class="form-group">
@@ -61,7 +71,7 @@
         <label for="signup[password_confirmation]" class='control-label'>Password Confirmation</label>
         <input type="password" class="form-control" name="signup[password_confirmation]" />
       </div>
-      <input class="btn btn-primary btn-block" type="submit" value="Sign up">
+      <input class="btn btn-info btn-block" type="submit" value="Sign up">
     </form>
   </div>
 </div>
