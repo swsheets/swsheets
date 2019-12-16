@@ -241,3 +241,7 @@ h4 {
   top: 57px;
   border: 1px solid #bbb;
 }
+
+.settings-form-align {
+  margin-top: -10px;
+}
