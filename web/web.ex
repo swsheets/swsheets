@@ -51,7 +51,12 @@ defmodule EdgeBuilder.Web do
         model.user_id == current_user_id(conn)
       end
 
-      def render_404(conn), do: conn |> put_status(:not_found) |> render(EdgeBuilder.ErrorView, "404.html")
+      def render_404(conn) do
+        conn 
+        |> put_status(:not_found)
+        |> put_view(EdgeBuilder.ErrorView)
+        |> render("404.html")
+      end
     end
   end
 
