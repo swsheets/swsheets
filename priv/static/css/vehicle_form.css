@@ -2,6 +2,10 @@
   padding-top: 50px;
 }
 
+.attack .form-inline .form-control {
+  width: 100%;
+}
+
 .addon-core-attr {
   width: 90px;
 }
