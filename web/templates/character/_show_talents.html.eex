@@ -2,12 +2,16 @@
 <div class="row">
   <table class="table table-condensed">
     <tr>
+      <th class="col-md-1">Rank</th>
       <th class="col-md-3">Name</th>
       <th class="col-md-2">Book &amp; Page</th>
-      <th class="col-md-7">Description</th>
+      <th class="col-md-6">Description</th>
     </tr>
     <%= for talent <- @talents do %>
       <tr>
+        <td>
+          <%= get_field(talent, :rank) %>
+        </td>
         <td>
           <%= get_field(talent, :name) %>
         </td>

@@ -4,6 +4,7 @@ defmodule EdgeBuilder.Models.Talent do
   alias EdgeBuilder.Models.Character
 
   schema "talents" do
+    field :rank, :integer, default: 1
     field :name, :string
     field :book_and_page, :string
     field :description, :string
@@ -13,13 +14,13 @@ defmodule EdgeBuilder.Models.Talent do
 
   def changeset(talent, params \\ %{}) do
     talent
-    |> cast(params, ~w(character_id name book_and_page description display_order)a)
+    |> cast(params, ~w(character_id rank name book_and_page description display_order)a)
   end
 
   def is_default_changeset?(changeset) do
     default = struct(__MODULE__)
 
-    Enum.all?([:name, :book_and_page, :description], fn field ->
+    Enum.all?([:name, :rank, :book_and_page, :description], fn field ->
       value = Ecto.Changeset.get_field(changeset, field)
       is_nil(value) || value == Map.fetch!(default, field)
     end)
