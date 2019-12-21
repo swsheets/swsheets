@@ -9,9 +9,6 @@
 <% end %>
 
 <style>
-  .row {
-    height: 450px;
-  }
   .col-md-offset-2 {
     margin-top: 70px;
   }
@@ -20,13 +17,8 @@
     height: 100%;
   }
 
-  .vertical-line {
-    width: 1px;
-    border-left: 1px solid #000;
-    margin-left: auto;
-    margin-right: auto;
-    vertical-align:  baseline;
-    height: 100%;
+  .col-md-5 {
+    margin-bottom: 70px;
   }
 </style>
 
@@ -49,11 +41,9 @@
     </div>
   </div>
 
-  <div class="col-md-1">
-    <div class="vertical-line"></div>
-  </div>
+  <div class="col-md-1"></div>
 
-  <div class="col-md-6">
+  <div class="col-md-5">
     <h3>Create a New Account</h3>
     <%= form_tag(signup_path(@conn, :signup), role: "form", method: "POST", class: "form") %>
       <div class="form-group">
