@@ -17,8 +17,28 @@
     height: 100%;
   }
 
+  .vertical-line {
+    display: none;
+  }
+
   .col-md-5 {
     margin-bottom: 70px;
+  }
+
+  @media (min-width: 992px) {
+    .row {
+      height: 450px;
+    }
+
+    .vertical-line {
+      display: block;
+      width: 10px;
+      border-left: 1px solid #000;
+      margin-left: auto;
+      margin-right: auto;
+      vertical-align:  baseline;
+      height: 100%;
+    }
   }
 </style>
 
@@ -41,9 +61,11 @@
     </div>
   </div>
 
-  <div class="col-md-1"></div>
+  <div class="col-md-1">
+    <div class="vertical-line"></div>
+  </div>
 
-  <div class="col-md-5">
+  <div class="col-md-6">
     <h3>Create a New Account</h3>
     <%= form_tag(signup_path(@conn, :signup), role: "form", method: "POST", class: "form") %>
       <div class="form-group">
