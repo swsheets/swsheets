@@ -235,6 +235,14 @@ var CharacterForm = (function() {
     $("#systemButton").empty();
     $("[data-value="+system+"]").contents().clone().appendTo("#systemButton");
     $("#systemValue").val(system);
+
+    $("[data-system]").each(function () {
+      if ($(this).attr("data-system") == system) {
+        $(this).show();
+      } else {
+        $(this).hide();
+      }
+    });
   }
 
   function setSystemOrDefault() {
@@ -295,10 +303,6 @@ var CharacterForm = (function() {
     $("[data-characteristic]").change();
   }
 
-  function hideHiddenSkills() {
-    $("[data-skill-hidden]").hide();
-  }
-
   function initializeIncrementers() {
     $("#incrementWounds").click(function() {
       incrementWounds(1);
@@ -346,7 +350,6 @@ var CharacterForm = (function() {
       enableDisableRemoveTalentButtons();
       enableDisableRemoveForcePowerButtons();
       enableDisableRemoveAllForcePowerUpgradeButtons();
-      hideHiddenSkills();
       setSystemOrDefault();
       initializeIncrementers();
     }
