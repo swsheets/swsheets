@@ -9,9 +9,6 @@
 <% end %>
 
 <style>
-  .row {
-    height: 450px;
-  }
   .col-md-offset-2 {
     margin-top: 70px;
   }
@@ -21,12 +18,27 @@
   }
 
   .vertical-line {
-    width: 1px;
-    border-left: 1px solid #000;
-    margin-left: auto;
-    margin-right: auto;
-    vertical-align:  baseline;
-    height: 100%;
+    display: none;
+  }
+
+  .col-md-5 {
+    margin-bottom: 70px;
+  }
+
+  @media (min-width: 992px) {
+    .row {
+      height: 450px;
+    }
+
+    .vertical-line {
+      display: block;
+      width: 10px;
+      border-left: 1px solid #000;
+      margin-left: auto;
+      margin-right: auto;
+      vertical-align:  baseline;
+      height: 100%;
+    }
   }
 </style>
 
