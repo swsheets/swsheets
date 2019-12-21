@@ -2,25 +2,25 @@
 <div class="row">
   <table id="talentTable" class="table table-condensed">
     <tr>
-      <th class="col-md-1">Rank</th>
       <th class="col-md-3">Name</th>
+      <th class="col-md-1">Rank</th>
       <th class="col-md-2">Book &amp; Page</th>
       <th class="col-md-6" colspan=2>Description</th>
     </tr>
     <%= for {talent, i} <- Enum.with_index(@talents) do %>
       <tr class="talent-row" data-talent="<%= i %>">
         <td>
-          <div class="form-group-sm">
-            <label for="talents[<%= i %>][rank]" class="sr-only">Rank</label>
-            <input type="text" class="form-control" name="talents[<%= i %>][rank]" placeholder="Rank" value="<%= get_field(talent, :rank) %>" />
-          </div>
-        </td>
-        <td>
           <input type="hidden" name="talents[<%= i %>][id]" value="<%= get_field(talent, :id) %>" />
           <input type="hidden" name="talents[<%= i %>][display_order]" value="<%= get_field(talent, :display_order) %>" />
           <div class="form-group-sm">
             <label for="talents[<%= i %>][name]" class="sr-only">Name</label>
             <input type="text" class="form-control" name="talents[<%= i %>][name]" placeholder="Name" value="<%= get_field(talent, :name) %>" />
+          </div>
+        </td>
+        <td>
+          <div class="form-group-sm">
+            <label for="talents[<%= i %>][rank]" class="sr-only">Rank</label>
+            <input type="text" class="form-control" name="talents[<%= i %>][rank]" placeholder="Rank" value="<%= get_field(talent, :rank) %>" />
           </div>
         </td>
         <td>
