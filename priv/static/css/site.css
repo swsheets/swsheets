@@ -163,11 +163,12 @@ h4 {
 
 .creation-list-group-item h3 {
   margin-bottom: 10px;
-  color: #337ab7 !important;
+  color: #18bc9c !important;
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  padding-bottom: 1px;
 }
 
 .creation-list-group-item p {
