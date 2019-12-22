@@ -1,40 +1,40 @@
 <div class="row"><h4>Talents</h4></div>
-<div class="row">
-  <table id="talentTable" class="table table-condensed">
-    <tr>
-      <th class="col-md-3">Name</th>
-      <th class="col-md-2">Book &amp; Page</th>
-      <th class="col-md-7" colspan=2>Description</th>
+
+<table id="talentTable" class="table table-condensed">
+  <tr>
+    <th class="col-md-3">Name</th>
+    <th class="col-md-2">Book &amp; Page</th>
+    <th class="col-md-7" colspan=2>Description</th>
+  </tr>
+  <%= for {talent, i} <- Enum.with_index(@talents) do %>
+    <tr class="talent-row" data-talent="<%= i %>">
+      <td>
+        <input type="hidden" name="talents[<%= i %>][id]" value="<%= get_field(talent, :id) %>" />
+        <input type="hidden" name="talents[<%= i %>][display_order]" value="<%= get_field(talent, :display_order) %>" />
+        <div class="form-group-sm">
+          <label for="talents[<%= i %>][name]" class="sr-only">Name</label>
+          <input type="text" class="form-control" name="talents[<%= i %>][name]" placeholder="Name" value="<%= get_field(talent, :name) %>" />
+        </div>
+      </td>
+      <td>
+        <div class="form-group-sm">
+          <label for="talents[<%= i %>][book_and_page]" class="sr-only">Book &amp; Page</label>
+          <input type="text" class="form-control" name="talents[<%= i %>][book_and_page]" placeholder="Book &amp; Page" value="<%= get_field(talent, :book_and_page) %>" />
+        </div>
+      </td>
+      <td>
+        <div class="form-group-sm">
+          <label for="talents[<%= i %>][description]" class="sr-only">Description</label>
+          <input type="text" class="form-control" name="talents[<%= i %>][description]" placeholder="Description" value="<%= get_field(talent, :description) %>" />
+        </div>
+      </td>
+      <td class="col-md-1">
+        <button type="button" tabindex="-1" class="btn btn-block btn-danger btn-xs" data-remove-talent=<%= i %>>Remove</button>
+      </td>
     </tr>
-    <%= for {talent, i} <- Enum.with_index(@talents) do %>
-      <tr class="talent-row" data-talent="<%= i %>">
-        <td>
-          <input type="hidden" name="talents[<%= i %>][id]" value="<%= get_field(talent, :id) %>" />
-          <input type="hidden" name="talents[<%= i %>][display_order]" value="<%= get_field(talent, :display_order) %>" />
-          <div class="form-group-sm">
-            <label for="talents[<%= i %>][name]" class="sr-only">Name</label>
-            <input type="text" class="form-control" name="talents[<%= i %>][name]" placeholder="Name" value="<%= get_field(talent, :name) %>" />
-          </div>
-        </td>
-        <td>
-          <div class="form-group-sm">
-            <label for="talents[<%= i %>][book_and_page]" class="sr-only">Book &amp; Page</label>
-            <input type="text" class="form-control" name="talents[<%= i %>][book_and_page]" placeholder="Book &amp; Page" value="<%= get_field(talent, :book_and_page) %>" />
-          </div>
-        </td>
-        <td>
-          <div class="form-group-sm">
-            <label for="talents[<%= i %>][description]" class="sr-only">Description</label>
-            <input type="text" class="form-control" name="talents[<%= i %>][description]" placeholder="Description" value="<%= get_field(talent, :description) %>" />
-          </div>
-        </td>
-        <td class="col-md-1">
-          <button type="button" tabindex="-1" class="btn btn-block btn-danger btn-xs" data-remove-talent=<%= i %>>Remove</button>
-        </td>
-      </tr>
-    <% end %>
-  </table>
-</div>
+  <% end %>
+</table>
+
 <div class="row">
   <p class="text-center col-md-4 col-md-offset-2">
     <button id="addOneTalentButton" type="button" class="btn btn-block btn-default">Add <strong>1</strong> Talent</button>

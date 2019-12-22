@@ -1,64 +1,64 @@
 <div class="row">
   <h4>Attacks</h4>
 </div>
-<div class="row">
-  <table id="attackTable" class="table table-condensed attack-table">
-    <%= for {attack, i} <- Enum.with_index(@attacks) do %>
-      <tr class="attack-first-row<%= if rem(i, 2) == 0, do: " active" %>" data-attack=<%= i %>>
-        <td class="col-md-5">
-          <input type="hidden" name="attacks[<%= i %>][id]" value="<%= get_field(attack, :id) %>" />
-          <input type="hidden" name="attacks[<%= i %>][display_order]" value="<%= get_field(attack, :display_order) %>" />
-          <div class="form-group form-group-sm">
-            <label for="attacks[<%= i %>][weapon_name]">Weapon</label>
-            <input type="text" class="form-control" name="attacks[<%= i %>][weapon_name]" placeholder="Weapon Name" value="<%= get_field(attack, :weapon_name) %>" />
-          </div>
-        </td>
-        <td class="form-inline">
-          <div class="form-group form-group-sm">
-            <label for="attacks[<%= i %>][range]">Range</label>
-            <select class="form-control" name="attacks[<%= i %>][range]">
-              <option></option>
-              <%= options(get_field(attack, :range), ["Engaged", "Short", "Medium", "Long", "Extreme"]) %>
-            </select>
-          </div>
-        </td>
-        <td class="form-inline">
-          <div class="form-group form-group-sm">
-            <label for="attacks[<%= i %>][base_skill_id]">Skill</label>
-            <select class="form-control" name="attacks[<%= i %>][base_skill_id]" data-attack-skill data-attack-index=<%= i %>>
-              <option></option>
-              <%= options_for_attack_skills(get_field(attack, :base_skill_id)) %>
-            </select>
-          </div>
-        </td>
-        <td class="col-md-2"><span data-attack-roll-index="<%= i %>"></span></td>
-      </tr>
-      <tr class="attack-second-row <%= if rem(i, 2) == 0, do: "active" %>" data-attack=<%= i %>>
-        <td>
-          <div class="form-group form-group-sm">
-            <label for="attacks[<%= i %>][specials]">Specials</label>
-            <input type="text" class="form-control" name="attacks[<%= i %>][specials]" placeholder="Specials" value="<%= get_field(attack, :specials) %>" />
-          </div>
-        </td>
-        <td class="form-inline">
-          <div class="form-group form-group-sm">
-            <label for="attacks[<%= i %>][damage]">Damage</label>
-            <input type="text" class="form-control" name="attacks[<%= i %>][damage]" value="<%= get_field(attack, :damage) %>" />
-          </div>
-        </td>
-        <td class="form-inline">
-          <div class="form-group form-group-sm">
-            <label for="attacks[<%= i %>][critical]">Critical</label>
-            <input type="text" class="form-control" name="attacks[<%= i %>][critical]" value="<%= get_field(attack, :critical) %>" />
-          </div>
-        </td>
-        <td>
-          <button type="button" tabindex="-1" class="btn btn-block btn-danger btn-xs" data-remove-attack=<%= i %>>Remove</button>
-        </td>
-      </tr>
-    <% end %>
-  </table>
-</div>
+
+<table id="attackTable" class="table table-condensed attack-table">
+  <%= for {attack, i} <- Enum.with_index(@attacks) do %>
+    <tr class="attack-first-row<%= if rem(i, 2) == 0, do: " active" %>" data-attack=<%= i %>>
+      <td class="col-md-5">
+        <input type="hidden" name="attacks[<%= i %>][id]" value="<%= get_field(attack, :id) %>" />
+        <input type="hidden" name="attacks[<%= i %>][display_order]" value="<%= get_field(attack, :display_order) %>" />
+        <div class="form-group form-group-sm">
+          <label for="attacks[<%= i %>][weapon_name]">Weapon</label>
+          <input type="text" class="form-control" name="attacks[<%= i %>][weapon_name]" placeholder="Weapon Name" value="<%= get_field(attack, :weapon_name) %>" />
+        </div>
+      </td>
+      <td class="form-inline">
+        <div class="form-group form-group-sm">
+          <label for="attacks[<%= i %>][range]">Range</label>
+          <select class="form-control" name="attacks[<%= i %>][range]">
+            <option></option>
+            <%= options(get_field(attack, :range), ["Engaged", "Short", "Medium", "Long", "Extreme"]) %>
+          </select>
+        </div>
+      </td>
+      <td class="form-inline">
+        <div class="form-group form-group-sm">
+          <label for="attacks[<%= i %>][base_skill_id]">Skill</label>
+          <select class="form-control" name="attacks[<%= i %>][base_skill_id]" data-attack-skill data-attack-index=<%= i %>>
+            <option></option>
+            <%= options_for_attack_skills(get_field(attack, :base_skill_id)) %>
+          </select>
+        </div>
+      </td>
+      <td class="col-md-2"><span data-attack-roll-index="<%= i %>"></span></td>
+    </tr>
+    <tr class="attack-second-row <%= if rem(i, 2) == 0, do: "active" %>" data-attack=<%= i %>>
+      <td>
+        <div class="form-group form-group-sm">
+          <label for="attacks[<%= i %>][specials]">Specials</label>
+          <input type="text" class="form-control" name="attacks[<%= i %>][specials]" placeholder="Specials" value="<%= get_field(attack, :specials) %>" />
+        </div>
+      </td>
+      <td class="form-inline">
+        <div class="form-group form-group-sm">
+          <label for="attacks[<%= i %>][damage]">Damage</label>
+          <input type="text" class="form-control" name="attacks[<%= i %>][damage]" value="<%= get_field(attack, :damage) %>" />
+        </div>
+      </td>
+      <td class="form-inline">
+        <div class="form-group form-group-sm">
+          <label for="attacks[<%= i %>][critical]">Critical</label>
+          <input type="text" class="form-control" name="attacks[<%= i %>][critical]" value="<%= get_field(attack, :critical) %>" />
+        </div>
+      </td>
+      <td>
+        <button type="button" tabindex="-1" class="btn btn-block btn-danger btn-xs" data-remove-attack=<%= i %>>Remove</button>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
 <div class="row">
   <p class="text-center col-md-4 col-md-offset-4">
   <button id="addAttackButton" type="button" class="btn btn-block btn-default">Add Attack</button>
