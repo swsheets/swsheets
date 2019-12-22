@@ -134,6 +134,17 @@ h4 {
   margin-bottom: 10px;
 }
 
+.creation-owner-container h2,
+.creation-owner-container p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.creation-owner-container h2 {
+  color: #18bc9c;
+}
+
 .pagination-newer {
   font-size: 150%;
   margin-left: 20px;
