@@ -84,8 +84,8 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         },
         "skills" => skills_with_user_edit,
         "talents" => %{
-          "0" => %{"book_and_page" => "EotE p25", "description" => "Draw as incidental", "name" => "Quick Draw"},
-          "1" => %{"book_and_page" => "DC p200", "description" => "Upgrade all checks by one", "name" => "Adversary 1"}
+          "0" => %{"rank" => 1, "book_and_page" => "EotE p25", "description" => "Draw as incidental", "name" => "Quick Draw"},
+          "1" => %{"rank" => 2, "book_and_page" => "DC p200", "description" => "Upgrade all checks by one", "name" => "Adversary 1"}
         },
       })
 
@@ -131,10 +131,12 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
       [first_talent, second_talent] = Talent.for_character(character.id)
 
+      assert first_talent.rank == 1
       assert first_talent.book_and_page == "EotE p25"
       assert first_talent.description == "Draw as incidental"
       assert first_talent.name == "Quick Draw"
 
+      assert second_talent.rank == 2
       assert second_talent.book_and_page == "DC p200"
       assert second_talent.description == "Upgrade all checks by one"
       assert second_talent.name == "Adversary 1"
@@ -250,9 +252,9 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
           "2" => %{"id" => "", "critical" => "5", "damage" => "+1", "range" => "Engaged", "base_skill_id" => BaseSkill.by_name("Brawl").id, "specials" => "", "weapon_name" => "Claws", "display_order" => "2"}
         },
         "talents" => %{
-          "1" => %{"book_and_page" => "EotE p25", "description" => "Draw as incidental", "name" => "Quick Draw", "display_order" => "1"},
-          "10" => %{"book_and_page" => "DC p200", "description" => "Upgrade all checks by one", "name" => "Adversary 1", "display_order" => "10"},
-          "2" => %{"book_and_page" => "NR 100", "description" => "Launch a fire bomb attack", "name" => "Fire Bomb", "display_order" => "2"}
+          "1" => %{"rank" => 1, "book_and_page" => "EotE p25", "description" => "Draw as incidental", "name" => "Quick Draw", "display_order" => "1"},
+          "10" => %{"rank" => 1, "book_and_page" => "DC p200", "description" => "Upgrade all checks by one", "name" => "Adversary 1", "display_order" => "10"},
+          "2" => %{"rank" => 1, "book_and_page" => "NR 100", "description" => "Launch a fire bomb attack", "name" => "Fire Bomb", "display_order" => "2"}
         },
       })
 
@@ -468,6 +470,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       character = CharacterFactory.create_character
 
       talent = %Talent{
+        rank: 1,
         name: "Quick Draw",
         book_and_page: "EotE Core p145",
         description: "Draws a gun quickly",
@@ -475,11 +478,12 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       } |> Repo.insert!
 
       build_conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "talents" => %{
-        "0" => %{"book_and_page" => "DC p43", "description" => "Do stuff", "id" => talent.id, "name" => "Awesome Guy"}
+        "0" => %{"rank" => 2, "book_and_page" => "DC p43", "description" => "Do stuff", "id" => talent.id, "name" => "Awesome Guy"}
       }})
 
       [talent] = Talent.for_character(character.id)
 
+      assert talent.rank == 2
       assert talent.name == "Awesome Guy"
       assert talent.description == "Do stuff"
       assert talent.book_and_page == "DC p43"
@@ -489,11 +493,12 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       character = CharacterFactory.create_character
 
       build_conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "talents" => %{
-        "0" => %{"book_and_page" => "DC p43", "description" => "Do stuff", "name" => "Awesome Guy"}
+        "0" => %{"rank" => 1, "book_and_page" => "DC p43", "description" => "Do stuff", "name" => "Awesome Guy"}
       }})
 
       [talent] = Talent.for_character(character.id)
 
+      assert talent.rank == 1
       assert talent.name == "Awesome Guy"
       assert talent.description == "Do stuff"
       assert talent.book_and_page == "DC p43"
@@ -510,8 +515,8 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       } |> Repo.insert!
 
       build_conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "talents" => %{
-        "0" => %{"book_and_page" => "", "description" => "", "name" => ""},
-        "1" => %{"book_and_page" => "", "description" => "", "name" => "", "id" => talent.id}
+        "0" => %{"rank" => 1, "book_and_page" => "", "description" => "", "name" => ""},
+        "1" => %{"rank" => 1, "book_and_page" => "", "description" => "", "name" => "", "id" => talent.id}
       }})
 
       assert [] == Talent.for_character(character.id)
@@ -521,6 +526,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       character = CharacterFactory.create_character
 
       %Talent{
+        rank: 2,
         name: "Quick Draw",
         book_and_page: "EotE Core p145",
         description: "Draws a gun quickly",

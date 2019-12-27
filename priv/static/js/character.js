@@ -57,6 +57,7 @@ var CharacterForm = (function() {
     talentRow.find("[for]").attr("for", function(i, currentFor) { return currentFor.replace("talents["+previousIndex+"]", "talents["+index+"]") });
     talentRow.find("[name='talents["+index+"][id]']").remove();
     talentRow.find("[name='talents["+index+"][display_order]']").val(index);
+    talentRow.find("[name='talents["+index+"][rank]']").val("1");
     talentRow.find("[data-remove-talent]").attr("data-remove-talent", index);
 
     enableDisableRemoveTalentButtons();
