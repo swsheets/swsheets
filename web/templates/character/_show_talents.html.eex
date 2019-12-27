@@ -1,12 +1,6 @@
 <div class="row"><h4>Talents</h4></div>
 
 <table class="table table-condensed">
-  <tr>
-    <th class="col-md-3">Name</th>
-    <th class="col-md-2">Book &amp; Page</th>
-    <th class="col-md-7">Description</th>
-  </tr>
-  <%= for talent <- @talents do %>
     <tr>
       <th class="col-md-3">Name</th>
       <th class="col-md-1">Rank</th>
