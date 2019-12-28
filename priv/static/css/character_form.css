@@ -11,6 +11,17 @@
   width: 90px;
 }
 
+@media (max-width: 992px) and (min-width: 768px) {
+  .addon-core-attr {
+    width: 76px;
+    font-size: 11px;
+  }
+
+  .addon-core-attr-threshold {
+    font-size: 10px;
+  }
+}
+
 .attack-second-row td {
   border-top-width: 0px !important;
 }
