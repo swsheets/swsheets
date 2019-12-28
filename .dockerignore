@@ -1,0 +1,15 @@
+.git
+Dockerfile
+docker-compose.yml
+README.md
+
+# Mix artifacts
+_build
+deps
+*.ez
+
+# Generate on crash by the VM
+erl_crash.dump
+
+# Static artifacts
+node_modules

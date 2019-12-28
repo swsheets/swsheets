@@ -8,33 +8,66 @@ Please use the [issues page](https://github.com/swsheets/swsheets/issues)
 
 ## Setup
 
-SWSheets was built against Elixir 1.8, Erlang 22, and PostgreSQL 9.3. Once you have all three installed, do the following to set up the app:
+### Docker
+
+The easiest way to get the application up and running locally is with Docker.
+
+- If this is your first time with the application, create and seed the database.
+  - **NOTE**: If this is not your first time running the app, this will drop the local development database, so ensure that you want to do that.
 
 ```
-> mix deps.get
+docker-compose run --rm app setup
 ```
 
-Once Mix has fetched all dependencies, you'll need to set up the database. An easy way to do this for local development follows (this approach is not recommended for production).
+- Run the application.
 
 ```
-> createuser pair -d
-> script/dbdo
+docker-compose up
 ```
 
-## Running
+- If you ever want to run ad-hoc `mix` tasks, use the `mix` helper in the root directory of the project.
 
-To run SWSheets, type `mix phx.server`.
+```
+./mix do thing
+```
 
-Now you can visit `localhost:4000` from your browser.
+### Traditional
+
+If you prefer not to use Docker, then you'll need to do some more work to get SWSheets up and running.
+
+- Install Elixir 1.9 and Erlang 22.
+- Install PostgreSQL >=9.3.
+- Install dependencies.
+
+```
+mix deps.get
+```
+
+- Set up the database. This is for local development only and is not recommended for production.
+
+```
+createuser pair -d
+script/dbdo
+```
+
+- Run the Phoenix server.
+
+```
+mix phx.server
+```
+
+- Visit `localhost:4000` from your browser.
 
 ## Deploying
 
 I use [ansible-swsheets](https://github.com/swsheets/ansible-swsheets). You could probably use Heroku too though.
 
 ## Testing
+
 If you have run `script/dbdo` then you're ready to test with
+
 ```
-> mix test
+mix test
 ```
 
 ## License
