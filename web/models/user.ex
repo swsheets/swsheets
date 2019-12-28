@@ -107,7 +107,7 @@ defmodule EdgeBuilder.Models.User do
     end
   end
 
-  defp password_matches?(nil, _), do: Bcrypt.verify_no_user
+  defp password_matches?(nil, _), do: Bcrypt.no_user_verify
   defp password_matches?(user, pw) do
     Bcrypt.verify_pass(pw, user.crypted_password)
   end
