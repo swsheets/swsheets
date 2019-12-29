@@ -16,9 +16,10 @@ defmodule Factories.BaseFactory do
       end
 
       defp parameterized({key, val})
-      when is_atom(key) do
+           when is_atom(key) do
         {Atom.to_string(key), val}
       end
+
       defp parameterized(attr), do: attr
     end
   end

@@ -18,8 +18,7 @@ config :edge_builder, EdgeBuilder.Endpoint,
   debug_errors: false,
   render_errors: [view: EdgeBuilder.ErrorView, accepts: ~w(html json)],
   code_reloader: false,
-  pubsub: [name: EdgeBuilder.PubSub,
-           adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: EdgeBuilder.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -38,4 +37,4 @@ config :edge_builder,
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
-import_config "#{Mix.env}.exs"
+import_config "#{Mix.env()}.exs"

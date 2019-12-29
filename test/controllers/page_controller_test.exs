@@ -114,25 +114,39 @@ defmodule EdgeBuilder.Controllers.PageControllerTest do
     end
 
     it "shows a message if your password has just been reset" do
-      user = UserFactory.create_user! |> UserFactory.add_password_reset_token
+      user = UserFactory.create_user!() |> UserFactory.add_password_reset_token()
 
-      conn = build_conn()
-      |> post("/password-reset", %{"password_reset" => %{"password" => "asdasdasdasd", "password_confirmation" => "asdasdasdasd", "token" => user.password_reset_token}})
-      |> get("/")
+      conn =
+        build_conn()
+        |> post("/password-reset", %{
+          "password_reset" => %{
+            "password" => "asdasdasdasd",
+            "password_confirmation" => "asdasdasdasd",
+            "token" => user.password_reset_token
+          }
+        })
+        |> get("/")
 
-      assert String.contains?(conn.resp_body, "Your password has been reset and you are now logged in. Welcome back!")
+      assert String.contains?(
+               conn.resp_body,
+               "Your password has been reset and you are now logged in. Welcome back!"
+             )
     end
 
     it "shows no message if your password has not just been reset" do
       conn = build_conn() |> get("/")
 
-      assert !String.contains?(conn.resp_body, "Your password has been reset and you are now logged in. Welcome back!")
+      assert !String.contains?(
+               conn.resp_body,
+               "Your password has been reset and you are now logged in. Welcome back!"
+             )
     end
   end
 
   describe "thanks" do
     it "shows a full list of contributors" do
-      UserFactory.create_user!(username: "mark") |> UserFactory.set_contributions(
+      UserFactory.create_user!(username: "mark")
+      |> UserFactory.set_contributions(
         bug_reported_at: %DateTime{
           day: 5,
           month: 1,
@@ -147,7 +161,8 @@ defmodule EdgeBuilder.Controllers.PageControllerTest do
         }
       )
 
-      UserFactory.create_user!(username: "john") |> UserFactory.set_contributions(
+      UserFactory.create_user!(username: "john")
+      |> UserFactory.set_contributions(
         bug_reported_at: %DateTime{
           day: 7,
           month: 1,
@@ -174,7 +189,8 @@ defmodule EdgeBuilder.Controllers.PageControllerTest do
         }
       )
 
-      UserFactory.create_user!(username: "luke") |> UserFactory.set_contributions(
+      UserFactory.create_user!(username: "luke")
+      |> UserFactory.set_contributions(
         pull_requested_at: %DateTime{
           day: 8,
           month: 1,

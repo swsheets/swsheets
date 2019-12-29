@@ -1,9 +1,7 @@
 defmodule EdgeBuilder.Endpoint do
   use Phoenix.Endpoint, otp_app: :edge_builder
 
-  plug Plug.Static,
-    at: "/", from: :edge_builder,
-    only: ~w(css images js fonts
+  plug Plug.Static, at: "/", from: :edge_builder, only: ~w(css images js fonts
       favicon-16x16.png
       android-chrome-72x72.png
       mstile-150x150.png
@@ -39,7 +37,7 @@ defmodule EdgeBuilder.Endpoint do
 
   # Code reloading will only work if the :code_reloader key of
   # the :phoenix application is set to true in your config file.
-  if code_reloading?, do: plug Phoenix.CodeReloader
+  if code_reloading?, do: plug(Phoenix.CodeReloader)
 
   plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
@@ -49,7 +47,7 @@ defmodule EdgeBuilder.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
 
-  @expiry_in_ten_years (10 * 365 * 24 * 60 * 60)
+  @expiry_in_ten_years 10 * 365 * 24 * 60 * 60
   plug Plug.Session,
     store: :cookie,
     key: "_edge_builder_key",

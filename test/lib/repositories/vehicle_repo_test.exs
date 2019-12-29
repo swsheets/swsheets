@@ -7,14 +7,16 @@ defmodule EdgeBuilder.Repositories.VehicleRepoTest do
 
   describe "all" do
     it "returns all vehicles by page in order" do
-      vehicles = Enum.map(1..6, fn(n) ->
-        VehicleFactory.create_vehicle(name: "Ship#{n}")
-      end)
+      vehicles =
+        Enum.map(1..6, fn n ->
+          VehicleFactory.create_vehicle(name: "Ship#{n}")
+        end)
 
       %{entries: entries} = VehicleRepo.all()
 
       for v <- vehicles do
-        assert Enum.any?(entries, &(&1.name == v.name)), "Expected to find vehicle #{v.name} in #{inspect(entries)}"
+        assert Enum.any?(entries, &(&1.name == v.name)),
+               "Expected to find vehicle #{v.name} in #{inspect(entries)}"
       end
     end
 
@@ -27,7 +29,7 @@ defmodule EdgeBuilder.Repositories.VehicleRepoTest do
     end
 
     it "accepts optional page arguments" do
-      Enum.map(1..11, fn(n) ->
+      Enum.map(1..11, fn n ->
         VehicleFactory.create_vehicle(name: "Ship#{n}")
       end)
 
@@ -42,7 +44,7 @@ defmodule EdgeBuilder.Repositories.VehicleRepoTest do
   describe "recent" do
     it "returns the most recent five vehicles" do
       for _ <- 1..6 do
-        VehicleFactory.create_vehicle
+        VehicleFactory.create_vehicle()
       end
 
       vehicles = VehicleRepo.recent()
@@ -54,11 +56,13 @@ defmodule EdgeBuilder.Repositories.VehicleRepoTest do
 
   describe "all_for_user" do
     it "returns all vehicles for just one user" do
-      user1 = UserFactory.default_user
+      user1 = UserFactory.default_user()
+
       for _ <- 1..6 do
         VehicleFactory.create_vehicle(user_id: user1.id)
       end
-      {:ok, user2} = UserFactory.create_user
+
+      {:ok, user2} = UserFactory.create_user()
       VehicleFactory.create_vehicle(user_id: user2.id)
 
       vehicles = VehicleRepo.all_for_user(user1.id)
@@ -70,7 +74,7 @@ defmodule EdgeBuilder.Repositories.VehicleRepoTest do
 
   describe "full_vehicle" do
     it "finds a vehicle by url slug" do
-      vehicle = VehicleFactory.create_vehicle
+      vehicle = VehicleFactory.create_vehicle()
 
       found_vehicle = VehicleRepo.full_vehicle("#{vehicle.url_slug}-does-not-matter")
 
@@ -78,18 +82,28 @@ defmodule EdgeBuilder.Repositories.VehicleRepoTest do
     end
 
     it "preloads all child records" do
-      %{id: vehicle_id, url_slug: url_slug} = VehicleFactory.create_vehicle
-      Repo.insert!(%EdgeBuilder.Models.VehicleAttachment{vehicle_id: vehicle_id, name: "Attachment"})
-      Repo.insert!(%EdgeBuilder.Models.VehicleAttack{vehicle_id: vehicle_id, weapon_name: "Attack"})
+      %{id: vehicle_id, url_slug: url_slug} = VehicleFactory.create_vehicle()
+
+      Repo.insert!(%EdgeBuilder.Models.VehicleAttachment{
+        vehicle_id: vehicle_id,
+        name: "Attachment"
+      })
+
+      Repo.insert!(%EdgeBuilder.Models.VehicleAttack{
+        vehicle_id: vehicle_id,
+        weapon_name: "Attack"
+      })
 
       found_vehicle = VehicleRepo.full_vehicle("#{url_slug}-does-not-matter")
 
       assert match?(
-        %{
-          id: ^vehicle_id,
-          vehicle_attachments: [%EdgeBuilder.Models.VehicleAttachment{}],
-          vehicle_attacks: [%EdgeBuilder.Models.VehicleAttack{}],
-        }, found_vehicle)
+               %{
+                 id: ^vehicle_id,
+                 vehicle_attachments: [%EdgeBuilder.Models.VehicleAttachment{}],
+                 vehicle_attacks: [%EdgeBuilder.Models.VehicleAttack{}]
+               },
+               found_vehicle
+             )
     end
   end
 end

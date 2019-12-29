@@ -8,9 +8,13 @@ defmodule EdgeBuilder.Controllers.API.VehicleControllerTest do
 
   describe "update" do
     it "updates basic characteristics of a vehicle" do
-      vehicle = VehicleFactory.create_vehicle(user_id: UserFactory.default_user.id, strain_current: 0)
+      vehicle =
+        VehicleFactory.create_vehicle(user_id: UserFactory.default_user().id, strain_current: 0)
 
-      conn = build_conn() |> authenticate_as(UserFactory.default_user) |> json_put("/api/vehicles/#{vehicle.permalink}", %{vehicle: %{strain_current: 5}})
+      conn =
+        build_conn()
+        |> authenticate_as(UserFactory.default_user())
+        |> json_put("/api/vehicles/#{vehicle.permalink}", %{vehicle: %{strain_current: 5}})
 
       assert conn.status == 200
       vehicle = Repo.get(Vehicle, vehicle.id)
@@ -19,11 +23,15 @@ defmodule EdgeBuilder.Controllers.API.VehicleControllerTest do
     end
 
     it "returns errors properly" do
-      vehicle = VehicleFactory.create_vehicle(user_id: UserFactory.default_user.id, strain_current: 0)
+      vehicle =
+        VehicleFactory.create_vehicle(user_id: UserFactory.default_user().id, strain_current: 0)
 
-      conn = build_conn() |> authenticate_as(UserFactory.default_user) |> json_put("/api/vehicles/#{vehicle.permalink}", %{vehicle: %{name: ""}})
+      conn =
+        build_conn()
+        |> authenticate_as(UserFactory.default_user())
+        |> json_put("/api/vehicles/#{vehicle.permalink}", %{vehicle: %{name: ""}})
 
-      assert conn.resp_body |> Poison.decode! == %{"errors" => %{"name" => "can't be blank"}}
+      assert conn.resp_body |> Poison.decode!() == %{"errors" => %{"name" => "can't be blank"}}
     end
 
     it "requires authentication" do
@@ -33,11 +41,14 @@ defmodule EdgeBuilder.Controllers.API.VehicleControllerTest do
     end
 
     it "requires the current user to match the owning user" do
-      owner = UserFactory.default_user
+      owner = UserFactory.default_user()
       other = UserFactory.create_user!(username: "other")
       vehicle = VehicleFactory.create_vehicle(user_id: owner.id)
 
-      conn = build_conn() |> authenticate_as(other) |> json_put("/api/vehicles/#{vehicle.permalink}", %{vehicle: %{strain_current: 5}})
+      conn =
+        build_conn()
+        |> authenticate_as(other)
+        |> json_put("/api/vehicles/#{vehicle.permalink}", %{vehicle: %{strain_current: 5}})
 
       assert conn.status == 403
     end

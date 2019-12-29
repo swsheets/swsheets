@@ -32,7 +32,7 @@ defmodule EdgeBuilder.ConnCase do
       @endpoint EdgeBuilder.Endpoint
 
       def is_redirect_to?(conn, path) do
-        Enum.member?(conn.resp_headers, {"location", path}) 
+        Enum.member?(conn.resp_headers, {"location", path})
       end
 
       def requires_authentication?(conn) do
@@ -44,11 +44,12 @@ defmodule EdgeBuilder.ConnCase do
       end
 
       def json_put(conn, path, params \\ nil) do
-        params = if is_nil(params) do
-          params
-        else
-          Poison.encode!(params)
-        end
+        params =
+          if is_nil(params) do
+            params
+          else
+            Poison.encode!(params)
+          end
 
         conn
         |> put_req_header("content-type", "application/json")

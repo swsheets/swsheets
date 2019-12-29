@@ -7,7 +7,7 @@ defmodule EdgeBuilder.Models.CharacterTest do
 
   describe "url_slug" do
     it "has an 9 character lower-case slug after creation" do
-      character = CharacterFactory.create_character
+      character = CharacterFactory.create_character()
 
       assert String.match?(character.url_slug, ~r/[0-9a-z]{9}/)
     end
@@ -43,7 +43,9 @@ defmodule EdgeBuilder.Models.CharacterTest do
 
   describe "portrait_url" do
     it "changes imgur page url to image url" do
-      character = CharacterFactory.create_character(portrait_url: "http://imgur.com/gallery/OjCH1Th")
+      character =
+        CharacterFactory.create_character(portrait_url: "http://imgur.com/gallery/OjCH1Th")
+
       assert character.portrait_url == "http://i.imgur.com/OjCH1Th.jpg"
     end
   end

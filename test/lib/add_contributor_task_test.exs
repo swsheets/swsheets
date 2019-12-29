@@ -6,7 +6,7 @@ defmodule EdgeBuilder.Lib.AddContributorTaskTest do
 
   describe "run" do
     it "marks a bug reporter" do
-      user = UserFactory.default_user
+      user = UserFactory.default_user()
 
       Mix.Tasks.AddContributor.run([user.username, "bug"])
 
@@ -15,7 +15,7 @@ defmodule EdgeBuilder.Lib.AddContributorTaskTest do
     end
 
     it "marks a pull requester" do
-      user = UserFactory.default_user
+      user = UserFactory.default_user()
 
       Mix.Tasks.AddContributor.run([user.username, "pull_request"])
 
