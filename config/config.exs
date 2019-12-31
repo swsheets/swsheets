@@ -31,7 +31,8 @@ config :edge_builder, EdgeBuilder.Repo,
   database: "edgebuilder_development",
   username: "pair",
   hostname: "localhost",
-  pool_size: 10
+  pool_size: 10,
+  port: 5434
 
 config :edge_builder,
   application_name: "SWSheets"

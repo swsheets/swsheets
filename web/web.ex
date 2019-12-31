@@ -17,7 +17,7 @@ defmodule EdgeBuilder.Web do
       use Phoenix.View, root: "web/templates"
 
       # Import URL helpers from the router
-      import EdgeBuilder.Router.Helpers
+      alias EdgeBuilder.Router.Helpers, as: Routes
 
       # Import all HTML functions (forms, tags, etc)
       use Phoenix.HTML

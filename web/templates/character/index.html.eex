@@ -1,6 +1,6 @@
 <h1>Newest Characters</h1>
 
-<h2><small><a href="<%= character_path(@conn, :new) %>">Create a New Character</a></small></h2>
+<h2><small><a href="<%= Routes.character_path(@conn, :new) %>">Create a New Character</a></small></h2>
 
 <hr>
 

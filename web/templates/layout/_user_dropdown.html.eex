@@ -3,12 +3,12 @@
     <li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;<%= username(@conn) %><span class="caret"></span></a>
       <ul class="dropdown-menu" role="menu">
-        <li><a href="<%= settings_path(@conn, :edit) %>">My Settings</a></li>
+        <li><a href="<%= Routes.settings_path(@conn, :edit) %>">My Settings</a></li>
         <li class="divider"></li>
-        <li><%= link "Logout", to: signup_path(@conn, :logout), method: :post %></li>
+        <li><%= link "Logout", to: Routes.signup_path(@conn, :logout), method: :post %></li>
       </ul>
     </li>
   <% else %>
-    <li><a href="<%= signup_path(@conn, :welcome) %>">Sign In / Sign Up</a></li>
+    <li><a href="<%= Routes.signup_path(@conn, :welcome) %>">Sign In / Sign Up</a></li>
   <% end %>
 </ul>

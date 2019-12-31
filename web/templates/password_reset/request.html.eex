@@ -6,7 +6,7 @@
   <% end %>
 
   <p>Please enter your email address below, and a link to reset your password will be emailed to you.</p>
-  <%= form_tag(password_reset_path(@conn, :submit_request), role: "form", method: "POST", class: "form well") %>
+  <%= form_tag(Routes.password_reset_path(@conn, :submit_request), role: "form", method: "POST", class: "form well") %>
     <div class="form-group">
       <label for="password_reset[email]" class='control-label'>Email Address</label>
       <input type="email" class="form-control" name="password_reset[email]" />

@@ -1,6 +1,6 @@
 <h1>Newest Vehicles</h1>
 
-<h2><small><a href="<%= vehicle_path(@conn, :new) %>">Create a New Vehicle</a></small></h2>
+<h2><small><a href="<%= Routes.vehicle_path(@conn, :new) %>">Create a New Vehicle</a></small></h2>
 
 <hr>
 

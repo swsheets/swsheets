@@ -1,11 +1,11 @@
 <div class="col-md-5 col-md-offset-1">
   <h2>My Characters</h2>
-  <h2><small><a href="<%= character_path(@conn, :new) %>">New Character</a></small></h2>
+  <h2><small><a href="<%= Routes.character_path(@conn, :new) %>">New Character</a></small></h2>
   <%= for character <- @characters do %>
     <div class="creation-owner-container">
       <div class="row">
         <div class="col-sm-12">
-          <h2><a href="<%= character_path(@conn, :show, character) %>"><%= character.name %></a></h2>
+          <h2><a href="<%= Routes.character_path(@conn, :show, character) %>"><%= character.name %></a></h2>
           <p><%= character.species %> <%= character.career %></p>
         </div>
       </div>
@@ -21,8 +21,8 @@
           <% end %>
         </div>
         <div class="col-sm-6 pull-right">
-          <a class="btn btn-success" href="<%= character_path(@conn, :show, character) %>">View</a>
-          <a class="btn btn-primary" href="<%= character_path(@conn, :edit, character) %>">Edit</a>
+          <a class="btn btn-success" href="<%= Routes.character_path(@conn, :show, character) %>">View</a>
+          <a class="btn btn-primary" href="<%= Routes.character_path(@conn, :edit, character) %>">Edit</a>
           <%= render EdgeBuilder.SharedView, "_delete_button.html", conn: @conn, model: character %>
           <%= render EdgeBuilder.SharedView, "_delete_modal.html", conn: @conn, model: character, helper: :character_path %>
         </div>
@@ -33,19 +33,19 @@
 
 <div class="col-md-5">
   <h2>My Vehicles</h2>
-  <h2><small><a href="<%= vehicle_path(@conn, :new) %>">New Vehicle</a></small></h2>
+  <h2><small><a href="<%= Routes.vehicle_path(@conn, :new) %>">New Vehicle</a></small></h2>
   <%= for vehicle <- @vehicles do %>
     <div class="creation-owner-container">
       <div class="row">
         <div class="col-sm-12">
-          <h2><a href="<%= vehicle_path(@conn, :show, vehicle) %>"><%= vehicle.name %></a></h2>
+          <h2><a href="<%= Routes.vehicle_path(@conn, :show, vehicle) %>"><%= vehicle.name %></a></h2>
           <p><%= vehicle.faction %> <%= vehicle.type %> (<%= vehicle.make %>)</p>
         </div>
       </div>
       <div class="row">
         <div class="col-sm-6 pull-right">
-          <a class="btn btn-success" href="<%= vehicle_path(@conn, :show, vehicle) %>">View</a>
-          <a class="btn btn-primary" href="<%= vehicle_path(@conn, :edit, vehicle) %>">Edit</a>
+          <a class="btn btn-success" href="<%= Routes.vehicle_path(@conn, :show, vehicle) %>">View</a>
+          <a class="btn btn-primary" href="<%= Routes.vehicle_path(@conn, :edit, vehicle) %>">Edit</a>
           <%= render EdgeBuilder.SharedView, "_delete_button.html", conn: @conn, model: vehicle %>
           <%= render EdgeBuilder.SharedView, "_delete_modal.html", conn: @conn, model: vehicle, helper: :vehicle_path %>
         </div>

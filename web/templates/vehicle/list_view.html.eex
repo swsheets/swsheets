@@ -1,6 +1,6 @@
 <div class='list-group'>
   <%= for vehicle <- @vehicles do %>
-    <a href="<%= vehicle_path(@conn, :show, vehicle) %>" class='list-group-item creation-list-group-item'>
+    <a href="<%= Routes.vehicle_path(@conn, :show, vehicle) %>" class='list-group-item creation-list-group-item'>
       <div class='row'>
         <div class='<%= if is_nil(vehicle.portrait_url), do: "col-xs-12", else: "col-xs-8" %>'>
           <h3 class="list-group-item-heading"><%= vehicle.name %></h3>

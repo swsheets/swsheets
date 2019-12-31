@@ -45,7 +45,7 @@
 <div class="row">
   <div class="col-md-3 col-md-offset-2">
     <h3>Welcome Back</h3>
-    <%= form_tag(signup_path(@conn, :login), role: "form", method: "POST", class: "form well") %>
+    <%= form_tag(Routes.signup_path(@conn, :login), role: "form", method: "POST", class: "form well") %>
       <div class="form-group">
         <label for="login[loginname]" class='control-label'>Username</label>
         <input type="text" class="form-control" name="login[username]" />
@@ -57,7 +57,7 @@
       <input class="btn btn-primary btn-block" type="submit" value="Login">
     </form>
     <div class="text-center">
-      <a href="<%= password_reset_path(@conn, :request) %>">Forgot your password?</a>
+      <a href="<%= Routes.password_reset_path(@conn, :request) %>">Forgot your password?</a>
     </div>
   </div>
 
@@ -67,7 +67,7 @@
 
   <div class="col-md-6">
     <h3>Create a New Account</h3>
-    <%= form_tag(signup_path(@conn, :signup), role: "form", method: "POST", class: "form") %>
+    <%= form_tag(Routes.signup_path(@conn, :signup), role: "form", method: "POST", class: "form") %>
       <div class="form-group">
         <label for="signup[email]" class='control-label'>Email Address</label>
         <input type="email" class="form-control" name="signup[email]" value="<%= assigns[:signup_email] %>" />

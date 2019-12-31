@@ -1,6 +1,6 @@
 <div class='list-group'>
   <%= for character <- @characters do %>
-    <a href="<%= character_path(@conn, :show, character) %>" class='list-group-item creation-list-group-item'>
+    <a href="<%= Routes.character_path(@conn, :show, character) %>" class='list-group-item creation-list-group-item'>
       <div class='row'>
         <div class='<%= if is_nil(character.portrait_url), do: "col-xs-12", else: "col-xs-8" %>'>
           <h3 class="list-group-item-heading"><%= character.name %></h3>

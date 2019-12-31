@@ -8,7 +8,7 @@
     <h3>Bug Reporters <img src='/images/success.png' height="25px"></h3>
     <ul>
       <%= for user <- @bug_reporters do %>
-        <li><a href='<%= profile_path(@conn, :show, user) %>'><%= user.username %></a></li>
+        <li><a href='<%= Routes.profile_path(@conn, :show, user) %>'><%= user.username %></a></li>
       <% end %>
     </ul>
   </div>
@@ -16,7 +16,7 @@
     <h3>Pull Requesters <img src='/images/advantage.png' height="25px"></h3>
     <ul>
       <%= for user <- @pull_requesters do %>
-        <li><a href='<%= profile_path(@conn, :show, user) %>'><%= user.username %></a></li>
+        <li><a href='<%= Routes.profile_path(@conn, :show, user) %>'><%= user.username %></a></li>
       <% end %>
     </ul>
   </div>
