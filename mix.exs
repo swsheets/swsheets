@@ -10,7 +10,8 @@ defmodule EdgeBuilder.Mixfile do
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      aliases: aliases(),
-     deps: deps()]
+     deps: deps(),
+     test_coverage: [tool: ExCoveralls]]
   end
 
   # Configuration for the OTP application
@@ -43,6 +44,7 @@ defmodule EdgeBuilder.Mixfile do
     {:poison, "~> 3.1"},
     {:inflex, "~> 2.0"},
     {:mock, "~> 0.3.4", only: :test},
+    {:excoveralls, "~> 0.12.1", only: :test},
     {:floki, "~> 0.23.1"}]
   end
 

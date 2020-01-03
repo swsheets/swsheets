@@ -3,3 +3,6 @@
 erl_crash.dump
 *.ez
 /config/prod.secret.exs
+
+# Codecov
+/cover/
