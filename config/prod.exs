@@ -9,7 +9,8 @@ use Mix.Config
 config :edge_builder, EdgeBuilder.Endpoint,
   http: [port: {:system, "PORT"}],
   check_origin: true,
-  url: [host: "swsheets.com", port: 80]
+  url: [host: "swsheets.com", port: 80],
+  cache_static_manifest: "priv/static/cache_manifest.json"
 
 # ## SSL Support
 #

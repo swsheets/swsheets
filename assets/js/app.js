@@ -1,5 +1,3 @@
 import css from "../css/app.css";
 
-import "phoenix_html"
-
-import * from "./character"
+import "phoenix_html";

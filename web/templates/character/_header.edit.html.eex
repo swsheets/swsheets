@@ -1,1 +1,1 @@
-<link href="/css/character_form.css" rel="stylesheet">
+<link href="<%= Routes.static_path(@conn, "/css/character_form.css") %>" rel="stylesheet">

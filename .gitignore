@@ -3,4 +3,7 @@
 erl_crash.dump
 *.ez
 /config/prod.secret.exs
+
+# Asset compilation
 /assets/node_modules/
+/priv/static/
