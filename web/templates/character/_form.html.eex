@@ -331,6 +331,15 @@
 </div>
 
 <div class="row">
+  <h4 class="private-notes">Private Notes&nbsp;
+    <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Notes for your character that only you can see."></span>
+  </h4>
+  <div class="col-md-12">
+    <textarea name="character[private_notes]" rows=10 class="form-control"><%= get_field(@character, :private_notes) %></textarea>
+  </div>
+</div>
+
+<div class="row">
   <p class="text-center return-box">
     <a href="#">Return to Top</a>
   </p>

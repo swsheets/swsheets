@@ -329,6 +329,17 @@
   </div>
 </div>
 
+<%= if @viewed_by_owner do %>
+<div class="row">
+  <h4 class="private-notes">Private Notes&nbsp;
+    <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Notes for your character that only you can see."></span>
+  </h4>
+  <div class="col-md-12">
+    <div class="long-text"><%= render_text(@character, :private_notes) %></div>
+  </div>
+</div>
+<% end %>
+
 <div class="row">
   <p class="text-center return-box">
     <a href="#">Return to Top</a>

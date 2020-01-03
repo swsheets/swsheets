@@ -64,7 +64,8 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
           "speed" => "5",
           "strain_current" => "6",
           "strain_threshold" => "15",
-          "type" => "Ship"
+          "type" => "Ship",
+          "private_notes" => "Shh, don't let anybody see these."
         },
         "attachments" => %{
           "0" => %{"base_modifiers" => "Goes real fast like", "display_order" => "0", "hard_points_required" => "0", "id" => nil, "modifications" => "pow!", "name" => "Boost mode"}
@@ -112,6 +113,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
       assert vehicle.strain_current == 6
       assert vehicle.strain_threshold == 15
       assert vehicle.type == "Ship"
+      assert vehicle.private_notes == "Shh, don't let anybody see these."
 
       [first_attack, second_attack] = VehicleAttack.for_vehicle(vehicle.id)
 
@@ -216,13 +218,25 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
       assert String.contains?(conn.resp_body, vehicle.name)
     end
 
-    it "displays edit and delete buttons when viewed by the owner" do
+    it "displays owner-only elements when viewed by the owner" do
       vehicle = VehicleFactory.create_vehicle(user_id: UserFactory.default_user.id)
 
       conn = build_conn() |> authenticate_as(UserFactory.default_user) |> get("/v/#{vehicle.permalink}")
 
       assert String.contains?(conn.resp_body, "Edit")
       assert String.contains?(conn.resp_body, "Delete")
+      assert String.contains?(conn.resp_body, "Private Notes")
+    end
+
+    it "does not display owner-only elements when viewed by another" do
+      another = UserFactory.create_user!(username: "another")
+      vehicle = VehicleFactory.create_vehicle(user_id: UserFactory.default_user.id)
+
+      conn = build_conn() |> authenticate_as(another) |> get("/v/#{vehicle.permalink}")
+
+      assert !String.contains?(conn.resp_body, "Edit")
+      assert !String.contains?(conn.resp_body, "Delete")
+      assert !String.contains?(conn.resp_body, "Private Notes")
     end
 
     it "inserts appropriate line breaks for long text fields" do
