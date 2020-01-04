@@ -66,7 +66,17 @@ I use [ansible-swsheets](https://github.com/swsheets/ansible-swsheets). You coul
 
 ## Testing
 
-If you have run `script/dbdo` then you're ready to test with
+### Docker
+
+If you've chosen to develop with Docker, then you can run your tests inside the container with `docker-compose`.
+
+```
+docker-compose run --rm app test
+```
+
+### Traditional
+
+If you're not running in Docker, simply run `mix test`.
 
 ```
 mix test

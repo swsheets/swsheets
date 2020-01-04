@@ -15,6 +15,16 @@ if [ "${1}" = "setup" ]; then
   mix do ecto.drop, ecto.create
   psql -h db -U postgres edgebuilder_development -c "CREATE EXTENSION pgcrypto"
   mix do ecto.migrate, seed
+elif [ "${1}" = "test" ]; then
+  echo "Running tests..."
+  MIX_ENV=test mix do ecto.drop, ecto.create
+  psql -h db -U postgres edgebuilder_test -c "CREATE EXTENSION pgcrypto"
+  MIX_ENV=test mix do ecto.migrate, seed
+  mix test
+elif [ ! -z ${1} ]; then
+  # This is just for local development, so if you blow something up here,
+  # it's your own fault.
+  exec "$@"
 else
   echo "Starting Phoenix server..."
   mix phx.server
