@@ -86,12 +86,8 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
           "xp_total" => "200",
           "background" => "A regular Rodian, you know",
           "description" => "Green",
-<<<<<<< HEAD
           "other_notes" => "Not the best",
           "private_notes" => "Shh, don't let anybody see these."
-=======
-          "other_notes" => "Not the best"
->>>>>>> master
         },
         "attacks" => %{
           "0" => %{
