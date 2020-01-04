@@ -3,8 +3,8 @@
 }
 
 .soak-panel {
-   padding-top: 32px;
-   padding-bottom: 32px;
+  padding-top: 32px;
+  padding-bottom: 32px;
 }
 
 .addon-core-attr {
@@ -15,8 +15,9 @@
   border-top-width: 0px !important;
 }
 
-.attack-table td, .attack-table .form-group {
-  margin:0px;
+.attack-table td,
+.attack-table .form-group {
+  margin: 0px;
 }
 
 .attack-table label {
@@ -31,7 +32,9 @@
   display: block;
 }
 
-.select-button .btn-default:hover, .select-button .btn-default:focus,.select-button .btn-default:active {
+.select-button .btn-default:hover,
+.select-button .btn-default:focus,
+.select-button .btn-default:active {
   background-color: #fff;
 }
 
@@ -40,7 +43,8 @@
   padding-left: 20px;
 }
 
-#systemButton, .select-button .dropdown-menu {
+#systemButton,
+.select-button .dropdown-menu {
   width: 100%;
   text-align: left;
 }
@@ -50,7 +54,8 @@
   z-index: 1000;
 }
 
-#systemButton, .select-button a {
+#systemButton,
+.select-button a {
   padding: 2px !important;
 }
 

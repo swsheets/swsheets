@@ -3,7 +3,8 @@ h3 {
   color: #aaa;
 }
 
-h5, h6 {
+h5,
+h6 {
   font-weight: bold;
 }
 
@@ -43,7 +44,8 @@ td.value {
   padding-left: 17px !important;
 }
 
-.panel-first-row td, .attack-second-row td {
+.panel-first-row td,
+.attack-second-row td {
   border-top-width: 0px !important;
 }
 
@@ -69,10 +71,10 @@ td.value {
   background-color: #f5f5f5;
 }
 
-.upgrades-table th{
+.upgrades-table th {
   border-top: 0px !important;
   padding-top: 0px !important;
- }
+}
 
 .increment-buttons {
   float: right;

@@ -4,12 +4,12 @@ html {
 }
 
 body {
-  font-family: 'Droid Sans', sans-serif;
+  font-family: "Droid Sans", sans-serif;
   margin-bottom: 100px;
 }
 
 h1 {
-  font-family: 'PT Sans', sans-serif;
+  font-family: "PT Sans", sans-serif;
   font-weight: bold;
 }
 
@@ -22,7 +22,7 @@ h4 {
 }
 
 .navbar-brand {
-  font-family: 'PT Sans', sans-serif;
+  font-family: "PT Sans", sans-serif;
   padding: 0;
 }
 
@@ -75,7 +75,7 @@ h4 {
   font-weight: bold;
 }
 
-.dropdown-menu>li>form>a {
+.dropdown-menu > li > form > a {
   display: block;
   padding: 3px 20px;
   clear: both;
@@ -195,7 +195,7 @@ h4 {
   min-height: 302px;
 }
 
-.welcome-jumbotron img{
+.welcome-jumbotron img {
   height: 300px;
 }
 
@@ -213,8 +213,8 @@ h4 {
   padding: 0px;
 }
 
-.profile a{
-  color: rgb(51,51,51);
+.profile a {
+  color: rgb(51, 51, 51);
 }
 
 .system-eote {
