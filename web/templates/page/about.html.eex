@@ -2,7 +2,7 @@
   <div class="col-md-6 col-md-offset-3">
     <h2>About <%= application_name() %></h2>
 
-    <p><%= application_name() %> is a free tool for storing your Edge of the Empire, Age of Rebellion and Force and Destiny character and vehicle sheets online.</p>
+    <p><%= application_name() %> is a free tool for storing your Edge of the Empire, Age of Rebellion and Force and Destiny RPG character and vehicle sheets online.</p>
 
     <h3>FAQs</h3>
 
