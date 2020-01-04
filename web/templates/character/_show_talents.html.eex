@@ -1,27 +1,26 @@
 <div class="row"><h4>Talents</h4></div>
-<div class="row">
-  <table class="table table-condensed">
+
+<table class="table table-condensed">
+  <tr>
+    <th class="col-md-3">Name</th>
+    <th class="col-md-1">Rank</th>
+    <th class="col-md-2">Book &amp; Page</th>
+    <th class="col-md-6">Description</th>
+  </tr>
+  <%= for talent <- @talents do %>
     <tr>
-      <th class="col-md-3">Name</th>
-      <th class="col-md-1">Rank</th>
-      <th class="col-md-2">Book &amp; Page</th>
-      <th class="col-md-6">Description</th>
+      <td>
+        <%= get_field(talent, :name) %>
+      </td>
+      <td>
+        <%= get_field(talent, :rank) %>
+      </td>
+      <td>
+        <%= get_field(talent, :book_and_page) %>
+      </td>
+      <td>
+        <%= get_field(talent, :description) %>
+      </td>
     </tr>
-    <%= for talent <- @talents do %>
-      <tr>
-        <td>
-          <%= get_field(talent, :name) %>
-        </td>
-        <td>
-          <%= get_field(talent, :rank) %>
-        </td>
-        <td>
-          <%= get_field(talent, :book_and_page) %>
-        </td>
-        <td>
-          <%= get_field(talent, :description) %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
-</div>
+  <% end %>
+</table>

@@ -4,115 +4,113 @@
 
 <div class="row main-area">
   <div class="<%= if get_field(@character, :portrait_url) |> is_nil, do: "col-md-12", else: "col-md-9" %>">
+    <h3>Character Name</h3>
+    <h2><%= get_field(@character, :name) %> <small>by <%= profile_link(@conn, @user, 15) %></small></h2>
     <div class="row">
-      <h3>Character Name</h3>
-      <h2><%= get_field(@character, :name) %> <small>by <%= profile_link(@conn, @user, 15) %></small></h2>
-      <div class="row">
-        <div class="col-sm-2">
-          <h5>Species</h5>
-          <div class="value"><%= get_field(@character, :species) %></div>
-        </div>
-        <div class="col-sm-2">
-          <h5>Career</h5>
-          <div class="value"><%= get_field(@character, :career) %></div>
-        </div>
-        <div class="col-sm-4">
-          <h5>Specializations</h5>
-          <div class="value"><%= get_field(@character, :specializations) %></div>
-        </div>
-        <div class="col-sm-4">
-          <h5>System</h5>
-          <%= case get_field(@character, :system) do %>
-            <% :eote -> %>
-              <img src='/images/eote.png' class='img-thumbnail system-logo system-eote' />Edge of the Empire
-            <% :aor -> %>
-              <img src='/images/aor.png' class='img-thumbnail system-logo system-aor' />Age of Rebellion
-            <% :fad -> %>
-              <img src='/images/fad.png' class='img-thumbnail system-logo system-fad' />Force and Destiny
-          <% end %>
+      <div class="col-sm-2">
+        <h5>Species</h5>
+        <div class="value"><%= get_field(@character, :species) %></div>
+      </div>
+      <div class="col-sm-2">
+        <h5>Career</h5>
+        <div class="value"><%= get_field(@character, :career) %></div>
+      </div>
+      <div class="col-sm-4">
+        <h5>Specializations</h5>
+        <div class="value"><%= get_field(@character, :specializations) %></div>
+      </div>
+      <div class="col-sm-4">
+        <h5>System</h5>
+        <%= case get_field(@character, :system) do %>
+          <% :eote -> %>
+            <img src='/images/eote.png' class='img-thumbnail system-logo system-eote' />Edge of the Empire
+          <% :aor -> %>
+            <img src='/images/aor.png' class='img-thumbnail system-logo system-aor' />Age of Rebellion
+          <% :fad -> %>
+            <img src='/images/fad.png' class='img-thumbnail system-logo system-fad' />Force and Destiny
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <hr>
+    </div>
+    <div class="row">
+      <div class="col-sm-3 col-xs-6">
+        <div class="panel panel-default">
+          <div class="panel-body soak-panel panel-value">
+            <%= get_field(@character, :soak) %>
+          </div>
+          <div class="panel-footer text-center">
+            Soak
+          </div>
         </div>
       </div>
-      <div class="row">
-        <hr>
+      <div class="col-sm-3 col-xs-6">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <table class="table">
+              <tr class="panel-first-row">
+                <td>Threshold</td>
+                <td class="panel-value"><%= get_field(@character, :wounds_threshold) %></td>
+              </tr>
+              <tr>
+                <td>Current</td>
+                <td id="currentWounds" class="panel-value"><%= get_field(@character, :wounds_current) %></td>
+              </tr>
+            </table>
+          </div>
+          <div class="panel-footer text-center">
+            Wounds
+            <%= if @viewed_by_owner do %>
+            <span class="increment-buttons">
+              <button id="decrementWounds">-</button>
+              <button id="incrementWounds">+</button>
+            </span>
+            <% end %>
+          </div>
+        </div>
       </div>
-      <div class="row">
-        <div class="col-sm-3 col-xs-6">
-          <div class="panel panel-default">
-            <div class="panel-body soak-panel panel-value">
-              <%= get_field(@character, :soak) %>
-            </div>
-            <div class="panel-footer text-center">
-              Soak
-            </div>
+      <div class="col-sm-3 col-xs-6">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <table class="table">
+              <tr class="panel-first-row">
+                <td>Threshold</td>
+                <td class="panel-value"><%= get_field(@character, :strain_threshold) %></td>
+              </tr>
+              <tr>
+                <td>Current</td>
+                <td id="currentStrain" class="panel-value"><%= get_field(@character, :strain_current) %></td>
+              </tr>
+            </table>
+          </div>
+          <div class="panel-footer text-center">
+            <label>Strain</label>
+            <%= if @viewed_by_owner do %>
+            <span class="increment-buttons">
+              <button id="decrementStrain">-</button>
+              <button id="incrementStrain">+</button>
+            </span>
+            <% end %>
           </div>
         </div>
-        <div class="col-sm-3 col-xs-6">
-          <div class="panel panel-default">
-            <div class="panel-body">
-              <table class="table">
-                <tr class="panel-first-row">
-                  <td>Threshold</td>
-                  <td class="panel-value"><%= get_field(@character, :wounds_threshold) %></td>
-                </tr>
-                <tr>
-                  <td>Current</td>
-                  <td id="currentWounds" class="panel-value"><%= get_field(@character, :wounds_current) %></td>
-                </tr>
-              </table>
-            </div>
-            <div class="panel-footer text-center">
-              Wounds
-              <%= if @viewed_by_owner do %>
-              <span class="increment-buttons">
-                <button id="decrementWounds">-</button>
-                <button id="incrementWounds">+</button>
-              </span>
-              <% end %>
-            </div>
+      </div>
+      <div class="col-sm-3 col-xs-6">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <table class="table">
+              <tr class="panel-first-row">
+                <td>Ranged</td>
+                <td class="panel-value"><%= get_field(@character, :defense_ranged) %></td>
+              </tr>
+              <tr>
+                <td>Melee</td>
+                <td class="panel-value"><%= get_field(@character, :defense_melee) %></td>
+              </tr>
+            </table>
           </div>
-        </div>
-        <div class="col-sm-3 col-xs-6">
-          <div class="panel panel-default">
-            <div class="panel-body">
-              <table class="table">
-                <tr class="panel-first-row">
-                  <td>Threshold</td>
-                  <td class="panel-value"><%= get_field(@character, :strain_threshold) %></td>
-                </tr>
-                <tr>
-                  <td>Current</td>
-                  <td id="currentStrain" class="panel-value"><%= get_field(@character, :strain_current) %></td>
-                </tr>
-              </table>
-            </div>
-            <div class="panel-footer text-center">
-              <label>Strain</label>
-              <%= if @viewed_by_owner do %>
-              <span class="increment-buttons">
-                <button id="decrementStrain">-</button>
-                <button id="incrementStrain">+</button>
-              </span>
-              <% end %>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-3 col-xs-6">
-          <div class="panel panel-default">
-            <div class="panel-body">
-              <table class="table">
-                <tr class="panel-first-row">
-                  <td>Ranged</td>
-                  <td class="panel-value"><%= get_field(@character, :defense_ranged) %></td>
-                </tr>
-                <tr>
-                  <td>Melee</td>
-                  <td class="panel-value"><%= get_field(@character, :defense_melee) %></td>
-                </tr>
-              </table>
-            </div>
-            <div class="panel-footer text-center">
-              <label>Defense</label>
-            </div>
+          <div class="panel-footer text-center">
+            <label>Defense</label>
           </div>
         </div>
       </div>
