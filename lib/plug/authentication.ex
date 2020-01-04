@@ -6,8 +6,13 @@ defmodule Plug.Authentication do
 
   def call(conn, opts) do
     case Keyword.get(opts, :except) do
-      nil -> ensure_authenticated(conn)
-      actions -> if Enum.member?(actions, conn.private.phoenix_action), do: conn, else: ensure_authenticated(conn)
+      nil ->
+        ensure_authenticated(conn)
+
+      actions ->
+        if Enum.member?(actions, conn.private.phoenix_action),
+          do: conn,
+          else: ensure_authenticated(conn)
     end
   end
 
@@ -26,6 +31,6 @@ defmodule Plug.Authentication do
   end
 
   defp prompt_for_login(conn) do
-    Phoenix.Controller.redirect(conn, to: "/welcome") |> Plug.Conn.halt
+    Phoenix.Controller.redirect(conn, to: "/welcome") |> Plug.Conn.halt()
   end
 end

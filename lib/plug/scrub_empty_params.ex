@@ -9,7 +9,8 @@ defmodule Plug.ScrubEmptyParams do
     Enum.map(params, fn
       {k, ""} -> {k, nil}
       {k, m} when is_map(m) -> {k, scrub_params(m)}
-      pair    -> pair
-    end) |> Enum.into(%{})
+      pair -> pair
+    end)
+    |> Enum.into(%{})
   end
 end

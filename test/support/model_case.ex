@@ -63,4 +63,3 @@ defmodule EdgeBuilder.ModelCase do
     |> Enum.flat_map(fn {key, errors} -> for msg <- errors, do: {key, msg} end)
   end
 end
-
