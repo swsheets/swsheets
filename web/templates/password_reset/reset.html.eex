@@ -3,7 +3,7 @@
 
   <h3>Password Reset</h3>
 
-  <p>Please enter your new password below, and a link to reset your password will be emailed to you.</p>
+  <p>Please enter your new password below.</p>
 
   <%= form_tag(password_reset_path(@conn, :submit_reset), role: "form", method: "POST", class: "form well") %>
     <div class="form-group">
