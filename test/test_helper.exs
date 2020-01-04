@@ -1,4 +1,4 @@
 Ecto.Adapters.SQL.Sandbox.mode(EdgeBuilder.Repo, :manual)
-Factories.BaseFactory.initialize
+Factories.BaseFactory.initialize()
 
-ExUnit.start
+ExUnit.start()

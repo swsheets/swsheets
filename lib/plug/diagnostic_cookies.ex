@@ -1,5 +1,5 @@
 defmodule Plug.DiagnosticCookies do
-  @expiry_in_ten_years (10 * 365 * 24 * 60 * 60)
+  @expiry_in_ten_years 10 * 365 * 24 * 60 * 60
 
   require Logger
 
@@ -13,7 +13,7 @@ defmodule Plug.DiagnosticCookies do
 
   defp generate_cookie(conn, name, opts \\ []) do
     if is_nil(conn.cookies) || is_nil(conn.cookies[:name]) do
-      value = Ecto.UUID.generate
+      value = Ecto.UUID.generate()
       Logger.metadata([{String.to_atom(name <> "_cookie"), value}])
       Plug.Conn.put_resp_cookie(conn, name, value, opts)
     else

@@ -16,7 +16,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
   describe "new" do
     it "renders the character edit form for a new character" do
-      conn = build_conn() |> authenticate_as(UserFactory.default_user) |> get("/c/new")
+      conn = build_conn() |> authenticate_as(UserFactory.default_user()) |> get("/c/new")
 
       assert conn.status == 200
       assert String.contains?(conn.resp_body, "New Character")
@@ -30,7 +30,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "renders characteristics next to skills" do
-      conn = build_conn() |> authenticate_as(UserFactory.default_user) |> get("/c/new")
+      conn = build_conn() |> authenticate_as(UserFactory.default_user()) |> get("/c/new")
 
       assert String.contains?(conn.resp_body, "Astrogation (Int)")
       assert String.contains?(conn.resp_body, "Athletics (Br)")
@@ -43,18 +43,28 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
   describe "create" do
     it "creates a character" do
-      base_skills = BaseSkill.all
-      |> Enum.reject(&(&1.name == "Athletics"))
-      |> Enum.with_index
-      |> Enum.map(fn {skill, index} ->
+      base_skills =
+        BaseSkill.all()
+        |> Enum.reject(&(&1.name == "Athletics"))
+        |> Enum.with_index()
+        |> Enum.map(fn {skill, index} ->
           {index, %{"base_skill_id" => skill.id, "rank" => "0"}}
         end)
-      |> Enum.into(%{})
+        |> Enum.into(%{})
 
-      skills_with_user_edit = base_skills
-      |> Map.put("Athletics", %{"base_skill_id" => BaseSkill.by_name("Athletics").id, "rank" => "3", "is_career" => "on", "characteristic" => "Brawn", "adjustments" => "1b, 1s"})
+      skills_with_user_edit =
+        base_skills
+        |> Map.put("Athletics", %{
+          "base_skill_id" => BaseSkill.by_name("Athletics").id,
+          "rank" => "3",
+          "is_career" => "on",
+          "characteristic" => "Brawn",
+          "adjustments" => "1b, 1s"
+        })
 
-      build_conn() |> authenticate_as(UserFactory.default_user) |> post("/c", %{
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> post("/c", %{
         "character" => %{
           "name" => "Greedo",
           "species" => "Rodian",
@@ -76,23 +86,52 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
           "xp_total" => "200",
           "background" => "A regular Rodian, you know",
           "description" => "Green",
+<<<<<<< HEAD
           "other_notes" => "Not the best",
           "private_notes" => "Shh, don't let anybody see these."
+=======
+          "other_notes" => "Not the best"
+>>>>>>> master
         },
         "attacks" => %{
-          "0" => %{"critical" => "3", "damage" => "4", "range" => "Short", "base_skill_id" => BaseSkill.by_name("Ranged: Light").id, "specials" => "Stun Setting", "weapon_name" => "Holdout Blaster"},
-          "1" => %{"id" => "", "critical" => "5", "damage" => "+1", "range" => "Engaged", "base_skill_id" => BaseSkill.by_name("Brawl").id, "specials" => "", "weapon_name" => "Claws"}
+          "0" => %{
+            "critical" => "3",
+            "damage" => "4",
+            "range" => "Short",
+            "base_skill_id" => BaseSkill.by_name("Ranged: Light").id,
+            "specials" => "Stun Setting",
+            "weapon_name" => "Holdout Blaster"
+          },
+          "1" => %{
+            "id" => "",
+            "critical" => "5",
+            "damage" => "+1",
+            "range" => "Engaged",
+            "base_skill_id" => BaseSkill.by_name("Brawl").id,
+            "specials" => "",
+            "weapon_name" => "Claws"
+          }
         },
         "skills" => skills_with_user_edit,
         "talents" => %{
-          "0" => %{"rank" => 1, "book_and_page" => "EotE p25", "description" => "Draw as incidental", "name" => "Quick Draw"},
-          "1" => %{"rank" => 2, "book_and_page" => "DC p200", "description" => "Upgrade all checks by one", "name" => "Adversary 1"}
-        },
+          "0" => %{
+            "rank" => 1,
+            "book_and_page" => "EotE p25",
+            "description" => "Draw as incidental",
+            "name" => "Quick Draw"
+          },
+          "1" => %{
+            "rank" => 2,
+            "book_and_page" => "DC p200",
+            "description" => "Upgrade all checks by one",
+            "name" => "Adversary 1"
+          }
+        }
       })
 
       character = Repo.all(Character) |> Enum.at(0)
 
-      assert character.user_id == UserFactory.default_user.id
+      assert character.user_id == UserFactory.default_user().id
       assert character.name == "Greedo"
       assert character.species == "Rodian"
       assert character.career == "Bounty Hunter"
@@ -153,7 +192,9 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "creates a Force & Destiny character" do
-      build_conn() |> authenticate_as(UserFactory.default_user) |> post("/c", %{
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> post("/c", %{
         "character" => %{
           "name" => "Ki Ar Mundi",
           "species" => "Big headed folks",
@@ -163,23 +204,40 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
           "force_rating" => "5"
         },
         "force_powers" => %{
-          "0" => %{"name" => "Motivate", "description" => "Gets people up and at em!", "display_order" => "1", "force_power_upgrades" => %{
-              "0" => %{"name" => "Improved Productivity", "description" => "People work ten percent harder", "display_order" => "0"},
-              "1" => %{"name" => "Greater Productivity", "description" => "People work fifteen percent harder", "display_order" => "1"}
+          "0" => %{
+            "name" => "Motivate",
+            "description" => "Gets people up and at em!",
+            "display_order" => "1",
+            "force_power_upgrades" => %{
+              "0" => %{
+                "name" => "Improved Productivity",
+                "description" => "People work ten percent harder",
+                "display_order" => "0"
+              },
+              "1" => %{
+                "name" => "Greater Productivity",
+                "description" => "People work fifteen percent harder",
+                "display_order" => "1"
               }
+            }
           },
-          "1" => %{"name" => "Force Feedback", "description" => "Give effective individual feedback", "display_order" => "0"}
+          "1" => %{
+            "name" => "Force Feedback",
+            "description" => "Give effective individual feedback",
+            "display_order" => "0"
+          }
         }
       })
 
       character = Repo.all(Character) |> Enum.at(0)
 
-      assert character.user_id == UserFactory.default_user.id
+      assert character.user_id == UserFactory.default_user().id
       assert character.name == "Ki Ar Mundi"
       assert character.force_rating == 5
       assert character.morality == "not so hot!"
 
-      [first_power, second_power] = ForcePower.for_character(character.id) |> Enum.sort_by(&(&1.display_order))
+      [first_power, second_power] =
+        ForcePower.for_character(character.id) |> Enum.sort_by(& &1.display_order)
 
       assert first_power.name == "Force Feedback"
       assert first_power.description == "Give effective individual feedback"
@@ -200,33 +258,67 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "redirects to the character show page" do
-      params = CharacterFactory.default_parameters
-      conn = build_conn() |> authenticate_as(UserFactory.default_user) |> post("/c", %{"character" => params})
+      params = CharacterFactory.default_parameters()
 
-      character = Repo.one!(from c in Character, where: c.name == ^params["name"]) |> Character.set_permalink
+      conn =
+        build_conn()
+        |> authenticate_as(UserFactory.default_user())
+        |> post("/c", %{"character" => params})
 
-      assert is_redirect_to?(conn, EdgeBuilder.Router.Helpers.character_path(conn, :show, character))
+      character =
+        Repo.one!(from c in Character, where: c.name == ^params["name"])
+        |> Character.set_permalink()
+
+      assert is_redirect_to?(
+               conn,
+               EdgeBuilder.Router.Helpers.character_path(conn, :show, character)
+             )
     end
 
     it "re-renders the new character page when there are errors" do
-      conn = build_conn() |> authenticate_as(UserFactory.default_user) |> post("/c", %{
-        "character" => %{
-          "species" => "Rodian",
-          "career" => "Bounty Hunter",
-          "system" => "eote"
-        },
-        "skills" => %{"0" => %{"base_skill_id" => BaseSkill.by_name("Athletics").id, "rank" => "3", "is_career" => "on", "adjustments" => "1b"}},
-        "force_powers" => %{
-          "0" => %{"name" => "Motivate", "description" => "Gets people up and at em!", "display_order" => "1", "force_power_upgrades" => %{
-              "0" => %{"name" => "Improved Productivity", "description" => "People work ten percent harder", "display_order" => "0"}
+      conn =
+        build_conn()
+        |> authenticate_as(UserFactory.default_user())
+        |> post("/c", %{
+          "character" => %{
+            "species" => "Rodian",
+            "career" => "Bounty Hunter",
+            "system" => "eote"
+          },
+          "skills" => %{
+            "0" => %{
+              "base_skill_id" => BaseSkill.by_name("Athletics").id,
+              "rank" => "3",
+              "is_career" => "on",
+              "adjustments" => "1b"
+            }
+          },
+          "force_powers" => %{
+            "0" => %{
+              "name" => "Motivate",
+              "description" => "Gets people up and at em!",
+              "display_order" => "1",
+              "force_power_upgrades" => %{
+                "0" => %{
+                  "name" => "Improved Productivity",
+                  "description" => "People work ten percent harder",
+                  "display_order" => "0"
+                }
               }
+            }
           }
-        }
-      })
+        })
 
-      assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text == "Name can't be blank"
-      assert FlokiExt.element(conn, "[data-skill=Athletics]") |> FlokiExt.find("input[data-rank=data-rank]") |> FlokiExt.attribute("value") == "3"
-      assert FlokiExt.element(conn, "[data-skill=Athletics]") |> FlokiExt.find("input[data-adjustments=data-adjustments]") |> FlokiExt.attribute("value") == "1b"
+      assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text() == "Name can't be blank"
+
+      assert FlokiExt.element(conn, "[data-skill=Athletics]")
+             |> FlokiExt.find("input[data-rank=data-rank]")
+             |> FlokiExt.attribute("value") == "3"
+
+      assert FlokiExt.element(conn, "[data-skill=Athletics]")
+             |> FlokiExt.find("input[data-adjustments=data-adjustments]")
+             |> FlokiExt.attribute("value") == "1b"
+
       assert !is_nil(FlokiExt.element(conn, ".attack-first-row"))
       assert !is_nil(FlokiExt.element(conn, ".talent-row"))
 
@@ -241,7 +333,9 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "respects the original ordering of the talents and attacks from the page" do
-      build_conn() |> authenticate_as(UserFactory.default_user) |> post("/c", %{
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> post("/c", %{
         "character" => %{
           "name" => "Greedo",
           "species" => "Rodian",
@@ -249,18 +343,62 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
           "system" => "eote"
         },
         "attacks" => %{
-          "1" => %{"critical" => "3", "damage" => "4", "range" => "Short", "base_skill_id" => BaseSkill.by_name("Ranged: Light").id, "specials" => "Stun Setting", "weapon_name" => "Holdout Blaster", "display_order" => "1"},
-          "10" => %{"id" => "", "critical" => "5", "damage" => "+1", "range" => "Engaged", "base_skill_id" => BaseSkill.by_name("Brawl").id, "specials" => "", "weapon_name" => "Fists", "display_order" => "10"},
-          "2" => %{"id" => "", "critical" => "5", "damage" => "+1", "range" => "Engaged", "base_skill_id" => BaseSkill.by_name("Brawl").id, "specials" => "", "weapon_name" => "Claws", "display_order" => "2"}
+          "1" => %{
+            "critical" => "3",
+            "damage" => "4",
+            "range" => "Short",
+            "base_skill_id" => BaseSkill.by_name("Ranged: Light").id,
+            "specials" => "Stun Setting",
+            "weapon_name" => "Holdout Blaster",
+            "display_order" => "1"
+          },
+          "10" => %{
+            "id" => "",
+            "critical" => "5",
+            "damage" => "+1",
+            "range" => "Engaged",
+            "base_skill_id" => BaseSkill.by_name("Brawl").id,
+            "specials" => "",
+            "weapon_name" => "Fists",
+            "display_order" => "10"
+          },
+          "2" => %{
+            "id" => "",
+            "critical" => "5",
+            "damage" => "+1",
+            "range" => "Engaged",
+            "base_skill_id" => BaseSkill.by_name("Brawl").id,
+            "specials" => "",
+            "weapon_name" => "Claws",
+            "display_order" => "2"
+          }
         },
         "talents" => %{
-          "1" => %{"rank" => 1, "book_and_page" => "EotE p25", "description" => "Draw as incidental", "name" => "Quick Draw", "display_order" => "1"},
-          "10" => %{"rank" => 1, "book_and_page" => "DC p200", "description" => "Upgrade all checks by one", "name" => "Adversary 1", "display_order" => "10"},
-          "2" => %{"rank" => 1, "book_and_page" => "NR 100", "description" => "Launch a fire bomb attack", "name" => "Fire Bomb", "display_order" => "2"}
-        },
+          "1" => %{
+            "rank" => 1,
+            "book_and_page" => "EotE p25",
+            "description" => "Draw as incidental",
+            "name" => "Quick Draw",
+            "display_order" => "1"
+          },
+          "10" => %{
+            "rank" => 1,
+            "book_and_page" => "DC p200",
+            "description" => "Upgrade all checks by one",
+            "name" => "Adversary 1",
+            "display_order" => "10"
+          },
+          "2" => %{
+            "rank" => 1,
+            "book_and_page" => "NR 100",
+            "description" => "Launch a fire bomb attack",
+            "name" => "Fire Bomb",
+            "display_order" => "2"
+          }
+        }
       })
 
-      character = Repo.all(Character) |> Enum.at(0) |> Character.set_permalink
+      character = Repo.all(Character) |> Enum.at(0) |> Character.set_permalink()
 
       conn = get(build_conn(), "/c/#{character.permalink}")
 
@@ -271,7 +409,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
   describe "show" do
     it "displays the character information" do
-      character = CharacterFactory.create_character
+      character = CharacterFactory.create_character()
 
       conn = build_conn() |> get("/c/#{character.permalink}")
 
@@ -282,7 +420,10 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     it "displays owner-only elements when viewed by the owner" do
       character = CharacterFactory.create_character(user_id: UserFactory.default_user.id)
 
-      conn = build_conn() |> authenticate_as(UserFactory.default_user) |> get("/c/#{character.permalink}")
+      conn =
+        build_conn()
+        |> authenticate_as(UserFactory.default_user())
+        |> get("/c/#{character.permalink}")
 
       assert String.contains?(conn.resp_body, "Edit")
       assert String.contains?(conn.resp_body, "Delete")
@@ -317,7 +458,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "renders characteristics next to skills" do
-      character = CharacterFactory.create_character
+      character = CharacterFactory.create_character()
 
       conn = build_conn() |> get("/c/#{character.permalink}")
 
@@ -330,7 +471,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "displays partial attacks" do
-      character = CharacterFactory.create_character
+      character = CharacterFactory.create_character()
       Repo.insert!(%Attack{character_id: character.id, weapon_name: "Claws"})
 
       conn = build_conn() |> get("/c/#{character.permalink}")
@@ -339,11 +480,14 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "displays a link to the author's profile" do
-      character = CharacterFactory.create_character(user_id: UserFactory.default_user.id)
+      character = CharacterFactory.create_character(user_id: UserFactory.default_user().id)
 
       conn = build_conn() |> get("/c/#{character.permalink}")
 
-      assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.profile_path(conn, :show, UserFactory.default_user))
+      assert String.contains?(
+               conn.resp_body,
+               EdgeBuilder.Router.Helpers.profile_path(conn, :show, UserFactory.default_user())
+             )
     end
   end
 
@@ -352,55 +496,79 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       conn = build_conn() |> get("/c")
 
       assert conn.status == 200
-      assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.character_path(conn, :index))
+
+      assert String.contains?(
+               conn.resp_body,
+               EdgeBuilder.Router.Helpers.character_path(conn, :index)
+             )
     end
 
     it "displays links for each character regardless of creator" do
       characters = [
-        CharacterFactory.create_character(name: "Frank", user_id: UserFactory.default_user.id),
-        CharacterFactory.create_character(name: "Boba Fett", user_id: UserFactory.create_user!.id)
+        CharacterFactory.create_character(name: "Frank", user_id: UserFactory.default_user().id),
+        CharacterFactory.create_character(
+          name: "Boba Fett",
+          user_id: UserFactory.create_user!().id
+        )
       ]
 
       conn = build_conn() |> get("/c")
 
       for character <- characters do
         assert String.contains?(conn.resp_body, character.name)
-        assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.character_path(conn, :show, character))
+
+        assert String.contains?(
+                 conn.resp_body,
+                 EdgeBuilder.Router.Helpers.character_path(conn, :show, character)
+               )
       end
     end
   end
 
   describe "edit" do
     it "renders the character edit form" do
-      character = CharacterFactory.create_character(user_id: UserFactory.default_user.id)
+      character = CharacterFactory.create_character(user_id: UserFactory.default_user().id)
 
-      character_skill = %CharacterSkill{
-        base_skill_id: BaseSkill.by_name("Athletics").id,
-        rank: 4,
-        character_id: character.id
-      } |> Repo.insert!
+      character_skill =
+        %CharacterSkill{
+          base_skill_id: BaseSkill.by_name("Athletics").id,
+          rank: 4,
+          character_id: character.id
+        }
+        |> Repo.insert!()
 
-      talent = %Talent{
-        name: "Quick Draw",
-        character_id: character.id
-      } |> Repo.insert!
+      talent =
+        %Talent{
+          name: "Quick Draw",
+          character_id: character.id
+        }
+        |> Repo.insert!()
 
-      attack = %Attack{
-        weapon_name: "Holdout Blaster",
-        character_id: character.id
-      } |> Repo.insert!
+      attack =
+        %Attack{
+          weapon_name: "Holdout Blaster",
+          character_id: character.id
+        }
+        |> Repo.insert!()
 
-      force_power = %ForcePower{
-        name: "Force Vuvuzela",
-        character_id: character.id
-      } |> Repo.insert!
+      force_power =
+        %ForcePower{
+          name: "Force Vuvuzela",
+          character_id: character.id
+        }
+        |> Repo.insert!()
 
-      force_power_upgrade = %ForcePowerUpgrade{
-        name: "Horn Volumizer",
-        force_power_id: force_power.id
-      } |> Repo.insert!
+      force_power_upgrade =
+        %ForcePowerUpgrade{
+          name: "Horn Volumizer",
+          force_power_id: force_power.id
+        }
+        |> Repo.insert!()
 
-      conn = build_conn() |> authenticate_as(UserFactory.default_user) |> get("/c/#{character.permalink}/edit")
+      conn =
+        build_conn()
+        |> authenticate_as(UserFactory.default_user())
+        |> get("/c/#{character.permalink}/edit")
 
       assert conn.status == 200
       assert String.contains?(conn.resp_body, character.name)
@@ -413,9 +581,12 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "works on characters with no children associated to them" do
-      character = CharacterFactory.create_character(user_id: UserFactory.default_user.id)
+      character = CharacterFactory.create_character(user_id: UserFactory.default_user().id)
 
-      conn = build_conn() |> authenticate_as(UserFactory.default_user) |> get("/c/#{character.permalink}/edit")
+      conn =
+        build_conn()
+        |> authenticate_as(UserFactory.default_user())
+        |> get("/c/#{character.permalink}/edit")
 
       assert conn.status == 200
       assert String.contains?(conn.resp_body, character.name)
@@ -428,7 +599,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "requires the current user to match the owning user" do
-      owner = UserFactory.default_user
+      owner = UserFactory.default_user()
       other = UserFactory.create_user!(username: "other")
       character = CharacterFactory.create_character(user_id: owner.id)
 
@@ -442,7 +613,11 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     it "updates the character's basic attributes" do
       character = CharacterFactory.create_character(name: "asdasd", species: "gogogo")
 
-      build_conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{"name" => "Do'mesh", "species" => "Twi'lek"}})
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> put("/c/#{character.permalink}", %{
+        "character" => %{"name" => "Do'mesh", "species" => "Twi'lek"}
+      })
 
       character = Repo.get(Character, character.id)
 
@@ -451,26 +626,40 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "redirects to the character show page" do
-      character = CharacterFactory.create_character
+      character = CharacterFactory.create_character()
 
-      conn = build_conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{"name" => "Do'mesh", "species" => "Twi'lek"}})
+      conn =
+        build_conn()
+        |> authenticate_as(UserFactory.default_user())
+        |> put("/c/#{character.permalink}", %{
+          "character" => %{"name" => "Do'mesh", "species" => "Twi'lek"}
+        })
 
       assert conn.status == 302
-      assert is_redirect_to?(conn, EdgeBuilder.Router.Helpers.character_path(conn, :show, character))
+
+      assert is_redirect_to?(
+               conn,
+               EdgeBuilder.Router.Helpers.character_path(conn, :show, character)
+             )
     end
 
     it "updates the character's optional attributes" do
-      character = CharacterFactory.create_character(
-        xp_total: 50,
-        xp_available: 10,
-        description: "A slow shooter"
-      )
+      character =
+        CharacterFactory.create_character(
+          xp_total: 50,
+          xp_available: 10,
+          description: "A slow shooter"
+        )
 
-      build_conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{
-        "xp_total" => "60",
-        "xp_available" => "",
-        "description" =>  "tbd"
-      }})
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> put("/c/#{character.permalink}", %{
+        "character" => %{
+          "xp_total" => "60",
+          "xp_available" => "",
+          "description" => "tbd"
+        }
+      })
 
       character = Repo.get(Character, character.id)
 
@@ -481,19 +670,32 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "updates the character's prior talents" do
-      character = CharacterFactory.create_character
+      character = CharacterFactory.create_character()
 
-      talent = %Talent{
-        rank: 1,
-        name: "Quick Draw",
-        book_and_page: "EotE Core p145",
-        description: "Draws a gun quickly",
-        character_id: character.id
-      } |> Repo.insert!
+      talent =
+        %Talent{
+          rank: 1,
+          name: "Quick Draw",
+          book_and_page: "EotE Core p145",
+          description: "Draws a gun quickly",
+          character_id: character.id
+        }
+        |> Repo.insert!()
 
-      build_conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "talents" => %{
-        "0" => %{"rank" => 2, "book_and_page" => "DC p43", "description" => "Do stuff", "id" => talent.id, "name" => "Awesome Guy"}
-      }})
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> put("/c/#{character.permalink}", %{
+        "character" => %{},
+        "talents" => %{
+          "0" => %{
+            "rank" => 2,
+            "book_and_page" => "DC p43",
+            "description" => "Do stuff",
+            "id" => talent.id,
+            "name" => "Awesome Guy"
+          }
+        }
+      })
 
       [talent] = Talent.for_character(character.id)
 
@@ -504,11 +706,21 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "creates new talents for the character" do
-      character = CharacterFactory.create_character
+      character = CharacterFactory.create_character()
 
-      build_conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "talents" => %{
-        "0" => %{"rank" => 1, "book_and_page" => "DC p43", "description" => "Do stuff", "name" => "Awesome Guy"}
-      }})
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> put("/c/#{character.permalink}", %{
+        "character" => %{},
+        "talents" => %{
+          "0" => %{
+            "rank" => 1,
+            "book_and_page" => "DC p43",
+            "description" => "Do stuff",
+            "name" => "Awesome Guy"
+          }
+        }
+      })
 
       [talent] = Talent.for_character(character.id)
 
@@ -519,25 +731,38 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "filters out empty talents from the request" do
-      character = CharacterFactory.create_character
+      character = CharacterFactory.create_character()
 
-      talent = %Talent{
-        name: "Quick Draw",
-        book_and_page: "EotE Core p145",
-        description: "Draws a gun quickly",
-        character_id: character.id
-      } |> Repo.insert!
+      talent =
+        %Talent{
+          name: "Quick Draw",
+          book_and_page: "EotE Core p145",
+          description: "Draws a gun quickly",
+          character_id: character.id
+        }
+        |> Repo.insert!()
 
-      build_conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "talents" => %{
-        "0" => %{"rank" => 1, "book_and_page" => "", "description" => "", "name" => ""},
-        "1" => %{"rank" => 1, "book_and_page" => "", "description" => "", "name" => "", "id" => talent.id}
-      }})
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> put("/c/#{character.permalink}", %{
+        "character" => %{},
+        "talents" => %{
+          "0" => %{"rank" => 1, "book_and_page" => "", "description" => "", "name" => ""},
+          "1" => %{
+            "rank" => 1,
+            "book_and_page" => "",
+            "description" => "",
+            "name" => "",
+            "id" => talent.id
+          }
+        }
+      })
 
       assert [] == Talent.for_character(character.id)
     end
 
     it "deletes any talents for that character that were not specified in the update" do
-      character = CharacterFactory.create_character
+      character = CharacterFactory.create_character()
 
       %Talent{
         rank: 2,
@@ -545,28 +770,38 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         book_and_page: "EotE Core p145",
         description: "Draws a gun quickly",
         character_id: character.id
-      } |> Repo.insert!
+      }
+      |> Repo.insert!()
 
-      build_conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}})
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> put("/c/#{character.permalink}", %{"character" => %{}})
 
       talents = Talent.for_character(character.id)
 
       assert Enum.count(talents) == 0
-      assert Repo.all(Talent) |> Enum.count == 0
+      assert Repo.all(Talent) |> Enum.count() == 0
     end
 
     it "updates the character's prior attacks" do
-      character = CharacterFactory.create_character
+      character = CharacterFactory.create_character()
 
-      attack = %Attack{
-        weapon_name: "Holdout Blaster",
-        range: "Short",
-        character_id: character.id
-      } |> Repo.insert!
+      attack =
+        %Attack{
+          weapon_name: "Holdout Blaster",
+          range: "Short",
+          character_id: character.id
+        }
+        |> Repo.insert!()
 
-      build_conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "attacks" => %{
-        "0" => %{"weapon_name" => "Claws", "range" => "Engaged", "id" => attack.id}
-      }})
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> put("/c/#{character.permalink}", %{
+        "character" => %{},
+        "attacks" => %{
+          "0" => %{"weapon_name" => "Claws", "range" => "Engaged", "id" => attack.id}
+        }
+      })
 
       [attack] = Attack.for_character(character.id)
 
@@ -575,13 +810,22 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "creates new attacks for the character" do
-      character = CharacterFactory.create_character
+      character = CharacterFactory.create_character()
 
       base_skill = Repo.all(BaseSkill) |> Enum.at(0)
 
-      build_conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "attacks" => %{
-        "0" => %{"weapon_name" => "Claws", "range" => "Engaged", "base_skill_id" => base_skill.id}
-      }})
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> put("/c/#{character.permalink}", %{
+        "character" => %{},
+        "attacks" => %{
+          "0" => %{
+            "weapon_name" => "Claws",
+            "range" => "Engaged",
+            "base_skill_id" => base_skill.id
+          }
+        }
+      })
 
       [attack] = Attack.for_character(character.id)
 
@@ -591,28 +835,38 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "deletes any attacks for that character that were not specified in the update" do
-      character = CharacterFactory.create_character
+      character = CharacterFactory.create_character()
 
       %Attack{
         weapon_name: "Holdout Blaster",
         range: "Short",
         character_id: character.id
-      } |> Repo.insert!
+      }
+      |> Repo.insert!()
 
-      build_conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}})
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> put("/c/#{character.permalink}", %{"character" => %{}})
 
       attacks = Attack.for_character(character.id)
 
       assert Enum.count(attacks) == 0
-      assert Repo.all(Attack) |> Enum.count == 0
+      assert Repo.all(Attack) |> Enum.count() == 0
     end
 
     it "creates new skills when they differ from default values" do
-      character = CharacterFactory.create_character
+      character = CharacterFactory.create_character()
 
       base_skill = BaseSkill.by_name("Athletics")
 
-      build_conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 1, "is_career" => "on"}}})
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> put("/c/#{character.permalink}", %{
+        "character" => %{},
+        "skills" => %{
+          "0" => %{"base_skill_id" => base_skill.id, "rank" => 1, "is_career" => "on"}
+        }
+      })
 
       [character_skill] = CharacterSkill.for_character(character.id)
 
@@ -622,33 +876,51 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "does not create new skills for skills that are not persisted and that do not differ from defaults" do
-      character = CharacterFactory.create_character
+      character = CharacterFactory.create_character()
 
       base_skill = BaseSkill.by_name("Athletics")
 
-      build_conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 0}}})
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> put("/c/#{character.permalink}", %{
+        "character" => %{},
+        "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 0}}
+      })
 
       assert Enum.count(CharacterSkill.for_character(character.id)) == 0
     end
 
     it "deletes previously-saved skills that are set back to the default" do
-      character = CharacterFactory.create_character
+      character = CharacterFactory.create_character()
 
       base_skill = BaseSkill.by_name("Athletics")
 
-      original_character_skill = %CharacterSkill{
-        base_skill_id: base_skill.id,
-        character_id: character.id,
-        rank: 5
-      } |> Repo.insert!
+      original_character_skill =
+        %CharacterSkill{
+          base_skill_id: base_skill.id,
+          character_id: character.id,
+          rank: 5
+        }
+        |> Repo.insert!()
 
-      build_conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "skills" => %{"0" => %{"base_skill_id" => base_skill.id, "rank" => 0, "id" => original_character_skill.id}}})
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> put("/c/#{character.permalink}", %{
+        "character" => %{},
+        "skills" => %{
+          "0" => %{
+            "base_skill_id" => base_skill.id,
+            "rank" => 0,
+            "id" => original_character_skill.id
+          }
+        }
+      })
 
       assert [] == CharacterSkill.for_character(character.id)
     end
 
     it "re-renders the edit character page when there are errors" do
-      character = CharacterFactory.create_character
+      character = CharacterFactory.create_character()
 
       base_skill = BaseSkill.by_name("Astrogation")
 
@@ -656,35 +928,65 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         base_skill_id: base_skill.id,
         character_id: character.id,
         rank: 5
-      } |> Repo.insert!
+      }
+      |> Repo.insert!()
 
-      conn = build_conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{
-        "character" => %{
-          "name" => "",
-          "species" => "Rodian",
-          "career" => "Bounty Hunter"
-        },
-        "skills" => %{"0" => %{"base_skill_id" => BaseSkill.by_name("Athletics").id, "rank" => "3", "is_career" => "on", "adjustments" => "1b"}}
-      })
+      conn =
+        build_conn()
+        |> authenticate_as(UserFactory.default_user())
+        |> put("/c/#{character.permalink}", %{
+          "character" => %{
+            "name" => "",
+            "species" => "Rodian",
+            "career" => "Bounty Hunter"
+          },
+          "skills" => %{
+            "0" => %{
+              "base_skill_id" => BaseSkill.by_name("Athletics").id,
+              "rank" => "3",
+              "is_career" => "on",
+              "adjustments" => "1b"
+            }
+          }
+        })
 
-      assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text == "Name can't be blank"
-      assert FlokiExt.element(conn, "[data-skill=Athletics]") |> FlokiExt.find("input[data-rank=data-rank]") |> FlokiExt.attribute("value") == "3"
-      assert FlokiExt.element(conn, "[data-skill=Athletics]") |> FlokiExt.find("input[data-adjustments=data-adjustments]") |> FlokiExt.attribute("value") == "1b"
+      assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text() == "Name can't be blank"
+
+      assert FlokiExt.element(conn, "[data-skill=Athletics]")
+             |> FlokiExt.find("input[data-rank=data-rank]")
+             |> FlokiExt.attribute("value") == "3"
+
+      assert FlokiExt.element(conn, "[data-skill=Athletics]")
+             |> FlokiExt.find("input[data-adjustments=data-adjustments]")
+             |> FlokiExt.attribute("value") == "1b"
+
       assert !is_nil(FlokiExt.element(conn, ".attack-first-row"))
       assert !is_nil(FlokiExt.element(conn, ".talent-row"))
     end
 
     it "updates the character's prior force powers" do
-      character = CharacterFactory.create_character
+      character = CharacterFactory.create_character()
 
-      force_power = %ForcePower{
-        name: "Sandwich Artistry",
-        character_id: character.id
-      } |> Repo.insert!
+      force_power =
+        %ForcePower{
+          name: "Sandwich Artistry",
+          character_id: character.id
+        }
+        |> Repo.insert!()
 
-      build_conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "force_powers" => %{
-        "0" => %{"name" => "Hot Doggin'", "description" => "Do funny stuff on holonet terminals when unlocked", "id" => force_power.id, "display_order" => "0"}
-      }})
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> put("/c/#{character.permalink}", %{
+        "character" => %{},
+        "force_powers" => %{
+          "0" => %{
+            "name" => "Hot Doggin'",
+            "description" => "Do funny stuff on holonet terminals when unlocked",
+            "id" => force_power.id,
+            "display_order" => "0"
+          }
+        }
+      })
 
       [force_power] = ForcePower.for_character(character.id)
 
@@ -693,11 +995,16 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "creates new force powers for the character" do
-      character = CharacterFactory.create_character
+      character = CharacterFactory.create_character()
 
-      build_conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "force_powers" => %{
-        "0" => %{"name" => "Sandwich Artistry", "description" => "Make great sandwiches"}
-      }})
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> put("/c/#{character.permalink}", %{
+        "character" => %{},
+        "force_powers" => %{
+          "0" => %{"name" => "Sandwich Artistry", "description" => "Make great sandwiches"}
+        }
+      })
 
       [force_power] = ForcePower.for_character(character.id)
 
@@ -706,98 +1013,157 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "filters out empty force powers from the request" do
-      character = CharacterFactory.create_character
+      character = CharacterFactory.create_character()
 
-      force_power = %ForcePower{
-        name: "Sandwich Artistry",
-        character_id: character.id
-      } |> Repo.insert!
+      force_power =
+        %ForcePower{
+          name: "Sandwich Artistry",
+          character_id: character.id
+        }
+        |> Repo.insert!()
 
-      build_conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "force_powers" => %{
-        "0" => %{"description" => "", "name" => ""},
-        "1" => %{"description" => "", "name" => "", "id" => force_power.id}
-      }})
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> put("/c/#{character.permalink}", %{
+        "character" => %{},
+        "force_powers" => %{
+          "0" => %{"description" => "", "name" => ""},
+          "1" => %{"description" => "", "name" => "", "id" => force_power.id}
+        }
+      })
 
       assert [] == ForcePower.for_character(character.id)
     end
 
     it "deletes any force powers for that character that were not specified in the update" do
-      character = CharacterFactory.create_character
+      character = CharacterFactory.create_character()
 
       %ForcePower{
         name: "Sandwich Artistry",
         character_id: character.id
-      } |> Repo.insert!
+      }
+      |> Repo.insert!()
 
-      build_conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}})
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> put("/c/#{character.permalink}", %{"character" => %{}})
 
       force_powers = ForcePower.for_character(character.id)
 
       assert Enum.count(force_powers) == 0
-      assert Repo.all(ForcePower) |> Enum.count == 0
+      assert Repo.all(ForcePower) |> Enum.count() == 0
     end
 
     it "updates the character's prior force power upgrades" do
-      character = CharacterFactory.create_character
+      character = CharacterFactory.create_character()
 
-      force_power = %ForcePower{
-        name: "Sandwich Artistry",
-        character_id: character.id
-      } |> Repo.insert!
+      force_power =
+        %ForcePower{
+          name: "Sandwich Artistry",
+          character_id: character.id
+        }
+        |> Repo.insert!()
 
-      force_power_upgrade = %ForcePowerUpgrade{
-        name: "Double Meat",
-        force_power_id: force_power.id
-      } |> Repo.insert!
+      force_power_upgrade =
+        %ForcePowerUpgrade{
+          name: "Double Meat",
+          force_power_id: force_power.id
+        }
+        |> Repo.insert!()
 
-      build_conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "force_powers" => %{
-        "0" => %{"id" => force_power.id, "force_power_upgrades" => %{"0" => %{"name" => "Upselling", "description" => "Add boost die to attempts to upsell sandwich addons", "id" => force_power_upgrade.id}}}
-      }})
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> put("/c/#{character.permalink}", %{
+        "character" => %{},
+        "force_powers" => %{
+          "0" => %{
+            "id" => force_power.id,
+            "force_power_upgrades" => %{
+              "0" => %{
+                "name" => "Upselling",
+                "description" => "Add boost die to attempts to upsell sandwich addons",
+                "id" => force_power_upgrade.id
+              }
+            }
+          }
+        }
+      })
 
       force_power_upgrade = Repo.get(ForcePowerUpgrade, force_power_upgrade.id)
 
       assert force_power_upgrade.name == "Upselling"
-      assert force_power_upgrade.description == "Add boost die to attempts to upsell sandwich addons"
+
+      assert force_power_upgrade.description ==
+               "Add boost die to attempts to upsell sandwich addons"
     end
 
     it "creates new force power upgrades for the character" do
-      character = CharacterFactory.create_character
+      character = CharacterFactory.create_character()
 
-      force_power = %ForcePower{
-        name: "Sandwich Artistry",
-        character_id: character.id
-      } |> Repo.insert!
+      force_power =
+        %ForcePower{
+          name: "Sandwich Artistry",
+          character_id: character.id
+        }
+        |> Repo.insert!()
 
-      build_conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "force_powers" => %{
-        "0" => %{"id" => force_power.id, "force_power_upgrades" => %{"0" => %{"name" => "Upselling", "description" => "Add boost die to attempts to upsell sandwich addons"}}}
-      }})
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> put("/c/#{character.permalink}", %{
+        "character" => %{},
+        "force_powers" => %{
+          "0" => %{
+            "id" => force_power.id,
+            "force_power_upgrades" => %{
+              "0" => %{
+                "name" => "Upselling",
+                "description" => "Add boost die to attempts to upsell sandwich addons"
+              }
+            }
+          }
+        }
+      })
 
       [force_power] = ForcePower.for_character(character.id)
       [force_power_upgrade] = force_power.force_power_upgrades
 
       assert force_power_upgrade.name == "Upselling"
-      assert force_power_upgrade.description == "Add boost die to attempts to upsell sandwich addons"
+
+      assert force_power_upgrade.description ==
+               "Add boost die to attempts to upsell sandwich addons"
     end
 
     it "filters out empty force power upgrades from the request" do
-      character = CharacterFactory.create_character
+      character = CharacterFactory.create_character()
 
-      force_power = %ForcePower{
-        name: "Sandwich Artistry",
-        character_id: character.id
-      } |> Repo.insert!
+      force_power =
+        %ForcePower{
+          name: "Sandwich Artistry",
+          character_id: character.id
+        }
+        |> Repo.insert!()
 
-      force_power_upgrade = %ForcePowerUpgrade{
-        name: "Double Meat",
-        force_power_id: force_power.id
-      } |> Repo.insert!
+      force_power_upgrade =
+        %ForcePowerUpgrade{
+          name: "Double Meat",
+          force_power_id: force_power.id
+        }
+        |> Repo.insert!()
 
-      build_conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "force_powers" => %{
-        "0" => %{"id" => force_power.id, "force_power_upgrades" => %{
-            "0" => %{"name" => "", "description" => ""},
-            "1" => %{"name" => "", "description" => "", "id" => force_power_upgrade.id}
-        }}
-      }})
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> put("/c/#{character.permalink}", %{
+        "character" => %{},
+        "force_powers" => %{
+          "0" => %{
+            "id" => force_power.id,
+            "force_power_upgrades" => %{
+              "0" => %{"name" => "", "description" => ""},
+              "1" => %{"name" => "", "description" => "", "id" => force_power_upgrade.id}
+            }
+          }
+        }
+      })
 
       [force_power] = ForcePower.for_character(character.id)
 
@@ -805,21 +1171,29 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "deletes any force power upgrades for that character that were not specified in the update" do
-      character = CharacterFactory.create_character
+      character = CharacterFactory.create_character()
 
-      force_power = %ForcePower{
-        name: "Sandwich Artistry",
-        character_id: character.id
-      } |> Repo.insert!
+      force_power =
+        %ForcePower{
+          name: "Sandwich Artistry",
+          character_id: character.id
+        }
+        |> Repo.insert!()
 
       %ForcePowerUpgrade{
         name: "Double Meat",
         force_power_id: force_power.id
-      } |> Repo.insert!
+      }
+      |> Repo.insert!()
 
-      build_conn() |> authenticate_as(UserFactory.default_user) |> put("/c/#{character.permalink}", %{"character" => %{}, "force_powers" => %{
-        "0" => %{"id" => force_power.id, "name" => "foo"}
-      }})
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> put("/c/#{character.permalink}", %{
+        "character" => %{},
+        "force_powers" => %{
+          "0" => %{"id" => force_power.id, "name" => "foo"}
+        }
+      })
 
       [force_power] = ForcePower.for_character(character.id)
 
@@ -833,11 +1207,14 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "requires the current user to match the owning user" do
-      owner = UserFactory.default_user
+      owner = UserFactory.default_user()
       other = UserFactory.create_user!(username: "other")
       character = CharacterFactory.create_character(user_id: owner.id)
 
-      conn = build_conn() |> authenticate_as(other) |> put("/c/#{character.permalink}", %{"character" => %{}})
+      conn =
+        build_conn()
+        |> authenticate_as(other)
+        |> put("/c/#{character.permalink}", %{"character" => %{}})
 
       assert is_redirect_to?(conn, "/")
     end
@@ -845,7 +1222,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
   describe "delete" do
     it "deletes a character and all associated records" do
-      character = CharacterFactory.create_character
+      character = CharacterFactory.create_character()
 
       base_skill = BaseSkill.by_name("Astrogation")
 
@@ -853,12 +1230,15 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         base_skill_id: base_skill.id,
         character_id: character.id,
         rank: 5
-      } |> Repo.insert!
+      }
+      |> Repo.insert!()
 
-      build_conn() |> authenticate_as(UserFactory.default_user) |> delete("/c/#{character.permalink}")
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> delete("/c/#{character.permalink}")
 
       assert is_nil(Repo.get(Character, character.id))
-      assert is_nil(Repo.one(from cs in CharacterSkill, where: cs.character_id == ^(character.id)))
+      assert is_nil(Repo.one(from cs in CharacterSkill, where: cs.character_id == ^character.id))
     end
 
     it "requires authentication" do
@@ -868,7 +1248,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "requires the current user to match the owning user" do
-      owner = UserFactory.default_user
+      owner = UserFactory.default_user()
       other = UserFactory.create_user!(username: "other")
       character = CharacterFactory.create_character(user_id: owner.id)
 
@@ -877,11 +1257,14 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert is_redirect_to?(conn, "/")
     end
   end
-  
-  it "updates current wounds" do
-    character = CharacterFactory.create_character(user_id: UserFactory.default_user.id)
 
-    conn = build_conn() |> authenticate_as(UserFactory.default_user) |> get("/c/#{character.permalink}")
+  it "updates current wounds" do
+    character = CharacterFactory.create_character(user_id: UserFactory.default_user().id)
+
+    conn =
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> get("/c/#{character.permalink}")
 
     assert String.contains?(conn.resp_body, "Edit")
     assert String.contains?(conn.resp_body, "Delete")

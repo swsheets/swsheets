@@ -5,25 +5,29 @@ defmodule EdgeBuilder.Repositories.CharacterRepo do
 
   def all(page \\ 0) do
     Repo.paginate(
-      (from c in Character,
-      order_by: [desc: c.inserted_at]),
-      page: page)
+      from(c in Character,
+        order_by: [desc: c.inserted_at]
+      ),
+      page: page
+    )
     |> callbacks_paginated()
   end
 
   def all_for_user(user_id) do
     Repo.all(
       from c in Character,
-      where: c.user_id == ^user_id,
-      order_by: [desc: c.inserted_at])
+        where: c.user_id == ^user_id,
+        order_by: [desc: c.inserted_at]
+    )
     |> Enum.map(&callbacks/1)
   end
 
   def recent do
     Repo.all(
       from c in Character,
-      order_by: [desc: c.inserted_at],
-      limit: 5)
+        order_by: [desc: c.inserted_at],
+        limit: 5
+    )
     |> Enum.map(&callbacks/1)
   end
 
@@ -35,7 +39,8 @@ defmodule EdgeBuilder.Repositories.CharacterRepo do
         where: c.url_slug == ^url_slug,
         preload: [:talents, :attacks, :character_skills],
         preload: [force_powers: :force_power_upgrades]
-    ) |> callbacks()
+    )
+    |> callbacks()
   end
 
   defp callbacks(character) do
