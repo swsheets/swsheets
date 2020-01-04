@@ -57,7 +57,7 @@
       <hr>
     </div>
     <div class="row">
-      <div class="col-sm-3 col-xs-6">
+      <div class="col-lg-3 col-xs-6">
         <div class="panel panel-default">
           <div class="panel-body soak-panel">
             <input type="text" pattern="[0-9]*" class="form-control" min=0 name="character[soak]" value="<%= get_field(@character, :soak) %>" />
@@ -67,7 +67,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-3 col-xs-6">
+      <div class="col-lg-3 col-xs-6">
         <div class="panel panel-default">
           <div class="panel-body">
             <div class="input-group">
@@ -86,7 +86,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-3 col-xs-6">
+      <div class="col-lg-3 col-xs-6">
         <div class="panel panel-default">
           <div class="panel-body">
             <div class="input-group">
@@ -105,7 +105,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-3 col-xs-6">
+      <div class="col-lg-3 col-xs-6">
         <div class="panel panel-default">
           <div class="panel-body">
             <div class="input-group">
