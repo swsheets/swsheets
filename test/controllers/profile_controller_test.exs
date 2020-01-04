@@ -7,7 +7,7 @@ defmodule EdgeBuilder.Controllers.ProfileControllerTest do
 
   describe "show" do
     it "shows the username" do
-      user = UserFactory.default_user
+      user = UserFactory.default_user()
 
       conn = build_conn() |> get("/u/#{user.username}")
 
@@ -15,7 +15,7 @@ defmodule EdgeBuilder.Controllers.ProfileControllerTest do
     end
 
     it "is case insensitive" do
-      user = UserFactory.default_user
+      user = UserFactory.default_user()
 
       conn = build_conn() |> get("/u/#{String.upcase(user.username)}")
 
@@ -24,12 +24,14 @@ defmodule EdgeBuilder.Controllers.ProfileControllerTest do
 
     test "shows a number of creations" do
       for {count, text} <- [{0, "0 Creations"}, {1, "1 Creation"}, {2, "2 Creations"}] do
-        user = UserFactory.create_user!
+        user = UserFactory.create_user!()
 
         Stream.cycle([
-          fn () -> CharacterFactory.create_character(user_id: user.id) end,
-          fn () -> VehicleFactory.create_vehicle(user_id: user.id) end
-        ]) |> Stream.take(count) |> Enum.map(&(&1.()))
+          fn -> CharacterFactory.create_character(user_id: user.id) end,
+          fn -> VehicleFactory.create_vehicle(user_id: user.id) end
+        ])
+        |> Stream.take(count)
+        |> Enum.map(& &1.())
 
         conn = build_conn() |> get("/u/#{user.username}")
 
@@ -38,8 +40,12 @@ defmodule EdgeBuilder.Controllers.ProfileControllerTest do
     end
 
     it "shows a list of characters they have created" do
-      user = UserFactory.default_user
-      characters = [CharacterFactory.create_character(user_id: user.id), CharacterFactory.create_character(user_id: user.id)]
+      user = UserFactory.default_user()
+
+      characters = [
+        CharacterFactory.create_character(user_id: user.id),
+        CharacterFactory.create_character(user_id: user.id)
+      ]
 
       conn = build_conn() |> get("/u/#{user.username}")
 
@@ -49,8 +55,12 @@ defmodule EdgeBuilder.Controllers.ProfileControllerTest do
     end
 
     it "shows a list of vehicles they have created" do
-      user = UserFactory.default_user
-      vehicles = [VehicleFactory.create_vehicle(user_id: user.id), VehicleFactory.create_vehicle(user_id: user.id)]
+      user = UserFactory.default_user()
+
+      vehicles = [
+        VehicleFactory.create_vehicle(user_id: user.id),
+        VehicleFactory.create_vehicle(user_id: user.id)
+      ]
 
       conn = build_conn() |> get("/u/#{user.username}")
 
@@ -62,48 +72,60 @@ defmodule EdgeBuilder.Controllers.ProfileControllerTest do
 
   describe "my_creations" do
     it "displays a link to create a new character" do
-      conn = build_conn() |> authenticate_as(UserFactory.default_user) |> get("/my-creations")
+      conn = build_conn() |> authenticate_as(UserFactory.default_user()) |> get("/my-creations")
 
       assert conn.status == 200
-      assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.character_path(conn, :new))
+
+      assert String.contains?(
+               conn.resp_body,
+               EdgeBuilder.Router.Helpers.character_path(conn, :new)
+             )
     end
 
     it "displays links for each character" do
-      user = UserFactory.default_user
+      user = UserFactory.default_user()
 
       characters = [
         CharacterFactory.create_character(name: "Frank", user_id: user.id),
         CharacterFactory.create_character(name: "Boba Fett", user_id: user.id)
       ]
 
-      conn = build_conn() |> authenticate_as(UserFactory.default_user) |> get("/my-creations")
+      conn = build_conn() |> authenticate_as(UserFactory.default_user()) |> get("/my-creations")
 
       for character <- characters do
         assert String.contains?(conn.resp_body, character.name)
-        assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.character_path(conn, :show, character))
+
+        assert String.contains?(
+                 conn.resp_body,
+                 EdgeBuilder.Router.Helpers.character_path(conn, :show, character)
+               )
       end
     end
 
     it "displays a link to create a new vehicle" do
-      conn = build_conn() |> authenticate_as(UserFactory.default_user) |> get("/my-creations")
+      conn = build_conn() |> authenticate_as(UserFactory.default_user()) |> get("/my-creations")
 
       assert conn.status == 200
       assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.vehicle_path(conn, :new))
     end
 
     it "displays links for each vehicle" do
-      user = UserFactory.default_user
+      user = UserFactory.default_user()
 
       vehicles = [
         VehicleFactory.create_vehicle(name: "Boo Bar", user_id: user.id),
         VehicleFactory.create_vehicle(name: "The Flier", user_id: user.id)
       ]
 
-      conn = build_conn() |> authenticate_as(UserFactory.default_user) |> get("/my-creations")
+      conn = build_conn() |> authenticate_as(UserFactory.default_user()) |> get("/my-creations")
 
       for vehicle <- vehicles do
         assert String.contains?(conn.resp_body, vehicle.name)
-        assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.vehicle_path(conn, :show, vehicle))
+
+        assert String.contains?(
+                 conn.resp_body,
+                 EdgeBuilder.Router.Helpers.vehicle_path(conn, :show, vehicle)
+               )
       end
     end
 

@@ -8,7 +8,7 @@ defmodule Mix.Tasks.Seed do
 
   @moduledoc @shortdoc
   def run(_) do
-    Mix.Task.run "app.start"
+    Mix.Task.run("app.start")
     seed_skills()
   end
 
@@ -105,12 +105,12 @@ defmodule Mix.Tasks.Seed do
       %{
         name: "Brawl",
         characteristics: ["Brawn"],
-        is_attack_skill: true,
+        is_attack_skill: true
       },
       %{
         name: "Gunnery",
         characteristics: ["Agility"],
-        is_attack_skill: true,
+        is_attack_skill: true
       },
       %{
         name: "Lightsaber",
@@ -120,17 +120,17 @@ defmodule Mix.Tasks.Seed do
       %{
         name: "Melee",
         characteristics: ["Brawn"],
-        is_attack_skill: true,
+        is_attack_skill: true
       },
       %{
         name: "Ranged: Light",
         characteristics: ["Agility"],
-        is_attack_skill: true,
+        is_attack_skill: true
       },
       %{
         name: "Ranged: Heavy",
         characteristics: ["Agility"],
-        is_attack_skill: true,
+        is_attack_skill: true
       },
       %{
         name: "Knowledge: Core Worlds",
@@ -159,12 +159,12 @@ defmodule Mix.Tasks.Seed do
       %{
         name: "Knowledge: Xenology",
         characteristics: ["Intellect"]
-      },
+      }
     ]
 
     base_skills
-    |> Enum.with_index
-    |> Enum.map( fn({skill, i}) ->
+    |> Enum.with_index()
+    |> Enum.map(fn {skill, i} ->
       Map.put(skill, :display_order, i)
       |> insert_or_update_skill
     end)
@@ -172,8 +172,8 @@ defmodule Mix.Tasks.Seed do
 
   defp insert_or_update_skill(base_skill = %{name: name}) do
     case BaseSkill.by_name(name) do
-      nil -> BaseSkill.changeset(base_skill) |> Repo.insert!
-      current_skill -> BaseSkill.changeset(current_skill, base_skill) |> Repo.update!
+      nil -> BaseSkill.changeset(base_skill) |> Repo.insert!()
+      current_skill -> BaseSkill.changeset(current_skill, base_skill) |> Repo.update!()
     end
   end
 end
