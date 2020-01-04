@@ -1,5 +1,10 @@
 .main-form {
-  padding-top: 50px;
+  padding-top: 59px;
+}
+
+.attack .form-inline .form-control,
+.attachment .form-inline .form-control {
+  width: 100%;
 }
 
 .addon-core-attr {
