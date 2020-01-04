@@ -107,9 +107,9 @@ defmodule EdgeBuilder.Models.User do
     end
   end
 
-  defp password_matches?(nil, _), do: Comeonin.Bcrypt.dummy_checkpw
+  defp password_matches?(nil, _), do: Bcrypt.no_user_verify
   defp password_matches?(user, pw) do
-    Comeonin.Bcrypt.checkpw(pw, user.crypted_password)
+    Bcrypt.verify_pass(pw, user.crypted_password)
   end
 
   defp crypt_password_if_present(changeset) do
@@ -120,6 +120,6 @@ defmodule EdgeBuilder.Models.User do
   end
 
   def crypt_password(pw) do
-    Comeonin.Bcrypt.hashpwsalt(pw)
+    Bcrypt.hash_pwd_salt(pw)
   end
 end
