@@ -17,25 +17,33 @@ defmodule Factories.UserFactory do
   # however, there is one annoying test that requires this version to test user errors.
   # so until then, it remains.
   def create_user(overrides \\ []) do
-    overrides = if is_nil(overrides[:username]) do
-      Keyword.put(overrides, :username, @defaults[:username] <> Integer.to_string(next_counter()))
-    else
-      overrides
-    end
+    overrides =
+      if is_nil(overrides[:username]) do
+        Keyword.put(
+          overrides,
+          :username,
+          @defaults[:username] <> Integer.to_string(next_counter())
+        )
+      else
+        overrides
+      end
 
-    overrides = if is_nil(overrides[:email]) do
-      Keyword.put(overrides, :email, @defaults[:email] <> Integer.to_string(next_counter()))
-    else
-      overrides
-    end
+    overrides =
+      if is_nil(overrides[:email]) do
+        Keyword.put(overrides, :email, @defaults[:email] <> Integer.to_string(next_counter()))
+      else
+        overrides
+      end
 
-    overrides = if !is_nil(overrides[:password]) do
-      Keyword.put(overrides, :crypted_password, User.crypt_password(overrides[:password]))
-    else
-      overrides
-    end
+    overrides =
+      if !is_nil(overrides[:password]) do
+        Keyword.put(overrides, :crypted_password, User.crypt_password(overrides[:password]))
+      else
+        overrides
+      end
+
     params = Enum.into(overrides, @defaults)
-    User.changeset(%User{}, :create, params) |> Repo.insert
+    User.changeset(%User{}, :create, params) |> Repo.insert()
   end
 
   def create_user!(overrides \\ []) do
@@ -43,14 +51,13 @@ defmodule Factories.UserFactory do
     user
   end
 
-  @token Ecto.UUID.generate
+  @token Ecto.UUID.generate()
   def add_password_reset_token(user) do
-    User.changeset(user, :password_reset, %{password_reset_token: @token}) |> Repo.update!
+    User.changeset(user, :password_reset, %{password_reset_token: @token}) |> Repo.update!()
   end
 
-
   def set_contributions(user, overrides) do
-    User.changeset(user, :contributions, Enum.into(overrides, %{})) |> Repo.update!
+    User.changeset(user, :contributions, Enum.into(overrides, %{})) |> Repo.update!()
   end
 
   @default_username "phil"

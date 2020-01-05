@@ -18,8 +18,7 @@ config :edge_builder, EdgeBuilder.Endpoint,
   debug_errors: false,
   render_errors: [view: EdgeBuilder.ErrorView, accepts: ~w(html json)],
   code_reloader: false,
-  pubsub: [name: EdgeBuilder.PubSub,
-           adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: EdgeBuilder.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -28,15 +27,16 @@ config :logger, :console,
 
 config :edge_builder, EdgeBuilder.Repo,
   adapter: Ecto.Adapters.Postgres,
-  database: "edgebuilder_development",
-  username: "pair",
-  hostname: "localhost",
-  pool_size: 10,
-  port: 5434
+  username: System.get_env("DB_USER") || "pair",
+  password: System.get_env("DB_PASSWORD") || "",
+  database: System.get_env("DB_NAME") || "edgebuilder_development",
+  hostname: System.get_env("DB_HOST") || "localhost",
+  port: System.get_env("DB_PORT") || 5432,
+  pool_size: 10
 
 config :edge_builder,
   application_name: "SWSheets"
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
-import_config "#{Mix.env}.exs"
+import_config "#{Mix.env()}.exs"

@@ -29,14 +29,16 @@ defmodule EdgeBuilder.Controllers.SignupControllerTest do
 
   describe "signup" do
     it "creates a new user" do
-      conn = build_conn() |> post("/signup", %{
-        "signup" => %{
-          "email" => "test@example.com",
-          "username" => "test",
-          "password" => "my$good14password15is_verylong",
-          "password_confirmation" => "my$good14password15is_verylong"
-        }
-      })
+      conn =
+        build_conn()
+        |> post("/signup", %{
+          "signup" => %{
+            "email" => "test@example.com",
+            "username" => "test",
+            "password" => "my$good14password15is_verylong",
+            "password_confirmation" => "my$good14password15is_verylong"
+          }
+        })
 
       user = Repo.one(from u in User, where: u.username == "test")
 
@@ -52,16 +54,20 @@ defmodule EdgeBuilder.Controllers.SignupControllerTest do
     it "renders an error if the username is already taken" do
       UserFactory.create_user!(username: "bobafett")
 
-      conn = build_conn() |> post("/signup", %{
-        "signup" => %{
-          "email" => "test@example.com",
-          "username" => "bobafett",
-          "password" => "my$good14password15is_verylong",
-          "password_confirmation" => "my$good14password15is_verylong"
-        }
-      })
+      conn =
+        build_conn()
+        |> post("/signup", %{
+          "signup" => %{
+            "email" => "test@example.com",
+            "username" => "bobafett",
+            "password" => "my$good14password15is_verylong",
+            "password_confirmation" => "my$good14password15is_verylong"
+          }
+        })
 
-      assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text == "Username has already been taken"
+      assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text() ==
+               "Username has already been taken"
+
       assert String.contains?(conn.resp_body, "test@example.com")
       assert String.contains?(conn.resp_body, "bobafett")
     end
@@ -71,12 +77,14 @@ defmodule EdgeBuilder.Controllers.SignupControllerTest do
     it "logs the user in when they supply the correct password" do
       user = UserFactory.create_user!(password: "floopowder", password_confirmation: "floopowder")
 
-      conn = build_conn() |> post("/login", %{
-        "login" => %{
-          "username" => user.username,
-          "password" => "floopowder"
-        }
-      })
+      conn =
+        build_conn()
+        |> post("/login", %{
+          "login" => %{
+            "username" => user.username,
+            "password" => "floopowder"
+          }
+        })
 
       assert conn.status == 302
       assert Plug.Conn.get_session(conn, :current_user_id) == user.id
@@ -86,53 +94,65 @@ defmodule EdgeBuilder.Controllers.SignupControllerTest do
     it "displays an error message when the login's password doesn't match" do
       user = UserFactory.create_user!(password: "floopowder", password_confirmation: "floopowder")
 
-      conn = build_conn() |> post("/login", %{
-        "login" => %{
-          "username" => user.username,
-          "password" => "diagonally"
-        }
-      })
+      conn =
+        build_conn()
+        |> post("/login", %{
+          "login" => %{
+            "username" => user.username,
+            "password" => "diagonally"
+          }
+        })
 
-      assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text == "No matching username and password could be found"
+      assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text() ==
+               "No matching username and password could be found"
     end
 
     it "displays an error message when the login's username doesn't exist" do
-      conn = build_conn() |> post("/login", %{
-        "login" => %{
-          "username" => "harry potter",
-          "password" => "diagonally"
-        }
-      })
+      conn =
+        build_conn()
+        |> post("/login", %{
+          "login" => %{
+            "username" => "harry potter",
+            "password" => "diagonally"
+          }
+        })
 
-      assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text == "No matching username and password could be found"
+      assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text() ==
+               "No matching username and password could be found"
     end
 
     it "displays an error message when the username field is empty" do
-      conn = build_conn() |> post("/login", %{
-        "login" => %{
-          "username" => nil,
-          "password" => "diagonally"
-        }
-      })
+      conn =
+        build_conn()
+        |> post("/login", %{
+          "login" => %{
+            "username" => nil,
+            "password" => "diagonally"
+          }
+        })
 
-      assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text == "Username or password cannot be empty"
+      assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text() ==
+               "Username or password cannot be empty"
     end
 
     it "displays an error message when the password field is empty" do
-      conn = build_conn() |> post("/login", %{
-        "login" => %{
-          "username" => "harry potter",
-          "password" => nil
-        }
-      })
+      conn =
+        build_conn()
+        |> post("/login", %{
+          "login" => %{
+            "username" => "harry potter",
+            "password" => nil
+          }
+        })
 
-      assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text == "Username or password cannot be empty"
+      assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text() ==
+               "Username or password cannot be empty"
     end
   end
 
   describe "logout" do
     it "logs out the user" do
-      conn = build_conn() |> authenticate_as(UserFactory.default_user) |> post("/logout")
+      conn = build_conn() |> authenticate_as(UserFactory.default_user()) |> post("/logout")
 
       assert is_redirect_to?(conn, "/")
       assert is_nil(Plug.Conn.get_session(conn, :current_user_id))

@@ -1,5 +1,10 @@
 .main-form {
-  padding-top: 50px;
+  padding-top: 59px;
+}
+
+.attack .form-inline .form-control,
+.attachment .form-inline .form-control {
+  width: 100%;
 }
 
 .addon-core-attr {
@@ -33,7 +38,8 @@
   margin-bottom: 0px;
 }
 
-.defense-container .base, .defense-container .current {
+.defense-container .base,
+.defense-container .current {
   display: inline-block;
   width: 80px;
   font-size: 12px;
@@ -48,12 +54,14 @@
   padding-top: 4px;
 }
 
-.defense-container .base .panel-footer, .defense-container .base.panel {
+.defense-container .base .panel-footer,
+.defense-container .base.panel {
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
 }
 
-.defense-container .current .panel-footer, .defense-container .current.panel {
+.defense-container .current .panel-footer,
+.defense-container .current.panel {
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
 }
@@ -98,8 +106,9 @@
   border-top-width: 0px !important;
 }
 
-.child-table td, .child-table .form-group {
-  margin:0px;
+.child-table td,
+.child-table .form-group {
+  margin: 0px;
 }
 
 .child-table label {

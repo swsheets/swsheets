@@ -1,26 +1,57 @@
 .main-form {
-  padding-top: 50px;
+  padding-top: 59px;
 }
 
 .soak-panel {
-   padding-top: 32px;
-   padding-bottom: 32px;
+  padding-top: 37px;
+  padding-bottom: 37px;
 }
 
 .addon-core-attr {
-  width: 90px;
+  width: 80px;
+}
+
+.addon-core-attr-threshold {
+  font-size: 11px;
+}
+
+@media (max-width: 992px) and (min-width: 768px) {
+  .addon-core-attr {
+    width: 76px;
+    font-size: 11px;
+  }
+
+  .addon-core-attr-threshold {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .addon-core-attr {
+    width: 67px;
+    font-size: 10px;
+  }
+
+  .addon-core-attr-threshold {
+    font-size: 8px;
+  }
 }
 
 .attack-second-row td {
   border-top-width: 0px !important;
 }
 
-.attack-table td, .attack-table .form-group {
-  margin:0px;
+.attack-table td,
+.attack-table .form-group {
+  margin: 0px;
 }
 
 .attack-table label {
   font-size: 12px;
+}
+
+.attack-table .form-inline .form-control {
+  width: 100%;
 }
 
 .navbar-btn {
@@ -31,16 +62,23 @@
   display: block;
 }
 
-.select-button .btn-default:hover, .select-button .btn-default:focus,.select-button .btn-default:active {
+.select-button .btn-default:hover,
+.select-button .btn-default:focus,
+.select-button .btn-default:active {
   background-color: #fff;
 }
 
 #systemButton {
   margin-right: -30px;
   padding-left: 20px;
+  color: #2c3e50;
+  background-color: #ffffff;
+  border: 1px solid #dce4ec;
+  height: 45px;
 }
 
-#systemButton, .select-button .dropdown-menu {
+#systemButton,
+.select-button .dropdown-menu {
   width: 100%;
   text-align: left;
 }
@@ -50,8 +88,16 @@
   z-index: 1000;
 }
 
-#systemButton, .select-button a {
+#systemButton,
+.select-button a {
   padding: 2px !important;
+}
+
+#systemDropdown {
+  color: #2c3e50;
+  background-color: #ffffff;
+  border: 1px solid #dce4ec;
+  height: 45px;
 }
 
 .system-logo {

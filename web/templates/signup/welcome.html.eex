@@ -12,7 +12,6 @@
   .col-md-offset-2 {
     margin-top: 70px;
   }
-
   .col-md-1 {
     height: 100%;
   }
@@ -21,7 +20,7 @@
     display: none;
   }
 
-  .col-md-5 {
+  .col-md-6 {
     margin-bottom: 70px;
   }
 

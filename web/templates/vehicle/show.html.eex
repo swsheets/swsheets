@@ -4,10 +4,8 @@
 
 <div class='row main-form'>
   <div class="<%= if is_nil(get_field(@vehicle, :portrait_url)), do: "col-md-12", else: "col-md-8" %>">
-    <div class='row'>
-      <h3>Vehicle Name</h3>
-      <h2><%= get_field(@vehicle, :name) %> <small>by <%= profile_link(@conn, @user, 15) %></small></h2>
-    </div>
+    <h3>Vehicle Name</h3>
+    <h2><%= get_field(@vehicle, :name) %> <small>by <%= profile_link(@conn, @user, 15) %></small></h2>
     <div class='row'>
       <div class='col-sm-2'>
         <h5>Type</h5>
@@ -291,6 +289,20 @@
     <h4>Notes</h4>
     <div class="long-text"><%= render_text(@vehicle, :notes) %></div>
   </div>
+</div>
+
+<%= if @viewed_by_owner do %>
+<div class="row">
+  <h4 class="private-notes">Private Notes&nbsp;
+    <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Notes for your vehicle that only you can see."></span>
+  </h4>
+  <div class="col-md-12">
+    <div class="long-text"><%= render_text(@vehicle, :private_notes) %></div>
+  </div>
+</div>
+<% end %>
+
+<div class="row">
   <div class='col-sm-12'>
     <p class="text-center return-box">
       <a href="#">Return to Top</a>

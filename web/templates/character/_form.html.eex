@@ -57,7 +57,7 @@
       <hr>
     </div>
     <div class="row">
-      <div class="col-sm-3 col-xs-6">
+      <div class="col-lg-3 col-xs-6">
         <div class="panel panel-default">
           <div class="panel-body soak-panel">
             <input type="text" pattern="[0-9]*" class="form-control" min=0 name="character[soak]" value="<%= get_field(@character, :soak) %>" />
@@ -67,11 +67,11 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-3 col-xs-6">
+      <div class="col-lg-3 col-xs-6">
         <div class="panel panel-default">
           <div class="panel-body">
             <div class="input-group">
-              <div class="input-group-addon addon-core-attr">Threshold</div>
+              <div class="input-group-addon addon-core-attr addon-core-attr-threshold">Threshold</div>
               <label for="character[wounds_threshold]" class="sr-only">Wound Threshold</label>
               <input type="text" pattern="[0-9]*" step="1" class="form-control" min=0 name="character[wounds_threshold]" value="<%= get_field(@character, :wounds_threshold) %>" />
             </div>
@@ -86,11 +86,11 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-3 col-xs-6">
+      <div class="col-lg-3 col-xs-6">
         <div class="panel panel-default">
           <div class="panel-body">
             <div class="input-group">
-              <div class="input-group-addon addon-core-attr">Threshold</div>
+              <div class="input-group-addon addon-core-attr addon-core-attr-threshold">Threshold</div>
               <label for="character[strain_threshold]" class="sr-only">Strain Threshold</label>
               <input type="text" pattern="[0-9]*" step="1" class="form-control" min=0 name="character[strain_threshold]" value="<%= get_field(@character, :strain_threshold) %>" />
             </div>
@@ -105,7 +105,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-3 col-xs-6">
+      <div class="col-lg-3 col-xs-6">
         <div class="panel panel-default">
           <div class="panel-body">
             <div class="input-group">
@@ -327,6 +327,15 @@
   <h4>Other Notes</h4>
   <div class='col-md-12'>
     <textarea name="character[other_notes]" rows=10 class="form-control"><%= get_field(@character, :other_notes) %></textarea>
+  </div>
+</div>
+
+<div class="row">
+  <h4 class="private-notes">Private Notes&nbsp;
+    <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Notes for your character that only you can see."></span>
+  </h4>
+  <div class="col-md-12">
+    <textarea name="character[private_notes]" rows=10 class="form-control"><%= get_field(@character, :private_notes) %></textarea>
   </div>
 </div>
 

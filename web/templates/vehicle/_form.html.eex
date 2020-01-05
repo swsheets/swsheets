@@ -289,6 +289,18 @@
     <h4>Notes</h4>
     <textarea name="vehicle[notes]" rows=15 class="form-control"><%= get_field(@vehicle, :notes) %></textarea>
   </div>
+</div>
+
+<div class="row">
+  <h4 class="private-notes">Private Notes&nbsp;
+    <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Notes for your vehicle that only you can see."></span>
+  </h4>
+  <div class="col-md-12">
+    <textarea name="vehicle[private_notes]" rows=10 class="form-control"><%= get_field(@vehicle, :private_notes) %></textarea>
+  </div>
+</div>
+
+</div class="row">
   <div class='col-sm-12'>
     <p class="text-center return-box">
       <a href="#">Return to Top</a>

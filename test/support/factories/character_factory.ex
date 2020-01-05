@@ -13,15 +13,19 @@ defmodule Factories.CharacterFactory do
   }
 
   def create_character(overrides \\ []) do
-    overrides = if is_nil(overrides[:name]) do
-      Keyword.put(overrides, :name, @defaults[:name] <> Integer.to_string(next_counter()))
-    else
-      overrides
-    end
-    params = Enum.into(overrides, @defaults)
-    user_id = params[:user_id] || UserFactory.default_user.id
+    overrides =
+      if is_nil(overrides[:name]) do
+        Keyword.put(overrides, :name, @defaults[:name] <> Integer.to_string(next_counter()))
+      else
+        overrides
+      end
 
-    Character.changeset(%Character{}, user_id, parameterize(params)) |> Repo.insert! |> Character.set_permalink
+    params = Enum.into(overrides, @defaults)
+    user_id = params[:user_id] || UserFactory.default_user().id
+
+    Character.changeset(%Character{}, user_id, parameterize(params))
+    |> Repo.insert!()
+    |> Character.set_permalink()
   end
 
   def default_parameters do

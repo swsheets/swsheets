@@ -15,7 +15,8 @@ defmodule EdgeBuilder.Models.UserTest do
     it "returns false when the password does not match" do
       user = UserFactory.create_user!(password: "rockabilly", password_confirmation: "rockabilly")
 
-      assert {:error, ["No user with that password could be found"]} == User.authenticate(user.username, "classical")
+      assert {:error, ["No user with that password could be found"]} ==
+               User.authenticate(user.username, "classical")
     end
   end
 
@@ -39,10 +40,20 @@ defmodule EdgeBuilder.Models.UserTest do
     end
 
     it "generates an error when the password and confirmation do not match" do
-      changeset = User.changeset(%User{}, :create, %{"password" => "hot dogs", "password_confirmation" => "cream cheese"})
+      changeset =
+        User.changeset(%User{}, :create, %{
+          "password" => "hot dogs",
+          "password_confirmation" => "cream cheese"
+        })
+
       assert has_error?(changeset, :password, "does not match the confirmation")
 
-      changeset = User.changeset(%User{}, :create, %{"password" => "cream cheese", "password_confirmation" => "cream cheese"})
+      changeset =
+        User.changeset(%User{}, :create, %{
+          "password" => "cream cheese",
+          "password_confirmation" => "cream cheese"
+        })
+
       assert !has_error?(changeset, :password, "does not match the confirmation")
     end
 
@@ -71,10 +82,14 @@ defmodule EdgeBuilder.Models.UserTest do
     end
 
     it "generates an error when the username is too long" do
-      changeset = User.changeset(%User{}, :create, %{"username" => "1234567890123456789012345678901"})
+      changeset =
+        User.changeset(%User{}, :create, %{"username" => "1234567890123456789012345678901"})
+
       assert has_error?(changeset, :username, "must contain no more than 30 characters")
 
-      changeset = User.changeset(%User{}, :create, %{"username" => "123456789012345678901234567890"})
+      changeset =
+        User.changeset(%User{}, :create, %{"username" => "123456789012345678901234567890"})
+
       assert !has_error?(changeset, :username, "must contain no more than 30 characters")
     end
   end

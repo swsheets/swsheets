@@ -7,3 +7,9 @@ erl_crash.dump
 # Asset compilation
 /assets/node_modules/
 /priv/static/
+
+# Postgres data volume
+/pg_data/
+
+# Codecov
+/cover/

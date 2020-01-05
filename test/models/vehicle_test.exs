@@ -7,7 +7,7 @@ defmodule EdgeBuilder.Models.VehicleTest do
 
   describe "url_slug" do
     it "has an 9 vehicle lower-case slug after creation" do
-      vehicle = VehicleFactory.create_vehicle
+      vehicle = VehicleFactory.create_vehicle()
 
       assert String.match?(vehicle.url_slug, ~r/[0-9a-z]{9}/)
     end
@@ -43,7 +43,7 @@ defmodule EdgeBuilder.Models.VehicleTest do
 
   describe "full_vehicle" do
     it "finds a vehicle by url slug" do
-      vehicle = VehicleFactory.create_vehicle
+      vehicle = VehicleFactory.create_vehicle()
 
       found_vehicle = Vehicle.full_vehicle("#{vehicle.url_slug}-does-not-matter")
 
@@ -51,4 +51,3 @@ defmodule EdgeBuilder.Models.VehicleTest do
     end
   end
 end
-

@@ -13,7 +13,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
 
   describe "new" do
     it "renders the edit form for a new vehicle" do
-      conn = build_conn() |> authenticate_as(UserFactory.default_user) |> get("/v/new")
+      conn = build_conn() |> authenticate_as(UserFactory.default_user()) |> get("/v/new")
 
       assert conn.status == 200
       assert String.contains?(conn.resp_body, "New Vehicle")
@@ -29,7 +29,9 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
 
   describe "create" do
     it "creates a vehicle" do
-      build_conn() |> authenticate_as(UserFactory.default_user) |> post("/v", %{
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> post("/v", %{
         "vehicle" => %{
           "armor" => "3",
           "cargo" => "1 wookie rug (missing)",
@@ -64,20 +66,45 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
           "speed" => "5",
           "strain_current" => "6",
           "strain_threshold" => "15",
-          "type" => "Ship"
+          "type" => "Ship",
+          "private_notes" => "Shh, don't let anybody see these."
         },
         "attachments" => %{
-          "0" => %{"base_modifiers" => "Goes real fast like", "display_order" => "0", "hard_points_required" => "0", "id" => nil, "modifications" => "pow!", "name" => "Boost mode"}
+          "0" => %{
+            "base_modifiers" => "Goes real fast like",
+            "display_order" => "0",
+            "hard_points_required" => "0",
+            "id" => nil,
+            "modifications" => "pow!",
+            "name" => "Boost mode"
+          }
         },
         "attacks" => %{
-          "0" => %{"critical" => "3", "damage" => "7", "display_order" => "1", "firing_arc" => "All", "id" => nil, "range" => "Short", "specials" => "Pierce 2", "weapon_name" => "Dorsal Turbolaser"},
-          "1" => %{"critical" => "2", "damage" => "11", "display_order" => "0", "firing_arc" => "Forward", "range" => "Medium", "specials" => "Blast 2", "weapon_name" => "Concussion Missile"}
-        },
+          "0" => %{
+            "critical" => "3",
+            "damage" => "7",
+            "display_order" => "1",
+            "firing_arc" => "All",
+            "id" => nil,
+            "range" => "Short",
+            "specials" => "Pierce 2",
+            "weapon_name" => "Dorsal Turbolaser"
+          },
+          "1" => %{
+            "critical" => "2",
+            "damage" => "11",
+            "display_order" => "0",
+            "firing_arc" => "Forward",
+            "range" => "Medium",
+            "specials" => "Blast 2",
+            "weapon_name" => "Concussion Missile"
+          }
+        }
       })
 
       vehicle = Repo.all(Vehicle) |> Enum.at(0)
 
-      assert vehicle.user_id == UserFactory.default_user.id
+      assert vehicle.user_id == UserFactory.default_user().id
       assert vehicle.armor == 3
       assert vehicle.cargo == "1 wookie rug (missing)"
       assert vehicle.consumables == "1 week"
@@ -112,6 +139,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
       assert vehicle.strain_current == 6
       assert vehicle.strain_threshold == 15
       assert vehicle.type == "Ship"
+      assert vehicle.private_notes == "Shh, don't let anybody see these."
 
       [first_attack, second_attack] = VehicleAttack.for_vehicle(vehicle.id)
 
@@ -140,20 +168,37 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
     end
 
     it "redirects to the vehicle show page on success" do
-      conn = build_conn() |> authenticate_as(UserFactory.default_user) |> post("/v", %{ "vehicle" => %{"name" => "The Foobar"} })
+      conn =
+        build_conn()
+        |> authenticate_as(UserFactory.default_user())
+        |> post("/v", %{"vehicle" => %{"name" => "The Foobar"}})
 
-      vehicle = Repo.all(Vehicle) |> Enum.at(0) |> Vehicle.set_permalink
+      vehicle = Repo.all(Vehicle) |> Enum.at(0) |> Vehicle.set_permalink()
 
       assert is_redirect_to?(conn, "/v/#{vehicle.permalink}")
     end
 
     it "re-renders the page with an error when required fields are missing" do
-      conn = build_conn() |> authenticate_as(UserFactory.default_user) |> post("/v", %{
-        "vehicle" => %{"name" => "", "faction" => "thin mints"},
-        "attacks" => %{"0" => %{"critical" => "3", "damage" => "7", "display_order" => "1", "firing_arc" => "All", "id" => nil, "range" => "Short", "specials" => "Pierce 2", "weapon_name" => "Dorsal Turbolaser"}},
-      })
+      conn =
+        build_conn()
+        |> authenticate_as(UserFactory.default_user())
+        |> post("/v", %{
+          "vehicle" => %{"name" => "", "faction" => "thin mints"},
+          "attacks" => %{
+            "0" => %{
+              "critical" => "3",
+              "damage" => "7",
+              "display_order" => "1",
+              "firing_arc" => "All",
+              "id" => nil,
+              "range" => "Short",
+              "specials" => "Pierce 2",
+              "weapon_name" => "Dorsal Turbolaser"
+            }
+          }
+        })
 
-      assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text == "Name can't be blank"
+      assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text() == "Name can't be blank"
       assert String.contains?(conn.resp_body, "thin mints")
       assert !is_nil(FlokiExt.element(conn, "[data-attack=0]"))
       assert !is_nil(FlokiExt.element(conn, "[data-attachment=0]"))
@@ -161,16 +206,33 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
     end
 
     it "doesn't create empty attacks or attachments" do
-      build_conn() |> authenticate_as(UserFactory.default_user) |> post("/v", %{
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> post("/v", %{
         "vehicle" => %{"name" => "The Foobar"},
         "attachments" => %{
-          "0" => %{"base_modifiers" => "", "display_order" => "0", "hard_points_required" => "", "modifications" => "", "name" => ""}
+          "0" => %{
+            "base_modifiers" => "",
+            "display_order" => "0",
+            "hard_points_required" => "",
+            "modifications" => "",
+            "name" => ""
+          }
         },
         "attacks" => %{
-          "0" => %{"critical" => "", "damage" => "", "display_order" => "1", "firing_arc" => "", "id" => nil, "range" => "", "specials" => "", "weapon_name" => ""},
-        },
+          "0" => %{
+            "critical" => "",
+            "damage" => "",
+            "display_order" => "1",
+            "firing_arc" => "",
+            "id" => nil,
+            "range" => "",
+            "specials" => "",
+            "weapon_name" => ""
+          }
+        }
       })
- 
+
       vehicle = Repo.all(Vehicle) |> Enum.at(0)
 
       assert Enum.empty?(VehicleAttack.for_vehicle(vehicle.id))
@@ -189,40 +251,63 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
       conn = build_conn() |> get("/v")
 
       assert conn.status == 200
-      assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.vehicle_path(conn, :index))
+
+      assert String.contains?(
+               conn.resp_body,
+               EdgeBuilder.Router.Helpers.vehicle_path(conn, :index)
+             )
     end
 
     it "displays links for each vehicle regardless of creator" do
       vehicles = [
-        VehicleFactory.create_vehicle(name: "Frank", user_id: UserFactory.default_user.id),
-        VehicleFactory.create_vehicle(name: "Boba Fett", user_id: UserFactory.create_user!.id)
+        VehicleFactory.create_vehicle(name: "Frank", user_id: UserFactory.default_user().id),
+        VehicleFactory.create_vehicle(name: "Boba Fett", user_id: UserFactory.create_user!().id)
       ]
 
       conn = build_conn() |> get("/v")
 
       for vehicle <- vehicles do
         assert String.contains?(conn.resp_body, vehicle.name)
-        assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.vehicle_path(conn, :show, vehicle))
+
+        assert String.contains?(
+                 conn.resp_body,
+                 EdgeBuilder.Router.Helpers.vehicle_path(conn, :show, vehicle)
+               )
       end
     end
   end
 
   describe "show" do
     it "renders the vehicle show form" do
-      vehicle = VehicleFactory.create_vehicle
+      vehicle = VehicleFactory.create_vehicle()
       conn = build_conn() |> get("/v/#{vehicle.permalink}")
 
       assert conn.status == 200
       assert String.contains?(conn.resp_body, vehicle.name)
     end
 
-    it "displays edit and delete buttons when viewed by the owner" do
+    it "displays owner-only elements when viewed by the owner" do
       vehicle = VehicleFactory.create_vehicle(user_id: UserFactory.default_user.id)
 
-      conn = build_conn() |> authenticate_as(UserFactory.default_user) |> get("/v/#{vehicle.permalink}")
+      conn =
+        build_conn()
+        |> authenticate_as(UserFactory.default_user())
+        |> get("/v/#{vehicle.permalink}")
 
       assert String.contains?(conn.resp_body, "Edit")
       assert String.contains?(conn.resp_body, "Delete")
+      assert String.contains?(conn.resp_body, "Private Notes")
+    end
+
+    it "does not display owner-only elements when viewed by another" do
+      another = UserFactory.create_user!(username: "another")
+      vehicle = VehicleFactory.create_vehicle(user_id: UserFactory.default_user.id)
+
+      conn = build_conn() |> authenticate_as(another) |> get("/v/#{vehicle.permalink}")
+
+      assert !String.contains?(conn.resp_body, "Edit")
+      assert !String.contains?(conn.resp_body, "Delete")
+      assert !String.contains?(conn.resp_body, "Private Notes")
     end
 
     it "inserts appropriate line breaks for long text fields" do
@@ -242,39 +327,48 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
     end
 
     it "displays a link to the author's profile" do
-      vehicle = VehicleFactory.create_vehicle(user_id: UserFactory.default_user.id)
+      vehicle = VehicleFactory.create_vehicle(user_id: UserFactory.default_user().id)
 
       conn = build_conn() |> get("/v/#{vehicle.permalink}")
 
-      assert String.contains?(conn.resp_body, EdgeBuilder.Router.Helpers.profile_path(conn, :show, UserFactory.default_user))
+      assert String.contains?(
+               conn.resp_body,
+               EdgeBuilder.Router.Helpers.profile_path(conn, :show, UserFactory.default_user())
+             )
     end
   end
 
   describe "edit" do
     it "renders the vehicle edit form" do
-      vehicle = VehicleFactory.create_vehicle(user_id: UserFactory.default_user.id)
+      vehicle = VehicleFactory.create_vehicle(user_id: UserFactory.default_user().id)
 
-      vehicle_attack = %VehicleAttack{
-        weapon_name: "ship claws",
-        vehicle_id: vehicle.id
-      } |> Repo.insert!
+      vehicle_attack =
+        %VehicleAttack{
+          weapon_name: "ship claws",
+          vehicle_id: vehicle.id
+        }
+        |> Repo.insert!()
 
-      vehicle_attachment = %VehicleAttachment{
-        name: "green shell",
-        vehicle_id: vehicle.id
-      } |> Repo.insert!
+      vehicle_attachment =
+        %VehicleAttachment{
+          name: "green shell",
+          vehicle_id: vehicle.id
+        }
+        |> Repo.insert!()
 
-      conn = build_conn() |> authenticate_as(UserFactory.default_user) |> get("/v/#{vehicle.permalink}/edit")
+      conn =
+        build_conn()
+        |> authenticate_as(UserFactory.default_user())
+        |> get("/v/#{vehicle.permalink}/edit")
 
       assert String.contains?(conn.resp_body, vehicle.name)
       assert String.contains?(conn.resp_body, vehicle_attack.weapon_name)
       assert String.contains?(conn.resp_body, vehicle_attachment.name)
       assert String.contains?(conn.resp_body, "href=\"/v/#{vehicle.permalink}\">Cancel</a>")
-
     end
 
     it "requires authentication" do
-      vehicle = VehicleFactory.create_vehicle
+      vehicle = VehicleFactory.create_vehicle()
 
       conn = build_conn() |> get("/v/#{vehicle.permalink}/edit")
 
@@ -282,7 +376,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
     end
 
     it "requires the current user to match the owning user" do
-      owner = UserFactory.default_user
+      owner = UserFactory.default_user()
       other = UserFactory.create_user!(username: "other")
       vehicle = VehicleFactory.create_vehicle(user_id: owner.id)
 
@@ -296,7 +390,11 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
     it "updates the vehicle" do
       vehicle = VehicleFactory.create_vehicle(name: "Foo Bar", faction: "Goose")
 
-      build_conn() |> authenticate_as(UserFactory.default_user) |> put("/v/#{vehicle.permalink}", %{"vehicle" => %{"name" => "Bob Log", "faction" => "Bobs"}})
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> put("/v/#{vehicle.permalink}", %{
+        "vehicle" => %{"name" => "Bob Log", "faction" => "Bobs"}
+      })
 
       vehicle = Repo.get(Vehicle, vehicle.id)
 
@@ -307,7 +405,9 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
     it "handles blank appropriately" do
       vehicle = VehicleFactory.create_vehicle(name: "Foo Bar", faction: "Goose")
 
-      build_conn() |> authenticate_as(UserFactory.default_user) |> put("/v/#{vehicle.permalink}", %{"vehicle" => %{"faction" => ""}})
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> put("/v/#{vehicle.permalink}", %{"vehicle" => %{"faction" => ""}})
 
       vehicle = Repo.get(Vehicle, vehicle.id)
 
@@ -315,75 +415,96 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
     end
 
     it "redirects to the vehicle show page" do
-      vehicle = VehicleFactory.create_vehicle
+      vehicle = VehicleFactory.create_vehicle()
 
-      conn = build_conn() |> authenticate_as(UserFactory.default_user) |> put("/v/#{vehicle.permalink}", %{"vehicle" => %{"name" => "Bob Log", "faction" => "Bobs"}})
+      conn =
+        build_conn()
+        |> authenticate_as(UserFactory.default_user())
+        |> put("/v/#{vehicle.permalink}", %{
+          "vehicle" => %{"name" => "Bob Log", "faction" => "Bobs"}
+        })
 
       assert is_redirect_to?(conn, "/v/#{vehicle.permalink}")
     end
 
     it "updates child entities appropriately" do
-      vehicle = VehicleFactory.create_vehicle(user_id: UserFactory.default_user.id)
+      vehicle = VehicleFactory.create_vehicle(user_id: UserFactory.default_user().id)
 
-      unchanged_vehicle_attack = %VehicleAttack{
-        weapon_name: "ship claws",
-        display_order: 0,
-        vehicle_id: vehicle.id
-      } |> Repo.insert!
+      unchanged_vehicle_attack =
+        %VehicleAttack{
+          weapon_name: "ship claws",
+          display_order: 0,
+          vehicle_id: vehicle.id
+        }
+        |> Repo.insert!()
 
-      renamed_vehicle_attack = %VehicleAttack{
-        weapon_name: "big blaster",
-        display_order: 1,
-        vehicle_id: vehicle.id
-      } |> Repo.insert!
+      renamed_vehicle_attack =
+        %VehicleAttack{
+          weapon_name: "big blaster",
+          display_order: 1,
+          vehicle_id: vehicle.id
+        }
+        |> Repo.insert!()
 
-      _deleted_vehicle_attack = %VehicleAttack{
-        weapon_name: "missiles",
-        display_order: 2,
-        vehicle_id: vehicle.id
-      } |> Repo.insert!
+      _deleted_vehicle_attack =
+        %VehicleAttack{
+          weapon_name: "missiles",
+          display_order: 2,
+          vehicle_id: vehicle.id
+        }
+        |> Repo.insert!()
 
-      unchanged_vehicle_attachment = %VehicleAttachment{
-        name: "green shell",
-        display_order: 0,
-        vehicle_id: vehicle.id
-      } |> Repo.insert!
+      unchanged_vehicle_attachment =
+        %VehicleAttachment{
+          name: "green shell",
+          display_order: 0,
+          vehicle_id: vehicle.id
+        }
+        |> Repo.insert!()
 
-      renamed_vehicle_attachment = %VehicleAttachment{
-        name: "red shell",
-        display_order: 1,
-        vehicle_id: vehicle.id
-      } |> Repo.insert!
+      renamed_vehicle_attachment =
+        %VehicleAttachment{
+          name: "red shell",
+          display_order: 1,
+          vehicle_id: vehicle.id
+        }
+        |> Repo.insert!()
 
-      _deleted_vehicle_attachment = %VehicleAttachment{
-        name: "banana",
-        display_order: 2,
-        vehicle_id: vehicle.id
-      } |> Repo.insert!
+      _deleted_vehicle_attachment =
+        %VehicleAttachment{
+          name: "banana",
+          display_order: 2,
+          vehicle_id: vehicle.id
+        }
+        |> Repo.insert!()
 
-      build_conn() |> authenticate_as(UserFactory.default_user) |> put("/v/#{vehicle.permalink}", %{
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> put("/v/#{vehicle.permalink}", %{
         "vehicle" => %{},
         "attacks" => %{
           "0" => %{"id" => unchanged_vehicle_attack.id},
           "1" => %{"id" => renamed_vehicle_attack.id, "weapon_name" => "small blaster"},
-          "2" => %{"weapon_name" => "ion cannon", "display_order" => "3"},
+          "2" => %{"weapon_name" => "ion cannon", "display_order" => "3"}
         },
         "attachments" => %{
           "0" => %{"id" => unchanged_vehicle_attachment.id},
           "1" => %{"id" => renamed_vehicle_attachment.id, "name" => "horn"},
-          "2" => %{"name" => "star", "display_order" => "3"},
+          "2" => %{"name" => "star", "display_order" => "3"}
         }
       })
 
       vehicle = Vehicle.full_vehicle(vehicle.permalink)
 
-      [first_attack, second_attack, third_attack] = vehicle.vehicle_attacks |> Enum.sort(&(&1.display_order < &2.display_order))
+      [first_attack, second_attack, third_attack] =
+        vehicle.vehicle_attacks |> Enum.sort(&(&1.display_order < &2.display_order))
 
       assert unchanged_vehicle_attack == first_attack
       assert second_attack.weapon_name == "small blaster"
       assert third_attack.weapon_name == "ion cannon"
 
-      [first_attachment, second_attachment, third_attachment] = vehicle.vehicle_attachments |> Enum.sort(&(&1.display_order < &2.display_order))
+      [first_attachment, second_attachment, third_attachment] =
+        vehicle.vehicle_attachments |> Enum.sort(&(&1.display_order < &2.display_order))
 
       assert unchanged_vehicle_attachment == first_attachment
       assert second_attachment.name == "horn"
@@ -391,15 +512,17 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
     end
 
     it "filters out empty child changes" do
-      vehicle = VehicleFactory.create_vehicle(user_id: UserFactory.default_user.id)
+      vehicle = VehicleFactory.create_vehicle(user_id: UserFactory.default_user().id)
 
-      build_conn() |> authenticate_as(UserFactory.default_user) |> put("/v/#{vehicle.permalink}", %{
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> put("/v/#{vehicle.permalink}", %{
         "vehicle" => %{},
         "attacks" => %{
-          "1" => %{"weapon_name" => "", "display_order" => "1"},
+          "1" => %{"weapon_name" => "", "display_order" => "1"}
         },
         "attachments" => %{
-          "1" => %{"name" => "", "display_order" => "3"},
+          "1" => %{"name" => "", "display_order" => "3"}
         }
       })
 
@@ -410,16 +533,19 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
     end
 
     it "re-renders the edit page when there are errors" do
-      vehicle = VehicleFactory.create_vehicle(user_id: UserFactory.default_user.id)
+      vehicle = VehicleFactory.create_vehicle(user_id: UserFactory.default_user().id)
 
-      conn = build_conn() |> authenticate_as(UserFactory.default_user) |> put("/v/#{vehicle.permalink}", %{
-        "vehicle" => %{"name" => ""},
-        "attacks" => %{
-          "1" => %{"weapon_name" => "Wololo", "display_order" => "1"},
-        }
-      })
+      conn =
+        build_conn()
+        |> authenticate_as(UserFactory.default_user())
+        |> put("/v/#{vehicle.permalink}", %{
+          "vehicle" => %{"name" => ""},
+          "attacks" => %{
+            "1" => %{"weapon_name" => "Wololo", "display_order" => "1"}
+          }
+        })
 
-      assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text == "Name can't be blank"
+      assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text() == "Name can't be blank"
       assert !is_nil(FlokiExt.element(conn, "[data-attack=0]"))
       assert !is_nil(FlokiExt.element(conn, "[data-attachment=0]"))
       assert String.contains?(conn.resp_body, "Wololo")
@@ -432,11 +558,14 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
     end
 
     it "requires the current user to match the owning user" do
-      owner = UserFactory.default_user
+      owner = UserFactory.default_user()
       other = UserFactory.create_user!(username: "other")
       vehicle = VehicleFactory.create_vehicle(user_id: owner.id)
 
-      conn = build_conn() |> authenticate_as(other) |> put("/v/#{vehicle.permalink}", %{"vehicle" => %{}})
+      conn =
+        build_conn()
+        |> authenticate_as(other)
+        |> put("/v/#{vehicle.permalink}", %{"vehicle" => %{}})
 
       assert is_redirect_to?(conn, "/")
     end
@@ -444,23 +573,27 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
 
   describe "delete" do
     it "deletes a vehicle and all associated records" do
-      vehicle = VehicleFactory.create_vehicle
+      vehicle = VehicleFactory.create_vehicle()
 
       %VehicleAttack{
         weapon_name: "ship claws",
         vehicle_id: vehicle.id
-      } |> Repo.insert!
+      }
+      |> Repo.insert!()
 
       %VehicleAttachment{
         name: "green shell",
         vehicle_id: vehicle.id
-      } |> Repo.insert!
+      }
+      |> Repo.insert!()
 
-      build_conn() |> authenticate_as(UserFactory.default_user) |> delete("/v/#{vehicle.permalink}")
+      build_conn()
+      |> authenticate_as(UserFactory.default_user())
+      |> delete("/v/#{vehicle.permalink}")
 
       assert is_nil(Repo.get(Vehicle, vehicle.id))
-      assert is_nil(Repo.one(from va in VehicleAttack, where: va.vehicle_id == ^(vehicle.id)))
-      assert is_nil(Repo.one(from va in VehicleAttachment, where: va.vehicle_id == ^(vehicle.id)))
+      assert is_nil(Repo.one(from va in VehicleAttack, where: va.vehicle_id == ^vehicle.id))
+      assert is_nil(Repo.one(from va in VehicleAttachment, where: va.vehicle_id == ^vehicle.id))
     end
 
     it "requires authentication" do
@@ -470,7 +603,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
     end
 
     it "requires the current user to match the owning user" do
-      owner = UserFactory.default_user
+      owner = UserFactory.default_user()
       other = UserFactory.create_user!(username: "other")
       vehicle = VehicleFactory.create_vehicle(user_id: owner.id)
 
