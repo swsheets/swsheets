@@ -1,9 +1,9 @@
 <h4>Weapons</h4>
 
-<table class='table table-condensed child-table attack'>
+<table class="table table-condensed child-table attack">
   <%= for {attack, i} <- Enum.with_index(@vehicle_attacks) do %>
     <tr class="attack child-first-row<%= if rem(i, 2) == 0, do: " active" %>" data-attack=<%= i %>>
-      <td class='col-sm-6'>
+      <td class="col-sm-6">
         <input type="hidden" name="attacks[<%= i %>][id]" value="<%= get_field(attack, :id) %>" />
         <input type="hidden" name="attacks[<%= i %>][display_order]" value="<%= get_field(attack, :display_order) %>" />
         <div class="form-group form-group-sm">
@@ -28,7 +28,7 @@
           </select>
         </div>
       </td>
-      <td rowspan='2' class='child-remove-container'>
+      <td rowspan="2" class="child-remove-container">
         <button type="button" tabindex="-1" class="btn btn-block btn-danger btn-xs" data-remove-attack=<%= i %>>Remove</button>
       </td>
     </tr>
