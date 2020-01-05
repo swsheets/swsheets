@@ -1,6 +1,6 @@
 #!/bin/sh
-echo "Installing dependencies..."
-mix deps.get
+# echo "Installing dependencies..."
+# mix deps.get
 
 until psql -h db -U "postgres" -c '\q' 2>/dev/null; do
   >&2 echo "Postgres is unavailable: sleeping..."

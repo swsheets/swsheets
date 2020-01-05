@@ -13,5 +13,15 @@ config :edge_builder,
 # Enables code reloading for development
 config :phoenix, :code_reloader, true
 
+config :edge_builder, EdgeBuilder.Endpoint,
+  live_reload: [
+    patterns: [
+      ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
+      ~r{priv/gettext/.*(po)$},
+      ~r{web/views/.*(ex)$},
+      ~r{web/templates/.*(eex)$}
+    ]
+  ]
+
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
