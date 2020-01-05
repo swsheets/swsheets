@@ -2,7 +2,7 @@
   <div class="col-md-6 col-md-offset-3">
     <h2>About <%= application_name() %></h2>
 
-    <p><%= application_name() %> is a free tool for storing your Edge of the Empire character sheets online.</p>
+    <p><%= application_name() %> is a free tool for storing your Edge of the Empire, Age of Rebellion and Force and Destiny RPG character and vehicle sheets online.</p>
 
     <h3>FAQs</h3>
 
@@ -10,7 +10,7 @@
 
     <a id="open-source"></a>
 
-    <p>SWSheets is run by a few folks - you can see the details on the <a href="https://github.com/swsheets">Github SWSheets team page</a>. This site is also the work of many volunteers who help in many ways. <a href='/thanks'>See the full list of contributors</a> for more info.</p>
+    <p>SWSheets is run by a few folks - you can see the details on the <a href="https://github.com/orgs/swsheets/people">Github SWSheets team page</a>. This site is also the work of many volunteers who help in many ways. <a href='/thanks'>See the full list of contributors</a> for more info.</p>
 
     <p><strong>Is this really free? What is this open-source thing you mention?</strong></p>
 
@@ -36,14 +36,14 @@
 
     <p><strong>I have an idea for a neat feature!</strong></p>
 
-    <p>I'm not adding new features these days, sadly. SWSheets is as good as it's going to get.</p>
+    <p>Awesome! Please submit a feature request on the <a href="https://github.com/swsheets/swsheets/issues/">issues page</a>.</p>
 
     <p><strong>I think you're claiming ownership of this intellectual property!</strong></p>
 
-    <p>Ha! Star Wars, Edge of the Empire, and all associated works remain the copyright of their respective copyright holders.</p>
+    <p>Ha! Star Wars, Edge of the Empire, Age of Rebellion, Force and Destiny and all associated works remain the copyright of their respective copyright holders.</p>
 
     <p><strong>What license are my created characters under?</strong></p>
 
-    <p>Good question. Anything entered into this website is released under a <a href="https://creativecommons.org/licenses/by-nc/3.0/us/">Creative Commons Attribution-NonCommercial 3.0 United States</a> license (just like its source code). Essentially you are welcome to do what you like with this as long as you provide attribution to the original author and don't make money from it, directly or indirectly..</p>
+    <p>Good question. Anything entered into this website is released under a <a href="https://creativecommons.org/licenses/by-nc/3.0/us/">Creative Commons Attribution-NonCommercial 3.0 United States</a> license (just like its source code). Essentially you are welcome to do what you like with this as long as you provide attribution to the original author and don't make money from it, directly or indirectly.</p>
   </div>
 </div>
