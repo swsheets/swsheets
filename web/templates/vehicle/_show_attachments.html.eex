@@ -1,6 +1,6 @@
 <h4>Attachments</h4>
 
-<table class='table table-condensed'>
+<table class="table table-condensed">
   <%= for {attachment, i} <- Enum.with_index(@vehicle_attachments) do %>
     <tr class="attachment child-first-row<%= if rem(i, 2) == 0, do: " active" %>">
       <td>

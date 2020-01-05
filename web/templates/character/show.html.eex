@@ -23,11 +23,11 @@
         <h5>System</h5>
         <%= case get_field(@character, :system) do %>
           <% :eote -> %>
-            <img src='/images/eote.png' class='img-thumbnail system-logo system-eote' />Edge of the Empire
+            <img src="/images/eote.png" class="img-thumbnail system-logo system-eote" />Edge of the Empire
           <% :aor -> %>
-            <img src='/images/aor.png' class='img-thumbnail system-logo system-aor' />Age of Rebellion
+            <img src="/images/aor.png" class="img-thumbnail system-logo system-aor" />Age of Rebellion
           <% :fad -> %>
-            <img src='/images/fad.png' class='img-thumbnail system-logo system-fad' />Force and Destiny
+            <img src="/images/fad.png" class="img-thumbnail system-logo system-fad" />Force and Destiny
         <% end %>
       </div>
     </div>
@@ -283,13 +283,13 @@
 
 <%= unless Enum.empty?(@force_powers) do %>
   <h4>Force Powers</h4>
-  <div class='row'>
-    <div class='col-md-offset-4 col-md-4'>
-      <div class='col-md-6'>
-        <h5 class='text-right'>Force Rating</h5>
+  <div class="row">
+    <div class="col-md-offset-4 col-md-4">
+      <div class="col-md-6">
+        <h5 class="text-right">Force Rating</h5>
       </div>
       <div class="col-sm-6">
-        <h5 class='value'><%= get_field(@character, :force_rating) %></h5>
+        <h5 class="value"><%= get_field(@character, :force_rating) %></h5>
       </div>
     </div>
   </div>
@@ -322,7 +322,7 @@
 
 <div class="row">
   <h4>Other Notes</h4>
-  <div class='col-md-12'>
+  <div class="col-md-12">
     <div class="long-text"><%= render_text(@character, :other_notes) %></div>
   </div>
 </div>

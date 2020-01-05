@@ -1,22 +1,22 @@
-<div class='jumbotron'>
+<div class="jumbotron">
   <h1>Contributors <small>(a.k.a. the Jedi Council)</small></h1>
-  <p><%= application_name() %> is the work of many people who have helped in many ways. This page is a shout-out to those who have helped significantly by submitting either <a href="https://github.com/swsheets/swsheets/issues">bug reports</a> <img src='/images/success.png' height='20px'> or <a href="https://github.com/swsheets/swsheets">pull requests</a> <img src='/images/advantage.png' height='20px'>.</p>
+  <p><%= application_name() %> is the work of many people who have helped in many ways. This page is a shout-out to those who have helped significantly by submitting either <a href="https://github.com/swsheets/swsheets/issues">bug reports</a> <img src="/images/success.png" height="20px"> or <a href="https://github.com/swsheets/swsheets">pull requests</a> <img src="/images/advantage.png" height="20px">.</p>
 </div>
 
-<div class='row'>
-  <div class='col-sm-6'>
-    <h3>Bug Reporters <img src='/images/success.png' height="25px"></h3>
+<div class="row">
+  <div class="col-sm-6">
+    <h3>Bug Reporters <img src="/images/success.png" height="25px"></h3>
     <ul>
       <%= for user <- @bug_reporters do %>
-        <li><a href='<%= profile_path(@conn, :show, user) %>'><%= user.username %></a></li>
+        <li><a href="<%= profile_path(@conn, :show, user) %>"><%= user.username %></a></li>
       <% end %>
     </ul>
   </div>
-  <div class='col-sm-6'>
-    <h3>Pull Requesters <img src='/images/advantage.png' height="25px"></h3>
+  <div class="col-sm-6">
+    <h3>Pull Requesters <img src="/images/advantage.png" height="25px"></h3>
     <ul>
       <%= for user <- @pull_requesters do %>
-        <li><a href='<%= profile_path(@conn, :show, user) %>'><%= user.username %></a></li>
+        <li><a href="<%= profile_path(@conn, :show, user) %>"><%= user.username %></a></li>
       <% end %>
     </ul>
   </div>

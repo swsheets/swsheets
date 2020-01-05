@@ -34,8 +34,8 @@
     <!-- Bootstrap -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
 
-    <link href='https://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet" type="text/css">
     <link href="/css/site.css" rel="stylesheet">
     <%= render_existing view_module(@conn), "_header." <> view_template(@conn), assigns %>
 
@@ -59,7 +59,7 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="/">
-            <div class='toplogo'></div>
+            <div class="toplogo"></div>
             <p><%= application_name() %></p>
           </a>
         </div>
@@ -76,7 +76,7 @@
       </div><!-- /.container-fluid -->
     </nav>
 
-    <div class='jedi-council container-fluid'>
+    <div class="jedi-council container-fluid">
       <%= render_existing view_module(@conn), "_jedi_council." <> view_template(@conn), assigns %>
     </div>
 
