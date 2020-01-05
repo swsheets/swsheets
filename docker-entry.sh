@@ -22,9 +22,7 @@ elif [ "${1}" = "test" ]; then
   MIX_ENV=test mix do ecto.migrate, seed
   mix test
 elif [ ! -z ${1} ]; then
-  # This is just for local development, so if you blow something up here,
-  # it's your own fault.
-  exec "$@"
+  mix "$@"
 else
   echo "Starting Phoenix server..."
   mix phx.server

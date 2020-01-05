@@ -27,10 +27,10 @@ docker-compose run --rm app setup
 docker-compose up
 ```
 
-- If you ever want to run ad-hoc `mix` tasks, use the `mix` helper in the root directory of the project.
+- If you ever want to run ad-hoc `mix` tasks, you can pass arbitrary `mix` tasks to `docker-compose`.
 
 ```
-./mix do thing
+docker-compose run --rm app doa.mixthing
 ```
 
 ### Traditional
