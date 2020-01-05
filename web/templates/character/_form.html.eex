@@ -15,8 +15,8 @@
       <div class="col-sm-6">
         <div class="form-group">
           <label for="character[system]">System</label>
-          <input type='hidden' name='character[system]' id='systemValue' value="<%= get_field(@character, :system) %>" />
-          <div class='select-button'>
+          <input type="hidden" name="character[system]" id="systemValue" value="<%= get_field(@character, :system) %>" />
+          <div class="select-button">
             <div class="btn-group btn-block">
               <button type="button" class="btn btn-default" id="systemButton">Age of Rebellion</button>
               <button type="button" tabindex="-1" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="systemDropdown">
@@ -24,9 +24,9 @@
                 <span class="sr-only">Toggle Dropdown</span>
               </button>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="#" data-value="eote"><img src='/images/eote.png' class='img-thumbnail system-logo system-eote' />Edge of the Empire</a></li>
-                <li><a href="#" data-value="aor"><img src='/images/aor.png' class='img-thumbnail system-logo system-aor' />Age of Rebellion</a></li>
-                <li><a href="#" data-value="fad"><img src='/images/fad.png' class='img-thumbnail system-logo system-fad' />Force and Destiny</a></li>
+                <li><a href="#" data-value="eote"><img src="/images/eote.png" class="img-thumbnail system-logo system-eote" />Edge of the Empire</a></li>
+                <li><a href="#" data-value="aor"><img src="/images/aor.png" class="img-thumbnail system-logo system-aor" />Age of Rebellion</a></li>
+                <li><a href="#" data-value="fad"><img src="/images/fad.png" class="img-thumbnail system-logo system-fad" />Force and Destiny</a></li>
               </ul>
             </div>
           </div>
@@ -258,18 +258,18 @@
         </div>
       </div>
     </div>
-    <div class='row'>
-      <div class='col-md-6'>
+    <div class="row">
+      <div class="col-md-6">
         <h4>Weapons &amp; Armor</h4>
         <textarea rows=10 class="form-control" name="character[weapons_and_armor]"><%= get_field(@character, :weapons_and_armor) %></textarea>
       </div>
-      <div class='col-md-6'>
+      <div class="col-md-6">
         <h4>Personal Gear</h4>
         <textarea rows=10 class="form-control" name="character[personal_gear]"><%= get_field(@character, :personal_gear) %></textarea>
       </div>
     </div>
-    <div class='row'>
-      <div class='col-md-6'>
+    <div class="row">
+      <div class="col-md-6">
         <h4>Assets &amp; Resources</h4>
         <textarea rows=10 class="form-control" name="character[assets_and_resources]"><%= get_field(@character, :assets_and_resources) %></textarea>
       </div>
@@ -285,12 +285,12 @@
 <hr>
 
 <h4>Force Powers</h4>
-<div class='row'>
-  <div class='form-horizontal col-md-offset-4 col-md-4'>
-    <div class='form-group'>
-      <label class='col-sm-6 control-label' for="character[force_rating]">Force Rating</label>
+<div class="row">
+  <div class="form-horizontal col-md-offset-4 col-md-4">
+    <div class="form-group">
+      <label class="col-sm-6 control-label" for="character[force_rating]">Force Rating</label>
       <div class="col-sm-6">
-        <input type='text' class="form-control" name="character[force_rating]" value="<%= get_field(@character, :force_rating) %>" placeholder='n/a' />
+        <input type="text" class="form-control" name="character[force_rating]" value="<%= get_field(@character, :force_rating) %>" placeholder="n/a" />
       </div>
     </div>
   </div>
@@ -306,15 +306,15 @@
     <textarea name="character[motivation]" rows=10 class="form-control"><%= get_field(@character, :motivation) %></textarea>
   </div>
   <div class="col-md-6">
-    <div data-system='eote'>
+    <div data-system="eote">
       <h4>Obligations</h4>
       <textarea name="character[obligation]" rows=10 class="form-control"><%= get_field(@character, :obligation) %></textarea>
     </div>
-    <div data-system='aor'>
+    <div data-system="aor">
       <h4>Duties</h4>
       <textarea name="character[duty]" rows=10 class="form-control"><%= get_field(@character, :duty) %></textarea>
     </div>
-    <div data-system='fad'>
+    <div data-system="fad">
       <h4>Morality</h4>
       <textarea name="character[morality]" rows=10 class="form-control"><%= get_field(@character, :morality) %></textarea>
     </div>
@@ -325,7 +325,7 @@
 
 <div class="row">
   <h4>Other Notes</h4>
-  <div class='col-md-12'>
+  <div class="col-md-12">
     <textarea name="character[other_notes]" rows=10 class="form-control"><%= get_field(@character, :other_notes) %></textarea>
   </div>
 </div>

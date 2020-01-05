@@ -1,9 +1,9 @@
 <h4>Weapons</h4>
 
-<table class='table table-condensed'>
+<table class="table table-condensed">
   <%= for {attack, i} <- Enum.with_index(@vehicle_attacks) do %>
     <tr class="attack child-first-row<%= if rem(i, 2) == 0, do: " active" %>">
-      <td class='col-sm-6'>
+      <td class="col-sm-6">
         <%= get_field(attack, :weapon_name) %>
       </td>
       <td class="col-sm-3 ">

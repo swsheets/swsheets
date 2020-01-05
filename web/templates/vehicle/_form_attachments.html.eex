@@ -1,6 +1,6 @@
 <h4>Attachments</h4>
 
-<table class='table table-condensed child-table attachment'>
+<table class="table table-condensed child-table attachment">
   <%= for {attachment, i} <- Enum.with_index(@vehicle_attachments) do %>
     <tr class="attachment child-first-row<%= if rem(i, 2) == 0, do: " active" %>" data-attachment=<%= i %>>
       <td colspan=2>
@@ -17,18 +17,18 @@
           <input type="text" class="form-control" size=63 name="attachments[<%= i %>][base_modifiers]" value="<%= get_field(attachment, :base_modifiers) %>" />
         </div>
       </td>
-      <td rowspan='2' class='col-sm-1 child-remove-container'>
+      <td rowspan="2" class="col-sm-1 child-remove-container">
         <button type="button" tabindex="-1" class="btn btn-block btn-danger btn-xs" data-remove-attachment=<%= i %>>Remove</button>
       </td>
     </tr>
     <tr class="attachment child-second-row<%= if rem(i, 2) == 0, do: " active" %>" data-attachment=<%= i %>>
-      <td class='form-inline'>
+      <td class="form-inline">
         <div class="form-group form-group-sm ">
           <label for="attachments[<%= i %>][hard_points_required]">Hard Points</label>
           <input type="text" class="form-control" size=5 name="attachments[<%= i %>][hard_points_required]" value="<%= get_field(attachment, :hard_points_required) %>" />
         </div>
       </td>
-      <td colspan=2 class='form-inline'>
+      <td colspan=2 class="form-inline">
         <div class="form-group form-group-sm">
           <label for="attachments[<%= i %>][modifications]">Modifications</label>
           <input type="text" class="form-control" size=63 name="attachments[<%= i %>][modifications]" value="<%= get_field(attachment, :modifications) %>" />

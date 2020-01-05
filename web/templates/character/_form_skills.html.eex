@@ -13,11 +13,11 @@
     <tr class="<%= if skill.is_attack_skill, do: ~s(active) %>" data-skill="<%= skill.name %>">
       <td>
         <%= if is_characteristic_toggle_displayed?(skill.characteristics) do %>
-          <a href="#" data-skill-previous='<%= skill.name %>'><span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span></a>
+          <a href="#" data-skill-previous="<%= skill.name %>"><span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span></a>
         <% end %>
         <span data-skill-full-name><%= skill_display_name(skill) %></span>
         <%= if is_characteristic_toggle_displayed?(skill.characteristics) do %>
-          <a href="#" class='pull-right' data-skill-next='<%= skill.name %>'><span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></a>
+          <a href="#" class="pull-right" data-skill-next="<%= skill.name %>"><span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></a>
         <% end %>
       </td>
       <td><input type="checkbox" name="skills[<%= i %>][is_career]" <%= if skill.is_career, do: "checked" %>></input></td>

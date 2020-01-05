@@ -13,11 +13,11 @@
         <div class="col-sm-6">
           <%= case character.system do %>
             <% :eote -> %>
-              <p class='system-container'><img src='/images/eote.png' class='img-thumbnail system-logo system-eote' /> Edge of the Empire</p>
+              <p class="system-container"><img src="/images/eote.png" class="img-thumbnail system-logo system-eote" /> Edge of the Empire</p>
             <% :aor -> %>
-              <p class='system-container'><img src='/images/aor.png' class='img-thumbnail system-logo system-aor' /> Age of Rebellion</p>
+              <p class="system-container"><img src="/images/aor.png" class="img-thumbnail system-logo system-aor" /> Age of Rebellion</p>
             <% :fad -> %>
-              <p class='system-container'><img src='/images/fad.png' class='img-thumbnail system-logo system-fad' /> Force and Destiny</p>
+              <p class="system-container"><img src="/images/fad.png" class="img-thumbnail system-logo system-fad" /> Force and Destiny</p>
           <% end %>
         </div>
         <div class="col-sm-6 pull-right">

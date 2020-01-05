@@ -1,20 +1,20 @@
 <%= for {force_power, i} <- Enum.with_index(@force_powers) do %>
   <div class="row force-power <%= if rem(i, 2) == 0, do: " active" %>">
-    <div class='col-sm-3'>
+    <div class="col-sm-3">
       <h5>Power</h5>
       <%= get_field(force_power, :name) %>
 
       <h5>Description</h5>
       <%= render_text(force_power, :description) %>
     </div>
-    <div class='col-sm-9'>
+    <div class="col-sm-9">
       <%= if Enum.empty?(get_field(force_power, :force_power_upgrades)) do %>
         <em>No Upgrades</em>
       <% else %>
-        <table class='table table-condensed upgrades-table'>
+        <table class="table table-condensed upgrades-table">
           <tr>
-            <th class='col-xs-3'>Upgrade</th>
-            <th class='col-xs-9'>Effect</th>
+            <th class="col-xs-3">Upgrade</th>
+            <th class="col-xs-9">Effect</th>
           </tr>
           <%= for upgrade <- get_field(force_power, :force_power_upgrades) do %>
             <tr>

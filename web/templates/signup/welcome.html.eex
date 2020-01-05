@@ -46,11 +46,11 @@
     <h3>Welcome Back</h3>
     <%= form_tag(Routes.signup_path(@conn, :login), role: "form", method: "POST", class: "form well") %>
       <div class="form-group">
-        <label for="login[loginname]" class='control-label'>Username</label>
+        <label for="login[loginname]" class="control-label">Username</label>
         <input type="text" class="form-control" name="login[username]" />
       </div>
       <div class="form-group">
-        <label for="login[password]" class='control-label'>Password</label>
+        <label for="login[password]" class="control-label">Password</label>
         <input type="password" class="form-control" name="login[password]" />
       </div>
       <input class="btn btn-primary btn-block" type="submit" value="Login">
@@ -68,19 +68,19 @@
     <h3>Create a New Account</h3>
     <%= form_tag(Routes.signup_path(@conn, :signup), role: "form", method: "POST", class: "form") %>
       <div class="form-group">
-        <label for="signup[email]" class='control-label'>Email Address</label>
+        <label for="signup[email]" class="control-label">Email Address</label>
         <input type="email" class="form-control" name="signup[email]" value="<%= assigns[:signup_email] %>" />
       </div>
       <div class="form-group">
-        <label for="signup[username]" class='control-label'>Username</label>
+        <label for="signup[username]" class="control-label">Username</label>
         <input type="text" class="form-control" name="signup[username]" value="<%= assigns[:signup_username] %>" />
       </div>
       <div class="form-group">
-        <label for="signup[password]" class='control-label'>Password</label>
+        <label for="signup[password]" class="control-label">Password</label>
         <input type="password" class="form-control" name="signup[password]" />
       </div>
       <div class="form-group">
-        <label for="signup[password_confirmation]" class='control-label'>Password Confirmation</label>
+        <label for="signup[password_confirmation]" class="control-label">Password Confirmation</label>
         <input type="password" class="form-control" name="signup[password_confirmation]" />
       </div>
       <input class="btn btn-info btn-block" type="submit" value="Sign up">

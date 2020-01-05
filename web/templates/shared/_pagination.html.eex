@@ -1,8 +1,8 @@
 <%= if @total_pages > 1 do %>
   <%= if @page_number > 1 do %>
-    <a class='pagination-newer' href="?page=<%= @page_number - 1 %>">&#171 Newer</a>
+    <a class="pagination-newer" href="?page=<%= @page_number - 1 %>">&#171 Newer</a>
   <% end %>
   <%= if @page_number < @total_pages do %>
-    <a class='pagination-older pull-right' href="?page=<%= @page_number + 1 %>">Older &#187</a>
+    <a class="pagination-older pull-right" href="?page=<%= @page_number + 1 %>">Older &#187</a>
   <% end %>
 <% end %>

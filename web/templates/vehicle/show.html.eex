@@ -2,33 +2,33 @@
   <%= render EdgeBuilder.SharedView, "_save_panel.html", conn: @conn, model: @vehicle.data, helper: :vehicle_path %>
 <% end %>
 
-<div class='row main-form'>
+<div class="row main-form">
   <div class="<%= if is_nil(get_field(@vehicle, :portrait_url)), do: "col-md-12", else: "col-md-8" %>">
     <h3>Vehicle Name</h3>
     <h2><%= get_field(@vehicle, :name) %> <small>by <%= profile_link(@conn, @user, 15) %></small></h2>
-    <div class='row'>
-      <div class='col-sm-2'>
+    <div class="row">
+      <div class="col-sm-2">
         <h5>Type</h5>
-        <div class='value'><%= get_field(@vehicle, :type) %></div>
+        <div class="value"><%= get_field(@vehicle, :type) %></div>
       </div>
-      <div class='col-sm-3'>
+      <div class="col-sm-3">
         <h5>Faction</h5>
-        <div class='value'><%= get_field(@vehicle, :faction) %></div>
+        <div class="value"><%= get_field(@vehicle, :faction) %></div>
       </div>
-      <div class='col-sm-7'>
+      <div class="col-sm-7">
         <h5>Make &amp; Model</h5>
-        <div class='value'><%= get_field(@vehicle, :make) %></div>
+        <div class="value"><%= get_field(@vehicle, :make) %></div>
       </div>
     </div>
     <div class="row">
       <hr>
       <h4>Characteristics</h4>
     </div>
-    <div class='row'>
-      <div class='col-sm-3 col-xs-6'>
+    <div class="row">
+      <div class="col-sm-3 col-xs-6">
         <div class="panel panel-default">
           <div class="panel-body panel-value">
-            <input type='hidden' id='silhouette' value=<%= get_field(@vehicle, :silhouette) %> />
+            <input type="hidden" id="silhouette" value=<%= get_field(@vehicle, :silhouette) %> />
             <%= get_field(@vehicle, :silhouette) %>
           </div>
           <div class="panel-footer text-center">
@@ -36,7 +36,7 @@
           </div>
         </div>
       </div>
-      <div class='col-sm-3 col-xs-6'>
+      <div class="col-sm-3 col-xs-6">
         <div class="panel panel-default">
           <div class="panel-body panel-value">
             <%= get_field(@vehicle, :speed) %>
@@ -46,7 +46,7 @@
           </div>
         </div>
       </div>
-      <div class='col-sm-3 col-xs-6'>
+      <div class="col-sm-3 col-xs-6">
         <div class="panel panel-default">
           <div class="panel-body panel-value">
             <%= get_field(@vehicle, :current_speed) %>
@@ -56,7 +56,7 @@
           </div>
         </div>
       </div>
-      <div class='col-sm-3 col-xs-6'>
+      <div class="col-sm-3 col-xs-6">
         <div class="panel panel-default">
           <div class="panel-body panel-value">
             <%= get_field(@vehicle, :handling) %>
@@ -69,7 +69,7 @@
     </div>
   </div>
   <%= unless is_nil(get_field(@vehicle, :portrait_url)) do %>
-    <div class='col-md-4'>
+    <div class="col-md-4">
       <p class="text-center">
         <img src="<%= image_or_default(@vehicle) %>" alt="Placeholder Image" class="img-thumbnail">
       </p>
@@ -77,10 +77,10 @@
   <% end %>
 </div>
 
-<div class='row'>
-  <div class='col-lg-2'>
-    <div class='row'>
-      <div class='col-lg-12 col-xs-6'>
+<div class="row">
+  <div class="col-lg-2">
+    <div class="row">
+      <div class="col-lg-12 col-xs-6">
         <div class="panel panel-default">
           <div class="panel-body panel-value">
             <%= get_field(@vehicle, :armor) %>
@@ -90,9 +90,9 @@
           </div>
         </div>
       </div>
-      <div class='col-lg-12 col-xs-6'>
+      <div class="col-lg-12 col-xs-6">
         <div class="panel panel-default">
-          <div class='panel-body'>
+          <div class="panel-body">
             <table class="table">
               <tr class="panel-first-row">
                 <td>Threshold</td>
@@ -116,9 +116,9 @@
           </div>
         </div>
       </div>
-      <div class='col-lg-12 col-xs-6'>
+      <div class="col-lg-12 col-xs-6">
         <div class="panel panel-default">
-          <div class='panel-body'>
+          <div class="panel-body">
             <table class="table">
               <tr class="panel-first-row">
                 <td>Threshold</td>
@@ -144,9 +144,9 @@
       </div>
     </div>
   </div>
-  <div class='col-lg-6 col-md-6 defense-container two-zones'>
+  <div class="col-lg-6 col-md-6 defense-container two-zones">
     <h4>Defense</h4>
-    <div class='defense-fore defense'>
+    <div class="defense-fore defense">
       <div class="panel panel-default base">
         <div class="panel-body panel-value">
           <%= get_field(@vehicle, :defense_fore) %>
@@ -163,10 +163,10 @@
           <label for="vehicle[defense_fore_current]">Current</label>
         </div>
       </div>
-      <div class='defense-label'>Fore</div>
+      <div class="defense-label">Fore</div>
     </div>
-    <div class='defense-aft defense'>
-      <div class='defense-label'>Aft</div>
+    <div class="defense-aft defense">
+      <div class="defense-label">Aft</div>
       <div class="panel panel-default base">
         <div class="panel-body panel-value">
           <%= get_field(@vehicle, :defense_aft) %>
@@ -184,7 +184,7 @@
         </div>
       </div>
     </div>
-    <div class='defense-port defense'>
+    <div class="defense-port defense">
       <div class="panel panel-default base">
         <div class="panel-body panel-value">
           <%= get_field(@vehicle, :defense_port) %>
@@ -201,9 +201,9 @@
           <label for="vehicle[defense_port_current]">Current</label>
         </div>
       </div>
-      <div class='defense-label'>Port</div>
+      <div class="defense-label">Port</div>
     </div>
-    <div class='defense-starboard defense'>
+    <div class="defense-starboard defense">
       <div class="panel panel-default base">
         <div class="panel-body panel-value">
           <%= get_field(@vehicle, :defense_starboard) %>
@@ -220,51 +220,51 @@
           <label for="vehicle[defense_starboard_current]">Current</label>
         </div>
       </div>
-      <div class='defense-label'>Starboard</div>
+      <div class="defense-label">Starboard</div>
     </div>
   </div>
-  <div class='col-lg-4 col-md-6'>
-    <div class='form-group col-sm-12'>
+  <div class="col-lg-4 col-md-6">
+    <div class="form-group col-sm-12">
       <h5>Hyperdrive</h5>
-      <div class='value'><%= get_field(@vehicle, :hyperdrive) %></div>
+      <div class="value"><%= get_field(@vehicle, :hyperdrive) %></div>
     </div>
-    <div class='form-group col-sm-6'>
+    <div class="form-group col-sm-6">
       <h5>Crew</h5>
-      <div class='value'><%= get_field(@vehicle, :crew) %></div>
+      <div class="value"><%= get_field(@vehicle, :crew) %></div>
     </div>
-    <div class='form-group col-sm-6'>
+    <div class="form-group col-sm-6">
       <h5>Passengers</h5>
-      <div class='value'><%= get_field(@vehicle, :passengers) %></div>
+      <div class="value"><%= get_field(@vehicle, :passengers) %></div>
     </div>
-    <div class='form-group col-sm-6'>
+    <div class="form-group col-sm-6">
       <h5>Sensor Range</h5>
-      <div class='value'><%= get_field(@vehicle, :sensor_range) %></div>
+      <div class="value"><%= get_field(@vehicle, :sensor_range) %></div>
     </div>
-    <div class='form-group col-sm-6'>
+    <div class="form-group col-sm-6">
       <h5>Consumables</h5>
-      <div class='value'><%= get_field(@vehicle, :consumables) %></div>
+      <div class="value"><%= get_field(@vehicle, :consumables) %></div>
     </div>
-    <div class='form-group col-sm-6'>
+    <div class="form-group col-sm-6">
       <h5>Hard Points</h5>
-      <div class='value'><%= get_field(@vehicle, :hard_points) %></div>
+      <div class="value"><%= get_field(@vehicle, :hard_points) %></div>
     </div>
-    <div class='form-group col-sm-6'>
+    <div class="form-group col-sm-6">
       <h5>Encumbrance</h5>
-      <div class='value'><%= get_field(@vehicle, :encumbrance) %></div>
+      <div class="value"><%= get_field(@vehicle, :encumbrance) %></div>
     </div>
-    <div class='form-group col-sm-6'>
+    <div class="form-group col-sm-6">
       <h5>Price</h5>
-      <div class='value'><%= get_field(@vehicle, :price) %></div>
+      <div class="value"><%= get_field(@vehicle, :price) %></div>
     </div>
-    <div class='form-group col-sm-6'>
+    <div class="form-group col-sm-6">
       <h5>Rarity</h5>
-      <div class='value'><%= get_field(@vehicle, :rarity) %></div>
+      <div class="value"><%= get_field(@vehicle, :rarity) %></div>
     </div>
   </div>
 </div>
 
-<div class='row'>
-  <div class='col-lg-8'>
+<div class="row">
+  <div class="col-lg-8">
     <%= unless Enum.empty?(@vehicle_attacks) do %>
       <%= render "_show_attacks.html", vehicle_attacks: in_display_order(@vehicle_attacks) %>
     <% end %>
@@ -272,7 +272,7 @@
       <%= render "_show_attachments.html", vehicle_attachments: in_display_order(@vehicle_attachments) %>
     <% end %>
   </div>
-  <div class='col-lg-4'>
+  <div class="col-lg-4">
     <h4>Special Features</h4>
     <div class="long-text"><%= render_text(@vehicle, :special_features) %></div>
   </div>
@@ -281,11 +281,11 @@
 <hr>
 
 <div class="row">
-  <div class='col-sm-6'>
+  <div class="col-sm-6">
     <h4>Cargo</h4>
     <div class="long-text"><%= render_text(@vehicle, :cargo) %></div>
   </div>
-  <div class='col-sm-6'>
+  <div class="col-sm-6">
     <h4>Notes</h4>
     <div class="long-text"><%= render_text(@vehicle, :notes) %></div>
   </div>
@@ -303,7 +303,7 @@
 <% end %>
 
 <div class="row">
-  <div class='col-sm-12'>
+  <div class="col-sm-12">
     <p class="text-center return-box">
       <a href="#">Return to Top</a>
     </p>
