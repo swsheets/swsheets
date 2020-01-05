@@ -4,5 +4,8 @@ erl_crash.dump
 *.ez
 /config/prod.secret.exs
 
+# Postgres data volume
+/pg_data/
+
 # Codecov
 /cover/

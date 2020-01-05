@@ -27,9 +27,11 @@ config :logger, :console,
 
 config :edge_builder, EdgeBuilder.Repo,
   adapter: Ecto.Adapters.Postgres,
-  database: "edgebuilder_development",
-  username: "pair",
-  hostname: "localhost",
+  username: System.get_env("DB_USER") || "pair",
+  password: System.get_env("DB_PASSWORD") || "",
+  database: System.get_env("DB_NAME") || "edgebuilder_development",
+  hostname: System.get_env("DB_HOST") || "localhost",
+  port: System.get_env("DB_PORT") || 5432,
   pool_size: 10
 
 config :edge_builder,
