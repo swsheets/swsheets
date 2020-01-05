@@ -1,4 +1,4 @@
-<div class='col-sm-6 col-sm-offset-3'>
+<div class="col-sm-6 col-sm-offset-3">
   <%= render EdgeBuilder.SharedView, "_errors.html", errors: assigns[:errors] %>
 
   <h3>Password Reset</h3>
@@ -7,11 +7,11 @@
 
   <%= form_tag(password_reset_path(@conn, :submit_reset), role: "form", method: "POST", class: "form well") %>
     <div class="form-group">
-      <label for="password_reset[password]" class='control-label'>Password</label>
+      <label for="password_reset[password]" class="control-label">Password</label>
       <input type="password" class="form-control" name="password_reset[password]" />
     </div>
     <div class="form-group">
-      <label for="password_reset[password_confirmation]" class='control-label'>Password Confirmation</label>
+      <label for="password_reset[password_confirmation]" class="control-label">Password Confirmation</label>
       <input type="password" class="form-control" name="password_reset[password_confirmation]" />
     </div>
     <input type="hidden" name="password_reset[token]" value="<%= @token %>" />
