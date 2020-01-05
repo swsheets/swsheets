@@ -46,6 +46,7 @@ defmodule EdgeBuilder.Models.Character do
     field :other_notes, :string
     field :critical_injuries, :string
     field :force_rating, :integer
+    field :private_notes, :string
 
     field :system, Ecto.Types.Enumeration
 

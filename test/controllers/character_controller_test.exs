@@ -86,7 +86,8 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
           "xp_total" => "200",
           "background" => "A regular Rodian, you know",
           "description" => "Green",
-          "other_notes" => "Not the best"
+          "other_notes" => "Not the best",
+          "private_notes" => "Shh, don't let anybody see these."
         },
         "attacks" => %{
           "0" => %{
@@ -147,6 +148,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert character.background == "A regular Rodian, you know"
       assert character.description == "Green"
       assert character.other_notes == "Not the best"
+      assert character.private_notes == "Shh, don't let anybody see these."
 
       [first_attack, second_attack] = Attack.for_character(character.id)
 
@@ -411,8 +413,8 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert String.contains?(conn.resp_body, character.name)
     end
 
-    it "displays edit and delete buttons when viewed by the owner" do
-      character = CharacterFactory.create_character(user_id: UserFactory.default_user().id)
+    it "displays owner-only elements when viewed by the owner" do
+      character = CharacterFactory.create_character(user_id: UserFactory.default_user.id)
 
       conn =
         build_conn()
@@ -421,6 +423,18 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
       assert String.contains?(conn.resp_body, "Edit")
       assert String.contains?(conn.resp_body, "Delete")
+      assert String.contains?(conn.resp_body, "Private Notes")
+    end
+
+    it "does not display owner-only elements when viewed by another" do
+      another = UserFactory.create_user!(username: "another")
+      character = CharacterFactory.create_character(user_id: UserFactory.default_user.id)
+
+      conn = build_conn() |> authenticate_as(another) |> get("/c/#{character.permalink}")
+
+      assert !String.contains?(conn.resp_body, "Edit")
+      assert !String.contains?(conn.resp_body, "Delete")
+      assert !String.contains?(conn.resp_body, "Private Notes")
     end
 
     it "inserts appropriate line breaks for long text fields" do

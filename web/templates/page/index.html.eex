@@ -13,11 +13,11 @@
 <div class='pull-right jumbotron-credit hidden-xs hidden-sm'><a href="http://antonvandort.deviantart.com/art/Star-Wars-Sketch-Cards-Cantina-110607962">"Star Wars Sketch Cards Cantina" by antonvandort</a></div>
 
 <div class="row new-content">
-  <div class="col-md-5 col-md-offset-1">
+  <div class="col-md-6">
     <h2>Newest Characters <small>(<a href="<%= character_path(@conn, :index) %>">See All</a>)</small></h2>
     <%= render EdgeBuilder.CharacterView, "list_view.html", conn: @conn, characters: @characters %>
   </div>
-  <div class="col-md-5">
+  <div class="col-md-6">
     <h2>Newest Vehicles <small>(<a href="<%= vehicle_path(@conn, :index) %>">See All</a>)</small></h2>
     <%= render EdgeBuilder.VehicleView, "list_view.html", conn: @conn, vehicles: @vehicles %>
   </div>

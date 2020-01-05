@@ -43,6 +43,7 @@ defmodule EdgeBuilder.Models.Vehicle do
     field :faction, :string
     field :portrait_url, :string
     field :type, :string
+    field :private_notes, :string
 
     timestamps()
     belongs_to :user, User
