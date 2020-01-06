@@ -1,26 +1,30 @@
 <div class="row"><h4>Talents</h4></div>
 
 <table class="table table-condensed">
-  <tr>
-    <th class="col-md-3">Name</th>
-    <th class="col-md-1">Rank</th>
-    <th class="col-md-2">Book &amp; Page</th>
-    <th class="col-md-6">Description</th>
-  </tr>
-  <%= for talent <- @talents do %>
+  <thead>
     <tr>
-      <td>
-        <%= get_field(talent, :name) %>
-      </td>
-      <td>
-        <%= get_field(talent, :rank) %>
-      </td>
-      <td>
-        <%= get_field(talent, :book_and_page) %>
-      </td>
-      <td>
-        <%= get_field(talent, :description) %>
-      </td>
+      <th class="col-md-3">Name</th>
+      <th class="col-md-1">Rank</th>
+      <th class="col-md-2">Book &amp; Page</th>
+      <th class="col-md-6">Description</th>
     </tr>
-  <% end %>
+  </thead>
+  <tbody>
+    <%= for {talent, i} <- Enum.with_index(@talents) do %>
+      <tr class="<%= if rem(i, 2) == 0, do: 'active' %>">
+        <td>
+          <%= get_field(talent, :name) %>
+        </td>
+        <td>
+          <%= get_field(talent, :rank) %>
+        </td>
+        <td>
+          <%= get_field(talent, :book_and_page) %>
+        </td>
+        <td>
+          <%= get_field(talent, :description) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
