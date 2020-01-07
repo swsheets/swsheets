@@ -414,7 +414,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "displays owner-only elements when viewed by the owner" do
-      character = CharacterFactory.create_character(user_id: UserFactory.default_user.id)
+      character = CharacterFactory.create_character(user_id: UserFactory.default_user().id)
 
       conn =
         build_conn()
@@ -428,7 +428,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
     it "does not display owner-only elements when viewed by another" do
       another = UserFactory.create_user!(username: "another")
-      character = CharacterFactory.create_character(user_id: UserFactory.default_user.id)
+      character = CharacterFactory.create_character(user_id: UserFactory.default_user().id)
 
       conn = build_conn() |> authenticate_as(another) |> get("/c/#{character.permalink}")
 
