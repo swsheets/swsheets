@@ -59,6 +59,7 @@ defmodule EdgeBuilder.Models.Vehicle do
     vehicle
     |> cast(Map.put(params, "user_id", user_id), allowed_fields())
     |> validate_required(required_fields())
+    |> validate_format(:portrait_url, ~r/^https:\/\/.*/, message: "must begin with \"https://\"")
     |> Ecto.Changeset.delete_change(:url_slug)
   end
 
@@ -69,13 +70,14 @@ defmodule EdgeBuilder.Models.Vehicle do
       from v in __MODULE__,
         where: v.url_slug == ^url_slug,
         preload: [:vehicle_attacks, :vehicle_attachments]
-    ) |> set_permalink()
+    )
+    |> set_permalink()
   end
 
   def delete(vehicle) do
-    Enum.each [VehicleAttack, VehicleAttachment], fn(child_module) ->
+    Enum.each([VehicleAttack, VehicleAttachment], fn child_module ->
       Repo.delete_all(from c in child_module, where: c.vehicle_id == ^vehicle.id)
-    end
+    end)
 
     Repo.delete!(vehicle)
   end
@@ -87,6 +89,6 @@ defmodule EdgeBuilder.Models.Vehicle do
   defp urlify(name) do
     String.replace(name, ~r/\W/, "-")
     |> String.slice(0, 15)
-    |> String.downcase
+    |> String.downcase()
   end
 end

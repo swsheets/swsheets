@@ -57,7 +57,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
           "name" => "Triumphant Failure",
           "notes" => "A bunch of pretty good guys, you know?",
           "passengers" => "2",
-          "portrait_url" => "http://example.com/foo.gif",
+          "portrait_url" => "https://example.com/foo.gif",
           "price" => "130,000",
           "rarity" => "4(R)",
           "sensor_range" => "Short",
@@ -129,7 +129,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
       assert vehicle.name == "Triumphant Failure"
       assert vehicle.notes == "A bunch of pretty good guys, you know?"
       assert vehicle.passengers == "2"
-      assert vehicle.portrait_url == "http://example.com/foo.gif"
+      assert vehicle.portrait_url == "https://example.com/foo.gif"
       assert vehicle.price == "130,000"
       assert vehicle.rarity == "4(R)"
       assert vehicle.sensor_range == "Short"
