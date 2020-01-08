@@ -7,8 +7,8 @@ ENV APP_HOME /app
 RUN mkdir -p $APP_HOME
 WORKDIR $APP_HOME
 
-RUN mix local.hex --force
-RUN mix local.rebar --force
+RUN mix local.hex --force && \
+    mix local.rebar --force
 
 COPY . .
 
