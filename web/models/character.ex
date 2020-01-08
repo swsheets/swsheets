@@ -66,13 +66,14 @@ defmodule EdgeBuilder.Models.Character do
     character
     |> cast(Map.put(clean_params(params), "user_id", user_id), allowed_fields())
     |> validate_required(required_fields())
+    |> validate_format(:portrait_url, ~r/^https:\/\/.*/, message: "must begin with \"https://\"")
     |> Ecto.Changeset.delete_change(:url_slug)
   end
 
   def delete(character) do
-    Enum.each [Talent, Attack, CharacterSkill], fn(child_module) ->
+    Enum.each([Talent, Attack, CharacterSkill], fn child_module ->
       Repo.delete_all(from c in child_module, where: c.character_id == ^character.id)
-    end
+    end)
 
     Repo.delete!(character)
   end
@@ -84,7 +85,7 @@ defmodule EdgeBuilder.Models.Character do
   defp urlify(name) do
     String.replace(name, ~r/\W/, "-")
     |> String.slice(0, 15)
-    |> String.downcase
+    |> String.downcase()
   end
 
   defp clean_params(params) do
@@ -100,11 +101,13 @@ defmodule EdgeBuilder.Models.Character do
   end
 
   defp fix_imgur_url(url) when is_bitstring(url) do
-    regex = ~r/^https?:\/\/imgur\.com\/gallery\/([^\/]+)/
+    regex = ~r/^https:\/\/imgur\.com\/gallery\/([^\/]+)/
+
     case Regex.run(regex, url) do
-      [_full, permalink] -> "http://i.imgur.com/#{permalink}.jpg"
+      [_full, permalink] -> "https://i.imgur.com/#{permalink}.jpg"
       nil -> url
     end
   end
+
   defp fix_imgur_url(non_string_value), do: non_string_value
 end

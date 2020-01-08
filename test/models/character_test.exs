@@ -2,6 +2,7 @@ defmodule EdgeBuilder.Models.CharacterTest do
   use EdgeBuilder.ModelCase
 
   alias Factories.CharacterFactory
+  alias Factories.UserFactory
   alias EdgeBuilder.Models.Character
   alias EdgeBuilder.Repo
 
@@ -42,11 +43,32 @@ defmodule EdgeBuilder.Models.CharacterTest do
   end
 
   describe "portrait_url" do
+    @valid_attrs %{
+      "name" => "Matwe",
+      "species" => "Human",
+      "career" => "Smuggler",
+      "system" => "eote"
+    }
+
     it "changes imgur page url to image url" do
       character =
-        CharacterFactory.create_character(portrait_url: "http://imgur.com/gallery/OjCH1Th")
+        CharacterFactory.create_character(portrait_url: "https://imgur.com/gallery/OjCH1Th")
 
-      assert character.portrait_url == "http://i.imgur.com/OjCH1Th.jpg"
+      assert character.portrait_url == "https://i.imgur.com/OjCH1Th.jpg"
+    end
+
+    it "does not allow HTTP images" do
+      attrs = Map.put(@valid_attrs, "portrait_url", "http://imgur.com/gallery/OjCH1Th")
+      changeset = Character.changeset(%Character{}, UserFactory.default_user().id, attrs)
+
+      assert {:portrait_url, {"must begin with \"https://\"", [validation: :format]}} in changeset.errors()
+    end
+
+    it "does not allow random junk" do
+      attrs = Map.put(@valid_attrs, "portrait_url", "gobbdly gobbldy https://")
+      changeset = Character.changeset(%Character{}, UserFactory.default_user().id, attrs)
+
+      assert {:portrait_url, {"must begin with \"https://\"", [validation: :format]}} in changeset.errors()
     end
   end
 end
