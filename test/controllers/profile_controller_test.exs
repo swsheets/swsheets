@@ -12,6 +12,7 @@ defmodule EdgeBuilder.Controllers.ProfileControllerTest do
       conn = build_conn() |> get("/u/#{user.username}")
 
       assert String.contains?(conn.resp_body, user.username)
+      assert String.contains?(conn.resp_body, "<body class=\"u\">")
     end
 
     it "is case insensitive" do

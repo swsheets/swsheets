@@ -13,6 +13,7 @@ defmodule EdgeBuilder.Controllers.SettingsControllerTest do
 
       assert FlokiExt.find(conn.resp_body, "#email") |> FlokiExt.attribute("value") == user.email
       assert String.contains?(conn.resp_body, user.username)
+      assert String.contains?(conn.resp_body, "<body class=\"user\">")
     end
 
     it "requires authentication" do

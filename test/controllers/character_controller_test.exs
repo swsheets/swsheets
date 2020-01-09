@@ -21,6 +21,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert conn.status == 200
       assert String.contains?(conn.resp_body, "New Character")
       assert String.contains?(conn.resp_body, "href=\"/\">Cancel</a>")
+      assert String.contains?(conn.resp_body, "<body class=\"c\">")
     end
 
     it "requires authentication" do

@@ -16,6 +16,7 @@ defmodule EdgeBuilder.Controllers.PageControllerTest do
 
       for character <- characters do
         assert String.contains?(conn.resp_body, character.name)
+        assert String.contains?(conn.resp_body, "<body class=\"\">")
       end
     end
 
