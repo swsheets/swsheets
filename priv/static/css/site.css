@@ -103,6 +103,11 @@ h4 {
   margin-top: 30px;
 }
 
+body.c .alert,
+body.v .alert {
+  margin-top: 75px;
+}
+
 .label-lg {
   font-size: 18px;
 }

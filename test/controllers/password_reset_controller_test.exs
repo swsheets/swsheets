@@ -13,6 +13,7 @@ defmodule EdgeBuilder.Controllers.PasswordResetControllerTest do
 
       assert conn.status == 200
       assert String.contains?(conn.resp_body, "password_reset[email]")
+      assert String.contains?(conn.resp_body, "<body class=\"forgot-password\">")
     end
   end
 

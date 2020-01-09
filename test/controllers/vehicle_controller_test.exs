@@ -18,6 +18,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
       assert conn.status == 200
       assert String.contains?(conn.resp_body, "New Vehicle")
       assert String.contains?(conn.resp_body, "href=\"/\">Cancel</a>")
+      assert String.contains?(conn.resp_body, "<body class=\"v\">")
     end
 
     it "requires authentication" do
