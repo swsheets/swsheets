@@ -46,6 +46,7 @@ defmodule EdgeBuilder.Mixfile do
       {:bcrypt_elixir, "~> 2.0"},
       {:httpoison, "~> 1.6"},
       {:poison, "~> 3.1"},
+      {:sentry, "~> 7.0"},
       {:inflex, "~> 2.0"},
       {:mock, "~> 0.3.4", only: :test},
       {:excoveralls, "~> 0.12.1", only: :test},
