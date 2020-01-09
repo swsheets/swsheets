@@ -1,5 +1,7 @@
 defmodule EdgeBuilder.Router do
   use Phoenix.Router
+  use Plug.ErrorHandler
+  use Sentry.Plug
 
   pipeline :browser do
     plug :accepts, ~w(html)
@@ -19,7 +21,8 @@ defmodule EdgeBuilder.Router do
   end
 
   scope "/", EdgeBuilder do
-    pipe_through :browser # Use the default browser stack
+    # Use the default browser stack
+    pipe_through :browser
 
     get "/", PageController, :index
     get "/about", PageController, :about
@@ -28,11 +31,11 @@ defmodule EdgeBuilder.Router do
     resources "/u", ProfileController, only: [:show]
     resources "/v", VehicleController
     get "/my-creations", ProfileController, :my_creations
-    get  "/welcome", SignupController, :welcome
-    get  "/forgot-password", PasswordResetController, :request
-    post  "/forgot-password", PasswordResetController, :submit_request
-    get  "/password-reset", PasswordResetController, :reset
-    post  "/password-reset", PasswordResetController, :submit_reset
+    get "/welcome", SignupController, :welcome
+    get "/forgot-password", PasswordResetController, :request
+    post "/forgot-password", PasswordResetController, :submit_request
+    get "/password-reset", PasswordResetController, :reset
+    post "/password-reset", PasswordResetController, :submit_reset
     post "/login", SignupController, :login
     post "/logout", SignupController, :logout
     post "/signup", SignupController, :signup
