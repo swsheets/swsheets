@@ -6,12 +6,13 @@ defmodule EdgeBuilder.Controllers.ProfileControllerTest do
   alias Factories.VehicleFactory
 
   describe "show" do
-    it "shows the username" do
+    it "shows profile information" do
       user = UserFactory.default_user()
 
       conn = build_conn() |> get("/u/#{user.username}")
 
       assert String.contains?(conn.resp_body, user.username)
+      assert String.contains?(conn.resp_body, "Member since")
       assert String.contains?(conn.resp_body, "<body class=\"u\">")
     end
 
