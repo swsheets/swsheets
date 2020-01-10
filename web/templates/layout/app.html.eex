@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-60982925-8', 'auto');
+      ga('send', 'pageview');
+    </script>
     <link rel="apple-touch-icon" sizes="57x57" href="<%= Routes.static_path(@conn, "/icons/apple-touch-icon-57x57.png") %>">
     <link rel="apple-touch-icon" sizes="60x60" href="<%= Routes.static_path(@conn, "/icons/apple-touch-icon-60x60.png") %>">
     <link rel="apple-touch-icon" sizes="72x72" href="<%= Routes.static_path(@conn, "/icons/apple-touch-icon-72x72.png") %>">
@@ -46,7 +55,7 @@
     <![endif]-->
   </head>
 
-  <body>
+  <body class="<%= body_class(@conn) %>">
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->

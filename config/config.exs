@@ -21,9 +21,18 @@ config :edge_builder, EdgeBuilder.Endpoint,
   pubsub: [name: EdgeBuilder.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
-config :logger, :console,
+config :logger,
   format: "$time $metadata[$level] $message\n",
-  metadata: [:request_id, :b_cookie, :s_cookie]
+  metadata: [:request_id, :b_cookie, :s_cookie],
+  backends: [:console, Sentry.LoggerBackend]
+
+config :sentry,
+  dsn: System.get_env("SENTRY_DSN"),
+  environment_name: Mix.env(),
+  included_environments: [:prod],
+  enable_source_code_context: true,
+  root_source_code_path: File.cwd!(),
+  json_library: Poison
 
 config :edge_builder, EdgeBuilder.Repo,
   adapter: Ecto.Adapters.Postgres,

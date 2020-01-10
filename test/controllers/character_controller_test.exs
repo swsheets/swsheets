@@ -21,6 +21,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert conn.status == 200
       assert String.contains?(conn.resp_body, "New Character")
       assert String.contains?(conn.resp_body, "href=\"/\">Cancel</a>")
+      assert String.contains?(conn.resp_body, "<body class=\"c\">")
     end
 
     it "requires authentication" do
@@ -414,7 +415,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
     end
 
     it "displays owner-only elements when viewed by the owner" do
-      character = CharacterFactory.create_character(user_id: UserFactory.default_user.id)
+      character = CharacterFactory.create_character(user_id: UserFactory.default_user().id)
 
       conn =
         build_conn()
@@ -428,7 +429,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
     it "does not display owner-only elements when viewed by another" do
       another = UserFactory.create_user!(username: "another")
-      character = CharacterFactory.create_character(user_id: UserFactory.default_user.id)
+      character = CharacterFactory.create_character(user_id: UserFactory.default_user().id)
 
       conn = build_conn() |> authenticate_as(another) |> get("/c/#{character.permalink}")
 

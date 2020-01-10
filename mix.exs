@@ -2,16 +2,18 @@ defmodule EdgeBuilder.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :edge_builder,
-     version: "2.0.0",
-     elixir: "~> 1.8",
-     elixirc_paths: elixirc_paths(Mix.env),
-     compilers: [:phoenix] ++ Mix.compilers,
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     aliases: aliases(),
-     deps: deps(),
-     test_coverage: [tool: ExCoveralls]]
+    [
+      app: :edge_builder,
+      version: "2.0.0",
+      elixir: "~> 1.8",
+      elixirc_paths: elixirc_paths(Mix.env()),
+      compilers: [:phoenix] ++ Mix.compilers(),
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
+      aliases: aliases(),
+      deps: deps(),
+      test_coverage: [tool: ExCoveralls]
+    ]
   end
 
   # Configuration for the OTP application
@@ -44,6 +46,7 @@ defmodule EdgeBuilder.Mixfile do
       {:bcrypt_elixir, "~> 2.0"},
       {:httpoison, "~> 1.6"},
       {:poison, "~> 3.1"},
+      {:sentry, "~> 7.0"},
       {:inflex, "~> 2.0"},
       {:mock, "~> 0.3.4", only: :test},
       {:excoveralls, "~> 0.12.1", only: :test},

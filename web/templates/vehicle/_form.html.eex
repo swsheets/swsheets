@@ -259,18 +259,14 @@
 
 <div class="row">
   <div class="col-lg-8">
-    <div class="row">
-      <%= render "_form_attacks.html", vehicle_attacks: in_display_order(@vehicle_attacks) %>
-      <p class="text-center col-sm-4 col-sm-offset-4">
-        <button id="addAttackButton" type="button" class="btn btn-block btn-default">Add Attack</button>
-      </p>
-    </div>
-    <div class="row">
-      <%= render "_form_attachments.html", vehicle_attachments: in_display_order(@vehicle_attachments) %>
-      <p class="text-center col-sm-4 col-sm-offset-4">
-        <button id="addAttachmentButton" type="button" class="btn btn-block btn-default">Add Attachment</button>
-      </p>
-    </div>
+    <%= render "_form_attacks.html", vehicle_attacks: in_display_order(@vehicle_attacks) %>
+    <p class="text-center col-sm-4 col-sm-offset-4">
+      <button id="addAttackButton" type="button" class="btn btn-block btn-default">Add Attack</button>
+    </p>
+    <%= render "_form_attachments.html", vehicle_attachments: in_display_order(@vehicle_attachments) %>
+    <p class="text-center col-sm-4 col-sm-offset-4">
+      <button id="addAttachmentButton" type="button" class="btn btn-block btn-default">Add Attachment</button>
+    </p>
   </div>
   <div class="col-lg-4">
     <h4>Special Features</h4>

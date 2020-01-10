@@ -18,6 +18,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
       assert conn.status == 200
       assert String.contains?(conn.resp_body, "New Vehicle")
       assert String.contains?(conn.resp_body, "href=\"/\">Cancel</a>")
+      assert String.contains?(conn.resp_body, "<body class=\"v\">")
     end
 
     it "requires authentication" do
@@ -57,7 +58,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
           "name" => "Triumphant Failure",
           "notes" => "A bunch of pretty good guys, you know?",
           "passengers" => "2",
-          "portrait_url" => "http://example.com/foo.gif",
+          "portrait_url" => "https://example.com/foo.gif",
           "price" => "130,000",
           "rarity" => "4(R)",
           "sensor_range" => "Short",
@@ -129,7 +130,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
       assert vehicle.name == "Triumphant Failure"
       assert vehicle.notes == "A bunch of pretty good guys, you know?"
       assert vehicle.passengers == "2"
-      assert vehicle.portrait_url == "http://example.com/foo.gif"
+      assert vehicle.portrait_url == "https://example.com/foo.gif"
       assert vehicle.price == "130,000"
       assert vehicle.rarity == "4(R)"
       assert vehicle.sensor_range == "Short"
@@ -287,7 +288,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
     end
 
     it "displays owner-only elements when viewed by the owner" do
-      vehicle = VehicleFactory.create_vehicle(user_id: UserFactory.default_user.id)
+      vehicle = VehicleFactory.create_vehicle(user_id: UserFactory.default_user().id)
 
       conn =
         build_conn()
@@ -301,7 +302,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
 
     it "does not display owner-only elements when viewed by another" do
       another = UserFactory.create_user!(username: "another")
-      vehicle = VehicleFactory.create_vehicle(user_id: UserFactory.default_user.id)
+      vehicle = VehicleFactory.create_vehicle(user_id: UserFactory.default_user().id)
 
       conn = build_conn() |> authenticate_as(another) |> get("/v/#{vehicle.permalink}")
 

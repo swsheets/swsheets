@@ -1,7 +1,4 @@
-#!/bin/sh
-# echo "Installing dependencies..."
-# mix deps.get
-
+#!/bin/bash
 until psql -h db -U "postgres" -c '\q' 2>/dev/null; do
   >&2 echo "Postgres is unavailable: sleeping..."
   sleep 1
@@ -20,7 +17,7 @@ elif [ "${1}" = "test" ]; then
   MIX_ENV=test mix do ecto.drop, ecto.create
   psql -h db -U postgres edgebuilder_test -c "CREATE EXTENSION pgcrypto"
   MIX_ENV=test mix do ecto.migrate, seed
-  mix test
+  mix test "${@:2}"
 elif [ ! -z ${1} ]; then
   mix "$@"
 else

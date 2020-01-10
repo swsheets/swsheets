@@ -14,6 +14,7 @@ defmodule EdgeBuilder.Controllers.SignupControllerTest do
       assert conn.status == 200
       assert String.contains?(conn.resp_body, "login[username]")
       assert String.contains?(conn.resp_body, "login[password]")
+      assert String.contains?(conn.resp_body, "<body class=\"welcome\">")
     end
 
     it "renders the new user form" do

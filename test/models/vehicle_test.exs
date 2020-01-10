@@ -1,6 +1,7 @@
 defmodule EdgeBuilder.Models.VehicleTest do
   use EdgeBuilder.ModelCase
 
+  alias Factories.UserFactory
   alias Factories.VehicleFactory
   alias EdgeBuilder.Models.Vehicle
   alias EdgeBuilder.Repo
@@ -48,6 +49,26 @@ defmodule EdgeBuilder.Models.VehicleTest do
       found_vehicle = Vehicle.full_vehicle("#{vehicle.url_slug}-does-not-matter")
 
       assert vehicle.id == found_vehicle.id
+    end
+  end
+
+  describe "portrait_url" do
+    @valid_attrs %{
+      "name" => "Executor"
+    }
+
+    it "does not allow HTTP images" do
+      attrs = Map.put(@valid_attrs, "portrait_url", "http://imgur.com/gallery/OjCH1Th")
+      changeset = Vehicle.changeset(%Vehicle{}, UserFactory.default_user().id, attrs)
+
+      assert {:portrait_url, {"must begin with \"https://\"", [validation: :format]}} in changeset.errors()
+    end
+
+    it "does not allow random junk" do
+      attrs = Map.put(@valid_attrs, "portrait_url", "gobbdly gobbldy https://")
+      changeset = Vehicle.changeset(%Vehicle{}, UserFactory.default_user().id, attrs)
+
+      assert {:portrait_url, {"must begin with \"https://\"", [validation: :format]}} in changeset.errors()
     end
   end
 end
