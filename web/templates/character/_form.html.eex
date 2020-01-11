@@ -211,10 +211,10 @@
 
 <div class="row">
   <div class="col-sm-5">
-    <%= render "_form_skills.html", character_skills: @character_skills %>
+    <%= render "_form_skills.html", character_skills: @character_skills, conn: @conn %>
   </div>
   <div class="col-sm-7">
-    <%= render "_form_attacks.html", attacks: in_display_order(@attacks) %>
+    <%= render "_form_attacks.html", attacks: in_display_order(@attacks), conn: @conn %>
     <hr>
     <div class="row">
       <div class="col-md-3 col-xs-6">
@@ -281,7 +281,7 @@
   </div>
 </div>
 
-<%= render "_form_talents.html", talents: in_display_order(@talents) %>
+<%= render "_form_talents.html", talents: in_display_order(@talents), conn: @conn %>
 <hr>
 
 <h4>Force Powers</h4>
@@ -295,7 +295,7 @@
     </div>
   </div>
 </div>
-<%= render "_form_force_powers.html", force_powers: in_display_order(@force_powers) %>
+<%= render "_form_force_powers.html", force_powers: in_display_order(@force_powers), conn: @conn %>
 <hr>
 
 <div class="row">

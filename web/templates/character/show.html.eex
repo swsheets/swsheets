@@ -205,11 +205,11 @@
 
 <div class="row">
   <div class="col-sm-5">
-    <%= render "_show_skills.html", system: get_field(@character, :system), character_skills: @character_skills %>
+    <%= render "_show_skills.html", system: get_field(@character, :system), character_skills: @character_skills, conn: @conn %>
   </div>
   <div class="col-sm-7">
     <%= unless Enum.empty?(@attacks) do %>
-      <%= render "_show_attacks.html", attacks: in_display_order(@attacks) %>
+      <%= render "_show_attacks.html", attacks: in_display_order(@attacks), conn: @conn %>
     <% end %>
     <hr>
     <div class="row">
@@ -278,7 +278,7 @@
 </div>
 
 <%= unless Enum.empty?(@talents) do %>
-  <%= render "_show_talents.html", talents: in_display_order(@talents) %>
+  <%= render "_show_talents.html", talents: in_display_order(@talents), conn: @conn %>
 <% end %>
 
 <%= unless Enum.empty?(@force_powers) do %>
@@ -293,7 +293,7 @@
       </div>
     </div>
   </div>
-  <%= render "_show_force_powers.html", force_powers: in_display_order(@force_powers) %>
+  <%= render "_show_force_powers.html", force_powers: in_display_order(@force_powers), conn: @conn %>
 <% end %>
 
 <div class="row">

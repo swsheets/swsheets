@@ -259,11 +259,11 @@
 
 <div class="row">
   <div class="col-lg-8">
-    <%= render "_form_attacks.html", vehicle_attacks: in_display_order(@vehicle_attacks) %>
+    <%= render "_form_attacks.html", vehicle_attacks: in_display_order(@vehicle_attacks), conn: @conn %>
     <p class="text-center col-sm-4 col-sm-offset-4">
       <button id="addAttackButton" type="button" class="btn btn-block btn-default">Add Attack</button>
     </p>
-    <%= render "_form_attachments.html", vehicle_attachments: in_display_order(@vehicle_attachments) %>
+    <%= render "_form_attachments.html", vehicle_attachments: in_display_order(@vehicle_attachments), conn: @conn %>
     <p class="text-center col-sm-4 col-sm-offset-4">
       <button id="addAttachmentButton" type="button" class="btn btn-block btn-default">Add Attachment</button>
     </p>
