@@ -1,1 +1,1 @@
-<button type="button" class="btn btn-sm btn-danger <%= assigns[:extra_classes] %>" data-toggle="modal" data-target="#deleteModal<%= @model.url_slug %>">Delete</button>
+<button type="button" class="btn btn-danger <%= assigns[:extra_classes] %>" data-toggle="modal" data-target="#deleteModal<%= @model.url_slug %>">Delete</button>
