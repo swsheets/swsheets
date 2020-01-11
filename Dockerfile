@@ -7,8 +7,9 @@ ADD mix.exs mix.lock ./
 RUN mix do deps.get, deps.compile
 
 ADD assets/package.json assets/
+RUN npm install -g yarn
 RUN cd assets && \
-    npm install
+    yarn install
 
 COPY . .
 
