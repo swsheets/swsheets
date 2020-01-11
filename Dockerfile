@@ -1,14 +1,14 @@
-FROM elixir:1.9
+FROM bitwalker/alpine-elixir-phoenix:1.9.2
 
-RUN apt-get update && \
-    apt-get install -y postgresql-client
+RUN apk update && \
+    apk add postgresql-client
 
-ENV APP_HOME /app
-RUN mkdir -p $APP_HOME
-WORKDIR $APP_HOME
+ADD mix.exs mix.lock ./
+RUN mix do deps.get, deps.compile
 
-RUN mix local.hex --force && \
-    mix local.rebar --force
+ADD assets/package.json assets/
+RUN cd assets && \
+    npm install
 
 COPY . .
 

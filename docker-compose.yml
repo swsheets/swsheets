@@ -9,25 +9,9 @@ services:
       - "4000:4000"
     volumes:
       - .:/app
-      - static:/app/priv/static
     depends_on:
       - db
-      - webpack
-  webpack:
-    build:
-      context: .
-      dockerfile: webpack.Dockerfile
-    command: yarn run watch
-    volumes:
-      - .:/app
-      - static:/app/priv/static
   db:
     image: postgres:11
     volumes:
       - ./pg_data:/var/lib/postgresql/data
-
-volumes:
-  static:
-    driver_opts:
-      device: "tmpfs"
-      type: "tmpfs"

@@ -1,10 +1,19 @@
+# .dockerignore
 .git
 Dockerfile
 docker-compose.yml
 README.md
 
-_build
-deps
+# Mix artifacts
+/_build/
+/deps/
 *.ez
+
+# Generate on crash by the VM
 erl_crash.dump
-node_modules
+
+# Static artifacts
+/assets/node_modules/
+
+# Tests
+/test/
