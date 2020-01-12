@@ -13,7 +13,7 @@
     </ul>
   </div>
   <div class="col-sm-6">
-    <h3>Pull Requesters <img src="<%= Routes.static_path("/images/advantage.png"%>" height="25px"></h3>
+    <h3>Pull Requesters <img src="<%= Routes.static_path("/images/advantage.png") %>" height="25px"></h3>
     <ul>
       <%= for user <- @pull_requesters do %>
         <li><a href="<%= Routes.profile_path(@conn, :show, user) %>"><%= user.username %></a></li>
