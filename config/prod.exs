@@ -10,7 +10,8 @@ config :edge_builder, EdgeBuilder.Endpoint,
   http: [port: {:system, "PORT"}],
   check_origin: true,
   url: [host: System.get_env("WEB_HOST"), port: 80],
-  secret_key_base: System.get_env("SECRET_KEY_BASE")
+  secret_key_base: System.get_env("SECRET_KEY_BASE"),
+  cache_static_manifest: "priv/static/cache_manifest.json"
 
 config :edge_builder, EdgeBuilder.Repo,
   adapter: Ecto.Adapters.Postgres,
