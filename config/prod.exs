@@ -9,7 +9,7 @@ use Mix.Config
 config :edge_builder, EdgeBuilder.Endpoint,
   http: [port: {:system, "PORT"}],
   load_from_system_env: true,
-  url: [scheme: "https", host: "swsheets-staging.herokuapp.com", port: 443],
+  url: [scheme: "https", host: "dffn.xyz", port: 443],
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
   secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE"),
   cache_static_manifest: "priv/static/cache_manifest.json"
