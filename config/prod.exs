@@ -8,17 +8,14 @@ use Mix.Config
 # meaningful, we use this information when generating URLs.
 config :edge_builder, EdgeBuilder.Endpoint,
   http: [port: {:system, "PORT"}],
-  load_from_system_env: true,
-  url: [scheme: "https", host: "dffn.xyz", port: 443],
-  force_ssl: [rewrite_on: [:x_forwarded_proto]],
-  secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE"),
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  check_origin: true,
+  url: [host: System.get_env("WEB_HOST"), port: 80],
+  secret_key_base: System.get_env("SECRET_KEY_BASE")
 
 config :edge_builder, EdgeBuilder.Repo,
   adapter: Ecto.Adapters.Postgres,
-  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
-  ssl: true,
-  url: System.get_env("DATABASE_URL")
+  url: System.get_env("DATABASE_URL"),
+  pool_size: 10
 
 # ## SSL Support
 #
