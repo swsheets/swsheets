@@ -108,6 +108,13 @@ body.v .alert {
   margin-top: 75px;
 }
 
+@media (max-width: 480px) {
+  body.c .main-area,
+  body.v .main-area {
+    margin-top: 40px;
+  }
+}
+
 .label-lg {
   font-size: 18px;
 }
