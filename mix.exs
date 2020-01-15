@@ -50,7 +50,7 @@ defmodule EdgeBuilder.Mixfile do
       {:inflex, "~> 2.0"},
       {:mock, "~> 0.3.4", only: :test},
       {:excoveralls, "~> 0.12.1", only: :test},
-      {:floki, "~> 0.23.1"}
+      {:floki, "~> 0.23.1", only: :test}
     ]
   end
 
