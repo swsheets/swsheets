@@ -5,11 +5,6 @@ config :edge_builder, EdgeBuilder.Endpoint,
   debug_errors: true,
   code_reloader: true
 
-config :edge_builder,
-  mailgun_domain: System.get_env("MAILGUN_DOMAIN"),
-  mailgun_from: System.get_env("MAILGUN_FROM"),
-  mailgun_api_key: System.get_env("MAILGUN_API_KEY")
-
 # Enables code reloading for development
 config :phoenix, :code_reloader, true
 
