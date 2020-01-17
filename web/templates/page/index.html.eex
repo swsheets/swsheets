@@ -2,6 +2,12 @@
   <div class="alert alert-success"><p>Your password has been reset and you are now logged in. Welcome back!</p></div>
 <% end %>
 
+<%= if @announcements do %>
+  <%= for announcement <- @announcements do %>
+    <div class="alert alert-<%= announcement.level %>"><%= raw announcement.body %></div>
+  <% end %>
+<% end %>
+
 <div class="jumbotron welcome-jumbotron">
   <img src="/images/jumbotron-left.png" class="pull-left hidden-xs hidden-sm">
   <img src="/images/jumbotron-right.png" class="pull-right hidden-xs hidden-sm">
