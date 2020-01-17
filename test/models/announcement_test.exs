@@ -3,7 +3,6 @@ defmodule EdgeBuilder.Models.AnnouncementTest do
 
   alias Factories.AnnouncementFactory
   alias EdgeBuilder.Models.Announcement
-  # alias EdgeBuilder.Repo
 
   describe "announcement" do
     @valid_attrs %{
