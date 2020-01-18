@@ -1,17 +1,17 @@
 <div class="list-group">
   <%= for character <- @characters do %>
-    <a href="<%= character_path(@conn, :show, character) %>" class="list-group-item creation-list-group-item">
+    <a href="<%= Routes.character_path(@conn, :show, character) %>" class="list-group-item creation-list-group-item">
       <div class="row">
         <div class="<%= if is_nil(character.portrait_url), do: 'col-xs-12', else: 'col-xs-8' %>">
           <h3 class="list-group-item-heading character-name"><%= character.name %></h3>
           <p><%= character.species %> <%= character.career %></p>
           <%= case character.system do %>
             <% :eote -> %>
-              <p class="system-container"><img src="/images/eote.png" class="img-thumbnail system-logo system-eote" /> Edge of the Empire</p>
+              <p class="system-container"><img src="<%= Routes.static_path(@conn, "/images/eote.png") %>" class="img-thumbnail system-logo system-eote" /> Edge of the Empire</p>
             <% :aor -> %>
-              <p class="system-container"><img src="/images/aor.png" class="img-thumbnail system-logo system-aor" /> Age of Rebellion</p>
+              <p class="system-container"><img src="<%= Routes.static_path(@conn, "/images/aor.png") %>" class="img-thumbnail system-logo system-aor" /> Age of Rebellion</p>
             <% :fad -> %>
-              <p class="system-container"><img src="/images/fad.png" class="img-thumbnail system-logo system-fad" /> Force and Destiny</p>
+              <p class="system-container"><img src="<%= Routes.static_path(@conn, "/images/fad.png") %>" class="img-thumbnail system-logo system-fad" /> Force and Destiny</p>
           <% end %>
         </div>
         <div class="col-xs-4">

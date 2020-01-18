@@ -1,5 +1,5 @@
 <h4>Skills</h4>
-<img id="dieProficiency" src="/images/die_proficiency.png" height=15 style="display:none" /><img id="dieAbility" src="/images/die_ability.png" height=15 style="display:none" />
+<img id="dieProficiency" src="<%= Routes.static_path(@conn, "/images/die_proficiency.png") %>" height=15 style="display:none" /><img id="dieAbility" src="<%= Routes.static_path(@conn, "/images/die_ability.png") %>" height=15 style="display:none" />
 
 <table class="table table-condensed">
   <tr>

@@ -1,1 +1,1 @@
-<link href="/css/vehicle_show.css" rel="stylesheet">
+<link href="<%= Routes.static_path(@conn, "/css/vehicle_show.css") %>" rel="stylesheet">

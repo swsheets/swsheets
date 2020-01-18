@@ -273,6 +273,18 @@ body.v .alert {
   border: 1px solid #bbb;
 }
 
+.profile {
+  border: 1px solid #aaa;
+}
+
+.new-content {
+  clear: both;
+}
+
+.bottom-pagination {
+  margin-bottom: 50px;
+}
+
 .settings-form-align {
   margin-top: -10px;
 }

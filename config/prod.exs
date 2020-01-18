@@ -1,5 +1,10 @@
 use Mix.Config
 
+config :edge_builder,
+  mailgun_domain: System.get_env("MAILGUN_DOMAIN"),
+  mailgun_from: System.get_env("MAILGUN_FROM"),
+  mailgun_api_key: System.get_env("MAILGUN_API_KEY")
+
 # For production, we configure the host to read the PORT
 # from the system environment. Therefore, you will need
 # to set PORT=80 before running your server.
@@ -9,7 +14,14 @@ use Mix.Config
 config :edge_builder, EdgeBuilder.Endpoint,
   http: [port: {:system, "PORT"}],
   check_origin: true,
-  url: [host: "swsheets.com", port: 80]
+  url: [host: System.get_env("WEB_HOST"), port: 80],
+  secret_key_base: System.get_env("SECRET_KEY_BASE"),
+  cache_static_manifest: "priv/static/cache_manifest.json"
+
+config :edge_builder, EdgeBuilder.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  url: System.get_env("DATABASE_URL"),
+  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
 # ## SSL Support
 #
@@ -27,7 +39,3 @@ config :edge_builder, EdgeBuilder.Endpoint,
 
 # Do not print debug messages in production
 config :logger, level: :info
-
-# Finally import the config/prod.secret.exs
-# which should be versioned separately.
-import_config "prod.secret.exs"
