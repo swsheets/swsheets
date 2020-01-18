@@ -1,7 +1,0 @@
-mix do ecto.drop, ecto.create
-psql edgebuilder_development -c "CREATE EXTENSION pgcrypto"
-mix do ecto.migrate, seed
-
-MIX_ENV=test mix do ecto.drop, ecto.create
-psql edgebuilder_test -c "CREATE EXTENSION pgcrypto"
-MIX_ENV=test mix do ecto.migrate, seed
