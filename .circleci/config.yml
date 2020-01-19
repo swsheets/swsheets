@@ -2,8 +2,8 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/elixir:1.8
-      - image: circleci/postgres:9.6
+      - image: circleci/elixir:1.9.4
+      - image: circleci/postgres:11.6
         environment:
           POSTGRES_USER: pair
           POSTGRES_DB: edgebuilder_test
@@ -18,30 +18,30 @@ jobs:
 
       - restore_cache:
           keys:
-            - v1-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}-tester
-            - v1-mix-cache-{{ .Branch }}-tester
-            - v1-mix-cache-tester
+            - v2-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
+            - v2-mix-cache-{{ .Branch }}
+            - v2-mix-cache
       - restore_cache:
           keys:
-            - v1-build-cache-{{ .Branch }}-tester
-            - v1-build-cache-tester
+            - v2-build-cache-{{ .Branch }}
+            - v2-build-cache
 
       - run: mix do deps.get, compile
 
       - save_cache:
-          key: v1-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}-tester
+          key: v2-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
           paths: ["deps"]
       - save_cache:
-          key: v1-mix-cache-{{ .Branch }}-tester
+          key: v2-mix-cache-{{ .Branch }}
           paths: ["deps"]
       - save_cache:
-          key: v1-mix-cache-tester
+          key: v2-mix-cache
           paths: ["deps"]
       - save_cache:
-          key: v1-build-cache-{{ .Branch }}-tester
+          key: v2-build-cache-{{ .Branch }}
           paths: ["_build"]
       - save_cache:
-          key: v1-build-cache-tester
+          key: v2-build-cache
           paths: ["_build"]
 
       - run:
