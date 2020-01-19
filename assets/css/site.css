@@ -109,8 +109,7 @@ body.v .alert {
 }
 
 @media (max-width: 480px) {
-  body.c .main-area,
-  body.v .main-area {
+  .save-panel ~ .main-area {
     margin-top: 40px;
   }
 }
