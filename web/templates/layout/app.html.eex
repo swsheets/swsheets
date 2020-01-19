@@ -10,23 +10,23 @@
       ga('create', 'UA-60982925-8', 'auto');
       ga('send', 'pageview');
     </script>
-    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
-    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="/favicon-194x194.png" sizes="194x194">
-    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
-    <link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192">
-    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
-    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" sizes="57x57" href="<%= Routes.static_path(@conn, "/icons/apple-touch-icon-57x57.png") %>">
+    <link rel="apple-touch-icon" sizes="60x60" href="<%= Routes.static_path(@conn, "/icons/apple-touch-icon-60x60.png") %>">
+    <link rel="apple-touch-icon" sizes="72x72" href="<%= Routes.static_path(@conn, "/icons/apple-touch-icon-72x72.png") %>">
+    <link rel="apple-touch-icon" sizes="76x76" href="<%= Routes.static_path(@conn, "/icons/apple-touch-icon-76x76.png") %>">
+    <link rel="apple-touch-icon" sizes="114x114" href="<%= Routes.static_path(@conn, "/icons/apple-touch-icon-114x114.png") %>">
+    <link rel="apple-touch-icon" sizes="120x120" href="<%= Routes.static_path(@conn, "/icons/apple-touch-icon-120x120.png") %>">
+    <link rel="apple-touch-icon" sizes="144x144" href="<%= Routes.static_path(@conn, "/icons/apple-touch-icon-144x144.png") %>">
+    <link rel="apple-touch-icon" sizes="152x152" href="<%= Routes.static_path(@conn, "/icons/apple-touch-icon-152x152.png") %>">
+    <link rel="apple-touch-icon" sizes="180x180" href="<%= Routes.static_path(@conn, "/icons/apple-touch-icon-180x180.png") %>">
+    <link rel="icon" type="image/png" href="<%= Routes.static_path(@conn, "/icons/favicon-32x32.png") %>" sizes="32x32">
+    <link rel="icon" type="image/png" href="<%= Routes.static_path(@conn, "/icons/favicon-194x194.png") %>" sizes="194x194">
+    <link rel="icon" type="image/png" href="<%= Routes.static_path(@conn, "/icons/favicon-96x96.png") %>" sizes="96x96">
+    <link rel="icon" type="image/png" href="<%= Routes.static_path(@conn, "/icons/android-chrome-192x192.png") %>" sizes="192x192">
+    <link rel="icon" type="image/png" href="<%= Routes.static_path(@conn, "/icons/favicon-16x16.png") %>" sizes="16x16">
+    <link rel="manifest" href="<%= Routes.static_path(@conn, "/icons/manifest.json") %>">
     <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <meta name="msapplication-TileImage" content="<%= Routes.static_path(@conn, "/icons/mstile-144x144.png") %>">
     <meta name="theme-color" content="#ffffff">
 
     <meta charset="utf-8">
@@ -40,20 +40,13 @@
       <meta property="og:image" content="<%= og_image_url %>" />
     <% end %>
 
-    <!-- Bootstrap -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/3.4.1/flatly/bootstrap.min.css" rel="stylesheet" integrity="sha384-bfWZLPtvQKHg/nZNhaO/ZW4Ba8ISud5CtEjnCTU6OR1yOq5zrrF+JP2o7om6rzLf" crossorigin="anonymous">
+    <link href="<%= Routes.static_path(@conn, "/css/app.css") %>" rel="stylesheet">
 
     <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet" type="text/css">
-    <link href="/css/site.css" rel="stylesheet">
-    <%= render_existing view_module(@conn), "_header." <> view_template(@conn), assigns %>
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-      <![endif]-->
+    <%= render_existing view_module(@conn), "_header." <> view_template(@conn), assigns %>
   </head>
 
   <body class="<%= body_class(@conn) %>">
@@ -76,9 +69,9 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="eb-navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="<%= character_path(@conn, :index) %>">Characters</a></li>
-            <li><a href="<%= vehicle_path(@conn, :index) %>">Vehicles</a></li>
-            <li><a href="<%= profile_path(@conn, :my_creations) %>">My Creations</a></li>
+            <li><a href="<%= Routes.character_path(@conn, :index) %>">Characters</a></li>
+            <li><a href="<%= Routes.vehicle_path(@conn, :index) %>">Vehicles</a></li>
+            <li><a href="<%= Routes.profile_path(@conn, :my_creations) %>">My Creations</a></li>
           </ul>
           <%= render "_user_dropdown.html", conn: @conn %>
         </div><!-- /.navbar-collapse -->
@@ -97,19 +90,16 @@
       <div class="container">
         <p><%= application_name() %></p>
         <ul>
-          <li><a href="<%= page_path(@conn, :about) %>">About</a></li>
-          <li><a href="http://github.com/swsheets/swsheets">Source Code</a></li>
+          <li><a href="<%= Routes.page_path(@conn, :about) %>">About</a></li>
+          <li><a href="https://github.com/swsheets/swsheets">Source Code</a></li>
         </ul>
       </div>
     </footer>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="/js/jquery.1.11.2.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 
-    <script src="/js/phoenix_html.js"></script>
-    <script src="/js/site.js"></script>
-    <%= render_existing view_module(@conn), "_footer." <> view_template(@conn), assigns %>
+    <script src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>

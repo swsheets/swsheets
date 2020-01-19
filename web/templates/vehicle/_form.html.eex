@@ -1,6 +1,6 @@
 <div class="row well save-panel">
   <button type="submit" class="btn btn-success">Save</button>
-  <a class="btn btn-default pull-right" href="<%= if is_nil(@vehicle.data.id), do: '/', else: vehicle_path(@conn, :show, get_field(@vehicle, :permalink)) %>">Cancel</a> 
+  <a class="btn btn-default pull-right" href="<%= if is_nil(@vehicle.data.id), do: '/', else: Routes.vehicle_path(@conn, :show, get_field(@vehicle, :permalink)) %>">Cancel</a> 
 </div>
 
 <div class="row main-form">
@@ -259,11 +259,11 @@
 
 <div class="row">
   <div class="col-lg-8">
-    <%= render "_form_attacks.html", vehicle_attacks: in_display_order(@vehicle_attacks) %>
+    <%= render "_form_attacks.html", vehicle_attacks: in_display_order(@vehicle_attacks), conn: @conn %>
     <p class="text-center col-sm-4 col-sm-offset-4">
       <button id="addAttackButton" type="button" class="btn btn-block btn-default">Add Attack</button>
     </p>
-    <%= render "_form_attachments.html", vehicle_attachments: in_display_order(@vehicle_attachments) %>
+    <%= render "_form_attachments.html", vehicle_attachments: in_display_order(@vehicle_attachments), conn: @conn %>
     <p class="text-center col-sm-4 col-sm-offset-4">
       <button id="addAttachmentButton" type="button" class="btn btn-block btn-default">Add Attachment</button>
     </p>

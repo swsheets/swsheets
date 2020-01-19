@@ -109,8 +109,7 @@ body.v .alert {
 }
 
 @media (max-width: 480px) {
-  body.c .main-area,
-  body.v .main-area {
+  .save-panel ~ .main-area {
     margin-top: 40px;
   }
 }
@@ -271,6 +270,18 @@ body.v .alert {
   margin-left: -100px;
   top: 57px;
   border: 1px solid #bbb;
+}
+
+.profile {
+  border: 1px solid #aaa;
+}
+
+.new-content {
+  clear: both;
+}
+
+.bottom-pagination {
+  margin-bottom: 50px;
 }
 
 .settings-form-align {

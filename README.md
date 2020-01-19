@@ -2,15 +2,13 @@
 
 [![CircleCI](https://circleci.com/gh/swsheets/swsheets.svg?style=svg)](https://circleci.com/gh/swsheets/swsheets) [![codecov](https://codecov.io/gh/swsheets/swsheets/branch/master/graph/badge.svg)](https://codecov.io/gh/swsheets/swsheets)
 
-SWSheets is a simple application for creating, storing, sharing, and printing Edge of the Empire characters online. It is not intended to enforce any rules of character building or provide any aids beyond calculating die rolls. It used to be called EdgeBuilder until I couldn't get that domain. I'm not going to rename that in the code anytime soon though.
+SWSheets is a simple application for creating, storing, sharing, and printing Fantasy Flight Games' Star Wars role-playing game characters online. It is not intended to enforce any rules of character building or provide any aids beyond calculating die rolls.
 
-## Planned Features & Suggestions
+## Feature Suggestions & Bugs
 
-Please use the [issues page](https://github.com/swsheets/swsheets/issues)
+Please use the [issues page](https://github.com/swsheets/swsheets/issues).
 
 ## Setup
-
-### Docker
 
 The easiest way to get the application up and running locally is with Docker.
 
@@ -33,53 +31,14 @@ docker-compose up
 docker-compose run --rm app doa.mixthing
 ```
 
-### Traditional
-
-If you prefer not to use Docker, then you'll need to do some more work to get SWSheets up and running.
-
-- Install Elixir 1.9 and Erlang 22.
-- Install PostgreSQL >=9.3.
-- Install dependencies.
-
-```
-mix deps.get
-```
-
-- Set up the database. This is for local development only and is not recommended for production.
-
-```
-createuser pair -d
-script/dbdo
-```
-
-- Run the Phoenix server.
-
-```
-mix phx.server
-```
-
 - Visit `localhost:4000` from your browser.
-
-## Deploying
-
-I use [ansible-swsheets](https://github.com/swsheets/ansible-swsheets). You could probably use Heroku too though.
 
 ## Testing
 
-### Docker
-
-If you've chosen to develop with Docker, then you can run your tests inside the container with `docker-compose`.
+You can run your tests inside the container with `docker-compose`.
 
 ```
 docker-compose run --rm app test
-```
-
-### Traditional
-
-If you're not running in Docker, simply run `mix test`.
-
-```
-mix test
 ```
 
 ## License
