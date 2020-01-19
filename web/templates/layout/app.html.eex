@@ -91,6 +91,7 @@
         <p><%= application_name() %></p>
         <ul>
           <li><a href="<%= Routes.page_path(@conn, :about) %>">About</a></li>
+          <li><a href="https://blog.swsheets.com">Blog</a></li>
           <li><a href="https://github.com/swsheets/swsheets">Source Code</a></li>
         </ul>
       </div>
