@@ -2,8 +2,8 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/elixir:1.8
-      - image: circleci/postgres:9.6
+      - image: circleci/elixir:1.9.4
+      - image: circleci/postgres:11.6
         environment:
           POSTGRES_USER: pair
           POSTGRES_DB: edgebuilder_test
@@ -52,7 +52,7 @@ jobs:
           name: Install psql
           command: sudo apt-get install postgresql-client
 
-      - run: 
+      - run:
           name: Run tests
           command: bash .circleci/run-tests.sh
 
