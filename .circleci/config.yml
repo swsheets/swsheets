@@ -18,30 +18,30 @@ jobs:
 
       - restore_cache:
           keys:
-            - v1-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
-            - v1-mix-cache-{{ .Branch }}
-            - v1-mix-cache
+            - v1-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}-tester
+            - v1-mix-cache-{{ .Branch }}-tester
+            - v1-mix-cache-tester
       - restore_cache:
           keys:
-            - v1-build-cache-{{ .Branch }}
-            - v1-build-cache
+            - v1-build-cache-{{ .Branch }}-tester
+            - v1-build-cache-tester
 
       - run: mix do deps.get, compile
 
       - save_cache:
-          key: v1-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
+          key: v1-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}-tester
           paths: ["deps"]
       - save_cache:
-          key: v1-mix-cache-{{ .Branch }}
+          key: v1-mix-cache-{{ .Branch }}-tester
           paths: ["deps"]
       - save_cache:
-          key: v1-mix-cache
+          key: v1-mix-cache-tester
           paths: ["deps"]
       - save_cache:
-          key: v1-build-cache-{{ .Branch }}
+          key: v1-build-cache-{{ .Branch }}-tester
           paths: ["_build"]
       - save_cache:
-          key: v1-build-cache
+          key: v1-build-cache-tester
           paths: ["_build"]
 
       - run:
