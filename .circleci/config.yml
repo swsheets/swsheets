@@ -2,8 +2,8 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/elixir:1.8
-      - image: circleci/postgres:9.6
+      - image: circleci/elixir:1.9.4
+      - image: circleci/postgres:11.6
         environment:
           POSTGRES_USER: pair
           POSTGRES_DB: edgebuilder_test
@@ -18,30 +18,30 @@ jobs:
 
       - restore_cache:
           keys:
-            - v1-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
-            - v1-mix-cache-{{ .Branch }}
-            - v1-mix-cache
+            - v2-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
+            - v2-mix-cache-{{ .Branch }}
+            - v2-mix-cache
       - restore_cache:
           keys:
-            - v1-build-cache-{{ .Branch }}
-            - v1-build-cache
+            - v2-build-cache-{{ .Branch }}
+            - v2-build-cache
 
       - run: mix do deps.get, compile
 
       - save_cache:
-          key: v1-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
+          key: v2-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
           paths: ["deps"]
       - save_cache:
-          key: v1-mix-cache-{{ .Branch }}
+          key: v2-mix-cache-{{ .Branch }}
           paths: ["deps"]
       - save_cache:
-          key: v1-mix-cache
+          key: v2-mix-cache
           paths: ["deps"]
       - save_cache:
-          key: v1-build-cache-{{ .Branch }}
+          key: v2-build-cache-{{ .Branch }}
           paths: ["_build"]
       - save_cache:
-          key: v1-build-cache
+          key: v2-build-cache
           paths: ["_build"]
 
       - run:
@@ -52,7 +52,7 @@ jobs:
           name: Install psql
           command: sudo apt-get install postgresql-client
 
-      - run: 
+      - run:
           name: Run tests
           command: bash .circleci/run-tests.sh
 
