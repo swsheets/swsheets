@@ -19,7 +19,8 @@ defmodule EdgeBuilder.Models.Announcement do
   def active() do
     Repo.all(
       from a in __MODULE__,
-        where: a.active
+        where: a.active,
+        order_by: [desc: a.inserted_at]
     )
   end
 end
