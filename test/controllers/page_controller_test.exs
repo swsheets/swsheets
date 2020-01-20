@@ -232,4 +232,10 @@ defmodule EdgeBuilder.Controllers.PageControllerTest do
       assert String.contains?(conn.resp_body, "luke")
     end
   end
+
+  describe "about" do
+    conn = build_conn() |> get("/about")
+
+    assert String.contains?(conn.resp_body, "About SWSheets")
+  end
 end
