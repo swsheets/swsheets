@@ -4,7 +4,6 @@ defmodule EdgeBuilder.Controllers.PageControllerTest do
   alias Factories.UserFactory
   alias Factories.CharacterFactory
   alias Factories.VehicleFactory
-  alias Factories.AnnouncementFactory
 
   describe "index" do
     it "shows a list of characters" do
@@ -142,24 +141,6 @@ defmodule EdgeBuilder.Controllers.PageControllerTest do
                conn.resp_body,
                "Your password has been reset and you are now logged in. Welcome back!"
              )
-    end
-
-    it "shows an announcement if there are any active" do
-      AnnouncementFactory.create_announcement(
-        body: "<p>This is an <strong>active</strong> announcement.</p>",
-        active: true
-      )
-
-      AnnouncementFactory.create_announcement(body: "This announcement should not be shown.")
-
-      conn = build_conn() |> get("/")
-
-      assert String.contains?(
-               conn.resp_body,
-               "<p>This is an <strong>active<\/strong> announcement.<\/p>"
-             )
-
-      assert !String.contains?(conn.resp_body, "This announcement should not be shown.")
     end
   end
 
