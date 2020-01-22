@@ -5,7 +5,7 @@ html {
 
 body {
   font-family: "Droid Sans", sans-serif;
-  margin-bottom: 100px;
+  margin-bottom: 120px;
 }
 
 h1 {
@@ -50,7 +50,7 @@ h4 {
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  height: 100px;
+  height: 120px;
   background-color: #555;
   padding-top: 10px;
   color: #fff;
