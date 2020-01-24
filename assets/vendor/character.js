@@ -254,7 +254,7 @@ var CharacterForm = (function() {
     var skill = $("[data-skill='"+skillName+"']");
     var currentCharacteristic = skill.find("[data-selected-characteristic]").val();
     var availableCharacteristics = skill.find("[data-available-characteristic]");
-    var characteristicCount = availableCharacteristics.size();
+    var characteristicCount = availableCharacteristics.length;
     var selectedIndex = 0;
 
     availableCharacteristics.each(function(i) {
