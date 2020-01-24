@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-6 col-md-offset-3">
     <h2>About <%= application_name() %></h2>
 
     <p><%= application_name() %> is a free tool for storing your Edge of the Empire, Age of Rebellion and Force and Destiny RPG character and vehicle sheets online.</p>
@@ -18,13 +18,17 @@
 
     <p>As for "open-source," it just means that all the code that powers this website <a href="https://github.com/swsheets/swsheets">is available online</a> and is open to contributions from others.</p>
 
+    <p><strong>What about custom skills?</strong></p>
+
+    <p>Probably not. Generally speaking, we don't find custom skills to be worthwhile.</p>
+
     <p><strong>You should add a bunch of logic to enforce the rules of character creation.</strong></p>
 
     <p>That's a lot of work, and <a href="https://community.fantasyflightgames.com/index.php?/topic/89135-another-character-generator/">OggDude's Character Generator</a> does that better.</p>
 
     <p><strong>Why does this exist when <a href="https://community.fantasyflightgames.com/index.php?/topic/89135-another-character-generator/">OggDude's Character Generator</a> exists?</strong></p>
 
-    <p>OggDude's tool is great! We wanted a tool to manage characters online and easily share them with a group, though. Also, OggDude's is Windows-only.</p>
+    <p>OggDude's tool is great! We wanted a tool to manage my characters online and share them with my group, though. Also, that tool is Windows-only. :(</p>
 
     <p><strong>I found a bug!</strong></p>
 
@@ -33,11 +37,6 @@
     <p><strong>I have an idea for a neat feature!</strong></p>
 
     <p>Awesome! Please submit a feature request on the <a href="https://github.com/swsheets/swsheets/issues/">issues page</a>.</p>
-
-    <p><strong>Do you have a changelog? I'd like to know what updates you're making.</strong></p>
-
-    <p>Sure do. You can keep an eye on the <a href="https://blog.swsheets.com">SWSheets blog</a> for updates (there's even an <a href="https://blog.swsheets.com/rss.xml">RSS feed</a>, if you like). Major changes will be posted there.</p>
-    <p>If you want the real nitty gritty, you can read <a href="https://github.com/swsheets/swsheets/releases">the full changelogs on GitHub.</a></p>
 
     <p><strong>I think you're claiming ownership of this intellectual property!</strong></p>
 
