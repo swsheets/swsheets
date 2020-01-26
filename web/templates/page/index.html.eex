@@ -10,7 +10,7 @@
     <p><%= application_name() %> is a community for creating, managing, and sharing your characters for <strong>Fantasy Flight Games' Star Wars</strong> role-playing game. It is completely free and <a href="/about#open-source">open-source</a>. Take a look at some of the creations below, or <a href="<%= Routes.character_path(@conn, :new) %>">create your own</a>.</p>
   </div>
 </div>
-<div class="pull-right jumbotron-credit hidden-xs hidden-sm"><a href="http://antonvandort.deviantart.com/art/Star-Wars-Sketch-Cards-Cantina-110607962">"Star Wars Sketch Cards Cantina" by antonvandort</a></div>
+<div class="pull-right jumbotron-credit hidden-xs hidden-sm"><a target="_blank" rel="noopener noreferrer" href="https://antonvandort.deviantart.com/art/Star-Wars-Sketch-Cards-Cantina-110607962">"Star Wars Sketch Cards Cantina" by antonvandort</a></div>
 
 <div class="row new-content">
   <div class="col-md-6">
