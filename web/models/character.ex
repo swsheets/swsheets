@@ -71,11 +71,15 @@ defmodule EdgeBuilder.Models.Character do
       |> cast(Map.put(clean_params(params), "user_id", user_id), allowed_fields())
       |> validate_required(required_fields())
       |> validate_format(:portrait_url, ~r/^https:\/\/.*/, message: "must begin with \"https://\"")
-      # |> Enum.map(@string_fields, fn field ->
-      #   validate_length(field, max:255)
-      # end)
       |> validate_length(:species, max: 255)
+      |> validate_length(:career, max: 255)
       |> Ecto.Changeset.delete_change(:url_slug)
+
+    # Enum.map([:species, :career], fn string_field ->
+    #   Ecto.Changeset.validate_length(ch, string_field, max: 255)
+    # end)
+
+    IO.inspect(ch)
 
     # res = EctoHelper.pretty_errors(ch.errors)
     # IO.puts("##########")
