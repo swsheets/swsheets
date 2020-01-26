@@ -1,5 +1,6 @@
 defmodule EdgeBuilder.Models.Character do
   use EdgeBuilder.Web, :model
+  # use EdgeBuilder.EctoHelper
 
   alias EdgeBuilder.Models.Talent
   alias EdgeBuilder.Models.Talent
@@ -7,6 +8,7 @@ defmodule EdgeBuilder.Models.Character do
   alias EdgeBuilder.Models.CharacterSkill
   alias EdgeBuilder.Models.ForcePower
   alias EdgeBuilder.Models.User
+  alias EdgeBuilder.EctoHelper
 
   @derive {Phoenix.Param, key: :permalink}
   schema "characters" do
@@ -61,13 +63,50 @@ defmodule EdgeBuilder.Models.Character do
 
   defp required_fields, do: [:name, :species, :career, :user_id, :system]
   defp allowed_fields, do: __schema__(:fields) -- [:id, :url_slug]
+  @string_fields [:species, :career]
 
   def changeset(character, user_id, params \\ %{}) do
-    character
-    |> cast(Map.put(clean_params(params), "user_id", user_id), allowed_fields())
-    |> validate_required(required_fields())
-    |> validate_format(:portrait_url, ~r/^https:\/\/.*/, message: "must begin with \"https://\"")
-    |> Ecto.Changeset.delete_change(:url_slug)
+    ch =
+      character
+      |> cast(Map.put(clean_params(params), "user_id", user_id), allowed_fields())
+      |> validate_required(required_fields())
+      |> validate_format(:portrait_url, ~r/^https:\/\/.*/, message: "must begin with \"https://\"")
+      # |> Enum.map(@string_fields, fn field ->
+      #   validate_length(field, max:255)
+      # end)
+      |> validate_length(:species, max: 255)
+      |> Ecto.Changeset.delete_change(:url_slug)
+
+    # res = EctoHelper.pretty_errors(ch.errors)
+    # IO.puts("##########")
+    # IO.inspect(res)
+
+    # errs =
+    #   traverse_errors(ch, fn {msg, opts} ->
+    #     Enum.reduce(opts, msg, fn {key, value}, acc ->
+    #       String.replace(acc, "%{#{key}}", to_string(value))
+    #     end)
+    #   end)
+
+    # IO.inspect(ch)
+    # IO.inspect(errs)
+
+    # new_ch =
+    #   ch
+    #   |> Map.replace(:errors, errs)
+
+    # again = ch |> changeset_error_to_string()
+    # IO.inspect(new_ch)
+
+    ch
+  end
+
+  def changeset_error_to_string(changeset) do
+    Ecto.Changeset.traverse_errors(changeset, fn {msg, opts} ->
+      Enum.reduce(opts, msg, fn {key, value}, acc ->
+        String.replace(acc, "%{#{key}}", to_string(value))
+      end)
+    end)
   end
 
   def delete(character) do

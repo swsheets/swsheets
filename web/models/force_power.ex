@@ -16,11 +16,16 @@ defmodule EdgeBuilder.Models.ForcePower do
   def changeset(force_power, params \\ %{}) do
     force_power
     |> cast(params, ~w(character_id name description display_order)a)
+    |> validate_length(:name, max: 255)
   end
 
-  def is_default_changeset?(%{root: force_power_changeset, force_power_upgrades: upgrade_changesets}) do
+  def is_default_changeset?(%{
+        root: force_power_changeset,
+        force_power_upgrades: upgrade_changesets
+      }) do
     is_default_changeset?(force_power_changeset) && !Enum.any?(upgrade_changesets)
   end
+
   def is_default_changeset?(changeset) do
     default = struct(__MODULE__)
 
