@@ -13,7 +13,7 @@ defmodule EdgeBuilder.CharacterController do
   alias EdgeBuilder.Repositories.CharacterRepo
   alias EdgeBuilder.Changemap
   alias EdgeBuilder.ErrorHelpers
-  alias EdgeBuilder.EctoHelper
+  alias Ecto.Changeset
 
   plug Plug.Authentication, except: [:show, :index]
 
@@ -43,7 +43,7 @@ defmodule EdgeBuilder.CharacterController do
         attacks: changemap.attacks,
         character_skills: changemap.character_skills,
         force_powers: changemap.force_powers,
-        errors: Ecto.Changeset.traverse_errors(changemap.root, &ErrorHelpers.translate_error/1)
+        errors: Changeset.traverse_errors(changemap.root, &ErrorHelpers.translate_error/1)
       )
     end
   end
@@ -124,22 +124,15 @@ defmodule EdgeBuilder.CharacterController do
 
         redirect(conn, to: character_path(conn, :show, changemap.root.data))
       else
-        errs = Ecto.Changeset.traverse_errors(changemap.root, &ErrorHelpers.translate_error/1)
-        IO.puts("############")
-        IO.inspect(errs)
-
         render_edit(conn,
           character: changemap.root,
           talents: changemap.talents,
           attacks: changemap.attacks,
           character_skills: changemap.character_skills,
-          errors: Ecto.Changeset.traverse_errors(changemap.root, &ErrorHelpers.translate_error/1)
+          errors: Changeset.traverse_errors(changemap.root, &ErrorHelpers.translate_error/1)
         )
       end
     end
-  end
-
-  defp format_errors(errors) do
   end
 
   def delete(conn, %{"id" => id}) do
