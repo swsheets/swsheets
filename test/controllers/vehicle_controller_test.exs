@@ -206,6 +206,17 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
       assert String.contains?(conn.resp_body, "Dorsal Turbolaser")
     end
 
+    it "validates length on string fields with maximums" do
+      conn =
+        build_conn()
+        |> authenticate_as(UserFactory.default_user())
+        |> post("/v", %{
+          "vehicle" => %{"name" => "Frank", "faction" => "thin mints"}
+        })
+
+      assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text() == "Name can't be blank"
+    end
+
     it "doesn't create empty attacks or attachments" do
       build_conn()
       |> authenticate_as(UserFactory.default_user())

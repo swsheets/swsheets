@@ -2,11 +2,11 @@ defmodule EdgeBuilder.Models.Character do
   use EdgeBuilder.Web, :model
 
   alias EdgeBuilder.Models.Talent
-  alias EdgeBuilder.Models.Talent
   alias EdgeBuilder.Models.Attack
   alias EdgeBuilder.Models.CharacterSkill
   alias EdgeBuilder.Models.ForcePower
   alias EdgeBuilder.Models.User
+  alias EdgeBuilder.Models.Helpers.ModelHelper
 
   @derive {Phoenix.Param, key: :permalink}
   schema "characters" do
@@ -61,14 +61,14 @@ defmodule EdgeBuilder.Models.Character do
 
   defp required_fields, do: [:name, :species, :career, :user_id, :system]
   defp allowed_fields, do: __schema__(:fields) -- [:id, :url_slug]
-  defp string_fields, do: [:name, :species, :career, :specializations]
+  defp string_fields, do: [:name, :species, :career, :specializations, :encumbrance]
 
   def changeset(character, user_id, params \\ %{}) do
     character
     |> cast(Map.put(clean_params(params), "user_id", user_id), allowed_fields())
     |> validate_required(required_fields())
     |> validate_format(:portrait_url, ~r/^https:\/\/.*/, message: "must begin with \"https://\"")
-    |> validate_length_many(string_fields(), 255)
+    |> ModelHelper.validate_length_many(string_fields(), 255)
     |> Ecto.Changeset.delete_change(:url_slug)
   end
 
@@ -82,18 +82,6 @@ defmodule EdgeBuilder.Models.Character do
 
   def set_permalink(character) do
     Map.put(character, :permalink, "#{character.url_slug}-#{urlify(character.name)}")
-  end
-
-  @spec validate_length_many(
-          changeset :: Ecto.Changeset.t(),
-          fields :: [atom()],
-          max_length :: integer
-        ) :: Ecto.Changeset.t()
-  defp validate_length_many(%Ecto.Changeset{} = changeset, fields, max_length)
-       when is_list(fields) do
-    Enum.reduce(fields, changeset, fn field, changeset ->
-      validate_length(changeset, field, max: max_length)
-    end)
   end
 
   defp urlify(name) do
