@@ -61,6 +61,8 @@ defmodule EdgeBuilder.Models.Vehicle do
       :name,
       :make,
       :encumbrance,
+      :hyperdrive,
+      :sensor_range,
       :crew,
       :passengers,
       :consumables,
