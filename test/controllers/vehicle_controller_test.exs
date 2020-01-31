@@ -211,10 +211,16 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
         build_conn()
         |> authenticate_as(UserFactory.default_user())
         |> post("/v", %{
-          "vehicle" => %{"name" => "Frank", "faction" => "thin mints"}
+          "vehicle" => %{
+            "name" => "Frank",
+            "faction" => String.duplicate("a", 256),
+            "type" => String.duplicate("a", 256)
+          }
         })
 
-      assert FlokiExt.element(conn, ".alert-danger") |> FlokiExt.text() == "Name can't be blank"
+      assert FlokiExt.element(conn, ".alert-danger")
+             |> FlokiExt.text() ==
+               "Faction should be at most 255 character(s)Type should be at most 255 character(s)"
     end
 
     it "doesn't create empty attacks or attachments" do

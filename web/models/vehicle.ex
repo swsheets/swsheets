@@ -4,6 +4,7 @@ defmodule EdgeBuilder.Models.Vehicle do
   alias EdgeBuilder.Models.VehicleAttack
   alias EdgeBuilder.Models.VehicleAttachment
   alias EdgeBuilder.Models.User
+  alias EdgeBuilder.Models.Helpers.ModelHelper
 
   @derive {Phoenix.Param, key: :permalink}
   schema "vehicles" do
@@ -55,11 +56,26 @@ defmodule EdgeBuilder.Models.Vehicle do
   defp required_fields, do: [:name]
   defp allowed_fields, do: __schema__(:fields) -- [:id, :url_slug]
 
+  defp string_fields,
+    do: [
+      :name,
+      :make,
+      :encumbrance,
+      :crew,
+      :passengers,
+      :consumables,
+      :price,
+      :rarity,
+      :faction,
+      :type
+    ]
+
   def changeset(vehicle, user_id, params \\ %{}) do
     vehicle
     |> cast(Map.put(params, "user_id", user_id), allowed_fields())
     |> validate_required(required_fields())
     |> validate_format(:portrait_url, ~r/^https:\/\/.*/, message: "must begin with \"https://\"")
+    |> ModelHelper.validate_length_many(string_fields(), 255)
     |> Ecto.Changeset.delete_change(:url_slug)
   end
 

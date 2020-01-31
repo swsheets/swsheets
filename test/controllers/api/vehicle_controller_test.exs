@@ -29,9 +29,22 @@ defmodule EdgeBuilder.Controllers.API.VehicleControllerTest do
       conn =
         build_conn()
         |> authenticate_as(UserFactory.default_user())
-        |> json_put("/api/vehicles/#{vehicle.permalink}", %{vehicle: %{name: ""}})
+        |> json_put("/api/vehicles/#{vehicle.permalink}", %{
+          vehicle: %{
+            name: "",
+            faction: String.duplicate("a", 256),
+            type: String.duplicate("a", 256)
+          }
+        })
 
-      assert conn.resp_body |> Poison.decode!() == %{"errors" => %{"name" => "can't be blank"}}
+      assert conn.resp_body
+             |> Poison.decode!() == %{
+               "errors" => %{
+                 "name" => "can't be blank",
+                 "faction" => "should be at most 255 character(s)",
+                 "type" => "should be at most 255 character(s)"
+               }
+             }
     end
 
     it "requires authentication" do
