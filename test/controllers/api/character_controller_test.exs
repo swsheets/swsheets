@@ -35,9 +35,22 @@ defmodule EdgeBuilder.Controllers.API.CharacterControllerTest do
       conn =
         build_conn()
         |> authenticate_as(UserFactory.default_user())
-        |> json_put("/api/characters/#{character.permalink}", %{character: %{name: ""}})
+        |> json_put("/api/characters/#{character.permalink}", %{
+          character: %{
+            name: "",
+            species: String.duplicate("a", 256),
+            career: String.duplicate("a", 256)
+          }
+        })
 
-      assert conn.resp_body |> Poison.decode!() == %{"errors" => %{"name" => "can't be blank"}}
+      assert conn.resp_body
+             |> Poison.decode!() == %{
+               "errors" => %{
+                 "name" => "can't be blank",
+                 "species" => "should be at most 255 character(s)",
+                 "career" => "should be at most 255 character(s)"
+               }
+             }
     end
 
     it "requires authentication" do
