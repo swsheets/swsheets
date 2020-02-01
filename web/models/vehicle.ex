@@ -78,6 +78,7 @@ defmodule EdgeBuilder.Models.Vehicle do
     |> validate_required(required_fields())
     |> validate_format(:portrait_url, ~r/^https:\/\/.*/, message: "must begin with \"https://\"")
     |> ModelHelper.validate_length_many(string_fields(), 255)
+    |> validate_length(:portrait_url, max: 2048)
     |> Ecto.Changeset.delete_change(:url_slug)
   end
 

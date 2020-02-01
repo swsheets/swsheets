@@ -39,7 +39,8 @@ defmodule EdgeBuilder.Controllers.API.CharacterControllerTest do
           character: %{
             name: "",
             species: String.duplicate("a", 256),
-            career: String.duplicate("a", 256)
+            career: String.duplicate("a", 256),
+            portrait_url: "https://" <> String.duplicate("a", 2049)
           }
         })
 
@@ -48,7 +49,8 @@ defmodule EdgeBuilder.Controllers.API.CharacterControllerTest do
                "errors" => %{
                  "name" => "can't be blank",
                  "species" => "should be at most 255 character(s)",
-                 "career" => "should be at most 255 character(s)"
+                 "career" => "should be at most 255 character(s)",
+                 "portrait_url" => "should be at most 2048 character(s)"
                }
              }
     end

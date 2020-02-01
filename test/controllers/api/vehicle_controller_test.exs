@@ -33,7 +33,8 @@ defmodule EdgeBuilder.Controllers.API.VehicleControllerTest do
           vehicle: %{
             name: "",
             faction: String.duplicate("a", 256),
-            type: String.duplicate("a", 256)
+            type: String.duplicate("a", 256),
+            portrait_url: "https://" <> String.duplicate("a", 2049)
           }
         })
 
@@ -42,7 +43,8 @@ defmodule EdgeBuilder.Controllers.API.VehicleControllerTest do
                "errors" => %{
                  "name" => "can't be blank",
                  "faction" => "should be at most 255 character(s)",
-                 "type" => "should be at most 255 character(s)"
+                 "type" => "should be at most 255 character(s)",
+                 "portrait_url" => "should be at most 2048 character(s)"
                }
              }
     end
