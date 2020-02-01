@@ -16,7 +16,6 @@ defmodule EdgeBuilder.Models.ForcePower do
   def changeset(force_power, params \\ %{}) do
     force_power
     |> cast(params, ~w(character_id name description display_order)a)
-    |> validate_length(:name, max: 255)
   end
 
   def is_default_changeset?(%{
