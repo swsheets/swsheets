@@ -22,8 +22,12 @@ defmodule EdgeBuilder.Web do
       # Import all HTML functions (forms, tags, etc)
       use Phoenix.HTML
       use EdgeBuilder.ViewHelpers
+
+      import EdgeBuilder.ErrorHelpers
       import Inflex, only: [inflect: 2]
-      import Phoenix.Controller, only: [get_csrf_token: 0, get_flash: 2, view_module: 1, view_template: 1]
+
+      import Phoenix.Controller,
+        only: [get_csrf_token: 0, get_flash: 2, view_module: 1, view_template: 1]
     end
   end
 
@@ -39,8 +43,8 @@ defmodule EdgeBuilder.Web do
 
       def set_current_user(conn, user) do
         conn
-          |> put_session(:current_user_id, user.id)
-          |> put_session(:current_user_username, user.username)
+        |> put_session(:current_user_id, user.id)
+        |> put_session(:current_user_username, user.username)
       end
 
       def current_user_id(conn) do
@@ -52,7 +56,7 @@ defmodule EdgeBuilder.Web do
       end
 
       def render_404(conn) do
-        conn 
+        conn
         |> put_status(:not_found)
         |> put_view(EdgeBuilder.ErrorView)
         |> render("404.html")

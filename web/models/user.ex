@@ -37,6 +37,14 @@ defmodule EdgeBuilder.Models.User do
     |> shared_validations
   end
 
+  def changeset(user, :confirm_password_reset, params) do
+    user
+    |> cast(params, ~w(password password_confirmation password_reset_token)a)
+    |> validate_required([:password])
+    |> validate_required([:password_confirmation], name: "Password Confirmation")
+    |> shared_validations
+  end
+
   def changeset(user, :contributions, params) do
     user
     |> cast(params, ~w(bug_reported_at pull_requested_at)a)

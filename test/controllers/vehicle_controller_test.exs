@@ -206,6 +206,24 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
       assert String.contains?(conn.resp_body, "Dorsal Turbolaser")
     end
 
+    it "validates length on string fields with maximums" do
+      conn =
+        build_conn()
+        |> authenticate_as(UserFactory.default_user())
+        |> post("/v", %{
+          "vehicle" => %{
+            "name" => "Frank",
+            "faction" => String.duplicate("a", 256),
+            "type" => String.duplicate("a", 256),
+            "portrait_url" => "https://" <> String.duplicate("a", 2049)
+          }
+        })
+
+      assert FlokiExt.element(conn, ".alert-danger")
+             |> FlokiExt.text() ==
+               "Faction should be at most 255 character(s)Portrait url should be at most 2048 character(s)Type should be at most 255 character(s)"
+    end
+
     it "doesn't create empty attacks or attachments" do
       build_conn()
       |> authenticate_as(UserFactory.default_user())
