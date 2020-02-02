@@ -129,6 +129,42 @@ defmodule EdgeBuilder.Controllers.PasswordResetControllerTest do
       assert Plug.Conn.get_session(conn, :current_user_username) == user.username
     end
 
+    it "doesn't allow an empty password" do
+      user = UserFactory.create_user!() |> UserFactory.add_password_reset_token()
+
+      conn =
+        build_conn()
+        |> post("/password-reset", %{
+          "password_reset" => %{
+            "password" => "",
+            "password_confirmation" => "non-empty-confirmation",
+            "token" => user.password_reset_token
+          }
+        })
+
+      assert FlokiExt.element(conn, ".alert-danger")
+             |> FlokiExt.text()
+             |> String.contains?("Password can't be blank")
+    end
+
+    it "doesn't allow an empty password confirmation" do
+      user = UserFactory.create_user!() |> UserFactory.add_password_reset_token()
+
+      conn =
+        build_conn()
+        |> post("/password-reset", %{
+          "password_reset" => %{
+            "password" => "non-empty-password",
+            "password_confirmation" => "",
+            "token" => user.password_reset_token
+          }
+        })
+
+      assert FlokiExt.element(conn, ".alert-danger")
+             |> FlokiExt.text()
+             |> String.contains?("Password confirmation can't be blank")
+    end
+
     it "redirects to the welcome page with a notice about resetting the password" do
       user = UserFactory.create_user!() |> UserFactory.add_password_reset_token()
 
