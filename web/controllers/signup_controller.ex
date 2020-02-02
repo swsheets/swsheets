@@ -2,22 +2,26 @@ defmodule EdgeBuilder.SignupController do
   use EdgeBuilder.Web, :controller
 
   alias EdgeBuilder.Models.User
+  alias Ecto.Changeset
+  alias EdgeBuilder.ErrorHelpers
 
   def welcome(conn, _params) do
-    render conn, "welcome.html"
+    render(conn, "welcome.html")
   end
 
   def login(conn, %{"login" => %{"username" => username, "password" => password}})
-    when is_nil(username) or is_nil(password) do
-      conn 
-      |> render("welcome.html", login_empty: true)
+      when is_nil(username) or is_nil(password) do
+    conn
+    |> render("welcome.html", login_empty: true)
   end
+
   def login(conn, %{"login" => %{"username" => username, "password" => password}}) do
     case User.authenticate(username, password) do
-      {:ok, user} -> 
+      {:ok, user} ->
         conn
         |> set_current_user(user)
         |> redirect(to: "/")
+
       _ ->
         conn
         |> delete_session(:current_user_id)
@@ -26,16 +30,18 @@ defmodule EdgeBuilder.SignupController do
   end
 
   def signup(conn, %{"signup" => user_params}) do
-    case User.changeset(%User{}, :create, user_params) |> EdgeBuilder.Repo.insert do
+    case User.changeset(%User{}, :create, user_params) |> EdgeBuilder.Repo.insert() do
       {:ok, user} ->
         conn
         |> set_current_user(user)
         |> redirect(to: "/")
+
       {:error, changeset} ->
-        render conn, "welcome.html",
-          errors:          changeset.errors,
+        render(conn, "welcome.html",
+          errors: Changeset.traverse_errors(changeset, &ErrorHelpers.translate_error/1),
           signup_username: user_params["username"],
-          signup_email:    user_params["email"]
+          signup_email: user_params["email"]
+        )
     end
   end
 

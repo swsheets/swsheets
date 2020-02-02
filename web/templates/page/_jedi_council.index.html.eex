@@ -1,3 +1,3 @@
-<p>Newest Members of the Jedi Council (<a class="jedi-question" href="#" data-trigger="hover" data-toggle="popover" data-placement="bottom" data-content="Members of the community who have contributed to the site's development">?</a>): &nbsp;
+<p>Newest Members of the Jedi Council <span class="jedi-question glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Members of the community that have contributed to the site's development."></span> - 
   <%= profile_links(@conn, @contributors, 12) %>
   (<a href="<%= Routes.page_path(@conn, :thanks) %>">see all contributors</a>)</p>

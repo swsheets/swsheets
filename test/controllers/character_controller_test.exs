@@ -323,6 +323,25 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert String.contains?(conn.resp_body, "People work ten percent harder")
     end
 
+    it "validates length on string fields with maximums" do
+      conn =
+        build_conn()
+        |> authenticate_as(UserFactory.default_user())
+        |> post("/c", %{
+          "character" => %{
+            "species" => String.duplicate("a", 256),
+            "career" => String.duplicate("a", 256),
+            "portrait_url" => "https://" <> String.duplicate("a", 2049),
+            "system" => "eote",
+            "name" => "Matwe"
+          }
+        })
+
+      assert FlokiExt.element(conn, ".alert-danger")
+             |> FlokiExt.text() ==
+               "Career should be at most 255 character(s)Portrait url should be at most 2048 character(s)Species should be at most 255 character(s)"
+    end
+
     it "requires authentication" do
       conn = build_conn() |> post("/c")
 
