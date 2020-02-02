@@ -33,7 +33,12 @@ defmodule EdgeBuilder.PasswordResetController do
         render_404(conn)
 
       user ->
-        user = User.changeset(user, :password_reset, Map.put(params, "password_reset_token", nil))
+        user =
+          User.changeset(
+            user,
+            :confirm_password_reset,
+            Map.put(params, "password_reset_token", nil)
+          )
 
         if user.valid? do
           user = Repo.update!(user)

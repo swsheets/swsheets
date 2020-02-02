@@ -8,11 +8,11 @@
   <%= form_tag(Routes.password_reset_path(@conn, :submit_reset), role: "form", method: "POST", class: "form well") %>
     <div class="form-group">
       <label for="password_reset[password]" class="control-label">Password</label>
-      <input type="password" class="form-control" name="password_reset[password]" />
+      <input type="password" class="form-control" required name="password_reset[password]" />
     </div>
     <div class="form-group">
       <label for="password_reset[password_confirmation]" class="control-label">Password Confirmation</label>
-      <input type="password" class="form-control" name="password_reset[password_confirmation]" />
+      <input type="password" class="form-control" required name="password_reset[password_confirmation]" />
     </div>
     <input type="hidden" name="password_reset[token]" value="<%= @token %>" />
     <input class="btn btn-primary btn-block" type="submit" value="Change my password">
