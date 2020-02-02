@@ -221,7 +221,7 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
 
       assert FlokiExt.element(conn, ".alert-danger")
              |> FlokiExt.text() ==
-               "Faction should be at most 255 character(s)Portrait_url should be at most 2048 character(s)Type should be at most 255 character(s)"
+               "Faction should be at most 255 character(s)Portrait url should be at most 2048 character(s)Type should be at most 255 character(s)"
     end
 
     it "doesn't create empty attacks or attachments" do

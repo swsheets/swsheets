@@ -339,7 +339,7 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
       assert FlokiExt.element(conn, ".alert-danger")
              |> FlokiExt.text() ==
-               "Career should be at most 255 character(s)Portrait_url should be at most 2048 character(s)Species should be at most 255 character(s)"
+               "Career should be at most 255 character(s)Portrait url should be at most 2048 character(s)Species should be at most 255 character(s)"
     end
 
     it "requires authentication" do
