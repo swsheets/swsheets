@@ -23,7 +23,7 @@
         <div class="form-group form-group-sm">
           <label for="attacks[<%= i %>][range]">Range</label>
           <select class="form-control" name="attacks[<%= i %>][range]">
-            <%= options(get_field(attack, :range), ["", "Engaged", "Short", "Medium", "Long", "Extreme", "n/a"]) %>
+            <%= options(get_field(attack, :range), ["", "Close", "Short", "Medium", "Long", "Extreme", "n/a"]) %>
         
           </select>
         </div>
