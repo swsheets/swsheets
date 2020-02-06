@@ -231,7 +231,7 @@
     <div class="form-group col-sm-6">
       <label for="vehicle[sensor_range]">Sensor Range</label>
       <select class="form-control" name="vehicle[sensor_range]">
-        <%= options(get_field(@vehicle, :sensor_range), ["", "Engaged", "Short", "Medium", "Long", "Extreme", "n/a"]) %>
+        <%= options(get_field(@vehicle, :sensor_range), ["", "Close", "Short", "Medium", "Long", "Extreme", "n/a"]) %>
       </select>
     </div>
     <div class="form-group col-sm-6">
