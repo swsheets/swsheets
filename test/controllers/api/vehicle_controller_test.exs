@@ -33,6 +33,7 @@ defmodule EdgeBuilder.Controllers.API.VehicleControllerTest do
             defense_starboard_current: 7,
             current_speed: 2
           }
+        })
 
       assert conn.status == 200
       vehicle = Repo.get(Vehicle, vehicle.id)
