@@ -9,17 +9,24 @@ defmodule EdgeBuilder.Controllers.API.VehicleControllerTest do
   describe "update" do
     it "updates basic characteristics of a vehicle" do
       vehicle =
-        VehicleFactory.create_vehicle(user_id: UserFactory.default_user().id, strain_current: 0)
+        VehicleFactory.create_vehicle(
+          user_id: UserFactory.default_user().id,
+          strain_current: 0,
+          current_speed: 5
+        )
 
       conn =
         build_conn()
         |> authenticate_as(UserFactory.default_user())
-        |> json_put("/api/vehicles/#{vehicle.permalink}", %{vehicle: %{strain_current: 5}})
+        |> json_put("/api/vehicles/#{vehicle.permalink}", %{
+          vehicle: %{strain_current: 5, current_speed: 2}
+        })
 
       assert conn.status == 200
       vehicle = Repo.get(Vehicle, vehicle.id)
 
       assert vehicle.strain_current == 5
+      assert vehicle.current_speed == 2
     end
 
     it "returns errors properly" do
