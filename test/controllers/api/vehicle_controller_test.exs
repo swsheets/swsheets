@@ -17,6 +17,7 @@ defmodule EdgeBuilder.Controllers.API.VehicleControllerTest do
           defense_aft_current: 3,
           defense_port_current: 4,
           defense_starboard_current: 5
+          current_speed: 5
         )
 
       conn =
@@ -25,15 +26,13 @@ defmodule EdgeBuilder.Controllers.API.VehicleControllerTest do
         |> json_put("/api/vehicles/#{vehicle.permalink}", %{
           vehicle: %{
             strain_current: 5,
-            hull_current: -1,
             defense_fore_current: 3,
             defense_aft_current: 6,
             defense_port_current: 0,
-            defense_starboard_current: 7
+            defense_starboard_current: 7,
+            current_speed: 2
           }
-        })
 
-      assert conn.status == 200
       vehicle = Repo.get(Vehicle, vehicle.id)
 
       assert vehicle.strain_current == 5
@@ -42,12 +41,11 @@ defmodule EdgeBuilder.Controllers.API.VehicleControllerTest do
       assert vehicle.defense_aft_current == 6
       assert vehicle.defense_port_current == 0
       assert vehicle.defense_starboard_current == 7
+      assert vehicle.current_speed == 2
     end
 
     it "returns errors properly" do
-      vehicle =
         VehicleFactory.create_vehicle(user_id: UserFactory.default_user().id, strain_current: 0)
-
       conn =
         build_conn()
         |> authenticate_as(UserFactory.default_user())

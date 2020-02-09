@@ -47,6 +47,12 @@ var VehicleShow = (function() {
     $("#decrementDefenseStarboard").click(function() {
       incrementDefenseStarboard(-1);
     });
+    $("#incrementSpeed").click(function() {
+      incrementSpeed(1);
+    });
+    $("#decrementSpeed").click(function() {
+      incrementSpeed(-1);
+    });
   }
 
   function incrementHullTrauma(num) {
@@ -75,6 +81,10 @@ var VehicleShow = (function() {
       $("#currentDefenseStarboard"),
       num
     );
+  }
+
+  function incrementSpeed(num) {
+    incrementValue("current_speed", $("#currentSpeed"), num);
   }
 
   function incrementValue(key, $el, num) {
