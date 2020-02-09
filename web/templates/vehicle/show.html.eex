@@ -187,6 +187,7 @@
         <div class="panel-footer text-center">
           <label for="vehicle[defense_aft_current]">Current</label>
           <%= if @viewed_by_owner do %>
+            <br>
             <span class="increment-buttons">
               <button id="decrementDefenseAft">-</button>
               <button id="incrementDefenseAft">+</button>
@@ -211,6 +212,7 @@
         <div class="panel-footer text-center">
           <label for="vehicle[defense_port_current]">Current</label>
           <%= if @viewed_by_owner do %>
+            <br>
             <span class="increment-buttons">
               <button id="decrementDefensePort">-</button>
               <button id="incrementDefensePort">+</button>
@@ -236,6 +238,7 @@
         <div class="panel-footer text-center">
           <label for="vehicle[defense_starboard_current]">Current</label>
           <%= if @viewed_by_owner do %>
+            <br>
             <span class="increment-buttons">
               <button id="decrementDefenseStarboard">-</button>
               <button id="incrementDefenseStarboard">+</button>
