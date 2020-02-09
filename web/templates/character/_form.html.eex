@@ -220,26 +220,6 @@
       <div class="col-md-3 col-xs-6">
         <div class="panel panel-default">
           <div class="panel-body">
-            <input type="text" pattern="[0-9]*" class="form-control" min=0 name="character[credits]" value="<%= get_field(@character, :credits) %>" />
-          </div>
-          <div class="panel-footer text-center">
-            <label for="character[credits]">Credits</label>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 col-xs-6">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <input type="text" class="form-control" min=0 name="character[encumbrance]" value="<%= get_field(@character, :encumbrance) %>" />
-          </div>
-          <div class="panel-footer text-center">
-            <label for="character[encumbrance]">Encumbrance</label>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 col-xs-6">
-        <div class="panel panel-default">
-          <div class="panel-body">
             <input type="text" pattern="[0-9]*" class="form-control" min=0 name="character[xp_available]" value="<%= get_field(@character, :xp_available) %>" />
           </div>
           <div class="panel-footer text-center">
@@ -254,6 +234,26 @@
           </div>
           <div class="panel-footer text-center">
             <label for="character[xp_total]">Total XP</label>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-xs-6">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <input type="text" pattern="[0-9]*" class="form-control" min=0 name="character[credits]" value="<%= get_field(@character, :credits) %>" />
+          </div>
+          <div class="panel-footer text-center">
+            <label for="character[credits]">Credits</label>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-xs-6">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <input type="text" class="form-control" min=0 name="character[encumbrance]" value="<%= get_field(@character, :encumbrance) %>" />
+          </div>
+          <div class="panel-footer text-center">
+            <label for="character[encumbrance]">Encumbrance</label>
           </div>
         </div>
       </div>
