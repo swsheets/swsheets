@@ -3,6 +3,7 @@
 erl_crash.dump
 *.ez
 /config/prod.secret.exs
+/.elixir_ls/
 
 # Asset compilation
 /assets/node_modules/

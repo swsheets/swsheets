@@ -150,16 +150,22 @@
         <div class="panel-body panel-value">
           <%= get_field(@vehicle, :defense_fore) %>
         </div>
-        <div class="panel-footer text-center">
+        <div class="panel-footer text-center defense-panel-footer">
           <label for="vehicle[defense_fore]">Defense</label>
         </div>
       </div>
       <div class="panel panel-default current">
-        <div class="panel-body panel-value">
+        <div id="currentDefenseFore" class="panel-body panel-value">
           <%= get_field(@vehicle, :defense_fore_current) %>
         </div>
-        <div class="panel-footer text-center">
+        <div class="panel-footer text-center defense-panel-footer">
           <label for="vehicle[defense_fore_current]">Current</label>
+          <%= if @viewed_by_owner do %>
+            <span class="increment-buttons">
+              <button id="decrementDefenseFore">-</button>
+              <button id="incrementDefenseFore">+</button>
+            </span>
+          <% end %>
         </div>
       </div>
       <div class="defense-label">Fore</div>
@@ -175,11 +181,17 @@
         </div>
       </div>
       <div class="panel panel-default current">
-        <div class="panel-body panel-value">
+        <div id="currentDefenseAft" class="panel-body panel-value">
           <%= get_field(@vehicle, :defense_aft_current) %>
         </div>
         <div class="panel-footer text-center">
           <label for="vehicle[defense_aft_current]">Current</label>
+          <%= if @viewed_by_owner do %>
+            <span class="increment-buttons">
+              <button id="decrementDefenseAft">-</button>
+              <button id="incrementDefenseAft">+</button>
+            </span>
+          <% end %>
         </div>
       </div>
     </div>
@@ -193,11 +205,17 @@
         </div>
       </div>
       <div class="panel panel-default current">
-        <div class="panel-body panel-value">
+        <div id="currentDefensePort" class="panel-body panel-value">
           <%= get_field(@vehicle, :defense_port_current) %>
         </div>
         <div class="panel-footer text-center">
           <label for="vehicle[defense_port_current]">Current</label>
+          <%= if @viewed_by_owner do %>
+            <span class="increment-buttons">
+              <button id="decrementDefensePort">-</button>
+              <button id="incrementDefensePort">+</button>
+            </span>
+          <% end %>
         </div>
       </div>
       <div class="defense-label">Port</div>
@@ -212,11 +230,17 @@
         </div>
       </div>
       <div class="panel panel-default current">
-        <div class="panel-body panel-value">
+        <div id="currentDefenseStarboard" class="panel-body panel-value">
           <%= get_field(@vehicle, :defense_starboard_current) %>
         </div>
         <div class="panel-footer text-center">
           <label for="vehicle[defense_starboard_current]">Current</label>
+          <%= if @viewed_by_owner do %>
+            <span class="increment-buttons">
+              <button id="decrementDefenseStarboard">-</button>
+              <button id="incrementDefenseStarboard">+</button>
+            </span>
+          <% end %>
         </div>
       </div>
       <div class="defense-label">Starboard</div>
