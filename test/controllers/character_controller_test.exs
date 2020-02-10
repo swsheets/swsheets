@@ -444,6 +444,10 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert String.contains?(conn.resp_body, "Edit")
       assert String.contains?(conn.resp_body, "Delete")
       assert String.contains?(conn.resp_body, "Private Notes")
+      assert !is_nil(FlokiExt.element(conn, "#decrementWounds"))
+      assert !is_nil(FlokiExt.element(conn, "#incrementWounds"))
+      assert !is_nil(FlokiExt.element(conn, "#decrementStrain"))
+      assert !is_nil(FlokiExt.element(conn, "#incrementStrain"))
     end
 
     it "does not display owner-only elements when viewed by another" do
@@ -455,6 +459,10 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert !String.contains?(conn.resp_body, "Edit")
       assert !String.contains?(conn.resp_body, "Delete")
       assert !String.contains?(conn.resp_body, "Private Notes")
+      assert is_nil(FlokiExt.element(conn, "#decrementWounds"))
+      assert is_nil(FlokiExt.element(conn, "#incrementWounds"))
+      assert is_nil(FlokiExt.element(conn, "#decrementStrain"))
+      assert is_nil(FlokiExt.element(conn, "#incrementStrain"))
     end
 
     it "inserts appropriate line breaks for long text fields" do
