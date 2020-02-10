@@ -16,7 +16,7 @@ defmodule EdgeBuilder.Controllers.API.VehicleControllerTest do
           defense_fore_current: 2,
           defense_aft_current: 3,
           defense_port_current: 4,
-          defense_starboard_current: 5
+          defense_starboard_current: 5,
           current_speed: 5
         )
 
