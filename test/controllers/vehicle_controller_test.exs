@@ -316,6 +316,12 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
       assert String.contains?(conn.resp_body, "Edit")
       assert String.contains?(conn.resp_body, "Delete")
       assert String.contains?(conn.resp_body, "Private Notes")
+      assert !is_nil(FlokiExt.element(conn, "#decrementHullTrauma"))
+      assert !is_nil(FlokiExt.element(conn, "#incrementHullTrauma"))
+      assert !is_nil(FlokiExt.element(conn, "#decrementSystemStrain"))
+      assert !is_nil(FlokiExt.element(conn, "#incrementSystemStrain"))
+      assert !is_nil(FlokiExt.element(conn, "#decrementSpeed"))
+      assert !is_nil(FlokiExt.element(conn, "#incrementSpeed"))
     end
 
     it "does not display owner-only elements when viewed by another" do
@@ -327,6 +333,12 @@ defmodule EdgeBuilder.Controllers.VehicleControllerTest do
       assert !String.contains?(conn.resp_body, "Edit")
       assert !String.contains?(conn.resp_body, "Delete")
       assert !String.contains?(conn.resp_body, "Private Notes")
+      assert is_nil(FlokiExt.element(conn, "#decrementHullTrauma"))
+      assert is_nil(FlokiExt.element(conn, "#incrementHullTrauma"))
+      assert is_nil(FlokiExt.element(conn, "#decrementSystemStrain"))
+      assert is_nil(FlokiExt.element(conn, "#incrementSystemStrain"))
+      assert is_nil(FlokiExt.element(conn, "#decrementSpeed"))
+      assert is_nil(FlokiExt.element(conn, "#incrementSpeed"))
     end
 
     it "inserts appropriate line breaks for long text fields" do

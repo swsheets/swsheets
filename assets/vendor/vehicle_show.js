@@ -3,7 +3,7 @@ var VehicleShow = (function() {
     var container = $(".defense-container");
     var silhouette = parseInt($("#silhouette").val());
 
-    if(silhouette > 4) {
+    if (silhouette > 4) {
       container.addClass("four-zones").removeClass("two-zones");
     } else {
       container.removeClass("four-zones").addClass("two-zones");
@@ -23,6 +23,12 @@ var VehicleShow = (function() {
     $("#decrementSystemStrain").click(function() {
       incrementSystemStrain(-1);
     });
+    $("#incrementSpeed").click(function() {
+      incrementSpeed(1);
+    });
+    $("#decrementSpeed").click(function() {
+      incrementSpeed(-1);
+    });
   }
 
   function incrementHullTrauma(num) {
@@ -33,11 +39,15 @@ var VehicleShow = (function() {
     incrementValue("strain_current", $("#currentSystemStrain"), num);
   }
 
+  function incrementSpeed(num) {
+    incrementValue("current_speed", $("#currentSpeed"), num);
+  }
+
   function incrementValue(key, $el, num) {
     var current = parseInt($el.text(), 10),
-        updated = current + num,
-        vehicleId = window.location.pathname.match(/^\/v\/(.+)$/)[1],
-        data = {vehicle: {}};
+      updated = current + num,
+      vehicleId = window.location.pathname.match(/^\/v\/(.+)$/)[1],
+      data = { vehicle: {} };
     data.vehicle[key] = updated;
     $el.text("" + updated);
     $.ajax({
