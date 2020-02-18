@@ -219,4 +219,18 @@ defmodule EdgeBuilder.Controllers.PageControllerTest do
 
     assert String.contains?(conn.resp_body, "About SWSheets")
   end
+
+  describe "supporters" do
+    conn = build_conn() |> get("/supporters")
+
+    assert conn.status == 200
+    assert String.contains?(conn.resp_body, "I Am The Senate")
+  end
+
+  describe "thank you" do
+    conn = build_conn() |> get("/thank-you")
+
+    assert conn.status == 200
+    assert String.contains?(conn.resp_body, "Thank you for supporting SWSheets!")
+  end
 end
