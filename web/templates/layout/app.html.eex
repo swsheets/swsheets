@@ -91,6 +91,9 @@
         <p><%= application_name() %></p>
         <ul>
           <li><a href="<%= Routes.page_path(@conn, :about) %>">About</a></li>
+          <li><a href="<%= Routes.page_path(@conn, :supporters) %>">Supporters</a></li>
+          <li><a href="https://patreon.com/duffn">Patreon</a></li>
+          <li><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=A8BDWW8MQMKNU&amp;source=url">Donate</a></li>
           <li><a href="https://blog.swsheets.com">Blog</a></li>
           <li><a href="https://github.com/swsheets/swsheets">Source Code</a></li>
         </ul>
