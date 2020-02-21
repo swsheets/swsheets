@@ -27,7 +27,10 @@ defmodule EdgeBuilder.PageController do
   end
 
   def supporters(conn, _params) do
-    render(conn, :supporters)
+    render(conn, :supporters,
+      donators: ["Andrew J.", "David B.", "Marshall M."],
+      padawans: ["Bryan", "Austin W."]
+    )
   end
 
   # Differing from the `thanks` route in that this one is the one a user gets
