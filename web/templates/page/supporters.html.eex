@@ -1,6 +1,10 @@
 <div class="row">
   <div class="col-sm-12">
-    <p>Thank you for supporting SWSheets! Find out more about the different tiers on <a href="https://patreon.com/duffn">Patreon</a>.</p>
+    <h2>Thank you for supporting SWSheets!</h2>
+  </div>
+
+  <div class="col-sm-6">
+    <p>Find out more about the different tiers on <a href="https://patreon.com/duffn">Patreon</a>.</p>
     
     <h1>I Am The Senate</h1>
     <p>Nobody here yet.</p>
@@ -9,6 +13,24 @@
     <p>Nobody here yet.</p>
 
     <h3>Padawan</h3>
-    <p>Nobody here yet.</p>
+    <p>
+      <ul>
+        <%= for padawan <- @padawans do %>
+          <li><%= padawan %></li>
+        <% end %>
+      </ul>
+    </p>
+  </div>
+
+  <div class="col-sm-6">
+    <p>Donate with <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=A8BDWW8MQMKNU&amp;source=url">PayPal</a>.</p>
+    <h2>Donators</h2>
+    <p>
+      <ul>
+        <%= for donator <- @donators do %>
+          <li><%= donator %></li>
+        <% end %>
+      </ul>
+    </p>
   </div>
 </div>
