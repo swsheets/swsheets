@@ -10,7 +10,13 @@
     <p>Nobody here yet.</p>
 
     <h2>Jedi</h2>
-    <p>Nobody here yet.</p>
+    <p>
+      <ul>
+        <%= for jedi <- @jedis do %>
+          <li class="patron-jedi"><%= jedi %></li>
+        <% end %>
+      </ul>
+    </p>
 
     <h3>Padawan</h3>
     <p>
