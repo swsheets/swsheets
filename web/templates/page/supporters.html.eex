@@ -7,7 +7,13 @@
     <p>Find out more about the different tiers on <a href="https://patreon.com/duffn">Patreon</a>.</p>
     
     <h1>I Am The Senate</h1>
-    <p>Nobody here yet.</p>
+     <p>
+      <ul>
+        <%= for senate <- @senates do %>
+          <li class="patron-senate"><%= senate %></li>
+        <% end %>
+      </ul>
+    </p>
 
     <h2>Jedi</h2>
     <p>
