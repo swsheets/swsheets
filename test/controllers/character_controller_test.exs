@@ -632,20 +632,22 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
         "Survival"
       ]
 
+      skill_buttons = [
+        "previous",
+        "next"
+      ]
+
       assert conn.status == 200
 
       for skill <- skills do
         skill_element = FlokiExt.element(conn, "[data-skill=#{skill}]")
 
-        assert !is_nil(
-                 skill_element
-                 |> FlokiExt.find("[data-skill-previous=#{skill}]")
-               )
-
-        assert !is_nil(
-                 skill_element
-                 |> FlokiExt.find("[data-skill-next=#{skill}]")
-               )
+        for skill_button <- skill_buttons do
+          assert !is_nil(
+                   skill_element
+                   |> FlokiExt.find("[data-skill-#{skill_button}=#{skill}]")
+                 )
+        end
       end
     end
 
