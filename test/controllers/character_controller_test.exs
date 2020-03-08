@@ -616,6 +616,39 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert String.contains?(conn.resp_body, character.name)
     end
 
+    it "shows skills with multiple possible characteristics properly" do
+      character = CharacterFactory.create_character(user_id: UserFactory.default_user().id)
+
+      conn =
+        build_conn()
+        |> authenticate_as(UserFactory.default_user())
+        |> get("/c/#{character.permalink}/edit")
+
+      skills = [
+        "Charm",
+        "Lightsaber",
+        "Negotiation",
+        "Streetwise",
+        "Survival"
+      ]
+
+      assert conn.status == 200
+
+      for skill <- skills do
+        skill_element = FlokiExt.element(conn, "[data-skill=#{skill}]")
+
+        assert !is_nil(
+                 skill_element
+                 |> FlokiExt.find("[data-skill-previous=#{skill}]")
+               )
+
+        assert !is_nil(
+                 skill_element
+                 |> FlokiExt.find("[data-skill-next=#{skill}]")
+               )
+      end
+    end
+
     it "requires authentication" do
       conn = build_conn() |> get("/c/123/edit")
 
