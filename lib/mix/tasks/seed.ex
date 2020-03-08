@@ -24,7 +24,7 @@ defmodule Mix.Tasks.Seed do
       },
       %{
         name: "Charm",
-        characteristics: ["Presence"]
+        characteristics: ["Presence", "Cunning"]
       },
       %{
         name: "Coercion",
@@ -64,7 +64,7 @@ defmodule Mix.Tasks.Seed do
       },
       %{
         name: "Negotiation",
-        characteristics: ["Presence"]
+        characteristics: ["Presence", "Cunning"]
       },
       %{
         name: "Perception",
@@ -92,11 +92,11 @@ defmodule Mix.Tasks.Seed do
       },
       %{
         name: "Streetwise",
-        characteristics: ["Cunning"]
+        characteristics: ["Cunning", "Intellect"]
       },
       %{
         name: "Survival",
-        characteristics: ["Cunning"]
+        characteristics: ["Cunning", "Intellect"]
       },
       %{
         name: "Vigilance",
