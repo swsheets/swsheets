@@ -6,8 +6,8 @@
     "watch": "webpack --mode development --watch"
   },
   "dependencies": {
-    "phoenix": "^1.5.1",
-    "phoenix_html": "^2.14.1"
+    "phoenix": "^1.4.11",
+    "phoenix_html": "^2.13.2"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
