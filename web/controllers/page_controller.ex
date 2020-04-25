@@ -30,7 +30,7 @@ defmodule EdgeBuilder.PageController do
     render(conn, :supporters,
       donators: ["Andrew J.", "David B.", "Marshall M."],
       padawans: ["Bryan", "Austin W.", "Randall D.", "John C."],
-      jedis: ["Brian E.", "Brennan O."],
+      jedis: ["Brian E.", "Greg C."],
       senates: ["Brad K.", "Simon B."]
     )
   end
