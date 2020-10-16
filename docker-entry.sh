@@ -7,8 +7,7 @@ done
 if [ "${1}" = "setup" ]; then
   echo "Creating database user..."
   PGPASSWORD=password1 psql -h db -U postgres -c "CREATE USER pair with PASSWORD 'password1' CREATEDB;"
-  # createuser -h db -U postgres pair -d
-  
+
   echo "Creating and migrating development database..."
   mix do ecto.drop, ecto.create
   PGPASSWORD=password1 psql -h db -U postgres edgebuilder_development -c "CREATE EXTENSION pgcrypto"
