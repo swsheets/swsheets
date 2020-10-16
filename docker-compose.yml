@@ -13,5 +13,7 @@ services:
       - db
   db:
     image: postgres:11
+    environment:
+      POSTGRES_PASSWORD: password1
     volumes:
       - ./pg_data:/var/lib/postgresql/data
