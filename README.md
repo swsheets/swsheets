@@ -17,7 +17,7 @@ The easiest way to get the application up and running locally is with Docker.
   - **NOTE**: If this is not your first time running the app, this will drop the local development database, so ensure that you want to do that.
 
   - Make sure the directory you are running this is in is known to Docker.
-    On the mac you can configure shared paths from Docker -> Preferences... -> Resources -> File Sharing.
+    On the macOS you can configure shared paths from Docker -> Preferences... -> Resources -> File Sharing.
     See https://docs.docker.com/docker-for-mac for more info.
 
 ```
