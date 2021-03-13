@@ -4,10 +4,13 @@ services:
   app:
     environment:
       DB_HOST: db
+      MIX_ENV: "dev"
     build: .
     ports:
       - "4000:4000"
     volumes:
+      - /opt/app/assets/node_modules
+      - /opt/app/deps
       - .:/opt/app
     depends_on:
       - db
