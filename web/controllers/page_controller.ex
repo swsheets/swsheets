@@ -28,9 +28,9 @@ defmodule EdgeBuilder.PageController do
 
   def supporters(conn, _params) do
     render(conn, :supporters,
-      donators: ["Andrew J.", "David B.", "Marshall M."],
-      padawans: ["Bryan", "Austin W.", "Randall D.", "Geoff R.", "Ben B."],
-      jedis: ["Brian E.", "Greg C."],
+      donators: ["Andrew J.", "David B.", "Marshall M.", "Soren H.", "Eric S."],
+      padawans: ["Bryan", "Austin W.", "Geoff R.", "Ben B.", "Leslie", "Erik J."],
+      jedis: [],
       senates: ["Brad K.", "Simon B."]
     )
   end
