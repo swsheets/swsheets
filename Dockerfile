@@ -1,4 +1,4 @@
-FROM bitwalker/alpine-elixir-phoenix:1.9.4
+FROM bitwalker/alpine-elixir-phoenix:1.10.3
 
 RUN apk update && \
     apk add postgresql-client
