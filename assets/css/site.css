@@ -295,3 +295,12 @@ body.v .alert {
 .patron-senate {
   font-size: 3.5rem;
 }
+@media print {
+.save-panel {
+  display: none;
+  }
+#dieAbility, #dieProficiency {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
