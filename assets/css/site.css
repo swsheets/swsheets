@@ -170,6 +170,14 @@ body.v .alert {
   color: #fff;
 }
 
+.glyphicon-step-backward, .glyphicon-step-forward {
+  font-size: 1.25rem;
+}
+
+.skills td span {
+  font-size: 1.35rem;
+}
+
 .nav-divider {
   border-left: 1px solid #666;
 }
