@@ -170,6 +170,14 @@ body.v .alert {
   color: #fff;
 }
 
+.glyphicon-step-backward, .glyphicon-step-forward {
+  font-size: 1.25rem;
+}
+
+.skills td span {
+  font-size: 1.35rem;
+}
+
 .nav-divider {
   border-left: 1px solid #666;
 }
@@ -294,4 +302,18 @@ body.v .alert {
 
 .patron-senate {
   font-size: 3.5rem;
+}
+
+.monospace {
+  font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+}
+
+@media print {
+.save-panel {
+  display: none;
+  }
+#dieAbility, #dieProficiency {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
 }
