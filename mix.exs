@@ -4,7 +4,7 @@ defmodule EdgeBuilder.Mixfile do
   def project do
     [
       app: :edge_builder,
-      version: "2.15.1",
+      version: "2.16.0",
       elixir: "~> 1.8",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix] ++ Mix.compilers(),
