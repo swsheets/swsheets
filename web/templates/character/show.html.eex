@@ -322,7 +322,7 @@
 <div class="row">
   <h4>Other Notes</h4>
   <div class="col-md-12">
-    <div class="long-text"><%= render_text(@character, :other_notes) %></div>
+    <div class="long-text other-notes monospace"><%= render_text(@character, :other_notes) %></div>
   </div>
 </div>
 
