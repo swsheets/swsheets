@@ -1,5 +1,11 @@
 use Mix.Config
 
+toBool = fn
+  "true", _ -> true
+  "false", _ -> false
+  nil, default -> default
+end
+
 config :edge_builder,
   mailgun_domain: System.get_env("MAILGUN_DOMAIN"),
   mailgun_from: System.get_env("MAILGUN_FROM"),
@@ -21,7 +27,8 @@ config :edge_builder, EdgeBuilder.Endpoint,
 config :edge_builder, EdgeBuilder.Repo,
   adapter: Ecto.Adapters.Postgres,
   url: System.get_env("DATABASE_URL"),
-  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
+  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+  ssl: toBool.(System.get_env("POSTGRES_SSL") || "false", false)
 
 # ## SSL Support
 #
