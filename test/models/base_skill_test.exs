@@ -21,6 +21,36 @@ defmodule EdgeBuilder.Models.BaseSkillTest do
       assert skill.name == "Athletics"
       assert skill.characteristics == ["Brawn"]
     end
+
+    it "returns mutiple characteristics for skills that have them" do
+      charm = BaseSkill.by_name("Charm")
+      assert charm.name == "Charm"
+      assert charm.characteristics == ["Presence", "Cunning"]
+
+      lightsaber = BaseSkill.by_name("Lightsaber")
+      assert lightsaber.name == "Lightsaber"
+
+      assert lightsaber.characteristics == [
+               "Brawn",
+               "Agility",
+               "Intellect",
+               "Cunning",
+               "Willpower",
+               "Presence"
+             ]
+
+      negotiation = BaseSkill.by_name("Negotiation")
+      assert negotiation.name == "Negotiation"
+      assert negotiation.characteristics == ["Presence", "Cunning"]
+
+      streetwise = BaseSkill.by_name("Streetwise")
+      assert streetwise.name == "Streetwise"
+      assert streetwise.characteristics == ["Cunning", "Intellect"]
+
+      survival = BaseSkill.by_name("Survival")
+      assert survival.name == "Survival"
+      assert survival.characteristics == ["Cunning", "Intellect"]
+    end
   end
 
   describe "attack skills" do

@@ -4,7 +4,7 @@ defmodule EdgeBuilder.Mixfile do
   def project do
     [
       app: :edge_builder,
-      version: "2.2.0",
+      version: "2.16.0",
       elixir: "~> 1.8",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix] ++ Mix.compilers(),
@@ -45,7 +45,7 @@ defmodule EdgeBuilder.Mixfile do
       {:scrivener_ecto, "~> 2.2"},
       {:comeonin, "~> 5.1"},
       {:bcrypt_elixir, "~> 2.0"},
-      {:httpoison, "~> 1.6"},
+      {:httpoison, "~> 1.8"},
       {:poison, "~> 3.1"},
       {:sentry, "~> 7.0"},
       {:inflex, "~> 2.0"},

@@ -210,10 +210,10 @@
 </div>
 
 <div class="row">
-  <div class="col-sm-5">
+  <div class="col-sm-12 col-md-6 skills">
     <%= render "_form_skills.html", character_skills: @character_skills, conn: @conn %>
   </div>
-  <div class="col-sm-7">
+  <div class="col-sm-12 col-md-6">
     <%= render "_form_attacks.html", attacks: in_display_order(@attacks), conn: @conn %>
     <hr>
     <div class="row">

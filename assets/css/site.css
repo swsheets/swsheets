@@ -5,7 +5,7 @@ html {
 
 body {
   font-family: "Droid Sans", sans-serif;
-  margin-bottom: 120px;
+  margin-bottom: 185px;
 }
 
 h1 {
@@ -50,7 +50,7 @@ h4 {
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  height: 120px;
+  height: 185px;
   background-color: #555;
   padding-top: 10px;
   color: #fff;
@@ -108,7 +108,7 @@ body.v .alert {
   margin-top: 75px;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .save-panel ~ .main-area {
     margin-top: 40px;
   }
@@ -168,6 +168,14 @@ body.v .alert {
 
 .glyphicon-user {
   color: #fff;
+}
+
+.glyphicon-step-backward, .glyphicon-step-forward {
+  font-size: 1.25rem;
+}
+
+.skills td span {
+  font-size: 1.35rem;
 }
 
 .nav-divider {
@@ -286,4 +294,26 @@ body.v .alert {
 
 .settings-form-align {
   margin-top: -10px;
+}
+
+.patron-jedi {
+  font-size: 2.5rem;
+}
+
+.patron-senate {
+  font-size: 3.5rem;
+}
+
+.monospace {
+  font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+}
+
+@media print {
+.save-panel {
+  display: none;
+  }
+#dieAbility, #dieProficiency {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
 }

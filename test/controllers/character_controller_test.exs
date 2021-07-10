@@ -444,6 +444,10 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert String.contains?(conn.resp_body, "Edit")
       assert String.contains?(conn.resp_body, "Delete")
       assert String.contains?(conn.resp_body, "Private Notes")
+      assert !is_nil(FlokiExt.element(conn, "#decrementWounds"))
+      assert !is_nil(FlokiExt.element(conn, "#incrementWounds"))
+      assert !is_nil(FlokiExt.element(conn, "#decrementStrain"))
+      assert !is_nil(FlokiExt.element(conn, "#incrementStrain"))
     end
 
     it "does not display owner-only elements when viewed by another" do
@@ -455,6 +459,10 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
       assert !String.contains?(conn.resp_body, "Edit")
       assert !String.contains?(conn.resp_body, "Delete")
       assert !String.contains?(conn.resp_body, "Private Notes")
+      assert is_nil(FlokiExt.element(conn, "#decrementWounds"))
+      assert is_nil(FlokiExt.element(conn, "#incrementWounds"))
+      assert is_nil(FlokiExt.element(conn, "#decrementStrain"))
+      assert is_nil(FlokiExt.element(conn, "#incrementStrain"))
     end
 
     it "inserts appropriate line breaks for long text fields" do
@@ -606,6 +614,41 @@ defmodule EdgeBuilder.Controllers.CharacterControllerTest do
 
       assert conn.status == 200
       assert String.contains?(conn.resp_body, character.name)
+    end
+
+    it "shows skills with multiple possible characteristics properly" do
+      character = CharacterFactory.create_character(user_id: UserFactory.default_user().id)
+
+      conn =
+        build_conn()
+        |> authenticate_as(UserFactory.default_user())
+        |> get("/c/#{character.permalink}/edit")
+
+      skills = [
+        "Charm",
+        "Lightsaber",
+        "Negotiation",
+        "Streetwise",
+        "Survival"
+      ]
+
+      skill_buttons = [
+        "previous",
+        "next"
+      ]
+
+      assert conn.status == 200
+
+      for skill <- skills do
+        skill_element = FlokiExt.element(conn, "[data-skill=#{skill}]")
+
+        for skill_button <- skill_buttons do
+          assert !is_nil(
+                   skill_element
+                   |> FlokiExt.find("[data-skill-#{skill_button}=#{skill}]")
+                 )
+        end
+      end
     end
 
     it "requires authentication" do

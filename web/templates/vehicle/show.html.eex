@@ -23,7 +23,7 @@
       <hr>
       <h4>Characteristics</h4>
     </div>
-    <div class="row vehicle-characteristics-container">
+    <div class="row">
       <div class="col-sm-3 col-xs-6">
         <div class="panel panel-default">
           <div class="panel-body panel-value">
@@ -53,6 +53,7 @@
           <div class="panel-footer text-center">
             Current Speed
             <%= if @viewed_by_owner do %>
+            <br>
             <span class="increment-buttons">
               <button id="decrementSpeed">-</button>
               <button id="incrementSpeed">+</button>

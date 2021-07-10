@@ -26,6 +26,8 @@ defmodule EdgeBuilder.Router do
 
     get "/", PageController, :index
     get "/about", PageController, :about
+    get "/supporters", PageController, :supporters
+    get "/thank-you", PageController, :thank_you
     get "/thanks", PageController, :thanks
     resources "/c", CharacterController
     resources "/u", ProfileController, only: [:show]

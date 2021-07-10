@@ -4,14 +4,19 @@ services:
   app:
     environment:
       DB_HOST: db
+      MIX_ENV: "dev"
     build: .
     ports:
       - "4000:4000"
     volumes:
+      - /opt/app/assets/node_modules
+      - /opt/app/deps
       - .:/opt/app
     depends_on:
       - db
   db:
     image: postgres:11
+    environment:
+      POSTGRES_PASSWORD: password1
     volumes:
       - ./pg_data:/var/lib/postgresql/data
