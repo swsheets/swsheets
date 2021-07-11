@@ -40,7 +40,13 @@ docker-compose run --rm app doa.mixthing
 
 ## Testing
 
-You can run your tests inside the container with `docker-compose`.
+- Install the [`pre-commit`](https://pre-commit.com/) hook in order to automatically check formatting of your Elixir code.
+
+```
+pre-commit install
+```
+
+- You can run your tests inside the container with `docker-compose`.
 
 ```
 docker-compose run --rm app test
