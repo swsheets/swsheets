@@ -291,9 +291,7 @@ defmodule EdgeBuilder.CharacterController do
       background: bg
     } = character
 
-    "#{name} is #{a_or_an(species)} #{species} #{career} created by #{username} specializing in #{
-      specializations
-    }. #{bg}"
+    "#{name} is #{a_or_an(species)} #{species} #{career} created by #{username} specializing in #{specializations}. #{bg}"
     |> String.trim()
     |> String.replace(~r/[\s\n\r]+/, " ")
   end
