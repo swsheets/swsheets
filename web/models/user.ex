@@ -16,13 +16,18 @@ defmodule EdgeBuilder.Models.User do
   end
 
   def changeset(user, context, params \\ %{})
+
   def changeset(user, :create, params) do
     user
     |> cast(params, ~w(username email password password_confirmation)a)
     |> shared_validations
     |> validate_required([:username, :email, :password])
-    |> validate_format(:username, ~r/^[a-zA-Z0-9]*$/, message: "must contain only letters and numbers")
-    |> validate_format(:username, ~r/^.{1,30}$/, message: "must contain no more than 30 characters")
+    |> validate_format(:username, ~r/^[a-zA-Z0-9]*$/,
+      message: "must contain only letters and numbers"
+    )
+    |> validate_format(:username, ~r/^.{1,30}$/,
+      message: "must contain no more than 30 characters"
+    )
   end
 
   def changeset(user, :update, params) do
@@ -62,6 +67,7 @@ defmodule EdgeBuilder.Models.User do
   end
 
   def by_username(nil), do: nil
+
   def by_username(username) do
     Repo.one!(
       from u in __MODULE__,
@@ -115,7 +121,8 @@ defmodule EdgeBuilder.Models.User do
     end
   end
 
-  defp password_matches?(nil, _), do: Bcrypt.no_user_verify
+  defp password_matches?(nil, _), do: Bcrypt.no_user_verify()
+
   defp password_matches?(user, pw) do
     Bcrypt.verify_pass(pw, user.crypted_password)
   end

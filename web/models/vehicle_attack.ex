@@ -16,7 +16,10 @@ defmodule EdgeBuilder.Models.VehicleAttack do
 
   def changeset(vehicle_attack, params \\ %{}) do
     vehicle_attack
-    |> cast(params, ~w(vehicle_id weapon_name firing_arc range specials damage critical display_order)a)
+    |> cast(
+      params,
+      ~w(vehicle_id weapon_name firing_arc range specials damage critical display_order)a
+    )
   end
 
   def is_default_changeset?(changeset) do

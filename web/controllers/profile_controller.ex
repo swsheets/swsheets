@@ -11,11 +11,11 @@ defmodule EdgeBuilder.ProfileController do
     characters = EdgeBuilder.Repositories.CharacterRepo.all_for_user(user.id)
     vehicles = EdgeBuilder.Repositories.VehicleRepo.all_for_user(user.id)
 
-
-    render conn, :show,
+    render(conn, :show,
       user: user,
       characters: characters,
       vehicles: vehicles
+    )
   end
 
   def my_creations(conn, _params) do
@@ -23,10 +23,10 @@ defmodule EdgeBuilder.ProfileController do
     characters = EdgeBuilder.Repositories.CharacterRepo.all_for_user(user.id)
     vehicles = EdgeBuilder.Repositories.VehicleRepo.all_for_user(user.id)
 
-
-    render conn, :my_creations,
+    render(conn, :my_creations,
       user: user,
       characters: characters,
       vehicles: vehicles
+    )
   end
 end
