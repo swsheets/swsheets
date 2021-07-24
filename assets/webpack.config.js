@@ -24,9 +24,7 @@ module.exports = (env, options) => ({
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-        },
+        use: ["babel-loader"],
       },
       {
         test: /\.css$/,
@@ -34,7 +32,7 @@ module.exports = (env, options) => ({
       },
       {
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-        loader: "url-loader?limit=100000",
+        use: ["url-loader?limit=100000"],
       },
     ],
   },
