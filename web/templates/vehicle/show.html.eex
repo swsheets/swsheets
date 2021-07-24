@@ -168,6 +168,7 @@
         <div class="panel-footer text-center defense-panel-footer">
           <label for="vehicle[defense_fore_current]">Current</label>
           <%= if @viewed_by_owner do %>
+            <br>
             <span class="increment-buttons">
               <button id="decrementDefenseFore">-</button>
               <button id="incrementDefenseFore">+</button>
