@@ -6,6 +6,7 @@
     "watch": "webpack --mode development --watch"
   },
   "dependencies": {
+    "glob": "^7.1.7",
     "phoenix": "^1.4.11",
     "phoenix_html": "^2.13.2"
   },
