@@ -37,7 +37,7 @@ h4 {
 
 .toplogo {
   background-color: #ffca07;
-  background-image: url(../static/images/logo.png);
+  background-image: url(/images/logo.png);
   height: 60px;
   width: 66px;
   position: absolute;
