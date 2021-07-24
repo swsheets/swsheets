@@ -9,35 +9,37 @@ module.exports = (env, options) => ({
   optimization: {
     minimizer: [
       new TerserPlugin({ cache: true, parallel: true, sourceMap: false }),
-      new OptimizeCSSAssetsPlugin({}),
-    ],
+      new OptimizeCSSAssetsPlugin({})
+    ]
   },
   entry: {
-    "./js/app.js": glob.sync("./vendor/**/*.js").concat(["./js/app.js"]),
+    "./js/app.js": glob.sync("./vendor/**/*.js").concat(["./js/app.js"])
   },
   output: {
     filename: "app.js",
-    path: path.resolve(__dirname, "../priv/static/js"),
+    path: path.resolve(__dirname, "../priv/static/js")
   },
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: ["babel-loader"],
+        use: {
+          loader: "babel-loader"
+        }
       },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader"]
       },
       {
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-        use: ["url-loader?limit=100000"],
-      },
-    ],
+        loader: "url-loader?limit=100000"
+      }
+    ]
   },
   plugins: [
     new MiniCssExtractPlugin({ filename: "../css/app.css" }),
-    new CopyWebpackPlugin({ patterns: [{ from: "static/", to: "../" }] }),
-  ],
+    new CopyWebpackPlugin([{ from: "static/", to: "../" }])
+  ]
 });
