@@ -203,10 +203,10 @@
 </div>
 
 <div class="row">
-  <div class="col-sm-12 col-md-6 skills">
+  <div class="col-sm-5 skills">
     <%= render "_show_skills.html", system: get_field(@character, :system), character_skills: @character_skills, conn: @conn %>
   </div>
-  <div class="col-sm-12 col-md-6">
+  <div class="col-sm-7">
     <%= unless Enum.empty?(@attacks) do %>
       <%= render "_show_attacks.html", attacks: in_display_order(@attacks), conn: @conn %>
     <% end %>
@@ -307,10 +307,10 @@
       <% :eote -> %>
         <h4>Obligations</h4>
         <div class="long-text"><%= render_text(@character, :obligation) %></div>
-      <% :aor -> %> 
+      <% :aor -> %>
         <h4>Duties</h4>
         <div class="long-text"><%= render_text(@character, :duty) %></div>
-      <% :fad -> %> 
+      <% :fad -> %>
         <h4>Morality</h4>
         <div class="long-text"><%= render_text(@character, :morality) %></div>
     <% end %>
