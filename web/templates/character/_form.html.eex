@@ -1,6 +1,6 @@
 <div class="row well save-panel">
   <button type="submit" class="btn btn-success">Save</button>
-  <a class="btn btn-default pull-right" href="<%= if is_nil(@character.data.id), do: '/', else: Routes.character_path(@conn, :show, get_field(@character, :permalink)) %>">Cancel</a> 
+  <a class="btn btn-default pull-right" href="<%= if is_nil(@character.data.id), do: '/', else: Routes.character_path(@conn, :show, get_field(@character, :permalink)) %>">Cancel</a>
 </div>
 
 <div class="row main-form">
@@ -325,7 +325,7 @@
 
 <div class="row">
   <h4>Other Notes</h4>
-  <div class="col-md-12">
+  <div class="col-md-12 monospace">
     <textarea name="character[other_notes]" rows=10 class="form-control"><%= get_field(@character, :other_notes) %></textarea>
   </div>
 </div>
