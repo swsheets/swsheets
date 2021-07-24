@@ -54,8 +54,8 @@ defmodule EdgeBuilder.Models.CharacterSkill do
   end
 
   def add_missing_defaults(character_skills) do
-    BaseSkill.all
-    |> Enum.map(&(character_skill_or_default(&1, character_skills)))
+    BaseSkill.all()
+    |> Enum.map(&character_skill_or_default(&1, character_skills))
   end
 
   defp character_skill_or_default(base_skill, character_skills_or_changesets) do
@@ -67,9 +67,24 @@ defmodule EdgeBuilder.Models.CharacterSkill do
       display_order: base_skill.display_order
     }
 
-    character_skill_or_changeset = Enum.find(character_skills_or_changesets, %EdgeBuilder.Models.CharacterSkill{}, &(Extensions.Changeset.get_field(&1, :base_skill_id) == base_skill.id))
+    character_skill_or_changeset =
+      Enum.find(
+        character_skills_or_changesets,
+        %EdgeBuilder.Models.CharacterSkill{},
+        &(Extensions.Changeset.get_field(&1, :base_skill_id) == base_skill.id)
+      )
 
-    skill_map = Map.merge(skill_template, Extensions.Changeset.take(character_skill_or_changeset, [:rank, :is_career, :id, :characteristic, :adjustments]))
+    skill_map =
+      Map.merge(
+        skill_template,
+        Extensions.Changeset.take(character_skill_or_changeset, [
+          :rank,
+          :is_career,
+          :id,
+          :characteristic,
+          :adjustments
+        ])
+      )
 
     if is_nil(skill_map.characteristic) do
       Map.put(skill_map, :characteristic, BaseSkill.default_characteristic(base_skill))

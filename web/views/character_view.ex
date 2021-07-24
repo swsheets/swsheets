@@ -5,12 +5,12 @@ defmodule EdgeBuilder.CharacterView do
   alias EdgeBuilder.Models.BaseSkill
 
   @characteristic_shorthands %{
-    "Agility"   => "Ag",
-    "Brawn"     => "Br",
-    "Cunning"   => "Cun",
+    "Agility" => "Ag",
+    "Brawn" => "Br",
+    "Cunning" => "Cun",
     "Intellect" => "Int",
-    "Presence"  => "Pr",
-    "Willpower" => "Will",
+    "Presence" => "Pr",
+    "Willpower" => "Will"
   }
 
   def image_or_default(character) do
@@ -18,15 +18,17 @@ defmodule EdgeBuilder.CharacterView do
   end
 
   def lookup_skill(nil), do: nil
+
   def lookup_skill(skill_id) do
     Repo.get(BaseSkill, skill_id).name
   end
 
   def options_for_attack_skills(selected_skill_id) do
-    Enum.map(BaseSkill.attack_skills, fn s ->
+    Enum.map(BaseSkill.attack_skills(), fn s ->
       selection = if s.id == selected_skill_id, do: "selected"
       "<option value='#{s.id}' #{selection}>#{s.name}</option>"
-    end) |> raw
+    end)
+    |> raw
   end
 
   def skill_display_name(skill) do

@@ -8,7 +8,7 @@ defmodule EdgeBuilder.TestSupportController do
   alias EdgeBuilder.Repo
 
   def fake_login(conn, %{"id" => id}) do
-    if Mix.env == :test do
+    if Mix.env() == :test do
       set_current_user(conn, Repo.get(User, id))
       |> redirect(to: "/")
     else

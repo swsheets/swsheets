@@ -1,6 +1,6 @@
 <div class="row well save-panel">
   <button type="submit" class="btn btn-success">Save</button>
-  <a class="btn btn-default pull-right" href="<%= if is_nil(@character.data.id), do: '/', else: Routes.character_path(@conn, :show, get_field(@character, :permalink)) %>">Cancel</a> 
+  <a class="btn btn-default pull-right" href="<%= if is_nil(@character.data.id), do: '/', else: Routes.character_path(@conn, :show, get_field(@character, :permalink)) %>">Cancel</a>
 </div>
 
 <div class="row main-form">
@@ -210,10 +210,10 @@
 </div>
 
 <div class="row">
-  <div class="col-sm-12 col-md-6 skills">
+  <div class="col-sm-5 skills">
     <%= render "_form_skills.html", character_skills: @character_skills, conn: @conn %>
   </div>
-  <div class="col-sm-12 col-md-6">
+  <div class="col-sm-7">
     <%= render "_form_attacks.html", attacks: in_display_order(@attacks), conn: @conn %>
     <hr>
     <div class="row">
@@ -325,7 +325,7 @@
 
 <div class="row">
   <h4>Other Notes</h4>
-  <div class="col-md-12">
+  <div class="col-md-12 monospace">
     <textarea name="character[other_notes]" rows=10 class="form-control"><%= get_field(@character, :other_notes) %></textarea>
   </div>
 </div>

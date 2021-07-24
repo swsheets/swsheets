@@ -1,0 +1,8 @@
+repos:
+  - repo: local
+    hooks:
+      - id: mix-format
+        name: mix-format
+        language: system
+        entry: bash -c 'mix format mix format "*.{ex,exs}" "priv/*/seeds.exs" "{config,lib,test,web}/**/*.{ex,exs}" --check-formatted'
+        pass_filenames: false
