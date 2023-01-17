@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "phoenix": "^1.4.11",
-    "phoenix_html": "^2.13.2"
+    "phoenix_html": "^3.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
