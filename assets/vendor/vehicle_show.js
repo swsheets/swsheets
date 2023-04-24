@@ -23,6 +23,30 @@ var VehicleShow = (function() {
     $("#decrementSystemStrain").click(function() {
       incrementSystemStrain(-1);
     });
+    $("#incrementDefenseFore").click(function() {
+      incrementDefenseFore(1);
+    });
+    $("#decrementDefenseFore").click(function() {
+      incrementDefenseFore(-1);
+    });
+    $("#incrementDefenseAft").click(function() {
+      incrementDefenseAft(1);
+    });
+    $("#decrementDefenseAft").click(function() {
+      incrementDefenseAft(-1);
+    });
+    $("#incrementDefensePort").click(function() {
+      incrementDefensePort(1);
+    });
+    $("#decrementDefensePort").click(function() {
+      incrementDefensePort(-1);
+    });
+    $("#incrementDefenseStarboard").click(function() {
+      incrementDefenseStarboard(1);
+    });
+    $("#decrementDefenseStarboard").click(function() {
+      incrementDefenseStarboard(-1);
+    });
     $("#incrementSpeed").click(function() {
       incrementSpeed(1);
     });
@@ -37,6 +61,26 @@ var VehicleShow = (function() {
 
   function incrementSystemStrain(num) {
     incrementValue("strain_current", $("#currentSystemStrain"), num);
+  }
+
+  function incrementDefenseFore(num) {
+    incrementValue("defense_fore_current", $("#currentDefenseFore"), num);
+  }
+
+  function incrementDefenseAft(num) {
+    incrementValue("defense_aft_current", $("#currentDefenseAft"), num);
+  }
+
+  function incrementDefensePort(num) {
+    incrementValue("defense_port_current", $("#currentDefensePort"), num);
+  }
+
+  function incrementDefenseStarboard(num) {
+    incrementValue(
+      "defense_starboard_current",
+      $("#currentDefenseStarboard"),
+      num
+    );
   }
 
   function incrementSpeed(num) {
