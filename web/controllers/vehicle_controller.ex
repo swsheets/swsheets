@@ -1,6 +1,7 @@
 defmodule EdgeBuilder.VehicleController do
   use EdgeBuilder.Web, :controller
 
+  alias EdgeBuilder.Router.Helpers, as: Routes
   alias EdgeBuilder.Changemap
   alias EdgeBuilder.Models.User
   alias EdgeBuilder.Models.Vehicle
@@ -31,7 +32,7 @@ defmodule EdgeBuilder.VehicleController do
     if Changemap.valid?(changemap) do
       changemap = Changemap.apply_changes(changemap)
 
-      redirect(conn, to: vehicle_path(conn, :show, changemap.root))
+      redirect(conn, to: Routes.vehicle_path(conn, :show, changemap.root))
     else
       render_vehicle(conn, :new,
         vehicle: changemap.root,
@@ -99,7 +100,7 @@ defmodule EdgeBuilder.VehicleController do
         Changemap.apply_changes(changemap)
         |> Changemap.delete_missing()
 
-        redirect(conn, to: vehicle_path(conn, :show, changemap.root.data))
+        redirect(conn, to: Routes.vehicle_path(conn, :show, changemap.root.data))
       else
         render_vehicle(conn, :edit,
           vehicle: changemap.root,
@@ -118,7 +119,7 @@ defmodule EdgeBuilder.VehicleController do
       redirect(conn, to: "/")
     else
       Vehicle.delete(vehicle)
-      redirect(conn, to: vehicle_path(conn, :index))
+      redirect(conn, to: Routes.vehicle_path(conn, :index))
     end
   end
 

@@ -1,6 +1,6 @@
 defmodule EdgeBuilder.Endpoint do
+  use Sentry.PlugCapture
   use Phoenix.Endpoint, otp_app: :edge_builder
-  use Sentry.Phoenix.Endpoint
 
   plug(Plug.Static, at: "/", from: :edge_builder, only: ~w(css images js fonts icons))
 
@@ -19,6 +19,8 @@ defmodule EdgeBuilder.Endpoint do
     pass: ["*/*"],
     json_decoder: Poison
   )
+
+  plug Sentry.PlugContext
 
   plug(Plug.MethodOverride)
   plug(Plug.Head)

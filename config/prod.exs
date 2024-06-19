@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 toBool = fn
   "true", _ -> true

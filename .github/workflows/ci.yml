@@ -1,0 +1,67 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - master
+
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 30
+
+    concurrency:
+      group: ${{ github.ref_name != 'main' && format('{0}-{1}', github.workflow, github.ref) || github.sha }}
+      cancel-in-progress: ${{ github.ref_name != 'main' }}
+
+    services:
+      postgres:
+        image: postgres:15.7
+        env:
+          POSTGRES_PASSWORD: password1
+          POSTGRES_USER: pair
+          POSTGRES_DB: edgebuilder_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: 25
+          elixir-version: 1.17
+
+      - run: mix local.hex --force
+      - run: mix local.rebar --force
+      - run: mix do deps.get, compile
+      - run: |
+          sudo apt-get update && sudo apt-get install postgresql-client
+        name: Download PostgreSQL client
+
+      - run: |
+          mix do ecto.drop, ecto.create
+          PGPASSWORD=password1 psql -h localhost -p 5432 -U pair edgebuilder_test -c "CREATE EXTENSION pgcrypto"
+          mix do ecto.migrate, seed
+          mix do compile --warnings-as-errors, coveralls.json
+        name: Test
+        env:
+          MIX_ENV: test
+
+      - run: bash <(curl -s https://codecov.io/bash)
+        name: Upload Codecov
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

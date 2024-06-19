@@ -1,7 +1,5 @@
 defmodule EdgeBuilder.Router do
-  use Phoenix.Router
-  use Plug.ErrorHandler
-  use Sentry.Plug
+  use Phoenix.Router, helpers: true
 
   pipeline :browser do
     plug :accepts, ~w(html)

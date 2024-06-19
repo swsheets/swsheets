@@ -1,7 +1,7 @@
 defmodule EdgeBuilder.CharacterController do
   use EdgeBuilder.Web, :controller
 
-  import EdgeBuilder.Router.Helpers
+  alias EdgeBuilder.Router.Helpers, as: Routes
   alias EdgeBuilder.Models.User
   alias EdgeBuilder.Models.Character
   alias EdgeBuilder.Models.Talent
@@ -35,7 +35,7 @@ defmodule EdgeBuilder.CharacterController do
     if Changemap.valid?(changemap) do
       changes = Changemap.apply_changes(changemap)
 
-      redirect(conn, to: character_path(conn, :show, changes.root))
+      redirect(conn, to: Routes.character_path(conn, :show, changes.root))
     else
       render_new(conn,
         character: changemap.root,
@@ -122,7 +122,7 @@ defmodule EdgeBuilder.CharacterController do
         |> Changemap.apply_changes()
         |> Changemap.delete_missing()
 
-        redirect(conn, to: character_path(conn, :show, changemap.root.data))
+        redirect(conn, to: Routes.character_path(conn, :show, changemap.root.data))
       else
         render_edit(conn,
           character: changemap.root,
@@ -142,7 +142,7 @@ defmodule EdgeBuilder.CharacterController do
       redirect(conn, to: "/")
     else
       Character.delete(character)
-      redirect(conn, to: character_path(conn, :index))
+      redirect(conn, to: Routes.character_path(conn, :index))
     end
   end
 

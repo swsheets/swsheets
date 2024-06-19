@@ -179,7 +179,7 @@ defmodule EdgeBuilder.Controllers.PasswordResetControllerTest do
         })
 
       assert is_redirect_to?(conn, "/")
-      assert Phoenix.Controller.get_flash(conn, :has_reset_password)
+      assert Phoenix.Flash.get(conn.assigns[:flash], :has_reset_password)
     end
 
     it "renders a 404 if the token is not found" do

@@ -19,7 +19,8 @@ defmodule EdgeBuilder.ConnCase do
     quote do
       use EdgeBuilder.TestCase
       # Import conveniences for testing with connections
-      use Phoenix.ConnTest
+      import Plug.Conn
+      import Phoenix.ConnTest
 
       # Alias the data repository and import query/model functions
       alias EdgeBuilder.Repo

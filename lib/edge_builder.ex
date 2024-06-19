@@ -8,9 +8,9 @@ defmodule EdgeBuilder do
 
     children = [
       # Start the endpoint when the application starts
-      worker(EdgeBuilder.Endpoint, []),
-      worker(EdgeBuilder.Repo, [])
-
+      {EdgeBuilder.Endpoint, []},
+      {EdgeBuilder.Repo, []},
+      {Phoenix.PubSub, [name: EdgeBuilder.PubSub, adapter: Phoenix.PubSub.PG2]}
       # Here you could define other workers and supervisors as children
       # worker(EdgeBuilder.Worker, [arg1, arg2, arg3]),
     ]
