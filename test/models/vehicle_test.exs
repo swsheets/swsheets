@@ -61,14 +61,14 @@ defmodule EdgeBuilder.Models.VehicleTest do
       attrs = Map.put(@valid_attrs, "portrait_url", "http://imgur.com/gallery/OjCH1Th")
       changeset = Vehicle.changeset(%Vehicle{}, UserFactory.default_user().id, attrs)
 
-      assert {:portrait_url, {"must begin with \"https://\"", [validation: :format]}} in changeset.errors()
+      assert {:portrait_url, {"must begin with \"https://\"", [validation: :format]}} in changeset.errors
     end
 
     it "does not allow random junk" do
       attrs = Map.put(@valid_attrs, "portrait_url", "gobbdly gobbldy https://")
       changeset = Vehicle.changeset(%Vehicle{}, UserFactory.default_user().id, attrs)
 
-      assert {:portrait_url, {"must begin with \"https://\"", [validation: :format]}} in changeset.errors()
+      assert {:portrait_url, {"must begin with \"https://\"", [validation: :format]}} in changeset.errors
     end
   end
 end

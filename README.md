@@ -49,7 +49,7 @@ pre-commit install
 - You can run your tests inside the container with `docker-compose`.
 
 ```
-docker-compose run --rm app test
+docker-compose run -e MIX_ENV=test --rm app test
 ```
 
 ## License

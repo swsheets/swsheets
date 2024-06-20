@@ -11,7 +11,7 @@ defmodule EdgeBuilder.PageController do
       contributors: User.contributors(5),
       characters: characters,
       vehicles: vehicles,
-      has_reset_password: get_flash(conn, :has_reset_password)
+      has_reset_password: Phoenix.Flash.get(conn.assigns[:flash], :has_reset_password)
     )
   end
 

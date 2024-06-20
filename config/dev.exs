@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 config :edge_builder, EdgeBuilder.Endpoint,
   http: [port: System.get_env("PORT") || 4000],

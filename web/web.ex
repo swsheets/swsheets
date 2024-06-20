@@ -20,7 +20,9 @@ defmodule EdgeBuilder.Web do
       alias EdgeBuilder.Router.Helpers, as: Routes
 
       # Import all HTML functions (forms, tags, etc)
-      use Phoenix.HTML
+      import Phoenix.HTML
+      import Phoenix.HTML.Form
+      use PhoenixHTMLHelpers
       use EdgeBuilder.ViewHelpers
 
       import EdgeBuilder.ErrorHelpers
@@ -37,9 +39,6 @@ defmodule EdgeBuilder.Web do
 
       # Alias the data repository as a convenience
       alias EdgeBuilder.Repo
-
-      # Import URL helpers from the router
-      import EdgeBuilder.Router.Helpers
 
       def set_current_user(conn, user) do
         conn

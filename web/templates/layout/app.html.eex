@@ -83,7 +83,7 @@
     </div>
 
     <div class="container main-container">
-      <%= render @view_module, @view_template, assigns %>
+      <%= @inner_content %>
     </div>
 
     <footer class="footer">

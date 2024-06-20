@@ -1,3 +1,14 @@
 {
-  "stack": "heroku-18"
+  "stack": "heroku-22",
+  "healthchecks": {
+    "web": [
+      {
+        "type": "startup",
+        "name": "web check",
+        "description": "Checking if the app responds ready.",
+        "path": "/",
+        "attempts": 3
+      }
+    ]
+  }
 }

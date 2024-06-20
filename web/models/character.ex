@@ -48,7 +48,7 @@ defmodule EdgeBuilder.Models.Character do
     field :force_rating, :integer
     field :private_notes, :string
 
-    field :system, Ecto.Types.Enumeration
+    field :system, Ecto.Enum, values: [:eote, :aor, :fad]
 
     timestamps()
     belongs_to :user, User

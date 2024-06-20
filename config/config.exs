@@ -3,7 +3,7 @@
 #
 # This configuration file is loaded before any dependency and
 # is restricted to this project.
-use Mix.Config
+import Config
 
 # General application configuration
 config :edge_builder,
@@ -16,12 +16,15 @@ config :edge_builder, EdgeBuilder.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "9gHweeZJaqUL1PGBXTxahiuf9fQuc5FJvN5AfL3XJpG5UkKkH8g/ApPrixTs67nE",
   debug_errors: false,
-  render_errors: [view: EdgeBuilder.ErrorView, accepts: ~w(html json)],
+  render_errors: [
+    formats: [html: EdgeBuilder.ErrorView, json: EdgeBuilder.ErrorView],
+    layout: false
+  ],
   code_reloader: false,
-  pubsub: [name: EdgeBuilder.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub_server: EdgeBuilder.PubSub
 
 # Configures Elixir's Logger
-config :logger,
+config :logger, :default_formatter,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id, :b_cookie, :s_cookie],
   backends: [:console, Sentry.LoggerBackend]
@@ -29,7 +32,6 @@ config :logger,
 config :sentry,
   dsn: System.get_env("SENTRY_DSN"),
   environment_name: Mix.env(),
-  included_environments: [:prod],
   enable_source_code_context: true,
   root_source_code_path: File.cwd!(),
   json_library: Poison
