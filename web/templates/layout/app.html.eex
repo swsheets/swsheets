@@ -29,6 +29,23 @@
     <meta name="msapplication-TileImage" content="<%= Routes.static_path(@conn, "/icons/mstile-144x144.png") %>">
     <meta name="theme-color" content="#ffffff">
 
+    <meta name="description" content="SWSheets is a community for creating, managing, and sharing your characters for Fantasy Flight Games' Star Wars role-playing game.">
+
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://swsheets.com">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="SWSheets">
+    <meta property="og:description" content="SWSheets is a community for creating, managing, and sharing your characters for Fantasy Flight Games' Star Wars role-playing game.">
+    <meta property="og:image" content="https://swsheets.com<%= Routes.static_path(@conn, "/images/logo.png") %>">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="swsheets.com">
+    <meta property="twitter:url" content="https://swsheets.com">
+    <meta name="twitter:title" content="SWSheets">
+    <meta name="twitter:description" content="SWSheets is a community for creating, managing, and sharing your characters for Fantasy Flight Games' Star Wars role-playing game.">
+    <meta name="twitter:image" content="https://swsheets.com<%= Routes.static_path(@conn, "/images/logo.png") %>">
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
