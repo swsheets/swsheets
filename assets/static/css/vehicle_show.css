@@ -30,11 +30,11 @@ h6 {
 }
 
 .four-zones {
-  background-image: url(/images/defense-four.svg);
+  background-image: url(../images/defense-four.svg);
 }
 
 .two-zones {
-  background-image: url(/images/defense-two.svg);
+  background-image: url(../images/defense-two.svg);
 }
 
 .two-zones .defense-port {

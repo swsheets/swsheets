@@ -20,10 +20,9 @@ COPY mix.exs mix.lock ./
 RUN mix deps.get
 RUN mix deps.compile
 
-ADD assets/package.json assets/
-RUN npm install -g yarn
+ADD assets/package.json assets/package-lock.json assets/
 RUN cd assets && \
-    yarn install
+  npm ci
 
 COPY . .
 
