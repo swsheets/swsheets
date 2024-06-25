@@ -6,11 +6,6 @@ toBool = fn
   nil, default -> default
 end
 
-config :edge_builder,
-  mailgun_domain: System.get_env("MAILGUN_DOMAIN"),
-  mailgun_from: System.get_env("MAILGUN_FROM"),
-  mailgun_api_key: System.get_env("MAILGUN_API_KEY")
-
 # For production, we configure the host to read the PORT
 # from the system environment. Therefore, you will need
 # to set PORT=80 before running your server.

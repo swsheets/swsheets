@@ -4,6 +4,7 @@ services:
       DB_HOST: db
       MIX_ENV: "dev"
     build: .
+    env_file: .env
     ports:
       - "4000:4000"
     volumes:

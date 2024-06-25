@@ -64,16 +64,18 @@ defmodule EdgeBuilder.Controllers.PasswordResetControllerTest do
     end
 
     it "shows a success message" do
-      conn =
-        build_conn()
-        |> post("/forgot-password", %{
-          "password_reset" => %{"email" => UserFactory.default_user().email}
-        })
+      with_mock EdgeBuilder.Mailer, send_email: fn _ -> nil end do
+        conn =
+          build_conn()
+          |> post("/forgot-password", %{
+            "password_reset" => %{"email" => UserFactory.default_user().email}
+          })
 
-      assert String.contains?(
-               conn.resp_body,
-               "Instructions have been sent to that email address. If you do not see an email within a few minutes, double-check that you entered the correct email address."
-             )
+        assert String.contains?(
+                 conn.resp_body,
+                 "Instructions have been sent to that email address. If you do not see an email within a few minutes, double-check that you entered the correct email address."
+               )
+      end
     end
 
     it "shows a success message even when the email address doesn't exist" do

@@ -9,6 +9,11 @@ import Config
 config :edge_builder,
   ecto_repos: [EdgeBuilder.Repo]
 
+config :edge_builder,
+  jmap_hostname: System.get_env("JMAP_HOST", "api.fastmail.com"),
+  jmap_username: System.get_env("JMAP_USERNAME"),
+  jmap_token: System.get_env("JMAP_TOKEN")
+
 config :phoenix, :json_library, Poison
 
 # Configures the endpoint

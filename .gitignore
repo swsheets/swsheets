@@ -15,3 +15,6 @@ erl_crash.dump
 # Codecov
 /cover/
 .DS_Store
+
+# env
+.env

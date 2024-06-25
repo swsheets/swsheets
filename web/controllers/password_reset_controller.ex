@@ -15,7 +15,12 @@ defmodule EdgeBuilder.PasswordResetController do
     user =
       Repo.one(from u in User, where: fragment("upper(email)") == ^String.upcase(params["email"]))
 
-    if user, do: EdgeBuilder.PasswordResetService.start_reset(conn, user)
+    if user do
+      EdgeBuilder.PasswordResetService.start_reset(conn, user)
+    else
+      # Add a delay to prevent the user from discovering if an email is in use.
+      :timer.sleep(1250)
+    end
 
     render(conn, :request, after_request: true)
   end
